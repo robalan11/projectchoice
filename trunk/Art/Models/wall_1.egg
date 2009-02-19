@@ -1,0 +1,51 @@
+<CoordinateSystem> { Y-Up }
+
+<Comment> {
+  "maya2egg2008 -a model -o 'C:\Documents and Settings\Robert Link\Desktop\Game Dev\Art\Models\wall_1.egg' 'C:\Documents and Settings\Robert Link\Desktop\Game Dev\Art\Models\wall_1.mb'"
+}
+<Texture> phong1SG {
+  "../Textures/concrete2.JPG"
+  <Scalar> format { rgb }
+  <Scalar> wrapu { repeat }
+  <Scalar> wrapv { repeat }
+  <Scalar> minfilter { linear_mipmap_linear }
+  <Scalar> magfilter { linear }
+}
+<Group> wall_1 {
+  <Dart> { 1 }
+  <Group> groundPlane_transform {
+  }
+  <Group> pPlane1 {
+    <VertexPool> pPlaneShape1.verts {
+      <Vertex> 0 {
+        -5 -5 0
+        <UV> { 0 0 }
+        <Normal> { 0 0 1 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 1 {
+        5 -5 0
+        <UV> { 1 0 }
+        <Normal> { 0 0 1 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 2 {
+        5 5 0
+        <UV> { 1 1 }
+        <Normal> { 0 0 1 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 3 {
+        -5 5 0
+        <UV> { 0 1 }
+        <Normal> { 0 0 1 }
+        <RGBA> { 1 1 1 1 }
+      }
+    }
+    <Polygon> {
+      <Normal> { 0 0 1 }
+      <TRef> { phong1SG }
+      <VertexRef> { 0 1 2 3 <Ref> { pPlaneShape1.verts } }
+    }
+  }
+}
