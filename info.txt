@@ -1,0 +1,23 @@
+The egg files are contained in the models folder, and reference the texture contained in the textures folder 
+(which is another folder in the art folder, same level as models).
+
+The door isn't yet animated, the animation for it would most likely be saved as just a seperate .egg file.
+
+If there are any conflicts between wall_door_1 (wall piece that has a spot missing for door) and 
+door_1 (the actual door piece) since they overlap 1 unit (in a system where 10 units = 1 tile),
+let me know.  The graphics where they overlap might bounce back and forth a bit if viewed from different
+angles, and if that happens I could just move the small wall piece on the door_1 file inward a little.
+
+The wall tile can be rotated to be used for the floors and ceilings, until individual tiles for those are made.
+
+The way the tile system works for these pieces is that each tile is essentially a 10x10 unit grid.
+Every wall is indented half a unit (.5) from the edge, and doors are placed with 3 units on either side and
+take up 4 units.
+
+We need to pick out which texture we want to use for the concrete walls, either out of the 4 from the thing
+I submitted earlier or I can possibly make a new one.  Until then concrete2 is just set as default.
+
+Also, I plan on making fluorescent ceiling lights, chairs, beds, tables, and some seperate ceiling/floor
+tiles, as well as some different wall tiles that have the decals and such.
+
+If you have any questions, let me know.
