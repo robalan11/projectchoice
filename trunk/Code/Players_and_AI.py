@@ -1,6 +1,7 @@
 import direct.directbase.DirectStart
 from direct.showbase.DirectObject import DirectObject
 from pandac.PandaModules import * 
+import math
 
 #This assumes that base.cTrav has been defined
 
@@ -51,13 +52,14 @@ class Player (Actor):
         #~ self.weapon = whatever the starting weapon is
         #~ set up an empty list of enemies that see me
         self.enemies_watching=[]
+        
     def get_input (self, key_mapping):
         #~ set player to running or stopped depending upon key input
         #Panda3D has built-in support for moving the camera?
         if self.mhandle_floor.isOnGround(): #~ if not in the air
-            self.dx = key_mapping["fwd"] - key_mapping["bck"]
-            self.dy = key_mapping["rgt"] - key_mapping["lft"]
-            self.dz = key_mapping["jmp"]
+            self.dx = key_mapping["forward"] - key_mapping["backward"]
+            self.dy = key_mapping["right"] - key_mapping["left"]
+            #self.dz = key_mapping["jump"]
         #~ if player pressed use key
         if (key_mapping["use"]==1):
             #~ open doors in front of player
@@ -66,8 +68,8 @@ class Player (Actor):
             #~ toggle follow flag of friendly AI in front of player
         #~ if animation playing is not the weapon firing/weapon is not reloading
             #~ if player pressed fire button
-        if (key_mapping["fire"]=1):
-            key_mapping["fire"]=0 #hack for demo, remove once have anims
+        if (key_mapping["shoot"]=1):
+            key_mapping["shoot"]=0 #hack for demo, remove once have anims
                 #~ get properties of current weapon
                 #~ start firing animation as self-managing interval
                 #~ fire a ray with appropriate range and get collision detection
@@ -100,7 +102,7 @@ class Player (Actor):
                 else:
                     #~ raise team loyalty
                     if (self.loyalty[enemy.team]<100):
-                        self.loyalty[enemy.team]+=100
+                        self.loyalty[enemy.team]+=1
             else:
                 #~ AI_hit attacks player
                 enemy.attack(self)
@@ -108,9 +110,14 @@ class Player (Actor):
         #~ check and set lights of current room to player
         #~ if under cinematic control
             #~ run cinema_tick(self) and nothing else
-        #~ player_input
-        #~ save current location as previous location
-        #~ move the player
+        angle = math.radians(self.player.getH()) + math.pi
+        dx = dist * math.sin(angle)
+        dy = dist * -math.cos(angle)
+        time_tick = globalClock.getDt()*6
+        self.setPos(self.getPos()+Vec3(dx*self.dx*time_tick, dy*self.dy*time_tick, 0)
+        #~ if (self.m_handlefloor.isOnGround()):
+            #~ self.m_handlefloor.setVelocity(self.dz)
+            
         #~ set camera to player’s position (anchored to player, so done automatically
         #~ update the GUI
     def collided(self):
