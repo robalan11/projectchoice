@@ -62,13 +62,14 @@ class Player (Actor):
             #self.dz = key_mapping["jump"]
         #~ if player pressed use key
         if (key_mapping["use"]==1):
+            pass
             #~ open doors in front of player
             #~ if door is locked prisoner door and have key
                 #~ release_prisoner
             #~ toggle follow flag of friendly AI in front of player
         #~ if animation playing is not the weapon firing/weapon is not reloading
             #~ if player pressed fire button
-        if (key_mapping["shoot"]=1):
+        if (key_mapping["shoot"]==1):
             key_mapping["shoot"]=0 #hack for demo, remove once have anims
                 #~ get properties of current weapon
                 #~ start firing animation as self-managing interval
@@ -78,22 +79,22 @@ class Player (Actor):
             for i in range(self.sight.getNumEntries()):
                 object=self.sight.getEntry(i)
                 #~ if weapon hits an AI
-                if (object.getIntoPath().getName()=="AItarget")
+                if (object.getIntoPath().getName()=="AItarget"):
                     object.getIntoPath().getParent().Remove() #Current hack
                     break
-                if (object.getIntoPath().getName()=="wall" or object.getIntoPath().getName()=="floor")
+                if (object.getIntoPath().getName()=="wall" or object.getIntoPath().getName()=="floor"):
                     break
                     #~ do damage and alert AI
                     #~ broadcast_attack(AI_hit)
             #~ else if input requests changing the weapon and have that weapon 
                 #~ and ammo
             #~ Change to that weapon
-    def broadcast_attack(self, AI_hit)
-        for enemy in self.enemies_watching
+    def broadcast_attack(self, AI_hit):
+        for enemy in self.enemies_watching:
             #~ if AI is not AI_hit
             if (enemy != AI_hit):
                 #~ if AI_hit is ally
-                if AI_hit.team=enemy.team
+                if AI_hit.team==enemy.team:
                     #~ lower team loyalty
                     if (self.loyalty[enemy.team]>0):
                         self.loyalty[enemy.team]-=1
@@ -114,13 +115,14 @@ class Player (Actor):
         dx = dist * math.sin(angle)
         dy = dist * -math.cos(angle)
         time_tick = globalClock.getDt()*6
-        self.setPos(self.getPos()+Vec3(dx*self.dx*time_tick, dy*self.dy*time_tick, 0)
+        self.setPos(self.getPos()+Vec3(dx*self.dx*time_tick, dy*self.dy*time_tick, 0))
         #~ if (self.m_handlefloor.isOnGround()):
             #~ self.m_handlefloor.setVelocity(self.dz)
             
-        #~ set camera to player’s position (anchored to player, so done automatically
+        #~ set camera to player's position (anchored to player, so done automatically
         #~ update the GUI
     def collided(self):
+        pass
         #~ if collided with weapon
             #~ pickup weapon and add weapon/ammo to inventory
         #~ if collided with health/powerup
@@ -137,8 +139,10 @@ class Player (Actor):
         #~ prisoner follows scripted procedure to get out
         #~ broadcast_attack(Dummy guard)
     def possess(self):
+        pass
         #~ hand over control to the cinema code
     def relinquish(self):
+        pass
         #~ return control to the player
 
 class AI (Actor):
