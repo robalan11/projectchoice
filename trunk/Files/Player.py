@@ -1,6 +1,7 @@
 import direct.directbase.DirectStart
 from direct.showbase.DirectObject import DirectObject
 from pandac.PandaModules import * 
+from direct.actor.Actor import Actor
 import math
 
 #This assumes that base.cTrav has been defined
@@ -135,8 +136,8 @@ class Player (Actor):
     #~ remove_from_list(AI)
         #~ Remove AI from list of enemies that see me
     #~ release_prisoner
-        #~ Unlock the prisoner’s door
-        #~ prisoner follows scripted procedure to get out
+    #Unlock the prisoner's door
+    #~ prisoner follows scripted procedure to get out
         #~ broadcast_attack(Dummy guard)
     def possess(self):
         pass
@@ -147,50 +148,18 @@ class Player (Actor):
 
 class AI (Actor):
     def __init__(self, team, weapon):
+        pass
         #~ set team value to the appropriate side
         #~ initialize actor with the appropriate model
-        #~ Set weapon and attach weapon model to AI’s hand
+        #Set weapon and attach weapon to AI model's hand
         #~ Parent to the world
         #~ collision setup for movement
         #~ collision setup for weapons targeting
         #~ collision setup for limited AI vision (have collision spheres for LOS)
         #~ empty list for line of sight
     def tick(self):
-        #~ check and set lights of current room to player
-        #~ if under cinematic control
-            #~ run cinema_tick(self) and nothing else
-    #~ if in a room and state is get out of room
-            #~ follow script for getting out and nothing else
-        #~ if in hallway and state is get into room
-            #~ follow script for getting in and nothing else
-        #~ if running firing animation
-            #~ return
-        #~ run vision collision detection and recompile list of what AI sees
-        #~ if see what you’re attacking
-            #~ timestamp where you saw target
-    #~ if health is high
-                #~ fire
-        #~ elseif you see an enemy or the player who’s an enemy
-            #~ if self.health is high
-                #~ attack(enemy)
-            #~ else
-                #~ Calculate optimum run away direction
-                #~ Run away!
-        #~ elseif you see the player and she’s an ally and self.follow=True
-            #~ if she’s more than x feet away
-                #~ Run to player!
-        #~ elseif you don’t see any enemies because your target ran away
-                #~ Run to last seen position
-    #~ If already there, turn to face the middle of the hallway and wait
-    #~ if vision detected the player and not on the player’s AI-that-see-me list
-            #~ player.add_to_list(self)
-            #~ self.seeplayer=true
-        #~ elseif on the player’s AI-that-see-me list
-            #~ player.remove_from_list(self)
-            #~ self.seeplayer=false
-    #~ set the animation to the correct one
-        #~ save current location as previous location
-        #~ move the AI based upon input commands from code
+        pass
+        #Look at pseudocode
     
     def attack(self,target):
         #~ Set state to attack and set target
@@ -198,6 +167,7 @@ class AI (Actor):
         self.target=target
 
     def fire(self):
+        pass
         #~ get properties of current weapon
         #~ start firing animation as self-managing interval
         #~ fire a ray with appropriate range and get collision detection
@@ -206,11 +176,14 @@ class AI (Actor):
         #~ elseif weapon hits player
             #~ do damage (give position for HUD graphic?)
     def possess(self):
+        pass
         #~ hand over control to the cinema code
 
     def relinquish(self):
+        pass
         #~ return control to the AI
     
     def collided(self, collide_list): #~ movement collision event
+        pass
         #~ return to previous position and turn towards the inside of the hallway
         #~ Note that you collided
