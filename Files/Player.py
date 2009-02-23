@@ -6,25 +6,26 @@ import math
 
 #This assumes that base.cTrav has been defined
 
-class Player (Actor):
+class Player ():
     def __init__(self,arm_model):
         #~ initialize actor with the arm model
-        Actor(arm_model)
+        self.model=Actor(arm_model)
+        self.model.reparentTo(render)
         
         #~ Initialize collision ~#
         
         #World collision
         #Bit channels are only walls and floors!
-        base.camera.reparentTo(self)
+        base.camera.reparentTo(self.model)
         base.camera.setPos(0,0,0.75)
         base.camera.setHpr(0,0,0)
         
         self.cs=CollisionSphere(0,0,-0.5,0.5)
-        self.cspath=self.attachNewNode(CollisionNode('pspher'))
+        self.cspath=self.model.attachNewNode(CollisionNode('pspher'))
         self.cspath.node().addSolid(self.cs)
         
         self.cr=CollisionRay(0,0,0,0,0,-1)
-        self.crpath=self.attachNewNode(CollisionNode('pray'))
+        self.crpath=self.model.attachNewNode(CollisionNode('pray'))
         self.crpath.node().addSolid(self.cr)
         
         self.mhandle_wall=CollisionHandlerPusher()
@@ -38,8 +39,8 @@ class Player (Actor):
         
         #Firing collision (Passive/Into object only, bullets are active)
         #Bit channel is only bullets
-        self.ct=CollisionSphere(0,0,1,0,0,-1,0.5)
-        self.ctpath=self.attachNewNode(CollisionNode('ptarget'))
+        self.ct=CollisionTube(0,0,1,0,0,-1,0.5)
+        self.ctpath=self.model.attachNewNode(CollisionNode('ptarget'))
         self.ctpath.node().addSolid(self.ct)
         
         #Aiming collision: floor, walls, doors, and AI channels
@@ -54,24 +55,31 @@ class Player (Actor):
         #~ set up an empty list of enemies that see me
         self.enemies_watching=[]
         
-    def get_input (self, key_mapping):
+        #Variables
+        self.dx=0
+        self.dy=0
+        self.dz=0
+        
+    def nodepath(self):
+        return self.model
+        
+    def get_input (self, forward, backward, left, right, shoot):
         #~ set player to running or stopped depending upon key input
         #Panda3D has built-in support for moving the camera?
         if self.mhandle_floor.isOnGround(): #~ if not in the air
-            self.dx = key_mapping["forward"] - key_mapping["backward"]
-            self.dy = key_mapping["right"] - key_mapping["left"]
+            self.dx = forward - backward
+            self.dy = right - left
             #self.dz = key_mapping["jump"]
         #~ if player pressed use key
-        if (key_mapping["use"]==1):
-            pass
+        #if (key_mapping["use"]==1):
             #~ open doors in front of player
             #~ if door is locked prisoner door and have key
                 #~ release_prisoner
             #~ toggle follow flag of friendly AI in front of player
         #~ if animation playing is not the weapon firing/weapon is not reloading
             #~ if player pressed fire button
-        if (key_mapping["shoot"]==1):
-            key_mapping["shoot"]=0 #hack for demo, remove once have anims
+        if (shoot==1):
+            shoot=0 #hack for demo, remove once have anims
                 #~ get properties of current weapon
                 #~ start firing animation as self-managing interval
                 #~ fire a ray with appropriate range and get collision detection
@@ -108,15 +116,15 @@ class Player (Actor):
             else:
                 #~ AI_hit attacks player
                 enemy.attack(self)
-    def tick(self):
+    def tick(self,dummy):
         #~ check and set lights of current room to player
         #~ if under cinematic control
             #~ run cinema_tick(self) and nothing else
-        angle = math.radians(self.player.getH()) + math.pi
-        dx = dist * math.sin(angle)
-        dy = dist * -math.cos(angle)
+        angle = math.radians(self.model.getH()) + math.pi
+        dx = math.sin(angle)
+        dy = -math.cos(angle)
         time_tick = globalClock.getDt()*6
-        self.setPos(self.getPos()+Vec3(dx*self.dx*time_tick, dy*self.dy*time_tick, 0))
+        self.model.setPos(self.model.getPos()+Vec3(dx*self.dx*time_tick, dy*self.dy*time_tick, 0))
         #~ if (self.m_handlefloor.isOnGround()):
             #~ self.m_handlefloor.setVelocity(self.dz)
             

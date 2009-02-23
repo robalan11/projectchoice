@@ -3,14 +3,14 @@ from direct.showbase.DirectObject import DirectObject
 from pandac.PandaModules import * 
 from direct.task.Task import Task
 from direct.task.Task import TaskManager
-import Player
+from Player import Player
 import Level
 import sys
 
 class World(DirectObject):
     def __init__(self):
         base.cTrav=CollisionTraverser()
-        #self.player = Player("box.egg") #Add the dummy model
+        self.player = Player("Art/Models/box.egg") #Add the dummy model
         #Execute level construction code
         #Create dummy targets with a collision hull attached to them. No collision handler.
         
@@ -39,8 +39,8 @@ class World(DirectObject):
         
         #Set up tasks to get the world running
         
-        #taskMgr.add(self.player.tick, "player_tick")
-        #taskMgr.add(self.player.get_input, "player_input", extraArgs=self.keyMap)
+        taskMgr.add(self.player.tick, "player_tick")
+        taskMgr.add(self.player.get_input, "player_input", extraArgs=[self.keyMap["forward"], self.keyMap["backward"], self.keyMap["left"], self.keyMap["right"], self.keyMap["shoot"]])
         
     def setKey(self, key, value):
         self.keyMap[key] = value
