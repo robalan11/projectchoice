@@ -4,8 +4,8 @@ from pandac.PandaModules import *
 from direct.task.Task import Task
 from direct.task.Task import TaskManager
 import Player
+import Level
 import sys
-
 
 class World(DirectObject):
     def __init__(self):
