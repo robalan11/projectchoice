@@ -1,3 +1,5 @@
+from pandac.PandaModules import * 
+
 cellsize = 10
 wallbuffer = 0.55
 
@@ -21,18 +23,21 @@ class Level(object):
                 if(self.level[y][x].Floor=="F"):
                     # make a normal floor
                     environ = loader.loadModel("Art/Models/floor_1.egg")
+                    environ.setCollideMask(BitMask32(0x02))
                     environ.reparentTo(render)
                     environ.setPos(x*cellsize,(-1*y)*cellsize,0*cellsize)
                 if(self.level[y][x].WestWall=="W"):
                     # make a normal wall on the west
                     if(not self.level[y][x].Floor=="."):
                         environ = loader.loadModel("Art/Models/wall_1.egg")
+                        environ.setCollideMask(BitMask32(0x01))
                         environ.reparentTo(render)
                         environ.setPos((x-(1-wallbuffer))*cellsize,(-1*y)*cellsize,(0+0.5)*cellsize)
                         environ.setHpr(90,0,0)
                     if(x>0 and not self.level[y][x-1].Floor=="."):
                         # make a normal wall on the east
                         environ = loader.loadModel("Art/Models/wall_1.egg")
+                        environ.setCollideMask(BitMask32(0x01))
                         environ.reparentTo(render)
                         environ.setPos((x-(wallbuffer))*cellsize,(-1*y)*cellsize,(0+0.5)*cellsize)
                         environ.setHpr(-90,0,0)
@@ -40,31 +45,37 @@ class Level(object):
                     # make a normal north wall
                     if(not self.level[y][x].Floor=="."):
                         environ = loader.loadModel("Art/Models/wall_1.egg")
+                        environ.setCollideMask(BitMask32(0x01))
                         environ.reparentTo(render)
                         environ.setPos(x*cellsize,((-1*y)+(1-wallbuffer))*cellsize,(0+0.5)*cellsize)
                     
                     if(y>0 and not self.level[y-1][x].Floor=="."):
                         environ = loader.loadModel("Art/Models/wall_1.egg")
+                        environ.setCollideMask(BitMask32(0x01))
                         environ.reparentTo(render)
                         environ.setPos(x*cellsize,((-1*y)+(wallbuffer))*cellsize,(0+0.5)*cellsize)
                         environ.setHpr(180,0,0)
                 if(not self.level[y][x].Floor=="." and self.level[y][x].WestWall=="." and self.level[y][x].NorthWall=="."):
                     environ = loader.loadModel("Art/Models/corner_1.egg")
+                    environ.setCollideMask(BitMask32(0x01))
                     environ.reparentTo(render)
                     environ.setPos((x-(1-wallbuffer))*cellsize,((-1*y)+(1-wallbuffer))*cellsize,(0+0.5)*cellsize)
                     environ.setHpr(180,0,0)
                 if(not self.level[y][x].Floor=="." and self.level[y][x+1].WestWall=="." and self.level[y][x].NorthWall=="."):
                     environ = loader.loadModel("Art/Models/corner_1.egg")
+                    environ.setCollideMask(BitMask32(0x01))
                     environ.reparentTo(render)
                     environ.setPos((x+(1-wallbuffer))*cellsize,((-1*y)+(1-wallbuffer))*cellsize,(0+0.5)*cellsize)
                     environ.setHpr(90,0,0)
                 if(not self.level[y][x].Floor=="." and self.level[y][x].WestWall=="." and self.level[y+1][x].NorthWall=="."):
                     environ = loader.loadModel("Art/Models/corner_1.egg")
+                    environ.setCollideMask(BitMask32(0x01))
                     environ.reparentTo(render)
                     environ.setPos((x+(1-wallbuffer))*cellsize,((-1*y)-(1-wallbuffer))*cellsize,(0+0.5)*cellsize)
                     environ.setHpr(0,0,0)
                 if(not self.level[y][x].Floor=="." and self.level[y][x+1].WestWall=="." and self.level[y+1][x].NorthWall=="."):
                     environ = loader.loadModel("Art/Models/corner_1.egg")
+                    environ.setCollideMask(BitMask32(0x01))
                     environ.reparentTo(render)
                     environ.setPos((x-(1-wallbuffer))*cellsize,((-1*y)-(1-wallbuffer))*cellsize,(0+0.5)*cellsize)
                     environ.setHpr(-90,0,0)
