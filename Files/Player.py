@@ -173,7 +173,7 @@ class Player ():
             #~ run cinema_tick(self) and nothing else
         angle = math.radians(self.model.getH()) + math.pi
         dx = math.sin(angle)
-        dy = -math.cos(angle)
+        dy = math.cos(angle)
         time_tick = globalClock.getDt()*6
         self.model.setPos(self.model.getPos()+Vec3(dx*self.dx*time_tick, dy*self.dy*time_tick, 0))
         #~ if (self.m_handlefloor.isOnGround()):

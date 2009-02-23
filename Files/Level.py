@@ -60,25 +60,25 @@ class Level(object):
                     environ.setCollideMask(BitMask32(0x01))
                     environ.reparentTo(render)
                     environ.setPos((x-(1-wallbuffer))*cellsize,((-1*y)+(1-wallbuffer))*cellsize,(0+0.5)*cellsize)
-                    environ.setHpr(180,0,0)
+                    environ.setHpr(-90,0,0)
                 if(not self.level[y][x].Floor=="." and self.level[y][x+1].WestWall=="." and self.level[y][x].NorthWall=="."):
                     environ = loader.loadModel("Art/Models/corner_1.egg")
                     environ.setCollideMask(BitMask32(0x01))
                     environ.reparentTo(render)
                     environ.setPos((x+(1-wallbuffer))*cellsize,((-1*y)+(1-wallbuffer))*cellsize,(0+0.5)*cellsize)
-                    environ.setHpr(90,0,0)
+                    environ.setHpr(180,0,0)
                 if(not self.level[y][x].Floor=="." and self.level[y][x].WestWall=="." and self.level[y+1][x].NorthWall=="."):
                     environ = loader.loadModel("Art/Models/corner_1.egg")
                     environ.setCollideMask(BitMask32(0x01))
                     environ.reparentTo(render)
                     environ.setPos((x+(1-wallbuffer))*cellsize,((-1*y)-(1-wallbuffer))*cellsize,(0+0.5)*cellsize)
-                    environ.setHpr(0,0,0)
+                    environ.setHpr(90,0,0)
                 if(not self.level[y][x].Floor=="." and self.level[y][x+1].WestWall=="." and self.level[y+1][x].NorthWall=="."):
                     environ = loader.loadModel("Art/Models/corner_1.egg")
                     environ.setCollideMask(BitMask32(0x01))
                     environ.reparentTo(render)
                     environ.setPos((x-(1-wallbuffer))*cellsize,((-1*y)-(1-wallbuffer))*cellsize,(0+0.5)*cellsize)
-                    environ.setHpr(-90,0,0)
+                    environ.setHpr(0,0,0)
 
 class Room(object):
     def __init__(self,room):
