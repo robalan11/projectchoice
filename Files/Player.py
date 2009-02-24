@@ -116,8 +116,8 @@ class Player ():
             base.camera.setP(base.camera.getP() - (y - base.win.getYSize()/2)*0.1) 
         
         if self.mhandle_floor.isOnGround(): #~ if not in the air
-            self.dx = self.keyMap["forward"]-self.keyMap["backward"]
-            self.dy=self.keyMap["left"]-self.keyMap["right"]
+            self.dy = self.keyMap["forward"]-self.keyMap["backward"]
+            self.dx=self.keyMap["left"]-self.keyMap["right"]
             
             #self.dz = key_mapping["jump"]
         #~ if player pressed use key
@@ -171,11 +171,13 @@ class Player ():
         #~ check and set lights of current room to player
         #~ if under cinematic control
             #~ run cinema_tick(self) and nothing else
-        angle = math.radians(self.model.getH()) + math.pi
-        dx = math.sin(angle)
-        dy = math.cos(angle)
+        angle = math.radians(self.model.getH())
+        sa = math.sin(angle)
+        ca = math.cos(angle)
         time_tick = globalClock.getDt()*6
-        self.model.setPos(self.model.getPos()+Vec3(dx*self.dx*time_tick, dy*self.dy*time_tick, 0))
+        self.model.setX(self.model.getX()-ca*self.dx*time_tick-sa*self.dy*time_tick)
+        self.model.setY(self.model.getY()+ca*self.dy*time_tick-sa*self.dx*time_tick)
+        print self.model.getH()
         #~ if (self.m_handlefloor.isOnGround()):
             #~ self.m_handlefloor.setVelocity(self.dz)
             
