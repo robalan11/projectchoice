@@ -133,15 +133,15 @@ class Player ():
                 #~ get properties of current weapon
                 #~ start firing animation as self-managing interval
                 #~ fire a ray with appropriate range and get collision detection
-            self.ftrav.traverse()
+            self.ftrav.traverse(render)
             self.sight.sortEntries()
             for i in range(self.sight.getNumEntries()):
                 object=self.sight.getEntry(i)
                 #~ if weapon hits an AI
-                if (object.getIntoPath().getName()=="AItarget"):
-                    object.getIntoPath().getParent().Remove() #Current hack
+                if (object.getIntoNodePath().getName()=="AItarget"):
+                    object.getIntoNodePath().getParent().Remove() #Current hack
                     break
-                if (object.getIntoPath().getName()=="wall" or object.getIntoPath().getName()=="floor"):
+                if (object.getIntoNodePath().getName()=="wall" or object.getIntoNodePath().getName()=="floor"):
                     break
                     #~ do damage and alert AI
                     #~ broadcast_attack(AI_hit)
