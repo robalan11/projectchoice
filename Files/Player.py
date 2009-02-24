@@ -177,7 +177,7 @@ class Player ():
         time_tick = globalClock.getDt()*6
         self.model.setX(self.model.getX()-ca*self.dx*time_tick-sa*self.dy*time_tick)
         self.model.setY(self.model.getY()+ca*self.dy*time_tick-sa*self.dx*time_tick)
-        print self.model.getH()
+        #print self.model.getH()
         #~ if (self.m_handlefloor.isOnGround()):
             #~ self.m_handlefloor.setVelocity(self.dz)
             
@@ -209,7 +209,10 @@ class Player ():
         #~ return control to the player
 
 class AI (Actor):
-    def __init__(self, team, weapon):
+    def __init__(self, team, weapon, arm_model):
+        self.model=Actor(arm_model)
+        self.model.reparentTo(render)
+        print "added an ai"
         pass
         #~ set team value to the appropriate side
         #~ initialize actor with the appropriate model
