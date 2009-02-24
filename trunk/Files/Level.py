@@ -1,4 +1,5 @@
 from pandac.PandaModules import * 
+from Player import AI
 
 cellsize = 10
 wallbuffer = 0.55
@@ -7,6 +8,7 @@ class Level(object):
     def __init__(self,levelfile):
         self.level=[]
         self.loadLevelfile(levelfile)	
+        self.start()
 
     def loadLevelfile(self,levelfile):
         grid = open(levelfile, 'r').readlines()
@@ -17,6 +19,15 @@ class Level(object):
                 list.append(Room(room))
             self.level.append(list)
                 
+    def start(self):
+        self.draw()
+        self.loadenemies()
+    def loadenemies(self):
+        for y in xrange(len(self.level)):
+            for x in xrange(len(self.level[y])):
+                if(self.level[y][x].Enemy=="a"):
+                    a = AI("badguy","knife","Art/Models/box.egg")
+        pass
     def draw(self):
         for y in xrange(len(self.level)):
             for x in xrange(len(self.level[y])):
@@ -85,7 +96,5 @@ class Room(object):
         self.WestWall = room[0]
         self.NorthWall = room[1]
         self.Floor = room[2]
+        self.Enemy = room[3]
         
-level = Level("1.txt")
-
-level.draw()
