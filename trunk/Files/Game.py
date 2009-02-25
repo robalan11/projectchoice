@@ -6,6 +6,7 @@ from direct.task.Task import TaskManager
 from Player import Player
 from Level import Level
 from pandac.PandaModules import WindowProperties
+from direct.gui.OnscreenImage import OnscreenImage
 import sys
 
 class World(DirectObject):
@@ -14,9 +15,19 @@ class World(DirectObject):
         self.player = Player("Art/Models/box.egg") #Add the dummy model
         #Execute level construction code
         
+        self.crosshair=OnscreenImage(image = "Art/HUD/crosshair.png", pos = (0,0,0), scale =0.025)
+        self.crosshair.setTransparency(TransparencyAttrib.MAlpha)
+        
         self.level=Level("1.txt")
         
         self.player.nodepath().setPos(10,0,5)
+        
+        self.target = loader.loadModel("Art/Models/box.egg")
+        self.target.reparentTo(render)
+        self.targetnodepath=self.target.attachNewNode(CollisionNode("AItarget"))
+        self.targetnodepath.node().addSolid(CollisionSphere(0,0,0,0.75))
+        self.target.setPos(10,-10,0)
+        
         
         #Create dummy targets with a collision hull attached to them. No collision handler.
         
