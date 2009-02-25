@@ -31,7 +31,8 @@ class Level(object):
                     target.reparentTo(render)
                     targetnodepath=target.attachNewNode(CollisionNode("AItarget"))
                     targetnodepath.node().addSolid(CollisionSphere(0,0,0,0.75))
-                    targetnodepath.setPos(x*cellsize,y*cellsize,0)
+                    target.setPos(x*cellsize,(-1*y)*cellsize,0)
+                    
     def draw(self):
         #for each room
         for y in xrange(len(self.level)):
