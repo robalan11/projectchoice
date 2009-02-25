@@ -1,0 +1,115 @@
+<CoordinateSystem> { Y-Up }
+
+<Comment> {
+  "maya2egg2008 -a model -o 'C:\Documents and Settings\Robert Link\Desktop\Game Dev\Art\Models\corner_1.egg' 'C:\Documents and Settings\Robert Link\Desktop\Game Dev\Art\Models\corner_1.mb'"
+}
+<Texture> phong1SG {
+  "../Textures/concrete2.JPG"
+  <Scalar> format { rgb }
+  <Scalar> wrapu { repeat }
+  <Scalar> wrapv { repeat }
+  <Scalar> minfilter { linear_mipmap_linear }
+  <Scalar> magfilter { linear }
+}
+<Group> corner_1 {
+  <Dart> { 1 }
+  <Group> groundPlane_transform {
+  }
+  <Group> pPlane5 {
+    <Group> transform1 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> pPlane6 {
+    <Group> transform2 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> pPlane7 {
+    <Group> transform3 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> pPlane8 {
+    <Group> transform4 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> polySurface4 {
+    <Group> polySurface5 {
+      <Group> transform6 {
+        <Scalar> visibility { hidden }
+      }
+    }
+    <Group> polySurface6 {
+      <Group> transform7 {
+        <Scalar> visibility { hidden }
+      }
+    }
+    <Group> transform5 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> polySurface7 {
+    <VertexPool> polySurfaceShape7.verts {
+      <Vertex> 0 {
+        -0.5 5 2.22045e-015
+        <UV> { -0.00082612 0 }
+        <Normal> { 0 0 -1 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 1 {
+        0 5 2.22045e-015
+        <UV> { 0.0491739 0 }
+        <Normal> { 0 0 -1 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 2 {
+        0 -5 -2.22045e-015
+        <UV> { 0.0491739 1 }
+        <Normal> { 0 0 -1 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 3 {
+        -0.5 -5 -2.22045e-015
+        <UV> { -0.00082612 1 }
+        <Normal> { 0 0 -1 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 4 {
+        0 -5 0
+        <UV> { 0.951444 1.00144 }
+        <Normal> { 1 0 0 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 5 {
+        -2.22045e-015 5 2.71926e-031
+        <UV> { 0.951444 0.00144388 }
+        <Normal> { 1 0 0 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 6 {
+        -2.04819e-015 5 0.5
+        <UV> { 1.00144 0.0014439 }
+        <Normal> { 1 0 0 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 7 {
+        1.72255e-016 -5 0.5
+        <UV> { 1.00144 1.00144 }
+        <Normal> { 1 0 0 }
+        <RGBA> { 1 1 1 1 }
+      }
+    }
+    <Polygon> {
+      <Normal> { 0 0 -1 }
+      <TRef> { phong1SG }
+      <VertexRef> { 0 1 2 3 <Ref> { polySurfaceShape7.verts } }
+    }
+    <Polygon> {
+      <Normal> { 1 0 0 }
+      <TRef> { phong1SG }
+      <VertexRef> { 4 5 6 7 <Ref> { polySurfaceShape7.verts } }
+    }
+  }
+}

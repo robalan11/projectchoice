@@ -1,0 +1,38 @@
+<CoordinateSystem> { Y-Up }
+
+<Comment> {
+  "maya2egg2008 -a model -o 'C:\Documents and Settings\Robert Link\Desktop\Game Dev\Art\Models\floor_1.egg' 'C:\Documents and Settings\Robert Link\Desktop\Game Dev\Art\Models\floor_1.mb'"
+}
+<Group> floor_1 {
+  <Dart> { 1 }
+  <Group> groundPlane_transform {
+  }
+  <Group> pPlane1 {
+    <VertexPool> pPlaneShape1.verts {
+      <Vertex> 0 {
+        -5 -1.11022e-015 5
+        <Normal> { 0 1 0 }
+        <RGBA> { 0.5 0.5 0.5 1 }
+      }
+      <Vertex> 1 {
+        5 -1.11022e-015 5
+        <Normal> { 0 1 0 }
+        <RGBA> { 0.5 0.5 0.5 1 }
+      }
+      <Vertex> 2 {
+        5 1.11022e-015 -5
+        <Normal> { 0 1 0 }
+        <RGBA> { 0.5 0.5 0.5 1 }
+      }
+      <Vertex> 3 {
+        -5 1.11022e-015 -5
+        <Normal> { 0 1 0 }
+        <RGBA> { 0.5 0.5 0.5 1 }
+      }
+    }
+    <Polygon> {
+      <Normal> { 0 1 0 }
+      <VertexRef> { 0 1 2 3 <Ref> { pPlaneShape1.verts } }
+    }
+  }
+}
