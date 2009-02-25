@@ -32,7 +32,7 @@ class Player ():
             self.mouse_x = 0
             self.mouse_y = 0
     
-        self.cs=CollisionSphere(0,0,-0.5,0.5)
+        self.cs=CollisionSphere(0,0,-1.25,1.25)
         self.cspath=self.model.attachNewNode(CollisionNode('pspher'))
         self.cspath.node().addSolid(self.cs)
         self.cspath.node().setFromCollideMask(BitMask32(0x01))
@@ -65,7 +65,7 @@ class Player ():
         
         #Aiming collision: floor, walls, doors, and player bullet channels
         self.ftrav=CollisionTraverser("pfiretrav")
-        self.fr=CollisionRay(0,0,0,1,0,0)
+        self.fr=CollisionRay(0,0,0,0,1,0)
         self.frpath=base.camera.attachNewNode(CollisionNode('pcray'))
         self.frpath.node().addSolid(self.fr)
         self.frpath.node().setFromCollideMask(BitMask32(0x07))
@@ -139,7 +139,7 @@ class Player ():
                 object=self.sight.getEntry(i)
                 #~ if weapon hits an AI
                 if (object.getIntoNodePath().getName()=="AItarget"):
-                    object.getIntoNodePath().getParent().Remove() #Current hack
+                    object.getIntoNodePath().getParent().removeNode()#Current hack
                     break
                 if (object.getIntoNodePath().getName()=="wall" or object.getIntoNodePath().getName()=="floor"):
                     break
