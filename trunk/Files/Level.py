@@ -26,7 +26,12 @@ class Level(object):
         for y in xrange(len(self.level)):
             for x in xrange(len(self.level[y])):
                 if(self.level[y][x].Enemy=="a"):
-                    a = AI("badguy","knife","Art/Models/box.egg")
+                    #a = AI("badguy","knife","Art/Models/box.egg")
+                    target = loader.loadModel("Art/Models/box.egg")
+                    target.reparentTo(render)
+                    targetnodepath=target.attachNewNode(CollisionNode("AItarget"))
+                    targetnodepath.node().addSolid(CollisionSphere(0,0,0,0.75))
+                    targetnodepath.setPos(x*cellsize,y*cellsize,0)
     def draw(self):
         #for each room
         for y in xrange(len(self.level)):

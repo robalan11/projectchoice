@@ -50,7 +50,7 @@ class Player ():
         self.mhandle_floor.addCollider(self.crpath, self.model)
         self.mhandle_floor.setGravity(0.5)
         self.mhandle_floor.setMaxVelocity(2)
-        self.mhandle_floor.setOffset(1)
+        self.mhandle_floor.setOffset(2)
         
         base.cTrav.addCollider(self.cspath, self.mhandle_wall)
         base.cTrav.addCollider(self.crpath, self.mhandle_floor)
