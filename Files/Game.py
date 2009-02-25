@@ -22,12 +22,6 @@ class World(DirectObject):
         
         self.player.nodepath().setPos(10,0,5)
         
-        self.target = loader.loadModel("Art/Models/box.egg")
-        self.target.reparentTo(render)
-        self.targetnodepath=self.target.attachNewNode(CollisionNode("AItarget"))
-        self.targetnodepath.node().addSolid(CollisionSphere(0,0,0,0.75))
-        self.target.setPos(10,-10,0)
-        
         
         #Create dummy targets with a collision hull attached to them. No collision handler.
         
