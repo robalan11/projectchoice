@@ -27,8 +27,8 @@ class Level(object):
             for x in xrange(len(self.level[y])):
                 if(self.level[y][x].Enemy=="a"):
                     a = AI("badguy","knife","Art/Models/box.egg")
-        pass
     def draw(self):
+        #for each room
         for y in xrange(len(self.level)):
             for x in xrange(len(self.level[y])):
                 if(self.level[y][x].Floor=="F"):
@@ -93,6 +93,7 @@ class Level(object):
 
 class Room(object):
     def __init__(self,room):
+        #assign values to variables
         self.WestWall = room[0]
         self.NorthWall = room[1]
         self.Floor = room[2]
