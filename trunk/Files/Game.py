@@ -5,6 +5,8 @@ from direct.task.Task import Task
 from direct.task.Task import TaskManager
 from Player import Player
 from Level import Level
+from AI import AI
+from AI import AIsight
 from pandac.PandaModules import WindowProperties
 from direct.gui.OnscreenImage import OnscreenImage
 import sys
@@ -13,6 +15,8 @@ class World(DirectObject):
     def __init__(self):
         base.cTrav=CollisionTraverser()
         self.player = Player("Art/Models/box.egg") #Add the dummy model
+        temp=AI("Art/Models/box.egg", False, 0) #Just to instantiate all AI global variables
+        temp.model.setPos(10, 10, 5)
         #Execute level construction code
         
         self.crosshair=OnscreenImage(image = "Art/HUD/crosshair.png", pos = (0,0,0), scale =0.025)
@@ -50,13 +54,13 @@ class World(DirectObject):
         
         taskMgr.add(self.player.tick, "player_tick")
         taskMgr.add(self.player.get_input, "player_input")
+        taskMgr.add(AIsight, "AI sight check")
         
         props = WindowProperties()
         props.setCursorHidden(True)
         props.setFullscreen(True)
         base.win.requestProperties(props)
-
-
+        
         
     def setKey(self, key, value):
         self.player.setKey(key, value)

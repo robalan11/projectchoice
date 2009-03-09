@@ -1,5 +1,5 @@
 from pandac.PandaModules import * 
-from Player import AI
+from AI import AI
 
 cellsize = 10
 wallbuffer = 0.55

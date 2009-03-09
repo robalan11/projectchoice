@@ -7,7 +7,7 @@ import math
 
 #This assumes that base.cTrav has been defined
 
-# bit 0 is walls, bit 1 is floor, bit 3 is player bullets, bit 4 is AI bullets
+# bit 0 is walls, bit 1 is floor, bit 3 is player bullets, bit 4 is AI bullets, bit 5 is AI vision
 
 class Player ():
     def __init__(self,arm_model):
@@ -81,6 +81,7 @@ class Player ():
         self.dx=0
         self.dy=0
         self.dz=0
+        self.loyalty = [50, 50] # out of a minimum of 0 and a maximum of 100
         
     def nodepath(self):
         return self.model
@@ -88,7 +89,7 @@ class Player ():
     def setKey(self, key, value):
         self.keyMap[key] = value
         
-    def get_input (self, dummy):
+    def get_input (self, task_object):
         #~ set player to running or stopped depending upon key input
         #Panda3D has built-in support for moving the camera?
         
@@ -149,6 +150,13 @@ class Player ():
                 #~ and ammo
             #~ Change to that weapon
         return Task.cont
+        
+    def clear_sight(self):
+        self.enemies_watching=[]
+    
+    def add_AI(self, AI):
+        self.enemies_watching.append(AI)
+    
     def broadcast_attack(self, AI_hit):
         for enemy in self.enemies_watching:
             #~ if AI is not AI_hit
@@ -167,7 +175,7 @@ class Player ():
             else:
                 #~ AI_hit attacks player
                 enemy.attack(self)
-    def tick(self,dummy):
+    def tick(self,task_object):
         #~ check and set lights of current room to player
         #~ if under cinematic control
             #~ run cinema_tick(self) and nothing else
@@ -207,48 +215,3 @@ class Player ():
     def relinquish(self):
         pass
         #~ return control to the player
-
-class AI (Actor):
-    def __init__(self, team, weapon, arm_model):
-        self.model=Actor(arm_model)
-        self.model.reparentTo(render)
-        print "added an ai"
-        pass
-        #~ set team value to the appropriate side
-        #~ initialize actor with the appropriate model
-        #Set weapon and attach weapon to AI model's hand
-        #~ Parent to the world
-        #~ collision setup for movement
-        #~ collision setup for weapons targeting
-        #~ collision setup for limited AI vision (have collision spheres for LOS)
-        #~ empty list for line of sight
-    def tick(self):
-        pass
-        #Look at pseudocode
-    
-    def attack(self,target):
-        #~ Set state to attack and set target
-        self.state=attack
-        self.target=target
-
-    def fire(self):
-        pass
-        #~ get properties of current weapon
-        #~ start firing animation as self-managing interval
-        #~ fire a ray with appropriate range and get collision detection
-        #~ if weapon hits an AI
-            #~ do damage and alert AI
-        #~ elseif weapon hits player
-            #~ do damage (give position for HUD graphic?)
-    def possess(self):
-        pass
-        #~ hand over control to the cinema code
-
-    def relinquish(self):
-        pass
-        #~ return control to the AI
-    
-    def collided(self, collide_list): #~ movement collision event
-        pass
-        #~ return to previous position and turn towards the inside of the hallway
-        #~ Note that you collided
