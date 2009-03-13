@@ -3,7 +3,9 @@ from direct.showbase.DirectObject import DirectObject
 from pandac.PandaModules import * 
 from direct.actor.Actor import Actor
 from direct.task.Task import Task
+from direct.gui.OnscreenImage import OnscreenImage
 import math
+import Weapon
 
 #This assumes that base.cTrav has been defined
 
@@ -23,6 +25,7 @@ class Player ():
         base.camera.reparentTo(self.model)
         base.camera.setPos(0,0,0.75)
         base.camera.setHpr(0,0,0)
+        base.camLens.setFov(60)
         base.disableMouse()
         
         if base.mouseWatcherNode.hasMouse():
@@ -63,17 +66,14 @@ class Player ():
         self.ctpath.node().setFromCollideMask(BitMask32(0x00))
         self.ctpath.setCollideMask(BitMask32(0x08))
         
-        #Aiming collision: floor, walls, doors, and player bullet channels
-        self.ftrav=CollisionTraverser("pfiretrav")
-        self.fr=CollisionRay(0,0,0,0,1,0)
-        self.frpath=base.camera.attachNewNode(CollisionNode('pcray'))
-        self.frpath.node().addSolid(self.fr)
-        self.frpath.node().setFromCollideMask(BitMask32(0x07))
-        self.frpath.setCollideMask(BitMask32(0x00))
-        self.sight=CollisionHandlerQueue()
-        self.ftrav.addCollider(self.frpath, self.sight)
+        #Set up weapons
+        self.pistol = Weapon.Pistol()
+        self.shotgun = Weapon.Shotgun()
+        self.knife = Weapon.Knife()
+        self.weapon = self.pistol
+        self.crosshair=OnscreenImage(image = self.pistol.crosshair, pos = (0,0,0), scale =0.05)
+        self.crosshair.setTransparency(TransparencyAttrib.MAlpha)
         
-        #~ self.weapon = whatever the starting weapon is
         #~ set up an empty list of enemies that see me
         self.enemies_watching=[]
         
@@ -134,21 +134,25 @@ class Player ():
                 #~ get properties of current weapon
                 #~ start firing animation as self-managing interval
                 #~ fire a ray with appropriate range and get collision detection
-            self.ftrav.traverse(render)
-            self.sight.sortEntries()
-            for i in range(self.sight.getNumEntries()):
-                object=self.sight.getEntry(i)
-                #~ if weapon hits an AI
-                if (object.getIntoNodePath().getName()=="AItarget"):
-                    object.getIntoNodePath().getParent().removeNode()#Current hack
-                    break
-                if (object.getIntoNodePath().getName()=="wall" or object.getIntoNodePath().getName()=="floor"):
-                    break
-                    #~ do damage and alert AI
-                    #~ broadcast_attack(AI_hit)
-            #~ else if input requests changing the weapon and have that weapon 
-                #~ and ammo
-            #~ Change to that weapon
+            self.weapon.shoot(self)
+        
+        #~ if input requests changing the weapon and have that weapon, change to that weapon
+        if (self.keyMap["knife"]==1 and self.weapon != self.knife):
+            self.weapon = self.knife
+            self.crosshair.destroy()
+            self.crosshair=OnscreenImage(image = self.knife.crosshair, pos = (0,0,0), scale =0.125)
+            self.crosshair.setTransparency(TransparencyAttrib.MAlpha)
+        if (self.keyMap["pistol"]==1 and self.weapon != self.pistol):
+            self.weapon = self.pistol
+            self.crosshair.destroy()
+            self.crosshair=OnscreenImage(image = self.pistol.crosshair, pos = (0,0,0), scale =0.05)
+            self.crosshair.setTransparency(TransparencyAttrib.MAlpha)
+        if (self.keyMap["shotgun"]==1 and self.weapon != self.shotgun):
+            self.weapon = self.shotgun
+            self.crosshair.destroy()
+            self.crosshair=OnscreenImage(image = self.shotgun.crosshair, pos = (0,0,0), scale =0.15)
+            self.crosshair.setTransparency(TransparencyAttrib.MAlpha)
+            
         return Task.cont
         
     def clear_sight(self):
