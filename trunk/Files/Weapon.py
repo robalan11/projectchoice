@@ -21,10 +21,14 @@ class Knife(Weapon):
         super(Knife, self).__init__()
         
         self.crosshair = "Art/HUD/knifecrosshair.png"
+        self.firesound = loader.loadSfx("Sound/Effects/knifemiss.wav")
+        self.hitsound = loader.loadSfx("Sound/Effects/knifehit.wav")
+        self.wallsound = loader.loadSfx("Sound/Effects/knifewall.wav")
     
     def shoot(self, player):
         self.ftrav.traverse(render)
         self.sight.sortEntries()
+        self.firesound.play()
         for i in range(self.sight.getNumEntries()):
             object=self.sight.getEntry(i)
             #~ if weapon hits an AI
@@ -32,9 +36,15 @@ class Knife(Weapon):
                 targ = object.getSurfacePoint(render)
                 dist = sqrt(pow(player.model.getX()-targ[0],2) + pow(player.model.getY()-targ[1],2) + pow(player.model.getZ()-targ[2],2))
                 if dist < 4:
+                    self.hitsound.play()
                     object.getIntoNodePath().getParent().removeNode()#Current hack
                     break
             if (object.getIntoNodePath().getName()=="wall" or object.getIntoNodePath().getName()=="floor"):
+                targ = object.getSurfacePoint(render)
+                dist = sqrt(pow(player.model.getX()-targ[0],2) + pow(player.model.getY()-targ[1],2) + pow(player.model.getZ()-targ[2],2))
+                print dist
+                if dist < 4:
+                    self.wallsound.play()
                 break
                 #~ do damage and alert AI
                 #~ broadcast_attack(AI_hit)
@@ -44,10 +54,12 @@ class Pistol(Weapon):
         super(Pistol, self).__init__()
         
         self.crosshair = "Art/HUD/pistolcrosshair.png"
+        self.firesound = loader.loadSfx("Sound/Effects/pistol.wav")
     
     def shoot(self, player):
         self.ftrav.traverse(render)
         self.sight.sortEntries()
+        self.firesound.play()
         for i in range(self.sight.getNumEntries()):
             object=self.sight.getEntry(i)
             #~ if weapon hits an AI
@@ -66,6 +78,7 @@ class Shotgun(Weapon):
         self.frays = [None, None, None, None, None, None]
         
         self.crosshair = "Art/HUD/shotguncrosshair.png"
+        self.firesound = loader.loadSfx("Sound/Effects/shotgun.wav")
     
     def shoot(self, player):
         for i in xrange(6):
@@ -78,6 +91,7 @@ class Shotgun(Weapon):
             self.frpath.node().addSolid(self.frays[i])
         self.ftrav.traverse(render)
         self.sight.sortEntries()
+        self.firesound.play()
         for i in range(self.sight.getNumEntries()):
             object=self.sight.getEntry(i)
             #~ if weapon hits an AI
