@@ -19,9 +19,6 @@ class World(DirectObject):
         temp.model.setPos(10, 10, 5)
         #Execute level construction code
         
-        self.crosshair=OnscreenImage(image = "Art/HUD/crosshair.png", pos = (0,0,0), scale =0.025)
-        self.crosshair.setTransparency(TransparencyAttrib.MAlpha)
-        
         self.level=Level("1.txt")
         
         self.player.nodepath().setPos(10,0,5)
@@ -35,7 +32,13 @@ class World(DirectObject):
         self.setKey("backward",0)
         self.setKey("left",0)
         self.setKey("right",0)
+        
+        self.setKey("knife",0)
+        self.setKey("pistol",0)
+        self.setKey("shotgun",0)
+        
         self.setKey("shoot",0)
+        
         
         self.accept("escape", sys.exit)
         self.accept("a", self.setKey, ["left",1])
@@ -46,6 +49,13 @@ class World(DirectObject):
         self.accept("d-up", self.setKey, ["right",0])
         self.accept("w-up", self.setKey, ["forward",0])
         self.accept("s-up", self.setKey, ["backward",0])
+        
+        self.accept("1", self.setKey, ["knife",1])
+        self.accept("2", self.setKey, ["pistol",1])
+        self.accept("3", self.setKey, ["shotgun",1])
+        self.accept("1-up", self.setKey, ["knife",0])
+        self.accept("2-up", self.setKey, ["pistol",0])
+        self.accept("3-up", self.setKey, ["shotgun",0])
         
         self.accept("mouse1", self.setKey, ["shoot", 1])
         self.accept("mouse1-up", self.setKey, ["shoot", 0]) 
