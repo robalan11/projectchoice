@@ -15,8 +15,9 @@ class World(DirectObject):
     def __init__(self):
         base.cTrav=CollisionTraverser()
         self.player = Player("Art/Models/box.egg") #Add the dummy model
-        temp=AI("Art/Models/box.egg", False, 0) #Just to instantiate all AI global variables
-        temp.model.setPos(10, 10, 5)
+        temp=AI("Art/Models/box.egg", False, 0, Vec3(0,0,0)) #Just to instantiate all AI global variables
+        AI.playerhandle=self.player
+        
         #Execute level construction code
         
         self.level=Level("1.txt")

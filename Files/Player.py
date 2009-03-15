@@ -4,6 +4,7 @@ from pandac.PandaModules import *
 from direct.actor.Actor import Actor
 from direct.task.Task import Task
 from direct.gui.OnscreenImage import OnscreenImage
+from AI import AI
 import math
 import Weapon
 
@@ -39,7 +40,7 @@ class Player ():
         self.cspath=self.model.attachNewNode(CollisionNode('pspher'))
         self.cspath.node().addSolid(self.cs)
         self.cspath.node().setFromCollideMask(BitMask32(0x01))
-        self.cspath.setCollideMask(BitMask32(0x00))
+        self.cspath.setCollideMask(BitMask32.bit(0x11))
         
         self.cr=CollisionRay(0,0,0,0,0,-1)
         self.crpath=self.model.attachNewNode(CollisionNode('pray'))
@@ -74,6 +75,16 @@ class Player ():
         self.crosshair=OnscreenImage(image = self.pistol.crosshair, pos = (0,0,0), scale =0.05)
         self.crosshair.setTransparency(TransparencyAttrib.MAlpha)
         
+        self.AIs=CollisionSphere(0,0,-1.25,1.25)
+        self.AIspath=self.model.attachNewNode(CollisionNode('pspher'))
+        self.AIspath.node().addSolid(self.AIs)
+        self.AIspath.node().setFromCollideMask(BitMask32(0x10))
+        self.AIspath.setCollideMask(BitMask32(0x10))
+        base.cTrav.addCollider(self.AIspath, AI.sight)
+        self.AIspath.show()
+        
+        
+        #~ self.weapon = whatever the starting weapon is
         #~ set up an empty list of enemies that see me
         self.enemies_watching=[]
         
