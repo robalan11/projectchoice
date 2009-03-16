@@ -1,0 +1,6 @@
+export.bat :  exports a maya file to the .egg format, only used to save the model itself and not animation sets.
+view_egg.bat : takes a .egg file and shows it in pview.
+
+For both batch files, just drop the proper file type on top of it (ex. drag and drop a maya .mb on top of export.bat, drag and drop a .egg onto view_egg.bat)
+
+These don't have to be in the actual game folder of course, just useful to have if people need them.
