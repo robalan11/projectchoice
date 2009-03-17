@@ -147,6 +147,9 @@ class Player ():
                 #~ fire a ray with appropriate range and get collision detection
             self.weapon.shoot(self)
         
+        if (self.keyMap["reload"] == 1):
+            self.weapon.reload()
+        
         #~ if input requests changing the weapon and have that weapon, change to that weapon
         if (self.keyMap["knife"]==1 and self.weapon != self.knife):
             self.weapon = self.knife
