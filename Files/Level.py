@@ -100,8 +100,8 @@ class Level(object):
 class Room(object):
     def __init__(self,room):
         #assign values to variables
-        self.WestWall = room[0]
-        self.NorthWall = room[1]
-        self.Floor = room[2]
+        self.Floor = room[0]
+        self.WestWall = room[1]
+        self.NorthWall = room[2]
         self.Enemy = room[3]
         
