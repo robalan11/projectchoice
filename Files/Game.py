@@ -39,6 +39,7 @@ class World(DirectObject):
         self.setKey("shotgun",0)
         
         self.setKey("shoot",0)
+        self.setKey("reload",0)
         
         
         self.accept("escape", sys.exit)
@@ -51,15 +52,17 @@ class World(DirectObject):
         self.accept("w-up", self.setKey, ["forward",0])
         self.accept("s-up", self.setKey, ["backward",0])
         
-        self.accept("1", self.setKey, ["knife",1])
-        self.accept("2", self.setKey, ["pistol",1])
-        self.accept("3", self.setKey, ["shotgun",1])
-        self.accept("1-up", self.setKey, ["knife",0])
-        self.accept("2-up", self.setKey, ["pistol",0])
-        self.accept("3-up", self.setKey, ["shotgun",0])
+        self.accept("0", self.setKey, ["knife",1])
+        self.accept("1", self.setKey, ["pistol",1])
+        self.accept("2", self.setKey, ["shotgun",1])
+        self.accept("0-up", self.setKey, ["knife",0])
+        self.accept("1-up", self.setKey, ["pistol",0])
+        self.accept("2-up", self.setKey, ["shotgun",0])
         
         self.accept("mouse1", self.setKey, ["shoot", 1])
-        self.accept("mouse1-up", self.setKey, ["shoot", 0]) 
+        self.accept("mouse1-up", self.setKey, ["shoot", 0])
+        self.accept("r", self.setKey, ["reload", 1])
+        self.accept("r-up", self.setKey, ["reload", 0])
         
         #Set up tasks to get the world running
         
