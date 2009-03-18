@@ -103,7 +103,7 @@ class DisasterEngine:
         #TowerLists
         DisasterEngine.towerList = pygame.sprite.Group()
         
-        self.shiftHeld = False
+        self.shiftHeld = True
         
         #This is the fonts section for the HUD
         self.alertText ="Game Begin"
@@ -180,11 +180,11 @@ class DisasterEngine:
             self.sendAlert(self.getZone(), 0)
             for event in pygame.event.get():
                 if event.type == KEYDOWN and event.key == K_LSHIFT:
-                    if not self.shiftHeld:
-                        self.shiftHeld = True
-                if event.type == KEYUP and event.key == K_LSHIFT:
                     if self.shiftHeld:
                         self.shiftHeld = False
+                if event.type == KEYUP and event.key == K_LSHIFT:
+                    if not self.shiftHeld:
+                        self.shiftHeld = True
                 if event.type == KEYDOWN and event.key == K_ESCAPE:
                     return
                 if event.type == KEYDOWN and event.key == K_s:
