@@ -1,0 +1,28 @@
+<CoordinateSystem> { Y-Up }
+
+<Comment> {
+  "maya2egg2008 -a chan -o door_1_close.egg door_1_close.mb"
+}
+<Table> {
+  <Bundle> door_1_close {
+    <Table> "<skeleton>" {
+      <Table> polySurface23 {
+        <Xfm$Anim_S$> xform {
+          <Scalar> fps { 24 }
+          <Char*> order { srpht }
+          <S$Anim> x { <V> { 4.5 } }
+          <S$Anim> z {
+            <V> {
+              3.826 3.65965 3.4933 3.32696 3.16061 2.99426 2.82791
+              2.66157 2.49522 2.32887 2.16252 1.99617 1.82983 1.66348
+              1.49713 1.33078 1.16443 0.998087 0.831739 0.665391
+              0.499043 0.332696 0.166348 0
+            }
+          }
+        }
+      }
+    }
+    <Table> morph {
+    }
+  }
+}
