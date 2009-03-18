@@ -4,6 +4,7 @@ from pandac.PandaModules import *
 from direct.actor.Actor import Actor
 from direct.task.Task import Task
 from direct.fsm import FSM
+import Weapon
 import math
 
     #5th collision bit is AI vision
@@ -82,8 +83,8 @@ class AI():
     sight=CollisionHandlerQueue()
     ID=0
     playerhandle=0
-    turnspeed=2
-    runspeed=0.2
+    turnspeed=10
+    runspeed=2
     followradius=10
     
     def __init__(self, model,incell,team, startpos):
@@ -152,7 +153,7 @@ class AI():
         self.AIspath.setCollideMask(BitMask32(0x00))
         base.cTrav.addCollider(self.AIspath, AI.sight)
         
-        #~ self.weapon = whatever the starting weapon is
+        self.weapon = Weapon.Pistol()
         
         #Variables
         self.dx=0
@@ -239,8 +240,8 @@ class AI():
                 self.targetpos=AI.playerhandle.model.getPos()
                 self.dh=min(AI.turnspeed, max(self.look_angles(1)-self.model.getH(), -AI.turnspeed))
                 #If facing target, fire at them
-                if abs(self.dh)<5:
-                    pass #FIRE!
+                if abs(self.dh)<0.01:
+                    self.weapon.shoot(self)
         
         #FSM stuff
         #Movement
