@@ -8,12 +8,20 @@ import Weapon
 import math
 
     #5th collision bit is AI vision
-def calculateHpr(v):
+def calculateHpr(v, norm_angles):
     temp=Vec3(0,0,0)
     if v.length()!=0:
         temp.setX(-math.atan2(v.getX(), v.getY()))
         temp.setY(math.asin(v.getZ()/v.length()))
     temp= temp*180/math.pi
+    if temp.getX()-norm_angles.getX()>180:
+        temp.setX(temp.getX() - 360)
+    if temp.getX()-norm_angles.getX()<-180:
+        temp.setX(temp.getX()+360)
+    if temp.getY()-norm_angles.getY()>180:
+        temp.setY(temp.getY() - 360)
+    if temp.getY()-norm_angles.getY()<-180:
+        temp.setY(temp.getY() + 360)
     return temp
     
 def AIsight(task_object): 
@@ -23,7 +31,7 @@ def AIsight(task_object):
         player=AI.playerhandle
         for index,NPC in AI.AI_dict.items():
             if NPC.targetlist: #If the list isn't empty
-                NPC.targetlist=NPC.targetlist[0]
+                NPC.targetlist=[NPC.targetlist[0]]
             NPC.seeplayer=False
         AI.sight.sortEntries()
         for i in range(AI.sight.getNumEntries()):
@@ -35,15 +43,14 @@ def AIsight(task_object):
                 if "AIspher" in entry.getIntoNodePath().getName():
                     name = entry.getIntoNodePath().getName().split(";")
                     fromAI=AI.AI_dict[int(name[1])]
-                    fromAI.look_angles = calculateHpr(player.model.getPos()-fromAI.model.getPos())
-                else:
-                    continue
+                    fromAI.look_angles = calculateHpr(player.model.getPos()-fromAI.model.getPos(), fromAI.model.getHpr())
+                #else:
+                    #continue
             else:
                 fromAI=AI.AI_dict[int(name[1])]
                 #print entry.getIntoNodePath().getParent().getPos()-Looker.getParent().getPos()
-                fromAI.look_angles = calculateHpr(entry.getIntoNodePath().getParent().getPos()-Looker.getParent().getPos())
-            #print fromAI.look_angles
-            if (abs(fromAI.look_angles.getX()-fromAI.model.getH())< 60 and abs(fromAI.look_angles.getY()-fromAI.model.getP())<60): #if in front of me
+                fromAI.look_angles = calculateHpr(entry.getIntoNodePath().getParent().getPos()-Looker.getParent().getPos(), Looker.getParent().getHpr())
+            if (abs(fromAI.look_angles.getX()-fromAI.model.getH())< AI.FOV and abs(fromAI.look_angles.getY()-fromAI.model.getP())<AI.FOV): #if in front of me
                 if (entry.getIntoNodePath().getName()=="pspher" or entry.getFromNodePath().getName()=="pshper"):
                     #print look_angles
                     #Make sure vision isn't through walls
@@ -62,7 +69,7 @@ def AIsight(task_object):
                         #View is not obfuscated
                         fromAI.seeplayer=True
                         player.add_AI(fromAI)
-                        if not (player in fromAI.targetlist) and player.loyalty[fromAI.team]<45:
+                        if fromAI.targetlist.count(player)==0 and player.loyalty[fromAI.team]<45:
                             fromAI.targetlist.append(player)
                             fromAI.targetpos = player.model.getPos()
                 else:
@@ -70,11 +77,9 @@ def AIsight(task_object):
                     Lookedname=entry.getIntoNodePath().getName()
                     if Lookedname.split(";")[0]=="AIspher": #Sometimes this hiccups
                         Lookedname=Lookedname.split(";")[-1]
-                        #print Lookedname[0]
-                        #print Lookedname[1]
                         intoAI=AI.AI_dict[int(Lookedname)]
-                        if not (intoAI in fromAI.targetlist) and intoAI.team!=fromAI.team and fromAI!=intoAI:
-                            fromAI.targetlist.append(AI)
+                        if fromAI.targetlist.count(intoAI)==0 and intoAI.team!=fromAI.team and fromAI!=intoAI:
+                            fromAI.targetlist.append(intoAI)
         return Task.cont
 
 class AI():
@@ -83,9 +88,10 @@ class AI():
     sight=CollisionHandlerQueue()
     ID=0
     playerhandle=0
-    turnspeed=10
+    turnspeed=50
     runspeed=2
     followradius=10
+    FOV=85
     
     def __init__(self, model,incell,team, startpos):
         #~ initialize the actor and FSM
@@ -176,6 +182,12 @@ class AI():
         
     def nodepath(self):
         return self.model
+        
+    def count(self, object):
+        if object==self:
+            return 1
+        else:
+            return 0
     
     def tick(self,task_object):
         #Brain choices stuff
@@ -190,14 +202,16 @@ class AI():
             if target==AI.playerhandle and self.seeplayer == True:
                 self.seetarget=True
                 self.targetpos=target.model.getPos()
+                self.look_angles = self.targetpos-Vec3(self.model.getPos())
+                self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
                 break
             self.look_angles = Vec3(target.model.getPos())-Vec3(self.model.getPos())
-            self.look_angles = calculateHpr(self.look_angles)
+            self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
             self.frpath.setHpr(self.look_angles-self.model.getHpr())
             self.ftrav.traverse(render)
             self.fire.sortEntries()
             self.frpath.setHpr(Point3(0,0,0))
-            if self.fire.getEntry(0).getIntoNodePath().getName()==target.target.cspath.getName():
+            if self.fire.getEntry(0).getIntoNodePath().getName()==target.cspath.getName():
                     #Vision is not occluded, use this target
                     self.seetarget=True
                     self.targetpos = target.model.getPos()
@@ -206,11 +220,9 @@ class AI():
             if self.seeplayer and self.follow:
                 self.targetpos=AI.playerhandle.model.getPos()
                 self.look_angles = self.targetpos-Vec3(self.model.getPos())
-                self.look_angles = calculateHpr(self.look_angles)
+                self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
                 #If following player, turn to player
                 self.dh=min(AI.turnspeed, max(self.look_angles.getX()-self.model.getH(), -AI.turnspeed))
-                #print self.look_angles.getX()-self.model.getH()
-                #print self.dh
                 if abs(self.dh)<0.01:
                     distance = Vec3(self.targetpos)-Vec3(self.model.getPos())
                     distance.setZ(0)
@@ -218,9 +230,17 @@ class AI():
                     if distance.length() >AI.followradius:
                         self.dy=min(AI.runspeed, distance.length())
             else:
-            #Move to the target's last position                
+                #Did your primary target move right behind you? Turn to face them first
+                #~ if self.targetlist.len()>0:
+                    #~ temp=target[0].model.getPos()
+                    #~ self.look_angles = temp -self.model.getPos()
+                    #~ self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
+                    #~ temp = self.targetpos - self.model.getPos()
+                    #~ if abs(self.look_angles - self.getHpr())>AI.FOV and temp.length()<3:
+                        #~ #Turn
+                #Move to the target's last position                
                 self.look_angles = self.targetpos-Vec3(self.model.getPos())
-                self.look_angles = calculateHpr(self.look_angles)
+                self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
                 self.dh=min(AI.turnspeed, max(self.look_angles.getX()-self.model.getH(), -AI.turnspeed))
                 if abs(self.dh)<0.01:
                     distance = Vec3(self.targetpos)-Vec3(self.model.getPos())
@@ -229,7 +249,7 @@ class AI():
                         self.dy=min(AI.runspeed, distance.length())
             #If already there, idle
         else:
-            if health<10: #Health is at 1/5th strength
+            if self.health<10: #Health is at 1/5th strength
                 #Turn away from target
                 self.dh=min(AI.turnspeed, max((self.look_angles[0]+180)%360-self.model.getH(), -AI.turnspeed))
                 #If turned away from target, run
@@ -237,10 +257,9 @@ class AI():
                     self.dy=AI.runspeed
             else:
                 #Turn to face target
-                self.targetpos=AI.playerhandle.model.getPos()
-                self.dh=min(AI.turnspeed, max(self.look_angles(1)-self.model.getH(), -AI.turnspeed))
+                self.dh=min(AI.turnspeed, max(self.look_angles.getX()-self.model.getH(), -AI.turnspeed))
                 #If facing target, fire at them
-                if abs(self.dh)<0.01:
+                if abs(self.dh)<5:
                     self.weapon.shoot(self)
         
         #FSM stuff
@@ -252,6 +271,7 @@ class AI():
         self.model.setX(self.model.getX()-ca*self.dx*time_tick-sa*self.dy*time_tick)
         self.model.setY(self.model.getY()+ca*self.dy*time_tick-sa*self.dx*time_tick)
         self.model.setH(self.model.getH()+self.dh*time_tick)
+        self.model.setH((self.model.getH()+180)%360-180)
         return Task.cont
     
 class AI_manifest(FSM.FSM):
