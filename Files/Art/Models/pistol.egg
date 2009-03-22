@@ -4,7 +4,7 @@
   "maya2egg2008 -a model -o 'C:\Documents and Settings\Robert Link\Desktop\Game Dev\Art\Models\pistol.egg' 'C:\Documents and Settings\Robert Link\Desktop\Game Dev\Art\Models\pistol.mb'"
 }
 <Texture> phong2SG {
-  "../Textures/gun_metal_2.jpg"
+  "../Textures/gun_metal_1.jpg"
   <Scalar> format { rgb }
   <Scalar> wrapu { repeat }
   <Scalar> wrapv { repeat }
