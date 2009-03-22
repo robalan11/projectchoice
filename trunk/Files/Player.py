@@ -92,13 +92,19 @@ class Player ():
         self.dx=0
         self.dy=0
         self.dz=0
-        self.loyalty = [50, 50] # out of a minimum of 0 and a maximum of 100
+        self.loyalty = [0, 50] # out of a minimum of 0 and a maximum of 100
         
     def nodepath(self):
         return self.model
     
     def setKey(self, key, value):
         self.keyMap[key] = value
+        
+    def count(self, object):
+        if object==self:
+            return 1
+        else:
+            return 0
         
     def get_input (self, task_object):
         #~ set player to running or stopped depending upon key input
