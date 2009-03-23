@@ -92,6 +92,9 @@ class AI():
     runspeed=2
     followradius=10
     FOV=85
+    runanim=1.5
+    turnanim=5
+    walkanim=1
     
     def __init__(self, model,incell,team, startpos):
         #~ initialize the actor and FSM
@@ -99,6 +102,8 @@ class AI():
         self.model.reparentTo(render)
         self.model.setPos(startpos)
         self.manifest=AI_manifest(self.model)
+        
+        #~Load animations
         
         #~Add to AI_list
         
@@ -160,6 +165,7 @@ class AI():
         base.cTrav.addCollider(self.AIspath, AI.sight)
         
         self.weapon = Weapon.Pistol()
+        self.killzone=10 #Change according to weapon
         
         #Variables
         self.dx=0
@@ -175,6 +181,9 @@ class AI():
         self.seeplayer=False
         self.follow=True
         self.collisionoverride=False
+        self.forceturn=False
+        self.shooting=False
+        self.awarelist=[]
         
         #Tasks
         taskMgr.add(self.tick, "AI tick;"+str(AI.ID))
@@ -189,14 +198,45 @@ class AI():
         else:
             return 0
     
+    def damage(self, attacker, damage):
+        #attacker is the attacker's model, which is passed to the weapon
+        self.health -= damage
+        self.look_angles = attacker.getPos()-self.model.getPos()
+        self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
+        if abs(self.look_angles.getX()-self.model.getH())>AI.FOV and self.targetlist.len()==0:
+            self.forceturn = True
+            self.targetpos = attacker.getPos()
+    
     def tick(self,task_object):
-        #Brain choices stuff
+       
         self.dx=0
         self.dy=0
         self.dz=0
         self.dh=0
         self.seetarget=False
+        self.shooting=False
+        
+        #------------------------
+        #Brain choices stuff
+        #------------------------
+        
         #Check for uninterruptable states
+        #if self.model.getAnimControl("Fire").isPlaying() and self.model.getCurrentFrame("Fire")<self.model.getNumFrames("Fire"):
+            #return
+        #if self.dead:
+            #if self.model.getAnimControl("Dying").isPlaying() and self.model.getCurrentFrame("Dying")<self.model.getNumFrames("Dying")":
+                #AI.AI_dict.remove(self)
+                #self.remove()
+            #return
+        if self.forceturn==True:
+            self.look_angles = self.targetpos-Vec3(self.model.getPos())
+            self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
+            self.dh=min(AI.turnspeed, max(self.look_angles.getX()-self.model.getH(), -AI.turnspeed))
+            if self.dh<1:
+                self.forceturn=False
+                self.dh=0
+            else:
+                return
         #Select the first target that isn't hidden by something else
         for target in self.targetlist:
             if target==AI.playerhandle and self.seeplayer == True:
@@ -223,12 +263,12 @@ class AI():
                 self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
                 #If following player, turn to player
                 self.dh=min(AI.turnspeed, max(self.look_angles.getX()-self.model.getH(), -AI.turnspeed))
-                if abs(self.dh)<0.01:
+                if abs(self.dh)<1:
                     distance = Vec3(self.targetpos)-Vec3(self.model.getPos())
                     distance.setZ(0)
                     #If facing player, run if you're >10 feet from them
                     if distance.length() >AI.followradius:
-                        self.dy=min(AI.runspeed, distance.length())
+                        self.dy=min(AI.runspeed, distance.length()-AI.followradius)
             else:
                 #Did your primary target move right behind you? Turn to face them first
                 #~ if self.targetlist.len()>0:
@@ -242,11 +282,13 @@ class AI():
                 self.look_angles = self.targetpos-Vec3(self.model.getPos())
                 self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
                 self.dh=min(AI.turnspeed, max(self.look_angles.getX()-self.model.getH(), -AI.turnspeed))
-                if abs(self.dh)<0.01:
+                if abs(self.dh)<1:
                     distance = Vec3(self.targetpos)-Vec3(self.model.getPos())
                     distance.setZ(0)
                     if distance.length()>0:
                         self.dy=min(AI.runspeed, distance.length())
+                    else:
+                        self.targetlist=[] #Lost your target
             #If already there, idle
         else:
             if self.health<10: #Health is at 1/5th strength
@@ -260,10 +302,46 @@ class AI():
                 self.dh=min(AI.turnspeed, max(self.look_angles.getX()-self.model.getH(), -AI.turnspeed))
                 #If facing target, fire at them
                 if abs(self.dh)<5:
-                    self.weapon.shoot(self)
+                    distance = Vec3(self.targetpos)-Vec3(self.model.getPos())
+                    distance.setZ(0)
+                    if distance.length()>self.killzone:
+                        self.dy=min(AI.runspeed, distance.length())
+                        if distance.length()<self.killzone*1.4:
+                            self.shooting=True
+                    else:
+                        self.weapon.shoot(self)
+                        self.weapon.shots=self.weapon.maxshots # AI don't run out of ammo
+                        self.shooting=True
+        #------------------------
+        #Animation Handling
+        #------------------------
         
-        #FSM stuff
+        if self.shooting:
+            pass
+            #if self.dy > 0
+                #run shooting part on top half and moving part on bottom half
+            #else:
+                #self.model.play("Fire")
+        elif self.dy>AI.runanim:
+            pass
+            #self.model.setPlayRate(self.dy/AI.runanim, "Run")
+            #if not self.model.getAnimControl("Run").isPlaying:
+                #self.model.loop("Run")
+        elif self.dy>0:
+            pass
+            #self.model.setPlayRate(self.dy/AI.runanim, "Walk")
+            #if not self.model.getAnimControl("Walk").isPlaying:
+                #self.model.loop("Walk")
+        elif abs(self.dh):
+            pass
+            #self.model.setPlayRate(self.dh/AI.turnanim, "Turn")
+            #if not self.model.getAnimControl("Walk").isPlaying:
+                #self.model.loop("Turn")
+        #elif not self.model.getAnimControl("Idle").isPlaying():
+            #self.model.loop("Idle")
+        #------------------------    
         #Movement
+        #------------------------
         angle = math.radians(self.model.getH())
         sa = math.sin(angle)
         ca = math.cos(angle)
