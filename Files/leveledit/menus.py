@@ -31,8 +31,10 @@ class GUI:
         towerbutton((self.x+1*32, 1*32), [0,'F'])
         towerbutton((self.x+1*32, 3*32), [1,'W'])
         towerbutton((self.x+2*32, 3*32), [1,'D'])
+        towerbutton((self.x+3*32, 3*32), [1,'S'])
         towerbutton((self.x+1*32, 5*32), [2,'W'])
         towerbutton((self.x+2*32, 5*32), [2,'D'])
+        towerbutton((self.x+3*32, 5*32), [2,'S'])
     def draw(self, screen):
         for button in towerbutton.towerbuttons:
             button.draw(screen, self.towertype)
@@ -73,8 +75,12 @@ class towerbutton(pygame.sprite.Sprite):
             self.image=pygame.image.load('data/images/BuildTop.png')
         elif type==[2,'D']:
             self.image=pygame.image.load('data/images/BuildDoorTop.png')
+        elif type==[2,'S']:
+            self.image=pygame.image.load('data/images/BuildSlideTop.png')           
         elif type==[1,'D']:
             self.image=pygame.image.load('data/images/BuildDoorLeft.png')
+        elif type==[1,'S']:
+            self.image=pygame.image.load('data/images/BuildSlideLeft.png')
         elif type==[1,'W']:
             self.image=pygame.image.load('data/images/BuildLeft.png')
         elif type==[0,'F']:
