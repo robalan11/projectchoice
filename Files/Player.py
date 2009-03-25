@@ -180,6 +180,10 @@ class Player ():
     
     def add_AI(self, AI):
         self.enemies_watching.append(AI)
+        
+    def damage(self, attacker, damage):
+        #attacker is the attacking player/AI which is passed to the weapon
+        self.health -= damage
     
     def broadcast_attack(self, AI_hit):
         for enemy in self.enemies_watching:
@@ -191,14 +195,14 @@ class Player ():
                     if (self.loyalty[enemy.team]>0):
                         self.loyalty[enemy.team]-=1
                     #~ enemy attacks player
-                    enemy.attack(self)
+                    self.forcedenemy=True
                 else:
                     #~ raise team loyalty
                     if (self.loyalty[enemy.team]<100):
                         self.loyalty[enemy.team]+=1
             else:
                 #~ AI_hit attacks player
-                enemy.attack(self)
+                self.forcedenemy=True
     def tick(self,task_object):
         #~ check and set lights of current room to player
         #~ if under cinematic control
