@@ -1,11 +1,6 @@
 import pygame
 import DisasterEngine
 
-#External commands
-#getbuttoninfo returns the type of the button that the mouse is hovering over.
-#    Returns None if none
-#drawGUI() draws the GUI
-
 class startscreen:
     def __init__(self, screen):
         self.bg=pygame.image.load('data/images/Game_with_Options.png')
@@ -33,11 +28,11 @@ class GUI:
         self.text=pygame.font.SysFont('Arial', 18, False, False)
         self.bigtext=pygame.font.SysFont('Arial Black', 30, False, False)
         #Create the towerbuttons
-        towerbutton((self.x+52, 1*32), [0,'F'])
-        towerbutton((self.x+52, 3*32), [1,'W'])
-        towerbutton((self.x+52, 5*32), [2,'W'])
-        towerbutton((self.x+52, 7*32), 'Volcano')
-        towerbutton((self.x+52, 9*32), 'Tornado')
+        towerbutton((self.x+1*32, 1*32), [0,'F'])
+        towerbutton((self.x+1*32, 3*32), [1,'W'])
+        towerbutton((self.x+2*32, 3*32), [1,'D'])
+        towerbutton((self.x+1*32, 5*32), [2,'W'])
+        towerbutton((self.x+2*32, 5*32), [2,'D'])
     def draw(self, screen):
         for button in towerbutton.towerbuttons:
             button.draw(screen, self.towertype)
@@ -76,14 +71,14 @@ class towerbutton(pygame.sprite.Sprite):
         #pygame.sprite.Sprite.__init__()
         if type==[2,'W']:
             self.image=pygame.image.load('data/images/BuildTop.png')
+        elif type==[2,'D']:
+            self.image=pygame.image.load('data/images/BuildDoorTop.png')
+        elif type==[1,'D']:
+            self.image=pygame.image.load('data/images/BuildDoorLeft.png')
         elif type==[1,'W']:
             self.image=pygame.image.load('data/images/BuildLeft.png')
         elif type==[0,'F']:
             self.image=pygame.image.load('data/images/Floor.png')
-        elif type=='Volcano':
-            self.image=pygame.image.load('data/images/Side_Icon_Volcano.png')
-        elif type=='Tornado':
-            self.image=pygame.image.load('data/images/Side_Icon_Tornado.png')
         towerbutton.towerbuttons.add(self)
         self.rect=pygame.rect.Rect(pos, (32,32))
     def mouse_on(self):
