@@ -50,6 +50,8 @@ def AIsight(task_object):
                 fromAI=AI.AI_dict[int(name[1])]
                 #print entry.getIntoNodePath().getParent().getPos()-Looker.getParent().getPos()
                 fromAI.look_angles = calculateHpr(entry.getIntoNodePath().getParent().getPos()-Looker.getParent().getPos(), Looker.getParent().getHpr())
+            if fromAI.forceturn:
+                continue
             if (abs(fromAI.look_angles.getX()-fromAI.model.getH())< AI.FOV and abs(fromAI.look_angles.getY()-fromAI.model.getP())<AI.FOV): #if in front of me
                 if (entry.getIntoNodePath().getName()=="pspher" or entry.getFromNodePath().getName()=="pshper"):
                     #print look_angles
@@ -69,7 +71,7 @@ def AIsight(task_object):
                         #View is not obfuscated
                         fromAI.seeplayer=True
                         player.add_AI(fromAI)
-                        if fromAI.targetlist.count(player)==0 and player.loyalty[fromAI.team]<45:
+                        if fromAI.targetlist.count(player)==0 and (player.loyalty[fromAI.team]<45 or self.forcedenemy==True):
                             fromAI.targetlist.append(player)
                             fromAI.targetpos = player.model.getPos()
                 else:
@@ -96,14 +98,20 @@ class AI():
     turnanim=5
     walkanim=1
     
-    def __init__(self, model,incell,team, startpos):
+    def __init__(self, model, incell,team, startpos, starth, weapon):
+        #Model = Number of model body type. Just use 0 for default body
+        # incell = Are you in a cell (This may not be used)
+        #Team = 0 for guards, 1 for prisoner
+        # startpos = vector starting position in the world
+        # starth = start heading
+        # weapon = int indication weapon
         #~ initialize the actor and FSM
-        self.model=Actor(model)
+        #Load the appropriate team model and specified model type
+        self.model=Actor("Art/Models/box.egg")
         self.model.reparentTo(render)
         self.model.setPos(startpos)
+        self.model.setH(starth)
         self.manifest=AI_manifest(self.model)
-        
-        #~Load animations
         
         #~Add to AI_list
         
@@ -164,8 +172,23 @@ class AI():
         self.AIspath.setCollideMask(BitMask32(0x00))
         base.cTrav.addCollider(self.AIspath, AI.sight)
         
-        self.weapon = Weapon.Pistol()
-        self.killzone=10 #Change according to weapon
+        #Set weapon, weapon model, and load animations based on weapon
+        
+        if (weapon == 1):
+            self.drop = "Pistol"
+            self.weapon = Weapon.Pistol()
+            self.killzone=15 
+        elif (weapon ==2):
+            self.drop = "Shotgun"
+            self.weapon = Weapon.Shotgun()
+            self.killzone=10
+        #elif (weapon ==3):
+            #self.weapon = Weapon.AssautRifle()
+        else:
+            # Change later to different melee weaps for different AI
+            self.drop = "Medkit"
+            self.weapon = Weapon.Knife()
+            self.killzone = 3
         
         #Variables
         self.dx=0
@@ -179,11 +202,12 @@ class AI():
         self.seetarget=False
         self.team=team   
         self.seeplayer=False
-        self.follow=True
+        self.follow=False
         self.collisionoverride=False
         self.forceturn=False
         self.shooting=False
         self.awarelist=[]
+        self.forcedenemy=False
         
         #Tasks
         taskMgr.add(self.tick, "AI tick;"+str(AI.ID))
@@ -199,13 +223,14 @@ class AI():
             return 0
     
     def damage(self, attacker, damage):
-        #attacker is the attacker's model, which is passed to the weapon
+        #attacker is the attacking player/AI which is passed to the weapon
         self.health -= damage
-        self.look_angles = attacker.getPos()-self.model.getPos()
+        self.look_angles = attacker.model.getPos()-self.model.getPos()
         self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
         if abs(self.look_angles.getX()-self.model.getH())>AI.FOV and self.targetlist.len()==0:
             self.forceturn = True
-            self.targetpos = attacker.getPos()
+            self.target = attacker
+            self.targetpos = attacker.model.getPos()
     
     def tick(self,task_object):
        
@@ -225,7 +250,9 @@ class AI():
             #return
         #if self.dead:
             #if self.model.getAnimControl("Dying").isPlaying() and self.model.getCurrentFrame("Dying")<self.model.getNumFrames("Dying")":
+                #Spawn your drop
                 #AI.AI_dict.remove(self)
+                #self.model.remove()
                 #self.remove()
             #return
         if self.forceturn==True:

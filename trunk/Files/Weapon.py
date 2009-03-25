@@ -35,6 +35,8 @@ class Knife(Weapon):
         self.firesound = loader.loadSfx("Sound/Effects/knifemiss.wav")
         self.hitsound = loader.loadSfx("Sound/Effects/knifehit.wav")
         self.wallsound = loader.loadSfx("Sound/Effects/knifewall.wav")
+        self.shots=1
+        self.maxshots=1
     
     def shoot(self, player):
         if self.firesound.status() != 2:
