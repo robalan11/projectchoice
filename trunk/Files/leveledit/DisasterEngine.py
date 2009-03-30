@@ -232,7 +232,7 @@ class DisasterEngine:
                             self.mixer = pygame.mixer.Sound("data/audio/SellTower.wav");
                             self.mixer.play()
                             on_tower=True
-                            myPos=[tower.centerx/32-1,tower.centery/32-1]
+                            myPos=[tower.centerx/32,tower.centery/32]
                             DisasterEngine.grid[myPos[0]][myPos[1]]=['.','.','.','.','.','.','.']
                             tower.kill()
                     if not on_tower: #Cancel Tower placement
