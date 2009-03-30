@@ -44,6 +44,34 @@ class DisasterEngine:
         self.gui=menus.GUI()
         surface = screen
         """[Floor,Leftwall,Topwall,Inner,Enemies,Items,Cinimatic]"""
+        self.resetGrid()
+        # Set up the background
+        self.background = pygame.Surface(self.screen.get_size())
+        self.background = self.background.convert()
+        self.background.fill((237, 237, 215))
+        
+        self.screen.blit(self.background, (0, 0))
+        pygame.display.flip()
+        
+        #Internal clock is not the time to calculate occurences in the game use getRealTime for that
+        self.internalTime = pygame.time.Clock()
+        
+        #This is the time in millis of paused time 
+        self.deadTime = 0
+        self.updateCount = 0
+        
+        #TowerLists
+        DisasterEngine.towerList = pygame.sprite.Group()
+        
+        self.shiftHeld = True
+        
+        #This is the fonts section for the HUD
+        self.alertText ="Game Begin"
+        self.alertFont = pygame.font.Font(pygame.font.match_font("Arial"), 70)
+        
+        self.gameover = False
+        
+    def resetGrid(self):
         DisasterEngine.grid=[
            [['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.']],
            [['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.']],
@@ -74,32 +102,6 @@ class DisasterEngine:
            [['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.']],
            [['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.'],['.','.','.','.','.','.','.']],
            ]
-        # Set up the background
-        self.background = pygame.Surface(self.screen.get_size())
-        self.background = self.background.convert()
-        self.background.fill((237, 237, 215))
-        
-        self.screen.blit(self.background, (0, 0))
-        pygame.display.flip()
-        
-        #Internal clock is not the time to calculate occurences in the game use getRealTime for that
-        self.internalTime = pygame.time.Clock()
-        
-        #This is the time in millis of paused time 
-        self.deadTime = 0
-        self.updateCount = 0
-        
-        #TowerLists
-        DisasterEngine.towerList = pygame.sprite.Group()
-        
-        self.shiftHeld = True
-        
-        #This is the fonts section for the HUD
-        self.alertText ="Game Begin"
-        self.alertFont = pygame.font.Font(pygame.font.match_font("Arial"), 70)
-        
-        self.gameover = False
-        
     def getRealTime(self):
         return self.internalTime - self.deadTime
         
@@ -116,7 +118,7 @@ class DisasterEngine:
         #print "rendering"
         self.screen.fill((237, 237, 215))
         self.screen.blit(self.useImage, (0,0))
-        if self.gui.towertype!='None' and self.getZone()[0]< (self.resolution[1]/32 -1) and self.getZone()[0] >= 0 and self.getZone()[1] < (self.resolution[1]/32 -1) and self.getZone()[1] >= 0:  #Only draw the highlight on the game field
+        if self.gui.towertype!='None' and self.getZone()[0]< (self.resolution[1]/32) and self.getZone()[0] >= 0 and self.getZone()[1] < (self.resolution[1]/32) and self.getZone()[1] >= 0:  #Only draw the highlight on the game field
             self.highlightZone(self.getZone())
         alertLiteral = self.alertFont.render(str(self.alertText), 1, (255, 120, 87))
         self.screen.blit(alertLiteral, (1000-(15*len(self.alertText)),525-70))
@@ -153,19 +155,19 @@ class DisasterEngine:
     def saveMap(self, filename):
         print "Saving map as" , filename
         f=open(filename,'w')
-        for y in range(len(self.grid)):
+        for y in range(len(DisasterEngine.grid)):
             temp=""
-            for x in range(len(self.grid[y])):
+            for x in range(len(DisasterEngine.grid[y])):
                 for i in range(7):
-                    temp=temp+self.grid[y][x][i]
-                if x<len(self.grid[y])-1 :
+                    temp=temp+DisasterEngine.grid[y][x][i]
+                if x<len(DisasterEngine.grid[y])-1 :
                     temp= temp+","
             print >>f, temp
     def loadMap(self, filename):
         self.saveMap("Autosave.txt")
         level=[]
-        grid = open(filename, 'r').readlines()
-        for row in grid:
+        gridz = open(filename, 'r').readlines()
+        for row in gridz:
             rooms = row.split(',')
             list=[]
             for room in rooms:
@@ -174,21 +176,18 @@ class DisasterEngine:
                     tiles.append(tile)
                 list.append(tiles)
             level.append(list)
-        DisasterEngine.grid=level
+        self.resetGrid()
         for tower in DisasterEngine.towerList:
             tower.kill()
         for y in range(len(level)-1):
             for x in range(len(level[y])-1):
-                
                 for i in range(len(level[y][x])-1):
-                    if(not level[y][x][i]=='.'):
-                        print "x,y=" , x , "," , y , " -- " , level[y][x] , i
+                    if(not level[y][x][i]=='.' and not level[y][x][i]=='\n'):
                         towertype= [i , level[y][x][i]]
-                        self.createTile(x,y,towertype)
+                        self.createTile(y,x,towertype)
                     
                        
     def createTile(self, x, y, towertype):
-        print x , y
         towerPos = ((x*32)+16,(y*32)+16)
         tower1 = Tile(towerPos,towertype)
         if not DisasterEngine.grid[x][y][towertype[0]]==towertype[1]:
@@ -222,7 +221,7 @@ class DisasterEngine:
                         self.gui.settower() #update the gui
                         if self.gui.towertype == 'None':
                             self.mode = "normal"
-                    elif self.gui.towertype!='None' and self.mode == "grid" and self.getZone()[0]< (self.resolution[1]/32 -1) and self.getZone()[0] >= 0 and self.getZone()[1] < (self.resolution[1]/32 -1) and self.getZone()[1] >= 0:
+                    elif self.gui.towertype!='None' and self.mode == "grid" and self.getZone()[0]< (self.resolution[1]/32) and self.getZone()[0] >= 0 and self.getZone()[1] < (self.resolution[1]/32) and self.getZone()[1] >= 0:
                         self.createTile(event.pos[0]/32,event.pos[1]/32,self.gui.towertype)
                         if not self.shiftHeld:
                             self.mode="normal"
