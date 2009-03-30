@@ -29,9 +29,19 @@ class GUI:
         self.bigtext=pygame.font.SysFont('Arial Black', 30, False, False)
         #Create the towerbuttons
         towerbutton((self.x+1*32, 1*32), [0,'F'])
+        towerbutton((self.x+2*32, 1*32), [0,'u'])
+        towerbutton((self.x+3*32, 1*32), [0,'d'])
+        towerbutton((self.x+4*32, 1*32), [0,'l'])
+        towerbutton((self.x+5*32, 1*32), [0,'r'])
+        towerbutton((self.x+1*32, 2*32), [0,'a'])
+        towerbutton((self.x+2*32, 2*32), [0,'b'])
+        towerbutton((self.x+3*32, 2*32), [0,'c'])
+        towerbutton((self.x+4*32, 2*32), [0,'e'])
+        
         towerbutton((self.x+1*32, 3*32), [1,'W'])
         towerbutton((self.x+2*32, 3*32), [1,'D'])
         towerbutton((self.x+3*32, 3*32), [1,'S'])
+        
         towerbutton((self.x+1*32, 5*32), [2,'W'])
         towerbutton((self.x+2*32, 5*32), [2,'D'])
         towerbutton((self.x+3*32, 5*32), [2,'S'])
@@ -85,6 +95,8 @@ class towerbutton(pygame.sprite.Sprite):
             self.image=pygame.image.load('data/images/BuildLeft.png')
         elif type==[0,'F']:
             self.image=pygame.image.load('data/images/Floor.png')
+        else:
+            self.image=pygame.image.load( "./data/images/%d%s%s" %( type[0] , type[1] , ".png") )
         towerbutton.towerbuttons.add(self)
         self.rect=pygame.rect.Rect(pos, (32,32))
     def mouse_on(self):
