@@ -45,6 +45,11 @@ class GUI:
         towerbutton((self.x+1*32, 5*32), [2,'W'])
         towerbutton((self.x+2*32, 5*32), [2,'D'])
         towerbutton((self.x+3*32, 5*32), [2,'S'])
+        
+        towerbutton((self.x+1*32, 9*32), [4,'A'])
+        towerbutton((self.x+2*32, 9*32), [4,'B'])
+        towerbutton((self.x+3*32, 9*32), [4,'C'])
+        towerbutton((self.x+4*32, 9*32), [4,'D'])
     def draw(self, screen):
         for button in towerbutton.towerbuttons:
             button.draw(screen, self.towertype)
