@@ -6,11 +6,10 @@
 <Table> {
   <Bundle> door_1_close {
     <Table> "<skeleton>" {
-      <Table> polySurface23 {
+      <Table> polySurface35 {
         <Xfm$Anim_S$> xform {
           <Scalar> fps { 24 }
           <Char*> order { srpht }
-          <S$Anim> x { <V> { 4.5 } }
           <S$Anim> z {
             <V> {
               3.826 3.65965 3.4933 3.32696 3.16061 2.99426 2.82791
