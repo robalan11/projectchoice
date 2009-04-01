@@ -9,25 +9,23 @@ from direct.gui.OnscreenText import OnscreenText
 from pandac.PandaModules import TextNode
 
 class Event(object):
-    def __init__(self, time, type, duration, remainder):
+    def __init__(self, time, type, duration, target, remainder):
         self.time = float(time)
         self.type = type
         self.duration = float(duration)
+        self.target = target
         
         if self.type == 'm':
             self.function = self.move
-            self.target = int(remainder[0])
             self.points = []
-            for point in remainder[1:]:
+            for point in remainder:
                 nums = point.split(',')
                 self.points.append((float(nums[0]), float(nums[1]), float(nums[2])))
         
         elif self.type == 't':
             self.function = self.turn
-            self.target = int(remainder[0])
-            self.rotation = float(remainder[1])
-            #self.startrot = self.target.getH()
-            self.startrot = 0
+            self.rotation = float(remainder[0])
+            self.startrot = self.target.model.getH()
         
         elif self.type == 's':
             self.function = self.speak
@@ -41,9 +39,8 @@ class Event(object):
     def move(self, title):
         elapsed = time.clock()-self.time
         if elapsed < self.duration:
-            point = self.bezier(self.points[:], elapsed/self.duration)
-            #target.setPos(point)
-            print point
+            pos = self.bezier(self.points[:], elapsed/self.duration)
+            self.target.model.setPos(pos)
             return Task.cont
         return Task.cont
     
@@ -51,8 +48,7 @@ class Event(object):
         elapsed = time.clock()-self.time
         if elapsed < self.duration:
             rot = self.startrot + self.rotation * (elapsed/self.duration)
-            #self.target.setH(rot)
-            print rot
+            self.target.model.setH(rot)
             return Task.cont
         return Task.done
     
@@ -90,8 +86,9 @@ class Event(object):
         return self.bezier(next_itr, t)
 
 class Cinematic(object):
-    def __init__(self, cinefile):
+    def __init__(self, cinefile, actors):
         self.events = []
+        self.actors = actors
         self.loadCinefile(cinefile)
         self.nextevent = 0
         self.start = time.clock()
@@ -101,7 +98,7 @@ class Cinematic(object):
         events = open(cinefile, 'r').readlines()
         for event in events:
             parts = event.split()
-            self.events.append(Event(parts[0], parts[1], parts[2], parts[3:]))
+            self.events.append(Event(parts[0], parts[1], parts[2], parts[3], parts[4:]))
     
     def runCin(self, title):
         elapsed = time.clock()-self.start
@@ -112,5 +109,9 @@ class Cinematic(object):
                 return Task.done
         return Task.cont
 
-Cinematic("Cinematics/test.cin")
-run()
+if __name__ == "__main__":
+    import Player
+    player = Player.Player("Art/Models/box.egg")
+    actors = {"player": player}
+    Cinematic("Cinematics/test.cin")
+    run()

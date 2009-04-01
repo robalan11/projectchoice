@@ -20,7 +20,7 @@ class World(DirectObject):
         
         #Execute level construction code
         
-        self.level=Level("1.txt")
+        self.level=Level("Interesting.txt")
         
         self.player.nodepath().setPos(10,0,5)
         
