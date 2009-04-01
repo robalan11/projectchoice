@@ -104,7 +104,7 @@ class Shotgun(Weapon):
     def __init__(self):
         super(Shotgun, self).__init__()
         
-        self.frays = [None, None, None, None, None, None]
+        self.frays = [None]*20
         
         self.crosshair = "Art/HUD/shotguncrosshair.png"
         self.firesound = loader.loadSfx("Sound/Effects/shotgun.wav")
@@ -118,7 +118,7 @@ class Shotgun(Weapon):
     def shoot(self, player):
         if self.reloadsound.status() != 2 and self.firesound.status() != 2:
             if self.shots > 0:
-                for i in xrange(6):
+                for i in xrange(20):
                     self.frays[i] = CollisionRay(0,0,0,0,1,0)
                     theta = random.randint(1,628318)/100000.0
                     phi = 0.05 * random.randint(0,157079)/100000.0     # Tune the leading constant for spread
