@@ -21,7 +21,7 @@ def load_image(name):
     return image
     
 class DisasterEngine:
-    towerList = None
+    towerList = [[],[],[],[],[],[],[]]
     surface = None
     grid= None
     myPath=None
@@ -60,7 +60,8 @@ class DisasterEngine:
         self.updateCount = 0
         
         #TowerLists
-        DisasterEngine.towerList = pygame.sprite.Group()
+        for i in range(6):
+            DisasterEngine.towerList[i] = pygame.sprite.Group()
         
         self.shiftHeld = True
         
@@ -112,7 +113,8 @@ class DisasterEngine:
             self.useImage = self.mapImage
         else:
             self.useImage = self.GridImage
-        DisasterEngine.towerList.update()
+        for i in range(6):
+            DisasterEngine.towerList[i].update()
         self.gui.update()
         
     def render(self):
@@ -123,7 +125,9 @@ class DisasterEngine:
             self.highlightZone(self.getZone())
         alertLiteral = self.alertFont.render(str(self.alertText), 1, (255, 120, 87))
         self.screen.blit(alertLiteral, (1000-(15*len(self.alertText)),525-70))
-        DisasterEngine.towerList.draw(self.screen)
+        
+        for i in range(6):
+            DisasterEngine.towerList[i].draw(self.screen)
         
         self.gui.draw(self.screen)
         
@@ -178,8 +182,9 @@ class DisasterEngine:
                 list.append(tiles)
             level.append(list)
         self.resetGrid()
-        for tower in DisasterEngine.towerList:
-            tower.kill()
+        for i in range(6):
+            for tower in DisasterEngine.towerList[i]:
+                tower.kill()
         for y in range(len(level)-1):
             for x in range(len(level[y])-1):
                 for i in range(len(level[y][x])-1):
@@ -192,7 +197,7 @@ class DisasterEngine:
         towerPos = ((x*32)+16,(y*32)+16)
         tower1 = Tile(towerPos,towertype)
         if not DisasterEngine.grid[x][y][towertype[0]]==towertype[1]:
-            self.towerList.add(tower1)
+            self.towerList[towertype[0]].add(tower1)
             DisasterEngine.grid[x][y][towertype[0]]=towertype[1]
             if not DisasterEngine.myPath==None:
                 self.mixer = pygame.mixer.Sound("data/audio/Place.wav");
@@ -228,13 +233,14 @@ class DisasterEngine:
                             self.mode="normal"
                 if event.type == MOUSEBUTTONDOWN and event.button==3: #Clicked right button
                     on_tower=False
-                    for tower in DisasterEngine.towerList:
-                        if tower.rect.collidepoint(event.pos):
-                            self.mixer = pygame.mixer.Sound("data/audio/SellTower.wav");
-                            self.mixer.play()
-                            on_tower=True
-                            myPos=[tower.centerx/32,tower.centery/32]
-                            DisasterEngine.grid[myPos[0]][myPos[1]]=['.','.','.','.','.','.','.']
-                            tower.kill()
+                    for i in range(6):
+                        for tower in DisasterEngine.towerList[i]:
+                            if tower.rect.collidepoint(event.pos):
+                                self.mixer = pygame.mixer.Sound("data/audio/SellTower.wav");
+                                self.mixer.play()
+                                on_tower=True
+                                myPos=[tower.centerx/32,tower.centery/32]
+                                DisasterEngine.grid[myPos[0]][myPos[1]]=['.','.','.','.','.','.','.']
+                                tower.kill()
                     if not on_tower: #Cancel Tower placement
                         self.gui.towertype='None'
