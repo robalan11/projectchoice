@@ -302,7 +302,7 @@ class AI():
         #Check for uninterruptable states
         #if self.model.getAnimControl("Fire").isPlaying() and self.model.getCurrentFrame("Fire")<self.model.getNumFrames("Fire"):
             #return
-        #if self.dead:
+        #if self.health<0:
             #if self.model.getAnimControl("Dying").isPlaying() and self.model.getCurrentFrame("Dying")<self.model.getNumFrames("Dying")":
                 #Spawn your drop
                 #AI.AI_dict.remove(self)
