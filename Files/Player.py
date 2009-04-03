@@ -80,9 +80,7 @@ class Player ():
         self.AIspath.node().addSolid(self.AIs)
         self.AIspath.node().setFromCollideMask(BitMask32(0x10))
         self.AIspath.setCollideMask(BitMask32(0x10))
-        base.cTrav.addCollider(self.AIspath, AI.sight)
-        self.AIspath.show()
-        
+        base.cTrav.addCollider(self.AIspath, AI.sight)        
         
         #~ self.weapon = whatever the starting weapon is
         #~ set up an empty list of enemies that see me
@@ -92,6 +90,7 @@ class Player ():
         self.dx=0
         self.dy=0
         self.dz=0
+        self.loud=0
         self.loyalty = [0, 50] # out of a minimum of 0 and a maximum of 100
         
     def nodepath(self):
@@ -207,6 +206,7 @@ class Player ():
         #~ check and set lights of current room to player
         #~ if under cinematic control
             #~ run cinema_tick(self) and nothing else
+        self.loud=abs(self.dx)+abs(self.dy)+(self.weapon.firesound.status()==2)*20
         angle = math.radians(self.model.getH())
         sa = math.sin(angle)
         ca = math.cos(angle)
