@@ -30,8 +30,8 @@ def AIsight(task_object):
         #Reset, keeping track of only the first target
         player=AI.playerhandle
         for index,NPC in AI.AI_dict.items():
-            if NPC.targetlist: #If the list isn't empty
-                NPC.targetlist=[NPC.targetlist[0]]
+            #if NPC.targetlist: #If the list isn't empty
+                #NPC.targetlist=[NPC.targetlist[0]]
             NPC.seeplayer=False
         AI.sight.sortEntries()
         for i in range(AI.sight.getNumEntries()):
@@ -71,7 +71,7 @@ def AIsight(task_object):
                         #View is not obfuscated
                         fromAI.seeplayer=True
                         player.add_AI(fromAI)
-                        if fromAI.targetlist.count(player)==0 and (player.loyalty[fromAI.team]<45 or self.forcedenemy==True):
+                        if fromAI.targetlist.count(player)==0 and (player.loyalty[fromAI.team]<45 or fromAI.forcedenemy==True):
                             fromAI.targetlist.append(player)
                             fromAI.targetpos = player.model.getPos()
                 else:
@@ -258,6 +258,7 @@ class AI():
         self.awareof=0
         self.forcedenemy=False
         self.loud=0
+        self.ID = AI.ID
         
         #Tasks
         taskMgr.add(self.tick, "AI tick;"+str(AI.ID))
@@ -290,6 +291,9 @@ class AI():
         self.dh=0
         self.seetarget=False
         self.shooting=False
+        
+        print self.ID
+        print self.targetlist
         
         #------------------------
         #Brain choices stuff
@@ -331,10 +335,11 @@ class AI():
                 self.ftrav.traverse(render)
                 self.fire.sortEntries()
                 self.frpath.setHpr(Point3(0,0,0))
-                if self.fire.getEntry(0).getIntoNodePath().getName()==target.cspath.getName():
+                if self.fire.getEntry(0).getIntoNodePath().getParent().getName()==target.model.getName():
                         #Vision is not occluded, use this target
                         self.seetarget=True
                         self.targetpos = target.model.getPos()
+                        self.targetlist=[target]
                         break
             if self.seetarget==False:
                 if self.seeplayer and self.follow:
