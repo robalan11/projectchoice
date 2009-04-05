@@ -200,19 +200,20 @@ class AI():
             #Load idling
             #Load firing
             w=loader.loadModel("Art/Models/pistol.egg")
-            w.setScale(0.1,0.1,0.1)
+            w.setScale(0.05,0.05,0.05)
             w.reparentTo(temp)
         elif (weapon ==2):
             self.drop = "Shotgun"
             self.weapon = Weapon.Shotgun()
             self.killzone=10
-            print self.model.loadAnims({"Crouch": "Art/animations/human1-crouchingbiggun.egg"})
-            print self.model.loadAnims({"Run": "Art/animations/human1-runningbiggun.egg"})
-            print self.model.loadAnims({"Walk": "Art/animations/human1-walkingbiggun.egg"})
+            self.model.loadAnims({"Crouch": "Art/animations/human1-crouchingbiggun.egg"})
+            self.model.loadAnims({"Run": "Art/animations/human1-runningbiggun.egg"})
+            self.model.loadAnims({"Walk": "Art/animations/human1-walkingbiggun.egg"})
             #Load idling
             #Load firing
             w=loader.loadModel("Art/Models/shotgun.egg")
-            w.setScale(0.25, 0.25,0.25)
+            w.setScale(0.1, 0.1,0.1)
+            w.setHpr(180,0,90)
             w.reparentTo(temp)
         #elif (weapon ==3):
             #self.weapon = Weapon.AssautRifle()
@@ -237,8 +238,6 @@ class AI():
             #w=loader.loadModel("Art/Models/shotgun.egg")
             #w.setScale(0.1,0.1,0.1)
             #w.reparentTo(temp)
-        
-        self.model.loop("Walk")
         #Variables
         self.dx=0
         self.dy=0
@@ -292,9 +291,6 @@ class AI():
         self.seetarget=False
         self.shooting=False
         
-        print self.ID
-        print self.targetlist
-        
         #------------------------
         #Brain choices stuff
         #------------------------
@@ -317,9 +313,10 @@ class AI():
             self.look_angles = self.targetpos-Vec3(self.model.getPos())
             self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
             self.dh=min(AI.turnspeed, max(self.look_angles.getX()-self.model.getH(), -AI.turnspeed))
-            if self.dh<1:
+            if abs(self.dh)<1:
                 self.forceturn=False
                 self.dh=0
+                self.targetpos=self.model.getPos()
         else:
             #Select the first target that isn't hidden by something else
             for target in self.targetlist:
@@ -403,24 +400,27 @@ class AI():
         #Animation Handling
         #------------------------
         
-        #~ if self.shooting:
-            #~ pass
-            #~ #if self.dy > 0
-                #~ #run shooting part on top half and moving part on bottom half
-            #~ #else:
-                #~ #self.model.play("Fire")
-        #~ elif self.dy>AI.runanim:
-            #~ print "Runnin"
-            #~ self.model.setPlayRate(self.dy/AI.runanim, "Run")
-            #~ if not self.model.getAnimControl("Run").isPlaying:
-                #~ self.model.loop("Run")
-        #~ elif self.dy>0:
-            #~ print "Walkin"
-            #~ self.model.setPlayRate(self.dy/AI.runanim, "Walk")
-            #~ if not self.model.getAnimControl("Walk").isPlaying:
-                #~ self.model.loop("Walk")
-        #~ else:
-            #~ self.model.pose("Walk",0)
+        print self.ID
+        print self.dy
+        if self.shooting:
+            pass
+            #if self.dy > 0
+                #run shooting part on top half and moving part on bottom half
+            #else:
+                #self.model.play("Fire")
+        elif self.dy>AI.runanim:
+            print "Run"
+            self.model.setPlayRate(self.dy/AI.runanim, "Run")
+            if not self.model.getAnimControl("Run").isPlaying():
+                self.model.loop("Run")
+        elif self.dy>0:
+            print "Walk"
+            self.model.setPlayRate(self.dy/AI.runanim, "Walk")
+            if not self.model.getAnimControl("Walk").isPlaying():
+                self.model.loop("Walk")
+        else:
+            print "Still"
+            self.model.stop()
         #elif not self.model.getAnimControl("Idle").isPlaying():
             #self.model.loop("Idle")
         #------------------------    
@@ -432,6 +432,8 @@ class AI():
         time_tick = globalClock.getDt()*6
         self.model.setX(self.model.getX()-ca*self.dx*time_tick-sa*self.dy*time_tick)
         self.model.setY(self.model.getY()+ca*self.dy*time_tick-sa*self.dx*time_tick)
+        #print self.ID
+        print "#"
         self.model.setH(self.model.getH()+self.dh*time_tick)
         self.model.setH((self.model.getH()+180)%360-180)
         self.loud=self.dy+(self.weapon.firesound.status()==2)*40
