@@ -1,0 +1,321 @@
+<CoordinateSystem> { Y-Up }
+
+<Comment> {
+  "maya2egg2008 -a model -o 'C:\Documents and Settings\Robert Link\Desktop\Game Dev\Art\Models\sh_ammo_small.egg' 'C:\Documents and Settings\Robert Link\Desktop\Game Dev\Art\Models\sh_ammo_small.mb'"
+}
+<Texture> phong8SG {
+  "../Textures/sh_ammo_small.jpg"
+  <Scalar> format { rgb }
+  <Scalar> wrapu { repeat }
+  <Scalar> wrapv { repeat }
+  <Scalar> minfilter { linear_mipmap_linear }
+  <Scalar> magfilter { linear }
+}
+<Group> sh_ammo_small {
+  <Dart> { 1 }
+  <Group> groundPlane_transform {
+  }
+  <Group> pCube1 {
+    <Group> transform4 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> pCube2 {
+    <Group> transform1 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> pCube3 {
+    <Group> transform3 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> pCube4 {
+    <Group> transform2 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> pCube5 {
+    <Group> transform6 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> pCube6 {
+    <Group> transform5 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> polySurface1 {
+    <Group> transform18 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> pCube7 {
+    <Group> transform8 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> pCube8 {
+    <Group> transform7 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> polySurface2 {
+    <Group> transform10 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> pCylinder1 {
+    <Group> transform9 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> pCylinder2 {
+    <Group> transform11 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> pCylinder3 {
+    <Group> transform13 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> pCylinder4 {
+    <Group> transform15 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> polySurface3 {
+    <Group> transform12 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> polySurface4 {
+    <Group> transform14 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> polySurface5 {
+    <Group> transform16 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> polySurface6 {
+    <Group> transform17 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> polySurface7 {
+    <Group> transform19 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> pCube10 {
+    <Group> transform25 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> pCube11 {
+    <Group> transform24 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> pCube12 {
+    <Group> transform23 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> pCube13 {
+    <Group> transform22 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> pCube14 {
+    <Group> transform21 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> pCube15 {
+    <Group> transform20 {
+      <Scalar> visibility { hidden }
+    }
+  }
+  <Group> pCube16 {
+    <VertexPool> pCubeShape16.verts {
+      <Vertex> 0 {
+        0.287709 -0.318557 -0.216479
+        <UV> { 1.15989 -0.0424713 }
+        <Normal> { 1 0 0 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 1 {
+        0.287709 0.318557 -0.216479
+        <UV> { 1.15989 0.83761 }
+        <Normal> { 1 0 0 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 2 {
+        0.287709 0.318557 0.216479
+        <UV> { 1.03747 0.83761 }
+        <Normal> { 1 0 0 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 3 {
+        0.287709 -0.318557 0.216479
+        <UV> { 1.03747 -0.0424713 }
+        <Normal> { 1 0 0 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 4 {
+        0.287709 -0.318557 0.216479
+        <UV> { 1.03747 -0.0424713 }
+        <Normal> { 0 0 1 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 5 {
+        0.287709 0.318557 0.216479
+        <UV> { 1.03747 0.83761 }
+        <Normal> { 0 0 1 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 6 {
+        -0.287709 0.318557 0.216479
+        <UV> { 0.17738 0.83761 }
+        <Normal> { 0 0 1 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 7 {
+        -0.287709 -0.318557 0.216479
+        <UV> { 0.17738 -0.0424713 }
+        <Normal> { 0 0 1 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 8 {
+        -0.287709 -0.318557 0.216479
+        <UV> { 0.17738 -0.0424713 }
+        <Normal> { -1 0 0 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 9 {
+        -0.287709 0.318557 0.216479
+        <UV> { 0.17738 0.83761 }
+        <Normal> { -1 0 0 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 10 {
+        -0.287709 0.318557 -0.216479
+        <UV> { 0.299797 0.83761 }
+        <Normal> { -1 0 0 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 11 {
+        -0.287709 -0.318557 -0.216479
+        <UV> { 0.299797 -0.0424713 }
+        <Normal> { -1 0 0 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 12 {
+        -0.287709 -0.318557 -0.216479
+        <UV> { 1.02378 0.00199203 }
+        <Normal> { 0 0 -1 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 13 {
+        -0.287709 0.318557 -0.216479
+        <UV> { 1.02378 0.998008 }
+        <Normal> { 0 0 -1 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 14 {
+        0.287709 0.318557 -0.216479
+        <UV> { 0.124216 0.998008 }
+        <Normal> { 0 0 -1 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 15 {
+        0.287709 -0.318557 -0.216479
+        <UV> { 0.124216 0.00199203 }
+        <Normal> { 0 0 -1 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 16 {
+        0.287709 0.318557 -0.216479
+        <UV> { 1.15989 0.83761 }
+        <Normal> { 0 1 0 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 17 {
+        -0.287709 0.318557 -0.216479
+        <UV> { 0.299797 0.83761 }
+        <Normal> { 0 1 0 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 18 {
+        -0.287709 0.318557 0.216479
+        <UV> { 0.17738 0.83761 }
+        <Normal> { 0 1 0 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 19 {
+        0.287709 0.318557 0.216479
+        <UV> { 1.03747 0.83761 }
+        <Normal> { 0 1 0 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 20 {
+        -0.287709 -0.318557 -0.216479
+        <UV> { 0.299797 -0.0424713 }
+        <Normal> { 0 -1 0 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 21 {
+        0.287709 -0.318557 -0.216479
+        <UV> { 1.15989 -0.0424713 }
+        <Normal> { 0 -1 0 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 22 {
+        0.287709 -0.318557 0.216479
+        <UV> { 1.03747 -0.0424713 }
+        <Normal> { 0 -1 0 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 23 {
+        -0.287709 -0.318557 0.216479
+        <UV> { 0.17738 -0.0424713 }
+        <Normal> { 0 -1 0 }
+        <RGBA> { 1 1 1 1 }
+      }
+    }
+    <Polygon> {
+      <Normal> { 1 0 0 }
+      <TRef> { phong8SG }
+      <VertexRef> { 0 1 2 3 <Ref> { pCubeShape16.verts } }
+    }
+    <Polygon> {
+      <Normal> { 0 0 1 }
+      <TRef> { phong8SG }
+      <VertexRef> { 4 5 6 7 <Ref> { pCubeShape16.verts } }
+    }
+    <Polygon> {
+      <Normal> { -1 0 0 }
+      <TRef> { phong8SG }
+      <VertexRef> { 8 9 10 11 <Ref> { pCubeShape16.verts } }
+    }
+    <Polygon> {
+      <Normal> { 0 0 -1 }
+      <TRef> { phong8SG }
+      <VertexRef> { 12 13 14 15 <Ref> { pCubeShape16.verts } }
+    }
+    <Polygon> {
+      <Normal> { 0 1 0 }
+      <TRef> { phong8SG }
+      <VertexRef> { 16 17 18 19 <Ref> { pCubeShape16.verts } }
+    }
+    <Polygon> {
+      <Normal> { 0 -1 0 }
+      <TRef> { phong8SG }
+      <VertexRef> { 20 21 22 23 <Ref> { pCubeShape16.verts } }
+    }
+  }
+}
