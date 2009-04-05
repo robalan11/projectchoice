@@ -109,7 +109,7 @@ class AI():
     runanim=1.5
     turnanim=5
     walkanim=1
-    scale=0.6
+    scale=0.53
     
     def __init__(self, model, incell,team, startpos, starth, weapon):
         #Model = Number of model body type. Just use 0 for default body
@@ -201,6 +201,8 @@ class AI():
             #Load firing
             w=loader.loadModel("Art/Models/pistol.egg")
             w.setScale(0.05,0.05,0.05)
+            w.setPos(-0.1, 0.6, 0.2)
+            w.setHpr(90,70,135)
             w.reparentTo(temp)
         elif (weapon ==2):
             self.drop = "Shotgun"
@@ -213,7 +215,8 @@ class AI():
             #Load firing
             w=loader.loadModel("Art/Models/shotgun.egg")
             w.setScale(0.1, 0.1,0.1)
-            w.setHpr(180,0,90)
+            w.setPos(-0.56, 0.23, 0.3)
+            w.setHpr(175,90,10)
             w.reparentTo(temp)
         #elif (weapon ==3):
             #self.weapon = Weapon.AssautRifle()
@@ -402,13 +405,13 @@ class AI():
         
         print self.ID
         print self.dy
-        if self.shooting:
-            pass
+        #if self.shooting:
+            #pass
             #if self.dy > 0
                 #run shooting part on top half and moving part on bottom half
             #else:
                 #self.model.play("Fire")
-        elif self.dy>AI.runanim:
+        if self.dy>AI.runanim:
             print "Run"
             self.model.setPlayRate(self.dy/AI.runanim, "Run")
             if not self.model.getAnimControl("Run").isPlaying():
