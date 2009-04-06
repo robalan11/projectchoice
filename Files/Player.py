@@ -10,7 +10,7 @@ import Weapon
 
 #This assumes that base.cTrav has been defined
 
-# bit 0 is walls, bit 1 is floor, bit 3 is player bullets, bit 4 is AI bullets, bit 5 is AI vision
+# bit 0 is walls, bit 1 is floor, bit 3 is player bullets, bit 4 is AI bullets, bit 5 is AI vision, bit 6 is powerups
 
 class Player ():
     def __init__(self,arm_model):
@@ -67,6 +67,15 @@ class Player ():
         self.ctpath.node().setFromCollideMask(BitMask32(0x00))
         self.ctpath.setCollideMask(BitMask32(0x08))
         
+        #Powerup pickup
+        #~ self.ps=CollisionSphere(0,0,-1.25, 1.4)
+        #~ self.pspath=self.model.attachNewNode(CollisionNode('ppower'))
+        #~ self.pspath.node().addSolid(self.ps)
+        #~ self.pspath.node().setFromCollideMask(BitMask32(0x20))
+        #~ self.pspath.setCollideMask(BitMask32.bit(0x00))
+        #~ self.phandle=CollisionHandlerQueue()
+        #~ base.cTrav.addCollider(self.pspath, self.phandle)
+        
         #Set up weapons
         self.pistol = Weapon.Pistol()
         self.shotgun = Weapon.Shotgun()
@@ -91,6 +100,9 @@ class Player ():
         self.dy=0
         self.dz=0
         self.loud=0
+        self.health=0
+        self.armor=0
+        self.haveweapon=[1,0,0,0] #Knife, Pistol Shotgun Assault Rifle
         self.loyalty = [0, 50] # out of a minimum of 0 and a maximum of 100
         
     def nodepath(self):
@@ -182,7 +194,16 @@ class Player ():
         
     def damage(self, attacker, damage):
         #attacker is the attacking player/AI which is passed to the weapon
-        self.health -= damage
+        if armor>0:
+            if armor<damage:
+                self.armor=0
+                self.health-=damage-self.armor
+            else:
+                self.armor-=damage
+        else:
+            self.health -= damage
+        if health<0:
+            pass #add death triggering
     
     def broadcast_attack(self, AI_hit):
         for enemy in self.enemies_watching:
@@ -217,7 +238,31 @@ class Player ():
         #~ if (self.m_handlefloor.isOnGround()):
             #~ self.m_handlefloor.setVelocity(self.dz)
             
-        #~ set camera to player's position (anchored to player, so done automatically
+        #~ set camera to player's position (anchored to player, so done automatically)
+        #~Check for collision with powerups
+        #~ for i in range(self.phandle.getNumEntries()):
+            #~ #Check the node's name against all powerup types and change accordingly
+            #~ name = self.phandle.getEntry(i).getIntoNodePath().getName()
+            #~ if name == "health":
+                #~ self.health = min(100, self.health+25)
+            #~ elif name == "armor":
+                #~ self.armor = 100
+            #~ elif name == "pistol":
+                #~ self.haveweapon[1] = 1
+                #~ self.pistol.ammo = min(self.pistol.maxammo, self.pistol.ammo+self.pistol.maxshots)
+            #~ elif name == "shotgun":
+                #~ self.haveweapon[2] = 1
+                #~ self.shotgun.ammo = min(self.shotgun.maxammo, self.shotgun.ammo+self.shotgun.maxshots)
+            #~ #elif name == "assault":
+                #~ #self.haveweapon[3] = 1
+                #~ #self.assaultrifle.ammo = min(self.assaultrifle.maxammo, self.assaultrifle.ammo+self.assaultrifle.maxshots)
+            #~ elif name == "pammo":
+                #~ self.pistol.ammo = min(self.pistol.maxammo, self.pistol.ammo+24)
+            #~ elif name == "sammo":
+                #~ self.shotgun.ammo = min(self.shotgun.maxammo, self.shotgun.ammo+10)
+            #~ #elif name == "aammo":
+                #~ #self.assaultrifle.ammo = min(self.assaultrifle.maxammo, self.assaultrifle.ammo+36)
+            #~ self.phandle.getEntry(i).getIntoNodePath().getParent().remove()
         #~ update the GUI
         return Task.cont
     def collided(self):
