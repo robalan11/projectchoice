@@ -43,10 +43,16 @@ class GUI:
         towerbutton((self.x+1*32, 3*32), [1,'W'])
         towerbutton((self.x+2*32, 3*32), [1,'D'])
         towerbutton((self.x+3*32, 3*32), [1,'S'])
+        towerbutton((self.x+4*32, 3*32), [1,'x'])
+        towerbutton((self.x+5*32, 3*32), [1,'e'])
+        towerbutton((self.x+6*32, 3*32), [1,'t'])
         
         towerbutton((self.x+1*32, 5*32), [2,'W'])
         towerbutton((self.x+2*32, 5*32), [2,'D'])
         towerbutton((self.x+3*32, 5*32), [2,'S'])
+        towerbutton((self.x+4*32, 5*32), [2,'x'])
+        towerbutton((self.x+5*32, 5*32), [2,'e'])
+        towerbutton((self.x+6*32, 5*32), [2,'t'])
         
         towerbutton((self.x+1*32, 9*32), [4,'A'])
         towerbutton((self.x+2*32, 9*32), [4,'B'])
