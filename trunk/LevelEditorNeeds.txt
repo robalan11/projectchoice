@@ -7,3 +7,13 @@ Check! - Guard/Prisoner start positions (Note that they need to discriminate wha
 Weapon/Ammo start points
 Check! - Stairs-up
 Check! - Stairs-down
+
+Gah! Stop being efficient, John!
+
+Barricades
+
+Tables
+
+Chairs
+
+Check with the artists to figure out what other models they've made.
