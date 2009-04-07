@@ -10,7 +10,7 @@ import Weapon
 
 #This assumes that base.cTrav has been defined
 
-# bit 0 is walls, bit 1 is floor, bit 3 is player bullets, bit 4 is AI bullets, bit 5 is AI vision, bit 6 is powerups
+# bit 0 is walls, bit 1 is floor, bit 3 is player bullets, bit 4 is AI bullets, bit 5 is AI vision, bit 6 is powerups and mission objectives
 
 class Player ():
     def __init__(self,arm_model):
@@ -67,7 +67,7 @@ class Player ():
         self.ctpath.node().setFromCollideMask(BitMask32(0x00))
         self.ctpath.setCollideMask(BitMask32(0x08))
         
-        #Powerup pickup
+        #Powerup pickup and mission objective handling
         self.ps=CollisionSphere(0,0,-1.25, 1.4)
         self.pspath=self.model.attachNewNode(CollisionNode('ppower'))
         self.pspath.node().addSolid(self.ps)
@@ -104,6 +104,8 @@ class Player ():
         self.armor=0
         self.haveweapon=[1,0,0,0] #Knife, Pistol Shotgun Assault Rifle
         self.loyalty = [0, 50] # out of a minimum of 0 and a maximum of 100
+        self.pobjective=[False, False]
+        self.gobjective=[False, False]
         
     def nodepath(self):
         return self.model
@@ -239,30 +241,38 @@ class Player ():
             #~ self.m_handlefloor.setVelocity(self.dz)
             
         #~ set camera to player's position (anchored to player, so done automatically)
-        #~Check for collision with powerups
-        #~ for i in range(self.phandle.getNumEntries()):
-            #~ #Check the node's name against all powerup types and change accordingly
-            #~ name = self.phandle.getEntry(i).getIntoNodePath().getName()
-            #~ if name == "health":
-                #~ self.health = min(100, self.health+25)
-            #~ elif name == "armor":
-                #~ self.armor = 100
-            #~ elif name == "pistol":
-                #~ self.haveweapon[1] = 1
-                #~ self.pistol.ammo = min(self.pistol.maxammo, self.pistol.ammo+self.pistol.maxshots)
-            #~ elif name == "shotgun":
-                #~ self.haveweapon[2] = 1
-                #~ self.shotgun.ammo = min(self.shotgun.maxammo, self.shotgun.ammo+self.shotgun.maxshots)
-            #~ #elif name == "assault":
-                #~ #self.haveweapon[3] = 1
-                #~ #self.assaultrifle.ammo = min(self.assaultrifle.maxammo, self.assaultrifle.ammo+self.assaultrifle.maxshots)
-            #~ elif name == "pammo":
-                #~ self.pistol.ammo = min(self.pistol.maxammo, self.pistol.ammo+24)
-            #~ elif name == "sammo":
-                #~ self.shotgun.ammo = min(self.shotgun.maxammo, self.shotgun.ammo+10)
-            #~ #elif name == "aammo":
-                #~ #self.assaultrifle.ammo = min(self.assaultrifle.maxammo, self.assaultrifle.ammo+36)
-            #~ self.phandle.getEntry(i).getIntoNodePath().getParent().remove()
+        #~Check for collision with powerups and mission objectives
+        for i in range(self.phandle.getNumEntries()):
+            #Check the node's name against all powerup types and change accordingly
+            name = self.phandle.getEntry(i).getIntoNodePath().getName()
+            if name == "health":
+                self.health = min(100, self.health+25)
+            elif name == "armor":
+                self.armor = 100
+            elif name == "pistol":
+                self.haveweapon[1] = 1
+                self.pistol.ammo = min(self.pistol.maxammo, self.pistol.ammo+self.pistol.maxshots)
+            elif name == "shotgun":
+                self.haveweapon[2] = 1
+                self.shotgun.ammo = min(self.shotgun.maxammo, self.shotgun.ammo+self.shotgun.maxshots)
+            #elif name == "assault":
+                #self.haveweapon[3] = 1
+                #self.assaultrifle.ammo = min(self.assaultrifle.maxammo, self.assaultrifle.ammo+self.assaultrifle.maxshots)
+            elif name == "pammo":
+                self.pistol.ammo = min(self.pistol.maxammo, self.pistol.ammo+24)
+            elif name == "sammo":
+                self.shotgun.ammo = min(self.shotgun.maxammo, self.shotgun.ammo+10)
+            #elif name == "aammo":
+                #self.assaultrifle.ammo = min(self.assaultrifle.maxammo, self.assaultrifle.ammo+36)
+            elif name == "prisonerobjective1":
+                self.pobjective[0]=True
+            elif name == "prisonerobjective2":
+                self.pobjective[1]=True
+            elif name == "guardobjective1":
+                self.gobjective[0]=True
+            elif name == "guardobjective2":
+                self.gobjective[2]=True
+            self.phandle.getEntry(i).getIntoNodePath().getParent().remove()
         #~ update the GUI
         return Task.cont
     def collided(self):
