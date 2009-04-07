@@ -185,7 +185,7 @@ class AI():
         self.AIspath.node().setFromCollideMask(BitMask32(0x10))
         self.AIspath.setCollideMask(BitMask32(0x00))
         base.cTrav.addCollider(self.AIspath, AI.sight)
-        self.AIspath.show()
+        #self.AIspath.show()
         
         #Set weapon, weapon model, and load animations based on weapon
         
@@ -403,8 +403,8 @@ class AI():
         #Animation Handling
         #------------------------
         
-        print self.ID
-        print self.dy
+        #print self.ID
+        #print self.dy
         #if self.shooting:
             #pass
             #if self.dy > 0
@@ -412,17 +412,17 @@ class AI():
             #else:
                 #self.model.play("Fire")
         if self.dy>AI.runanim:
-            print "Run"
+            #print "Run"
             self.model.setPlayRate(self.dy/AI.runanim, "Run")
             if not self.model.getAnimControl("Run").isPlaying():
                 self.model.loop("Run")
         elif self.dy>0:
-            print "Walk"
+            #print "Walk"
             self.model.setPlayRate(self.dy/AI.runanim, "Walk")
             if not self.model.getAnimControl("Walk").isPlaying():
                 self.model.loop("Walk")
         else:
-            print "Still"
+            #print "Still"
             self.model.stop()
         #elif not self.model.getAnimControl("Idle").isPlaying():
             #self.model.loop("Idle")
@@ -435,8 +435,7 @@ class AI():
         time_tick = globalClock.getDt()*6
         self.model.setX(self.model.getX()-ca*self.dx*time_tick-sa*self.dy*time_tick)
         self.model.setY(self.model.getY()+ca*self.dy*time_tick-sa*self.dx*time_tick)
-        #print self.ID
-        print "#"
+        #print "#"
         self.model.setH(self.model.getH()+self.dh*time_tick)
         self.model.setH((self.model.getH()+180)%360-180)
         self.loud=self.dy+(self.weapon.firesound.status()==2)*40
