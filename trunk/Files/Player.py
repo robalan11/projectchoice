@@ -68,13 +68,13 @@ class Player ():
         self.ctpath.setCollideMask(BitMask32(0x08))
         
         #Powerup pickup
-        #~ self.ps=CollisionSphere(0,0,-1.25, 1.4)
-        #~ self.pspath=self.model.attachNewNode(CollisionNode('ppower'))
-        #~ self.pspath.node().addSolid(self.ps)
-        #~ self.pspath.node().setFromCollideMask(BitMask32(0x20))
-        #~ self.pspath.setCollideMask(BitMask32.bit(0x00))
-        #~ self.phandle=CollisionHandlerQueue()
-        #~ base.cTrav.addCollider(self.pspath, self.phandle)
+        self.ps=CollisionSphere(0,0,-1.25, 1.4)
+        self.pspath=self.model.attachNewNode(CollisionNode('ppower'))
+        self.pspath.node().addSolid(self.ps)
+        self.pspath.node().setFromCollideMask(BitMask32(0x20))
+        self.pspath.setCollideMask(BitMask32(0x00))
+        self.phandle=CollisionHandlerQueue()
+        base.cTrav.addCollider(self.pspath, self.phandle)
         
         #Set up weapons
         self.pistol = Weapon.Pistol()
