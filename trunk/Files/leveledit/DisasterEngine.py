@@ -60,7 +60,7 @@ class DisasterEngine:
         self.updateCount = 0
         
         #TowerLists
-        for i in range(6):
+        for i in range(7):
             DisasterEngine.towerList[i] = pygame.sprite.Group()
         
         self.shiftHeld = True
@@ -126,7 +126,7 @@ class DisasterEngine:
         alertLiteral = self.alertFont.render(str(self.alertText), 1, (255, 120, 87))
         self.screen.blit(alertLiteral, (1000-(15*len(self.alertText)),525-70))
         
-        for i in range(6):
+        for i in range(7):
             DisasterEngine.towerList[i].draw(self.screen)
         
         self.gui.draw(self.screen)
