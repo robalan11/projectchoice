@@ -37,6 +37,7 @@ class Knife(Weapon):
         self.wallsound = loader.loadSfx("Sound/Effects/knifewall.wav")
         self.shots=1
         self.maxshots=1
+        self.type = "knife"
     
     def shoot(self, player):
         if self.firesound.status() != 2:
@@ -76,6 +77,7 @@ class Pipe(Weapon):
         self.wallsound = loader.loadSfx("Sound/Effects/knifewall.wav")
         self.shots=1
         self.maxshots=1
+        self.type = "pipe"
     
     def shoot(self, player):
         if self.firesound.status() != 2:
@@ -118,6 +120,7 @@ class Pistol(Weapon):
         self.maxshots = 12
         self.ammo = 48
         self.maxammo = 120
+        self.type = "pistol"
     
     def shoot(self, player):
         if self.reloadsound.status() != 2 and self.firesound.status() != 2:
@@ -154,6 +157,7 @@ class Shotgun(Weapon):
         self.maxshots = 6
         self.ammo = 24
         self.maxammo = 60
+        self.type = "shotgun"
     
     def shoot(self, player):
         if self.reloadsound.status() != 2 and self.firesound.status() != 2:
@@ -201,6 +205,7 @@ class Rifle(Weapon):
         self.maxshots = 50
         self.ammo = 100
         self.maxammo = 300
+        self.type = "rifle"
     
     def shoot(self, player):
         if self.reloadsound.status() != 2 and self.firesound.status() != 2:
