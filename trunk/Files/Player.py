@@ -86,6 +86,11 @@ class Player ():
         self.crosshair=OnscreenImage(image = self.pistol.crosshair, pos = (0,0,0), scale =0.05)
         self.crosshair.setTransparency(TransparencyAttrib.MAlpha)
         
+        #Set up weapon animations
+        self.arms = Actor("Art/Models/arms-model") #, {"pistol":"Art/Models/fire_pistol"})
+        self.arms.reparentTo(render)
+        self.arms.setPos(10,-10,5)
+        
         self.AIs=CollisionSphere(0,0,-1.25,1.25)
         self.AIspath=self.model.attachNewNode(CollisionNode('pspher'))
         self.AIspath.node().addSolid(self.AIs)
@@ -164,9 +169,7 @@ class Player ():
         if (self.keyMap["shoot"]==1):
             if self.weapon != self.rifle:
                 self.keyMap["shoot"]=0
-                #~ get properties of current weapon
-                #~ start firing animation as self-managing interval
-                #~ fire a ray with appropriate range and get collision detection
+            #self.arms.play(self.weapon.type)
             self.weapon.shoot(self)
         
         if (self.keyMap["reload"] == 1):
