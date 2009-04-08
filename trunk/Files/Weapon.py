@@ -66,6 +66,46 @@ class Knife(Weapon):
     def reload(self):
         pass
 
+class Pipe(Weapon):
+    def __init__(self):
+        super(Pipe, self).__init__()
+        
+        self.crosshair = "Art/HUD/knifecrosshair.png"
+        self.firesound = loader.loadSfx("Sound/Effects/knifemiss.wav")
+        self.hitsound = loader.loadSfx("Sound/Effects/knifehit.wav")
+        self.wallsound = loader.loadSfx("Sound/Effects/knifewall.wav")
+        self.shots=1
+        self.maxshots=1
+    
+    def shoot(self, player):
+        if self.firesound.status() != 2:
+            self.ftrav.traverse(render)
+            self.sight.sortEntries()
+            self.firesound.play()
+            for i in range(self.sight.getNumEntries()):
+                object=self.sight.getEntry(i)
+                #~ if weapon hits an AI
+                if (object.getIntoNodePath().getName()=="AItarget"):
+                    targ = object.getSurfacePoint(render)
+                    dist = sqrt(pow(player.model.getX()-targ[0],2) + pow(player.model.getY()-targ[1],2) + pow(player.model.getZ()-targ[2],2))
+                    if dist < 4:
+                        self.hitsound.play()
+                        object.getIntoNodePath().getParent().removeNode()#Current hack
+                        break
+                if (object.getIntoNodePath().getName()=="wall" or object.getIntoNodePath().getName()=="floor"):
+                    targ = object.getSurfacePoint(render)
+                    dist = sqrt(pow(player.model.getX()-targ[0],2) + pow(player.model.getY()-targ[1],2) + pow(player.model.getZ()-targ[2],2))
+                    print dist
+                    if dist < 4:
+                        self.wallsound.play()
+                    break
+                    #~ do damage and alert AI
+                    #~ broadcast_attack(AI_hit)
+    
+    def reload(self):
+        pass
+
+
 class Pistol(Weapon):
     def __init__(self):
         super(Pistol, self).__init__()
@@ -145,6 +185,40 @@ class Shotgun(Weapon):
                     
                 for i in xrange(6):
                     self.frpath.node().removeSolid(0)
+            else:
+                if self.emptysound.status() != 2:
+                    self.emptysound.play()
+
+class Rifle(Weapon):
+    def __init__(self):
+        super(Rifle, self).__init__()
+        
+        self.crosshair = "Art/HUD/pistolcrosshair.png"
+        self.firesound = loader.loadSfx("Sound/Effects/rifle.wav")
+        self.reloadsound = loader.loadSfx("Sound/Effects/pistolreload.wav")
+        self.emptysound = loader.loadSfx("Sound/Effects/empty.wav")
+        self.shots = 50
+        self.maxshots = 50
+        self.ammo = 100
+        self.maxammo = 300
+    
+    def shoot(self, player):
+        if self.reloadsound.status() != 2 and self.firesound.status() != 2:
+            if self.shots > 0:
+                self.ftrav.traverse(render)
+                self.sight.sortEntries()
+                self.firesound.play()
+                self.shots -= 1
+                for i in range(self.sight.getNumEntries()):
+                    object=self.sight.getEntry(i)
+                    #~ if weapon hits an AI
+                    if (object.getIntoNodePath().getName()=="AItarget"):
+                        object.getIntoNodePath().getParent().removeNode()#Current hack
+                        break
+                    if (object.getIntoNodePath().getName()=="wall" or object.getIntoNodePath().getName()=="floor"):
+                        break
+                        #~ do damage and alert AI
+                        #~ broadcast_attack(AI_hit)
             else:
                 if self.emptysound.status() != 2:
                     self.emptysound.play()
