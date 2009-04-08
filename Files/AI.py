@@ -120,12 +120,17 @@ class AI():
         # weapon = int indication weapon
         #~ initialize the actor and FSM
         #Load the appropriate team model and specified model type
-        self.model=Actor("Art/Models/human1-model.egg")
+        if team: #load prisoner garb if it's a prisoner
+            self.model=Actor("Art/Models/human1-modelp.egg")
+        else:
+            self.model=Actor("Art/Models/human1-model.egg")
         self.model.reparentTo(render)
         self.model.setPos(startpos)
         self.model.setH(starth)
         self.model.setScale(AI.scale,AI.scale,AI.scale)
         self.manifest=AI_manifest(self.model)
+        
+        
         
         #~Add to AI_list
         
@@ -261,6 +266,7 @@ class AI():
         self.forcedenemy=False
         self.loud=0
         self.ID = AI.ID
+        self.dead=False
         
         #Tasks
         taskMgr.add(self.tick, "AI tick;"+str(AI.ID))
@@ -285,7 +291,18 @@ class AI():
             self.target = attacker
             self.targetpos = attacker.model.getPos()
     
+    def destroy():
+        self.model.node().removeAllChildren()
+        self.model.node().remove()
+        del AI.AI_dict[self.ID]
+        self.dead=True
+        
+    
     def tick(self,task_object):
+       
+        if self.dead:
+            del self
+            return
        
         self.dx=0
         self.dy=0
@@ -354,7 +371,7 @@ class AI():
                         #If facing player, run if you're >10 feet from them
                         if distance.length() >AI.followradius:
                             self.dy=min(AI.runspeed, distance.length()-AI.followradius)
-                else:
+                elif self.targetlist != [] : #If had a target you lost sight of
                     #Did your primary target move right behind you? Turn to face them first
                     #~ if self.targetlist.len()>0:
                         #~ temp=target[0].model.getPos()
@@ -435,7 +452,6 @@ class AI():
         time_tick = globalClock.getDt()*6
         self.model.setX(self.model.getX()-ca*self.dx*time_tick-sa*self.dy*time_tick)
         self.model.setY(self.model.getY()+ca*self.dy*time_tick-sa*self.dx*time_tick)
-        #print "#"
         self.model.setH(self.model.getH()+self.dh*time_tick)
         self.model.setH((self.model.getH()+180)%360-180)
         self.loud=self.dy+(self.weapon.firesound.status()==2)*40
