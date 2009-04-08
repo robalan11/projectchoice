@@ -15,7 +15,7 @@ class World(DirectObject):
     def __init__(self):
         base.cTrav=CollisionTraverser()
         self.player = Player("Art/Models/box.egg") #Add the dummy model
-        temp=AI(0, False, 0, Vec3(0,0,0), 180, 2) #Just to instantiate all AI global variables
+        temp=AI(0, False, 0, Vec3(0,0,0), 0, 2) #Just to instantiate all AI global variables
         temp2=AI(0, False, 1, Vec3(20,-40,0), 270, 1)
         AI.playerhandle=self.player
         
