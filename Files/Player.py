@@ -80,6 +80,8 @@ class Player ():
         self.pistol = Weapon.Pistol()
         self.shotgun = Weapon.Shotgun()
         self.knife = Weapon.Knife()
+        self.pipe = Weapon.Pipe()
+        self.rifle = Weapon.Rifle()
         self.weapon = self.pistol
         self.crosshair=OnscreenImage(image = self.pistol.crosshair, pos = (0,0,0), scale =0.05)
         self.crosshair.setTransparency(TransparencyAttrib.MAlpha)
@@ -160,7 +162,8 @@ class Player ():
         #~ if animation playing is not the weapon firing/weapon is not reloading
             #~ if player pressed fire button
         if (self.keyMap["shoot"]==1):
-            self.keyMap["shoot"]=0 #hack for demo, remove once have anims
+            if self.weapon != self.rifle:
+                self.keyMap["shoot"]=0
                 #~ get properties of current weapon
                 #~ start firing animation as self-managing interval
                 #~ fire a ray with appropriate range and get collision detection
@@ -184,6 +187,11 @@ class Player ():
             self.weapon = self.shotgun
             self.crosshair.destroy()
             self.crosshair=OnscreenImage(image = self.shotgun.crosshair, pos = (0,0,0), scale =0.15)
+            self.crosshair.setTransparency(TransparencyAttrib.MAlpha)
+        if (self.keyMap["rifle"]==1 and self.weapon != self.rifle):
+            self.weapon = self.rifle
+            self.crosshair.destroy()
+            self.crosshair=OnscreenImage(image = self.rifle.crosshair, pos = (0,0,0), scale =0.07)
             self.crosshair.setTransparency(TransparencyAttrib.MAlpha)
             
         return Task.cont
