@@ -21,7 +21,7 @@ def load_image(name):
     return image
     
 class DisasterEngine:
-    towerList = [[],[],[],[],[],[],[]]
+    towerList = [[],[],[],[],[],[],[],[]]
     surface = None
     grid= None
     myPath=None
@@ -113,7 +113,7 @@ class DisasterEngine:
             self.useImage = self.mapImage
         else:
             self.useImage = self.GridImage
-        for i in range(6):
+        for i in range(7):
             DisasterEngine.towerList[i].update()
         self.gui.update()
         
@@ -182,7 +182,7 @@ class DisasterEngine:
                 list.append(tiles)
             level.append(list)
         self.resetGrid()
-        for i in range(6):
+        for i in range(7):
             for tower in DisasterEngine.towerList[i]:
                 tower.kill()
         for y in range(len(level)-1):
@@ -233,7 +233,7 @@ class DisasterEngine:
                             self.mode="normal"
                 if event.type == MOUSEBUTTONDOWN and event.button==3: #Clicked right button
                     on_tower=False
-                    for i in range(6):
+                    for i in range(7):
                         for tower in DisasterEngine.towerList[i]:
                             if tower.rect.collidepoint(event.pos):
                                 self.mixer = pygame.mixer.Sound("data/audio/SellTower.wav");
