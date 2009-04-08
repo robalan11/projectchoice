@@ -192,7 +192,7 @@ class AI():
         temp=self.model.exposeJoint(None, "modelRoot", "right_hand_manip")
         if (weapon == 1):
             self.drop = "Pistol"
-            self.weapon = Weapon.Pistol()
+            self.weapon = Weapon.Pistol(self.model)
             self.killzone=15
             self.model.loadAnims({"Crouch": "Art/animations/human1-crouchingpistol.egg"})
             self.model.loadAnims({"Run": "Art/animations/human1-runningpistol.egg"})
@@ -206,7 +206,7 @@ class AI():
             w.reparentTo(temp)
         elif (weapon ==2):
             self.drop = "Shotgun"
-            self.weapon = Weapon.Shotgun()
+            self.weapon = Weapon.Shotgun(self.model)
             self.killzone=10
             self.model.loadAnims({"Crouch": "Art/animations/human1-crouchingbiggun.egg"})
             self.model.loadAnims({"Run": "Art/animations/human1-runningbiggun.egg"})
@@ -219,7 +219,7 @@ class AI():
             w.setHpr(175,90,10)
             w.reparentTo(temp)
         #elif (weapon ==3):
-            #self.weapon = Weapon.AssautRifle()
+            #self.weapon = Weapon.Rifle(self.model)
             #self.model.loadAnims({"Crouch": "Art/animations/human1-crouchingbiggun.egg"})
             #self.model.loadAnims({"Run": "Art/animations/human1-runningbiggun.egg"})
             #self.model.loadAnims({"Walk": "Art/animations/human1-walkingbiggun.egg"})
@@ -231,7 +231,7 @@ class AI():
         else:
             # Change later to different melee weaps for different AI
             self.drop = "Medkit"
-            self.weapon = Weapon.Knife()
+            self.weapon = Weapon.Knife(self.model)
             self.killzone = 3
             self.model.loadAnims({"Crouch": "Art/animations/human1-crouching.egg"})
             self.model.loadAnims({"Run": "Art/animations/human1-running.egg"})

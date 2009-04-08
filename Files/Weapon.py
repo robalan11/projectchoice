@@ -5,11 +5,11 @@ from math import *
 import random
 
 class Weapon(object):
-    def __init__(self):
+    def __init__(self, base):
         #Aiming collision: floor, walls, doors, and player bullet channels
         self.ftrav=CollisionTraverser("pfiretrav")
         self.fr=CollisionRay(0,0,0,0,1,0)
-        self.frpath=base.camera.attachNewNode(CollisionNode('pcray'))
+        self.frpath=base.attachNewNode(CollisionNode('pcray'))
         self.frpath.node().addSolid(self.fr)
         self.frpath.node().setFromCollideMask(BitMask32(0x07))
         self.frpath.setCollideMask(BitMask32(0x00))
@@ -28,8 +28,8 @@ class Weapon(object):
                 self.ammo = 0
 
 class Knife(Weapon):
-    def __init__(self):
-        super(Knife, self).__init__()
+    def __init__(self, base):
+        super(Knife, self).__init__(base)
         
         self.crosshair = "Art/HUD/knifecrosshair.png"
         self.firesound = loader.loadSfx("Sound/Effects/knifemiss.wav")
@@ -68,8 +68,8 @@ class Knife(Weapon):
         pass
 
 class Pipe(Weapon):
-    def __init__(self):
-        super(Pipe, self).__init__()
+    def __init__(self, base):
+        super(Pipe, self).__init__(base)
         
         self.crosshair = "Art/HUD/knifecrosshair.png"
         self.firesound = loader.loadSfx("Sound/Effects/knifemiss.wav")
@@ -109,8 +109,8 @@ class Pipe(Weapon):
 
 
 class Pistol(Weapon):
-    def __init__(self):
-        super(Pistol, self).__init__()
+    def __init__(self, base):
+        super(Pistol, self).__init__(base)
         
         self.crosshair = "Art/HUD/pistolcrosshair.png"
         self.firesound = loader.loadSfx("Sound/Effects/pistol.wav")
@@ -144,8 +144,8 @@ class Pistol(Weapon):
                     self.emptysound.play()
 
 class Shotgun(Weapon):
-    def __init__(self):
-        super(Shotgun, self).__init__()
+    def __init__(self, base):
+        super(Shotgun, self).__init__(base)
         
         self.frays = [None]*20
         
@@ -162,7 +162,7 @@ class Shotgun(Weapon):
     def shoot(self, player):
         if self.reloadsound.status() != 2 and self.firesound.status() != 2:
             if self.shots > 0:
-                for i in xrange(20):
+                for i in xrange(6):
                     self.frays[i] = CollisionRay(0,0,0,0,1,0)
                     theta = random.randint(1,628318)/100000.0
                     phi = 0.05 * random.randint(0,157079)/100000.0     # Tune the leading constant for spread
@@ -194,8 +194,8 @@ class Shotgun(Weapon):
                     self.emptysound.play()
 
 class Rifle(Weapon):
-    def __init__(self):
-        super(Rifle, self).__init__()
+    def __init__(self, base):
+        super(Rifle, self).__init__(base)
         
         self.crosshair = "Art/HUD/pistolcrosshair.png"
         self.firesound = loader.loadSfx("Sound/Effects/rifle.wav")
