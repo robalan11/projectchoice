@@ -77,19 +77,20 @@ class Player ():
         base.cTrav.addCollider(self.pspath, self.phandle)
         
         #Set up weapons
-        self.pistol = Weapon.Pistol()
-        self.shotgun = Weapon.Shotgun()
-        self.knife = Weapon.Knife()
-        self.pipe = Weapon.Pipe()
-        self.rifle = Weapon.Rifle()
+        self.pistol = Weapon.Pistol(base.camera)
+        self.shotgun = Weapon.Shotgun(base.camera)
+        self.knife = Weapon.Knife(base.camera)
+        self.pipe = Weapon.Pipe(base.camera)
+        self.rifle = Weapon.Rifle(base.camera)
         self.weapon = self.pistol
         self.crosshair=OnscreenImage(image = self.pistol.crosshair, pos = (0,0,0), scale =0.05)
         self.crosshair.setTransparency(TransparencyAttrib.MAlpha)
         
         #Set up weapon animations
         self.arms = Actor("Art/Models/arms-model") #, {"pistol":"Art/Models/fire_pistol"})
-        self.arms.reparentTo(render)
-        self.arms.setPos(10,-10,5)
+        self.arms.setScale(0.5)
+        self.arms.reparentTo(self.model)
+        self.arms.setPos(0,0,-1.8)
         
         self.AIs=CollisionSphere(0,0,-1.25,1.25)
         self.AIspath=self.model.attachNewNode(CollisionNode('pspher'))
