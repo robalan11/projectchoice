@@ -29,6 +29,7 @@ def AIsight(task_object):
         #Does not check for occlusion by other objects in the way. That's done in the tick function
         #Reset, keeping track of only the first target
         player=AI.playerhandle
+        player.clear_sight()
         for index,NPC in AI.AI_dict.items():
             #if NPC.targetlist: #If the list isn't empty
                 #NPC.targetlist=[NPC.targetlist[0]]
@@ -141,11 +142,12 @@ class AI():
         #World collision
         #Bit channels are only walls and floors!
     
-        self.cs=CollisionSphere(0,0,-1.25/AI.scale,1.25/AI.scale)
+        self.cs=CollisionSphere(0,0, 1.25/AI.scale,1.25/AI.scale)
         self.cspath=self.model.attachNewNode(CollisionNode('AIspher;' +  str(AI.ID)))
         self.cspath.node().addSolid(self.cs)
         self.cspath.node().setFromCollideMask(BitMask32(0x01))
         self.cspath.setCollideMask(BitMask32(0x11))
+        #self.cspath.show()
         
         self.cr=CollisionRay(0,0,0.1/AI.scale,0,0,-1/AI.scale)
         self.crpath=self.model.attachNewNode(CollisionNode('AIray;' +  str(AI.ID)))
@@ -166,11 +168,12 @@ class AI():
         
         #Firing collision (Passive/Into object only, bullets are active)
         #Bit channel is only bullets
-        self.ct=CollisionTube(0,0,1/AI.scale,0,0,-1/AI.scale,0.5/AI.scale)
+        self.ct=CollisionTube(0,0,3/AI.scale,0,0,0/AI.scale,0.5/AI.scale)
         self.ctpath=self.model.attachNewNode(CollisionNode('AItarget;' +  str(AI.ID)))
         self.ctpath.node().addSolid(self.ct)
         self.ctpath.node().setFromCollideMask(BitMask32(0x00))
-        self.ctpath.setCollideMask(BitMask32(0x08))
+        self.ctpath.setCollideMask(BitMask32(0x04))
+        self.ctpath.show()
         
         #Aiming collision: floor, walls, doors, and Player, and AI bullet channels
         self.ftrav=CollisionTraverser("AIfiretrav")
@@ -197,7 +200,7 @@ class AI():
         temp=self.model.exposeJoint(None, "modelRoot", "right_hand_manip")
         if (weapon == 1):
             self.drop = "Pistol"
-            self.weapon = Weapon.Pistol(self.model)
+            self.weapon = Weapon.Pistol(self.model, False, Vec3(0,0,4))
             self.killzone=15
             self.model.loadAnims({"Crouch": "Art/animations/human1-crouchingpistol.egg"})
             self.model.loadAnims({"Run": "Art/animations/human1-runningpistol.egg"})
@@ -211,7 +214,7 @@ class AI():
             w.reparentTo(temp)
         elif (weapon ==2):
             self.drop = "Shotgun"
-            self.weapon = Weapon.Shotgun(self.model)
+            self.weapon = Weapon.Shotgun(self.model, False, Vec3(0,0,4))
             self.killzone=10
             self.model.loadAnims({"Crouch": "Art/animations/human1-crouchingbiggun.egg"})
             self.model.loadAnims({"Run": "Art/animations/human1-runningbiggun.egg"})
@@ -224,7 +227,7 @@ class AI():
             w.setHpr(175,90,10)
             w.reparentTo(temp)
         #elif (weapon ==3):
-            #self.weapon = Weapon.Rifle(self.model)
+            #self.weapon = Weapon.Rifle(self.model, False, Vec3(0,0,4)
             #self.model.loadAnims({"Crouch": "Art/animations/human1-crouchingbiggun.egg"})
             #self.model.loadAnims({"Run": "Art/animations/human1-runningbiggun.egg"})
             #self.model.loadAnims({"Walk": "Art/animations/human1-walkingbiggun.egg"})
@@ -236,7 +239,7 @@ class AI():
         else:
             # Change later to different melee weaps for different AI
             self.drop = "Medkit"
-            self.weapon = Weapon.Knife(self.model)
+            self.weapon = Weapon.Knife(self.model, False, Vec3(0,0,4))
             self.killzone = 3
             self.model.loadAnims({"Crouch": "Art/animations/human1-crouching.egg"})
             self.model.loadAnims({"Run": "Art/animations/human1-running.egg"})
@@ -267,6 +270,7 @@ class AI():
         self.loud=0
         self.ID = AI.ID
         self.dead=False
+        self.rundistance=0
         
         #Tasks
         taskMgr.add(self.tick, "AI tick;"+str(AI.ID))
@@ -286,10 +290,12 @@ class AI():
         self.health -= damage
         self.look_angles = attacker.model.getPos()-self.model.getPos()
         self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
-        if abs(self.look_angles.getX()-self.model.getH())>AI.FOV and self.targetlist.len()==0:
+        if abs(self.look_angles.getX()-self.model.getH())>AI.FOV and self.targetlist==[]:
             self.forceturn = True
             self.target = attacker
             self.targetpos = attacker.model.getPos()
+        print "AI #"+str(self.ID)
+        print self.health
     
     def destroy():
         self.model.node().removeAllChildren()
@@ -359,6 +365,9 @@ class AI():
                         self.targetlist=[target]
                         break
             if self.seetarget==False:
+                #~ if self.health<10: #Health is at 1/5th strength
+                    #~ if self.rundistance<10:
+                        #~ self.dy=AI.runspeed
                 if self.seeplayer and self.follow:
                     self.targetpos=AI.playerhandle.model.getPos()
                     self.look_angles = self.targetpos-Vec3(self.model.getPos())
@@ -393,29 +402,29 @@ class AI():
                             self.targetlist=[] #Lost your target
                 #If already there, idle
             else:
-                if self.health<10: #Health is at 1/5th strength
-                    #Turn away from target
-                    self.dh=min(AI.turnspeed, max((self.look_angles[0]+180)%360-self.model.getH(), -AI.turnspeed))
-                    #If turned away from target, run
-                    if abs(self.dh)<20:
-                        self.dy=AI.runspeed
-                else:
-                    #Turn to face target
-                    self.dh=min(AI.turnspeed, max(self.look_angles.getX()-self.model.getH(), -AI.turnspeed))
-                    #If facing target, fire at them
-                    if abs(self.dh)<5:
-                        distance = Vec3(self.targetpos)-Vec3(self.model.getPos())
-                        distance.setZ(0)
-                        if distance.length()>self.killzone:
-                            self.dy=min(AI.runspeed, distance.length())
-                            if distance.length()<self.killzone*1.4:
-                                self.shooting=True
-                                self.weapon.shoot(self)
-                                self.weapon.shots=self.weapon.maxshots
-                        else:
-                            self.weapon.shoot(self)
-                            self.weapon.shots=self.weapon.maxshots # AI don't run out of ammo
+                #~ if self.health<10: #Health is at 1/5th strength
+                    #~ #Turn away from target
+                    #~ self.dh=min(AI.turnspeed, max((self.look_angles[0]+180)%360-self.model.getH(), -AI.turnspeed))
+                    #~ #If turned away from target, run
+                    #~ if abs(self.dh)<20:
+                        #~ self.dy=AI.runspeed
+                #~ else:
+                #Turn to face target
+                self.dh=min(AI.turnspeed, max(self.look_angles.getX()-self.model.getH(), -AI.turnspeed))
+                #If facing target, fire at them
+                if abs(self.dh)<5:
+                    distance = Vec3(self.targetpos)-Vec3(self.model.getPos())
+                    distance.setZ(0)
+                    if distance.length()>self.killzone:
+                        self.dy=min(AI.runspeed, distance.length())
+                        if distance.length()<self.killzone*1.4:
                             self.shooting=True
+                            self.weapon.shoot(self)
+                            self.weapon.shots=self.weapon.maxshots
+                    else:
+                        self.weapon.shoot(self)
+                        self.weapon.shots=self.weapon.maxshots # AI don't run out of ammo
+                        self.shooting=True
         #------------------------
         #Animation Handling
         #------------------------

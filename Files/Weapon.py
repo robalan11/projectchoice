@@ -2,16 +2,21 @@ import direct.directbase.DirectStart
 from direct.showbase.DirectObject import DirectObject
 from pandac.PandaModules import *
 from math import *
+import AI
 import random
 
 class Weapon(object):
-    def __init__(self, base):
+    def __init__(self, nodepath, isplayer, offset):
         #Aiming collision: floor, walls, doors, and player bullet channels
         self.ftrav=CollisionTraverser("pfiretrav")
         self.fr=CollisionRay(0,0,0,0,1,0)
-        self.frpath=base.attachNewNode(CollisionNode('pcray'))
+        self.frpath=nodepath.attachNewNode(CollisionNode('pcray'))
         self.frpath.node().addSolid(self.fr)
-        self.frpath.node().setFromCollideMask(BitMask32(0x07))
+        self.frpath.setPos(offset)
+        if isplayer==True:
+            self.frpath.node().setFromCollideMask(BitMask32(0x07))
+        else:
+            self.frpath.node().setFromCollideMask(BitMask32(0x0b))
         self.frpath.setCollideMask(BitMask32(0x00))
         self.sight=CollisionHandlerQueue()
         self.ftrav.addCollider(self.frpath, self.sight)
@@ -28,8 +33,8 @@ class Weapon(object):
                 self.ammo = 0
 
 class Knife(Weapon):
-    def __init__(self, base):
-        super(Knife, self).__init__(base)
+    def __init__(self, base, isplayer, offset):
+        super(Knife, self).__init__(base, isplayer, offset)
         
         self.crosshair = "Art/HUD/knifecrosshair.png"
         self.firesound = loader.loadSfx("Sound/Effects/knifemiss.wav")
@@ -62,15 +67,31 @@ class Knife(Weapon):
                     if dist < 4:
                         self.wallsound.play()
                     break
-                    #~ do damage and alert AI
-                    #~ broadcast_attack(AI_hit)
+                if (object.getIntoNodePath().getName().split(";")[0]=="AItarget") and object.getIntoNodePath().getParent().node()!=player.model.node(): #Not shooting yourself
+                    targ = object.getSurfacePoint(render)
+                    dist = sqrt(pow(player.model.getX()-targ[0],2) + pow(player.model.getY()-targ[1],2) + pow(player.model.getZ()-targ[2],2))
+                    if dist < 4:
+                        self.hitsound.play()
+                        ID=object.getIntoNodePath().getName().split(";")[1]
+                        target=AI.AI.AI_dict[int(ID)]
+                        target.damage(player, 20)
+                        if player==AI.AI.playerhandle:
+                            player.broadcast_attack(target)
+                        break
+                if (object.getIntoNodePath().getName()=="ptarget"):
+                    targ = object.getSurfacePoint(render)
+                    dist = sqrt(pow(player.model.getX()-targ[0],2) + pow(player.model.getY()-targ[1],2) + pow(player.model.getZ()-targ[2],2))
+                    if dist < 4:
+                        self.hitsound.play()
+                        AI.AI.playerhandle.damage(player, 20)
+                        break
     
     def reload(self):
         pass
 
 class Pipe(Weapon):
-    def __init__(self, base):
-        super(Pipe, self).__init__(base)
+    def __init__(self, base, isplayer, offset):
+        super(Pipe, self).__init__(base, isplayer, offset)
         
         self.crosshair = "Art/HUD/knifecrosshair.png"
         self.firesound = loader.loadSfx("Sound/Effects/knifemiss.wav")
@@ -103,16 +124,32 @@ class Pipe(Weapon):
                     if dist < 4:
                         self.wallsound.play()
                     break
-                    #~ do damage and alert AI
-                    #~ broadcast_attack(AI_hit)
+                if (object.getIntoNodePath().getName().split(";")[0]=="AItarget") and object.getIntoNodePath().getParent().node()!=player.model.node(): #Not shooting yourself
+                    targ = object.getSurfacePoint(render)
+                    dist = sqrt(pow(player.model.getX()-targ[0],2) + pow(player.model.getY()-targ[1],2) + pow(player.model.getZ()-targ[2],2))
+                    if dist < 4:
+                        self.hitsound.play()
+                        ID=object.getIntoNodePath().getName().split(";")[1]
+                        target=AI.AI.AI_dict[int(ID)]
+                        target.damage(player, 20)
+                        if player==AI.AI.playerhandle:
+                            player.broadcast_attack(target)
+                        break
+                if (object.getIntoNodePath().getName()=="ptarget"):
+                    targ = object.getSurfacePoint(render)
+                    dist = sqrt(pow(player.model.getX()-targ[0],2) + pow(player.model.getY()-targ[1],2) + pow(player.model.getZ()-targ[2],2))
+                    if dist < 4:
+                        self.hitsound.play()
+                        AI.AI.playerhandle.damage(player, 20)
+                        break
     
     def reload(self):
         pass
 
 
 class Pistol(Weapon):
-    def __init__(self, base):
-        super(Pistol, self).__init__(base)
+    def __init__(self, base, isplayer, offset):
+        super(Pistol, self).__init__(base, isplayer, offset)
         
         self.crosshair = "Art/HUD/pistolcrosshair.png"
         self.firesound = loader.loadSfx("Sound/Effects/pistol.wav")
@@ -133,21 +170,31 @@ class Pistol(Weapon):
                 self.shots -= 1
                 for i in range(self.sight.getNumEntries()):
                     object=self.sight.getEntry(i)
+                    print "Hit"
+                    print object.getIntoNodePath()
                     #~ if weapon hits an AI
                     if (object.getIntoNodePath().getName()=="AItarget"):
                         object.getIntoNodePath().getParent().removeNode()#Current hack
                         break
                     if (object.getIntoNodePath().getName()=="wall" or object.getIntoNodePath().getName()=="floor"):
                         break
-                        #~ do damage and alert AI
-                        #~ broadcast_attack(AI_hit)
+                    if (object.getIntoNodePath().getName().split(";")[0]=="AItarget") and object.getIntoNodePath().getParent().node()!=player.model.node(): #Not shooting yourself
+                        ID=object.getIntoNodePath().getName().split(";")[1]
+                        target=AI.AI.AI_dict[int(ID)]
+                        target.damage(player, 15)
+                        if player==AI.AI.playerhandle:
+                            player.broadcast_attack(target)
+                        break
+                    if (object.getIntoNodePath().getName()=="ptarget"):
+                        AI.AI.playerhandle.damage(player, 15)
+                        break
             else:
                 if self.emptysound.status() != 2:
                     self.emptysound.play()
 
 class Shotgun(Weapon):
-    def __init__(self, base):
-        super(Shotgun, self).__init__(base)
+    def __init__(self, base, isplayer, offset):
+        super(Shotgun, self).__init__(base, isplayer, offset)
         
         self.frays = [None]*20
         
@@ -162,6 +209,7 @@ class Shotgun(Weapon):
         self.type = "shotgun"
     
     def shoot(self, player):
+        self.frpath.show()
         if self.reloadsound.status() != 2 and self.firesound.status() != 2:
             if self.shots > 0:
                 for i in xrange(6):
@@ -186,8 +234,16 @@ class Shotgun(Weapon):
                         break
                     if (object.getIntoNodePath().getName()=="wall" or object.getIntoNodePath().getName()=="floor"):
                         break
-                        #~ do damage and alert AI
-                        #~ broadcast_attack(AI_hit)
+                    if (object.getIntoNodePath().getName().split(";")[0]=="AItarget") and object.getIntoNodePath().getParent().node()!=player.model.node(): #Not shooting yourself
+                        ID=object.getIntoNodePath().getName().split(";")[1]
+                        target=AI.AI.AI_dict[int(ID)]
+                        target.damage(player, 5)
+                        if player==AI.AI.playerhandle:
+                            player.broadcast_attack(target)
+                        break
+                    if (object.getIntoNodePath().getName()=="ptarget"):
+                        AI.AI.playerhandle.damage(player, 5)
+                        break
                     
                 for i in xrange(6):
                     self.frpath.node().removeSolid(0)
@@ -196,8 +252,8 @@ class Shotgun(Weapon):
                     self.emptysound.play()
 
 class Rifle(Weapon):
-    def __init__(self, base):
-        super(Rifle, self).__init__(base)
+    def __init__(self, base, isplayer, offset):
+        super(Rifle, self).__init__(base, isplayer, offset)
         
         self.crosshair = "Art/HUD/pistolcrosshair.png"
         self.firesound = loader.loadSfx("Sound/Effects/rifle.wav")
@@ -224,8 +280,16 @@ class Rifle(Weapon):
                         break
                     if (object.getIntoNodePath().getName()=="wall" or object.getIntoNodePath().getName()=="floor"):
                         break
-                        #~ do damage and alert AI
-                        #~ broadcast_attack(AI_hit)
+                    if (object.getIntoNodePath().getName().split(";")[0]=="AItarget") and object.getIntoNodePath().getParent().node()!=player.model.node(): #Not shooting yourself
+                        ID=object.getIntoNodePath().getName().split(";")[1]
+                        target=AI.AI.AI_dict[int(ID)]
+                        target.damage(player, 10)
+                        if player==AI.AI.playerhandle:
+                            player.broadcast_attack(target)
+                        break
+                    if (object.getIntoNodePath().getName()=="ptarget"):
+                        AI.AI.playerhandle.damage(player, 10)
+                        break
             else:
                 if self.emptysound.status() != 2:
                     self.emptysound.play()
