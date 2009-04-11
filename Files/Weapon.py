@@ -37,6 +37,7 @@ class Knife(Weapon):
         self.wallsound = loader.loadSfx("Sound/Effects/knifewall.wav")
         self.shots=1
         self.maxshots=1
+        self.ammo = 1
         self.type = "knife"
     
     def shoot(self, player):
@@ -77,6 +78,7 @@ class Pipe(Weapon):
         self.wallsound = loader.loadSfx("Sound/Effects/knifewall.wav")
         self.shots=1
         self.maxshots=1
+        self.ammo = 1
         self.type = "pipe"
     
     def shoot(self, player):
