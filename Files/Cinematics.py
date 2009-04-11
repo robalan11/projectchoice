@@ -42,7 +42,7 @@ class Event(object):
             pos = self.bezier(self.points[:], elapsed/self.duration)
             self.target.model.setPos(pos)
             return Task.cont
-        return Task.cont
+        return Task.done
     
     def turn(self, title):
         elapsed = time.clock()-self.time
