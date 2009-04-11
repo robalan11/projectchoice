@@ -13,10 +13,10 @@ class Weapon(object):
         self.frpath=nodepath.attachNewNode(CollisionNode('pcray'))
         self.frpath.node().addSolid(self.fr)
         self.frpath.setPos(offset)
-        #if isplayer==True:
-        self.frpath.node().setFromCollideMask(BitMask32(0x07))
-        #else:
-            #self.frpath.node().setFromCollideMask(BitMask32(0x0b))
+        if isplayer==True:
+            self.frpath.node().setFromCollideMask(BitMask32(0x07))
+        else:
+            self.frpath.node().setFromCollideMask(BitMask32(0x0f))
         self.frpath.setCollideMask(BitMask32(0x00))
         self.sight=CollisionHandlerQueue()
         self.ftrav.addCollider(self.frpath, self.sight)
