@@ -108,9 +108,9 @@ class Player ():
         self.dy=0
         self.dz=0
         self.loud=0
-        self.health=0
+        self.health=100
         self.armor=0
-        self.haveweapon=[1,0,0,0] #Knife, Pistol Shotgun Assault Rifle
+        self.haveweapon=[1,1,1,1] #Knife, Pistol Shotgun Assault Rifle
         self.loyalty = [0, 50] # out of a minimum of 0 and a maximum of 100
         self.pobjective=[False, False]
         self.gobjective=[False, False]
@@ -177,22 +177,22 @@ class Player ():
             self.weapon.reload()
         
         #~ if input requests changing the weapon and have that weapon, change to that weapon
-        if (self.keyMap["knife"]==1 and self.weapon != self.knife):
+        if (self.keyMap["knife"]==1 and self.weapon != self.knife and self.haveweapon[0]):
             self.weapon = self.knife
             self.crosshair.destroy()
             self.crosshair=OnscreenImage(image = self.knife.crosshair, pos = (0,0,0), scale =0.125)
             self.crosshair.setTransparency(TransparencyAttrib.MAlpha)
-        if (self.keyMap["pistol"]==1 and self.weapon != self.pistol):
+        if (self.keyMap["pistol"]==1 and self.weapon != self.pistol and self.haveweapon[1]):
             self.weapon = self.pistol
             self.crosshair.destroy()
             self.crosshair=OnscreenImage(image = self.pistol.crosshair, pos = (0,0,0), scale =0.05)
             self.crosshair.setTransparency(TransparencyAttrib.MAlpha)
-        if (self.keyMap["shotgun"]==1 and self.weapon != self.shotgun):
+        if (self.keyMap["shotgun"]==1 and self.weapon != self.shotgun and self.haveweapon[2]):
             self.weapon = self.shotgun
             self.crosshair.destroy()
             self.crosshair=OnscreenImage(image = self.shotgun.crosshair, pos = (0,0,0), scale =0.15)
             self.crosshair.setTransparency(TransparencyAttrib.MAlpha)
-        if (self.keyMap["rifle"]==1 and self.weapon != self.rifle):
+        if (self.keyMap["rifle"]==1 and self.weapon != self.rifle and self.haveweapon[3]):
             self.weapon = self.rifle
             self.crosshair.destroy()
             self.crosshair=OnscreenImage(image = self.rifle.crosshair, pos = (0,0,0), scale =0.07)
