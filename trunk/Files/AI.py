@@ -64,7 +64,7 @@ def AIsight(task_object):
                     fromAI.ftrav.traverse(render)
                     fromAI.fire.sortEntries()
                     fromAI.cspath.setCollideMask(BitMask32(0x11))
-                    fromAI.ctpath.setCollideMask(BitMask32(0x08))
+                    fromAI.ctpath.setCollideMask(BitMask32(0x04))
                     fromAI.frpath.setHpr(Vec3(0,0,0))
                     #print fromAI.fire.getEntry(0).getIntoNodePath().getParent()
                     #print player.model.getGeomNode()
@@ -122,7 +122,7 @@ class AI():
         #~ initialize the actor and FSM
         #Load the appropriate team model and specified model type
         if team: #load prisoner garb if it's a prisoner
-            self.model=Actor("Art/Models/human1-model.egg")
+            self.model=Actor("Art/Models/human1-modelp.egg")
         else:
             self.model=Actor("Art/Models/human1-model.egg")
         self.model.reparentTo(render)
@@ -173,7 +173,7 @@ class AI():
         self.ctpath.node().addSolid(self.ct)
         self.ctpath.node().setFromCollideMask(BitMask32(0x00))
         self.ctpath.setCollideMask(BitMask32(0x04))
-        self.ctpath.show()
+        #self.ctpath.show()
         
         #Aiming collision: floor, walls, doors, and Player, and AI bullet channels
         self.ftrav=CollisionTraverser("AIfiretrav")
@@ -305,7 +305,6 @@ class AI():
         
     
     def tick(self,task_object):
-       
         if self.dead:
             del self
             return

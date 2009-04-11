@@ -218,13 +218,9 @@ class Player ():
             self.health -= damage
         if self.health<0:
             pass #add death triggering
-        print "Player"
-        print self.health
     
     def broadcast_attack(self, AI_hit):
-        print "BROADCAST"
         for enemy in self.enemies_watching:
-            print enemy
             #~ if AI is not AI_hit
             if (enemy != AI_hit):
                 #~ if AI_hit is ally
@@ -240,7 +236,6 @@ class Player ():
                         self.loyalty[enemy.team]+=1
             else:
                 #~ AI_hit attacks player
-                print AI_hit
                 AI_hit.forcedenemy=True
     def tick(self,task_object):
         #~ check and set lights of current room to player
