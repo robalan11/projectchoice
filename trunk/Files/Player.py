@@ -61,7 +61,7 @@ class Player ():
         
         #Firing collision (Passive/Into object only, bullets are active)
         #Bit channel is only bullets
-        self.ct=CollisionTube(0,0,1,0,0,-1,0.5)
+        self.ct=CollisionTube(0,0,1,0,0,-2,0.5)
         self.ctpath=self.model.attachNewNode(CollisionNode('ptarget'))
         self.ctpath.node().addSolid(self.ct)
         self.ctpath.node().setFromCollideMask(BitMask32(0x00))
@@ -77,11 +77,11 @@ class Player ():
         base.cTrav.addCollider(self.pspath, self.phandle)
         
         #Set up weapons
-        self.pistol = Weapon.Pistol(base.camera)
-        self.shotgun = Weapon.Shotgun(base.camera)
-        self.knife = Weapon.Knife(base.camera)
-        self.pipe = Weapon.Pipe(base.camera)
-        self.rifle = Weapon.Rifle(base.camera)
+        self.pistol = Weapon.Pistol(base.camera, True, Vec3(0,0,0))
+        self.shotgun = Weapon.Shotgun(base.camera, True, Vec3(0,0,0))
+        self.knife = Weapon.Knife(base.camera, True, Vec3(0,0,0))
+        self.pipe = Weapon.Pipe(base.camera, True, Vec3(0,0,0))
+        self.rifle = Weapon.Rifle(base.camera, True, Vec3(0,0,0))
         self.weapon = self.pistol
         self.crosshair=OnscreenImage(image = self.pistol.crosshair, pos = (0,0,0), scale =0.05)
         self.crosshair.setTransparency(TransparencyAttrib.MAlpha)
@@ -208,19 +208,23 @@ class Player ():
         
     def damage(self, attacker, damage):
         #attacker is the attacking player/AI which is passed to the weapon
-        if armor>0:
-            if armor<damage:
+        if self.armor>0:
+            if self.armor<damage:
                 self.armor=0
                 self.health-=damage-self.armor
             else:
                 self.armor-=damage
         else:
             self.health -= damage
-        if health<0:
+        if self.health<0:
             pass #add death triggering
+        print "Player"
+        print self.health
     
     def broadcast_attack(self, AI_hit):
+        print "BROADCAST"
         for enemy in self.enemies_watching:
+            print enemy
             #~ if AI is not AI_hit
             if (enemy != AI_hit):
                 #~ if AI_hit is ally
@@ -229,14 +233,15 @@ class Player ():
                     if (self.loyalty[enemy.team]>0):
                         self.loyalty[enemy.team]-=1
                     #~ enemy attacks player
-                    self.forcedenemy=True
+                    enemy.forcedenemy=True
                 else:
                     #~ raise team loyalty
                     if (self.loyalty[enemy.team]<100):
                         self.loyalty[enemy.team]+=1
             else:
                 #~ AI_hit attacks player
-                self.forcedenemy=True
+                print AI_hit
+                AI_hit.forcedenemy=True
     def tick(self,task_object):
         #~ check and set lights of current room to player
         #~ if under cinematic control
