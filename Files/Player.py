@@ -267,15 +267,21 @@ class Player ():
             elif name == "shotgun":
                 self.haveweapon[2] = 1
                 self.shotgun.ammo = min(self.shotgun.maxammo, self.shotgun.ammo+self.shotgun.maxshots)
-            #elif name == "assault":
-                #self.haveweapon[3] = 1
-                #self.assaultrifle.ammo = min(self.assaultrifle.maxammo, self.assaultrifle.ammo+self.assaultrifle.maxshots)
+            elif name == "assault":
+                self.haveweapon[3] = 1
+                self.assaultrifle.ammo = min(self.assaultrifle.maxammo, self.assaultrifle.ammo+self.assaultrifle.maxshots)
             elif name == "pammo":
-                self.pistol.ammo = min(self.pistol.maxammo, self.pistol.ammo+24)
+                self.pistol.ammo = min(self.pistol.maxammo, self.pistol.ammo+12)
+            elif name == "pammolarge":
+                self.pistol.ammo = min(self.pistol.maxammo, self.pistol.ammo+36)
+            elif name == "sammo":
+                self.shotgun.ammo = min(self.shotgun.maxammo, self.shotgun.ammo+4)
             elif name == "sammo":
                 self.shotgun.ammo = min(self.shotgun.maxammo, self.shotgun.ammo+10)
-            #elif name == "aammo":
-                #self.assaultrifle.ammo = min(self.assaultrifle.maxammo, self.assaultrifle.ammo+36)
+            elif name == "aammo":
+                self.assaultrifle.ammo = min(self.assaultrifle.maxammo, self.assaultrifle.ammo+24)
+                elif name == "aammo":
+                self.assaultrifle.ammo = min(self.assaultrifle.maxammo, self.assaultrifle.ammo+60)
             elif name == "prisonerobjective1":
                 self.pobjective[0]=True
             elif name == "prisonerobjective2":
