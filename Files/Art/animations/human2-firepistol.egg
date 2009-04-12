@@ -1,0 +1,2194 @@
+<CoordinateSystem> { Y-Up }
+
+<Comment> {
+  "maya2egg2008 human2firepistol.mb -a chan -cn human2 -o human2-firepistol.egg"
+}
+<Table> {
+  <Bundle> human2 {
+    <Table> "<skeleton>" {
+      <Table> "human1crouching:locator1" {
+        <Xfm$Anim_S$> xform {
+          <Scalar> fps { 24 }
+          <Char*> order { srpht }
+          <S$Anim> i { <V> { 0.100729 } }
+          <S$Anim> j { <V> { 0.100729 } }
+          <S$Anim> k { <V> { 0.100729 } }
+          <S$Anim> y { <V> { 5.4846 } }
+          <S$Anim> z { <V> { -0.991253 } }
+        }
+      }
+      <Table> "human1crouching:left_foot" {
+        <Xfm$Anim_S$> xform {
+          <Scalar> fps { 24 }
+          <Char*> order { srpht }
+          <S$Anim> i { <V> { 0.343163 } }
+          <S$Anim> k { <V> { 0.787126 } }
+          <S$Anim> x { <V> { -0.412507 } }
+          <S$Anim> y { <V> { -0.0467304 } }
+          <S$Anim> z { <V> { -0.29678 } }
+        }
+        <Table> "human1crouching:transform2" {
+          <Xfm$Anim_S$> xform {
+            <Scalar> fps { 24 }
+            <Char*> order { srpht }
+            <S$Anim> i { <V> { 2.91406 } }
+            <S$Anim> k { <V> { 1.27044 } }
+            <S$Anim> x { <V> { 1.20207 } }
+            <S$Anim> y { <V> { 0.0467304 } }
+            <S$Anim> z { <V> { 0.377042 } }
+          }
+          <Table> "human1crouching:joint86" {
+            <Xfm$Anim_S$> xform {
+              <Scalar> fps { 24 }
+              <Char*> order { srpht }
+              <S$Anim> h { <V> { 90 } }
+              <S$Anim> r { <V> { -4.1051 } }
+              <S$Anim> x { <V> { -0.421634 } }
+              <S$Anim> y { <V> { 0.0180611 } }
+              <S$Anim> z { <V> { 0.075059 } }
+            }
+            <Table> "human1crouching:joint87" {
+              <Xfm$Anim_S$> xform {
+                <Scalar> fps { 24 }
+                <Char*> order { srpht }
+                <S$Anim> h { <V> { 180 } }
+                <S$Anim> r { <V> { -8.70519 } }
+                <S$Anim> x { <V> { 1.02168 } }
+                <S$Anim> y { <V> { 0.00363527 } }
+                <S$Anim> z { <V> { 0.000299104 } }
+              }
+              <Table> "human1crouching:joint88" {
+                <Xfm$Anim_S$> xform {
+                  <Scalar> fps { 24 }
+                  <Char*> order { srpht }
+                  <S$Anim> r { <V> { -6.25001 } }
+                  <S$Anim> x { <V> { 0.429099 } }
+                  <S$Anim> y { <V> { -0.000995589 } }
+                }
+                <Table> "human1crouching:joint89" {
+                  <Xfm$Anim_S$> xform {
+                    <Scalar> fps { 24 }
+                    <Char*> order { srpht }
+                    <S$Anim> h { <V> { 90 } }
+                    <S$Anim> p { <V> { 10.8501 } }
+                    <S$Anim> x { <V> { 0.59253 } }
+                    <S$Anim> y { <V> { 0.00213357 } }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      <Table> "human1crouching:right_foot" {
+        <Xfm$Anim_S$> xform {
+          <Scalar> fps { 24 }
+          <Char*> order { srpht }
+          <S$Anim> i { <V> { 0.343163 } }
+          <S$Anim> k { <V> { 0.787126 } }
+          <S$Anim> x { <V> { 0.429606 } }
+          <S$Anim> y { <V> { -0.0467304 } }
+          <S$Anim> z { <V> { -0.29678 } }
+        }
+        <Table> "human1crouching:transform1" {
+          <Xfm$Anim_S$> xform {
+            <Scalar> fps { 24 }
+            <Char*> order { srpht }
+            <S$Anim> i { <V> { 2.91406 } }
+            <S$Anim> k { <V> { 1.27044 } }
+            <S$Anim> x { <V> { -1.2519 } }
+            <S$Anim> y { <V> { 0.0467304 } }
+            <S$Anim> z { <V> { 0.377042 } }
+          }
+          <Table> "human1crouching:pasted__joint86" {
+            <Xfm$Anim_S$> xform {
+              <Scalar> fps { 24 }
+              <Char*> order { srpht }
+              <S$Anim> h { <V> { 90 } }
+              <S$Anim> r { <V> { -4.1051 } }
+              <S$Anim> x { <V> { 0.421634 } }
+              <S$Anim> y { <V> { 0.0180611 } }
+              <S$Anim> z { <V> { 0.075059 } }
+            }
+            <Table> "human1crouching:pasted__joint87" {
+              <Xfm$Anim_S$> xform {
+                <Scalar> fps { 24 }
+                <Char*> order { srpht }
+                <S$Anim> h { <V> { 180 } }
+                <S$Anim> r { <V> { -8.70519 } }
+                <S$Anim> x { <V> { 1.02168 } }
+                <S$Anim> y { <V> { 0.00363529 } }
+                <S$Anim> z { <V> { -0.000299196 } }
+              }
+              <Table> "human1crouching:pasted__joint88" {
+                <Xfm$Anim_S$> xform {
+                  <Scalar> fps { 24 }
+                  <Char*> order { srpht }
+                  <S$Anim> r { <V> { -6.25001 } }
+                  <S$Anim> x { <V> { 0.429098 } }
+                  <S$Anim> y { <V> { -0.000995451 } }
+                }
+                <Table> "human1crouching:pasted__joint89" {
+                  <Xfm$Anim_S$> xform {
+                    <Scalar> fps { 24 }
+                    <Char*> order { srpht }
+                    <S$Anim> h { <V> { 90 } }
+                    <S$Anim> p { <V> { 10.8501 } }
+                    <S$Anim> x { <V> { 0.59253 } }
+                    <S$Anim> y { <V> { 0.00213318 } }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      <Table> "human1crouching:Char_s_1" {
+        <Xfm$Anim_S$> xform {
+          <Scalar> fps { 24 }
+          <Char*> order { srpht }
+          <S$Anim> i { <V> { 0.13328 } }
+          <S$Anim> j { <V> { 0.13328 } }
+          <S$Anim> k { <V> { 0.13328 } }
+          <S$Anim> h { <V> { -90 } }
+        }
+      }
+      <Table> "human1crouching:Char_n_1" {
+        <Xfm$Anim_S$> xform {
+          <Scalar> fps { 24 }
+          <Char*> order { srpht }
+          <S$Anim> i { <V> { 0.13328 } }
+          <S$Anim> j { <V> { 0.13328 } }
+          <S$Anim> k { <V> { 0.13328 } }
+          <S$Anim> h { <V> { -90 } }
+          <S$Anim> x { <V> { 2.5 } }
+        }
+      }
+      <Table> "human1crouching:nurbsCircle3" {
+        <Xfm$Anim_S$> xform {
+          <Scalar> fps { 24 }
+          <Char*> order { srpht }
+          <S$Anim> i { <V> { 4.03101 } }
+          <S$Anim> j { <V> { 4.03101 } }
+          <S$Anim> k { <V> { 4.03101 } }
+        }
+        <Table> "human1crouching:transform3" {
+          <Xfm$Anim_S$> xform {
+            <Scalar> fps { 24 }
+            <Char*> order { srpht }
+            <S$Anim> i { <V> { 0.248077 } }
+            <S$Anim> j { <V> { 0.248077 } }
+            <S$Anim> k { <V> { 0.248077 } }
+          }
+          <Table> "human1crouching:pasted__joint70" {
+            <Xfm$Anim_S$> xform {
+              <Scalar> fps { 24 }
+              <Char*> order { srpht }
+              <S$Anim> h {
+                <V> {
+                  29.9118 67.21 107.241 157.306 157.306 157.306 157.306
+                  164.265 164.265 164.265 164.265 164.265 164.265
+                  164.265 164.265 164.265 164.265 164.265 164.265
+                  164.265 164.265 164.265 164.265 164.265 164.265
+                  164.265 164.265 164.265 164.265 164.265 164.265
+                  164.265 164.265 164.265 164.265 164.265 164.265
+                  164.265 164.265 164.265 164.265 164.265 164.265
+                  164.265 164.265 164.265 164.265 164.265
+                }
+              }
+              <S$Anim> p {
+                <V> {
+                  -29.2148 14.2559 61.7406 66.657 66.657 66.657 66.657
+                  55.6868 55.6868 55.6868 55.6868 55.6868 55.6868
+                  55.6868 55.6868 55.6868 55.6868 55.6868 55.6868
+                  55.6868 55.6868 55.6868 55.6868 55.6868 55.6868
+                  55.6868 55.6868 55.6868 55.6868 55.6868 55.6868
+                  55.6868 55.6868 55.6868 55.6868 55.6868 55.6868
+                  55.6868 55.6868 55.6868 55.6868 55.6868 55.6868
+                  55.6868 55.6868 55.6868 55.6868 55.6868
+                }
+              }
+              <S$Anim> r {
+                <V> {
+                  15.3056 32.3379 -8.14985 -67.7613 -67.7613 -67.7613
+                  -67.7613 -75.6657 -75.6657 -75.6657 -75.6657 -75.6657
+                  -75.6657 -75.6657 -75.6657 -75.6657 -75.6657 -75.6657
+                  -75.6657 -75.6657 -75.6657 -75.6657 -75.6657 -75.6657
+                  -75.6657 -75.6657 -75.6657 -75.6657 -75.6657 -75.6657
+                  -75.6657 -75.6657 -75.6657 -75.6657 -75.6657 -75.6657
+                  -75.6657 -75.6657 -75.6657 -75.6657 -75.6657 -75.6657
+                  -75.6657 -75.6657 -75.6657 -75.6657 -75.6657 -75.6657
+                }
+              }
+              <S$Anim> x {
+                <V> {
+                  2.86169 1.99455 1.04641 0.535963 0.539665 0.54654
+                  0.550242 0.550242 0.550242 0.550242 0.550242 0.550242
+                  0.550242 0.550242 0.550242 0.550242 0.550242 0.550242
+                  0.550242 0.550242 0.550242 0.550242 0.550242 0.550242
+                  0.550242 0.550242 0.550242 0.550242 0.550242 0.550242
+                  0.550242 0.550242 0.550242 0.550242 0.550242 0.550242
+                  0.550242 0.550242 0.550242 0.550242 0.550242 0.550242
+                  0.550242 0.550242 0.550242 0.550242 0.550242 0.550242
+                }
+              }
+              <S$Anim> y {
+                <V> {
+                  5.25383 5.22518 4.9534 4.79953 4.7888 4.76887 4.75814
+                  4.89423 4.81855 4.69242 4.69242 4.69242 4.69242
+                  4.69242 4.69242 4.69242 4.69242 4.69242 4.69242
+                  4.69242 4.69242 4.69242 4.69242 4.69242 4.69242
+                  4.69242 4.69242 4.69242 4.69242 4.69242 4.69242
+                  4.69242 4.69242 4.69242 4.69242 4.69242 4.69242
+                  4.69242 4.69242 4.69242 4.69242 4.69242 4.69242
+                  4.69242 4.69242 4.69242 4.69242 4.69242
+                }
+              }
+              <S$Anim> z {
+                <V> {
+                  -0.128278 -0.712871 -1.32757 -1.62268 -1.62307
+                  -1.62379 -1.62418 -1.64268 -1.64268 -1.64268 -1.64268
+                  -1.64268 -1.64268 -1.64268 -1.64268 -1.64268 -1.64268
+                  -1.64268 -1.64268 -1.64268 -1.64268 -1.64268 -1.64268
+                  -1.64268 -1.64268 -1.64268 -1.64268 -1.64268 -1.64268
+                  -1.64268 -1.64268 -1.64268 -1.64268 -1.64268 -1.64268
+                  -1.64268 -1.64268 -1.64268 -1.64268 -1.64268 -1.64268
+                  -1.64268 -1.64268 -1.64268 -1.64268 -1.64268 -1.64268
+                  -1.64268
+                }
+              }
+            }
+            <Table> "human1crouching:pasted__joint24" {
+              <Xfm$Anim_S$> xform {
+                <Scalar> fps { 24 }
+                <Char*> order { srpht }
+                <S$Anim> h { <V> { -13.134 } }
+                <S$Anim> x { <V> { 0.352227 } }
+                <S$Anim> y { <V> { -0.0162398 } }
+                <S$Anim> z { <V> { 0.0238054 } }
+              }
+              <Table> "human1crouching:pasted__joint25" {
+                <Xfm$Anim_S$> xform {
+                  <Scalar> fps { 24 }
+                  <Char*> order { srpht }
+                  <S$Anim> h { <V> { -20.9801 } }
+                  <S$Anim> p { <V> { 3.02552 } }
+                  <S$Anim> r { <V> { 79.8371 } }
+                  <S$Anim> x { <V> { 0.178852 } }
+                  <S$Anim> y { <V> { 0.0175815 } }
+                  <S$Anim> z { <V> { 0.00603399 } }
+                }
+                <Table> "human1crouching:pasted__joint26" {
+                  <Xfm$Anim_S$> xform {
+                    <Scalar> fps { 24 }
+                    <Char*> order { srpht }
+                    <S$Anim> h { <V> { -2.53917 } }
+                    <S$Anim> r { <V> { 73.732 } }
+                    <S$Anim> x { <V> { 0.112836 } }
+                    <S$Anim> y { <V> { -0.0130852 } }
+                    <S$Anim> z { <V> { -0.0061415 } }
+                  }
+                  <Table> "human1crouching:pasted__joint27" {
+                    <Xfm$Anim_S$> xform {
+                      <Scalar> fps { 24 }
+                      <Char*> order { srpht }
+                      <S$Anim> h { <V> { 30.5595 } }
+                      <S$Anim> x { <V> { 0.0992222 } }
+                      <S$Anim> y { <V> { -0.0130852 } }
+                      <S$Anim> z { <V> { -0.00203949 } }
+                    }
+                  }
+                }
+              }
+            }
+            <Table> "human1crouching:pasted__joint28" {
+              <Xfm$Anim_S$> xform {
+                <Scalar> fps { 24 }
+                <Char*> order { srpht }
+                <S$Anim> h { <V> { -10.817 } }
+                <S$Anim> x { <V> { 0.350538 } }
+                <S$Anim> y { <V> { -0.0162398 } }
+                <S$Anim> z { <V> { 0.0907657 } }
+              }
+              <Table> "human1crouching:pasted__joint29" {
+                <Xfm$Anim_S$> xform {
+                  <Scalar> fps { 24 }
+                  <Char*> order { srpht }
+                  <S$Anim> h { <V> { -21.723 } }
+                  <S$Anim> p { <V> { 11.6565 } }
+                  <S$Anim> r { <V> { 79.6354 } }
+                  <S$Anim> x { <V> { 0.117524 } }
+                  <S$Anim> y { <V> { 0.0175815 } }
+                  <S$Anim> z { <V> { 0.00982722 } }
+                }
+                <Table> "human1crouching:pasted__joint30" {
+                  <Xfm$Anim_S$> xform {
+                    <Scalar> fps { 24 }
+                    <Char*> order { srpht }
+                    <S$Anim> h { <V> { -7.39703 } }
+                    <S$Anim> r { <V> { 73.3482 } }
+                    <S$Anim> x { <V> { 0.173854 } }
+                    <S$Anim> y { <V> { -0.0145391 } }
+                    <S$Anim> z { <V> { 0.0170916 } }
+                  }
+                  <Table> "human1crouching:pasted__joint31" {
+                    <Xfm$Anim_S$> xform {
+                      <Scalar> fps { 24 }
+                      <Char*> order { srpht }
+                      <S$Anim> h { <V> { -5.65072 } }
+                      <S$Anim> x { <V> { 0.147159 } }
+                      <S$Anim> y { <V> { -0.0232626 } }
+                      <S$Anim> z { <V> { -0.000267492 } }
+                    }
+                  }
+                }
+              }
+            }
+            <Table> "human1crouching:pasted__joint33" {
+              <Xfm$Anim_S$> xform {
+                <Scalar> fps { 24 }
+                <Char*> order { srpht }
+                <S$Anim> h { <V> { -22.7083 } }
+                <S$Anim> x { <V> { 0.329545 } }
+                <S$Anim> y { <V> { -0.0162398 } }
+                <S$Anim> z { <V> { 0.152009 } }
+              }
+              <Table> "human1crouching:pasted__joint34" {
+                <Xfm$Anim_S$> xform {
+                  <Scalar> fps { 24 }
+                  <Char*> order { srpht }
+                  <S$Anim> h { <V> { -11.5511 } }
+                  <S$Anim> p { <V> { 2.21605 } }
+                  <S$Anim> r { <V> { 79.8438 } }
+                  <S$Anim> x { <V> { 0.116372 } }
+                  <S$Anim> y { <V> { 0.0175815 } }
+                  <S$Anim> z { <V> { 0.00700693 } }
+                }
+                <Table> "human1crouching:pasted__joint35" {
+                  <Xfm$Anim_S$> xform {
+                    <Scalar> fps { 24 }
+                    <Char*> order { srpht }
+                    <S$Anim> h { <V> { 4.39871 } }
+                    <S$Anim> r { <V> { 72.978 } }
+                    <S$Anim> x { <V> { 0.165857 } }
+                    <S$Anim> y { <V> { -0.0116313 } }
+                    <S$Anim> z { <V> { -0.00773212 } }
+                  }
+                  <Table> "human1crouching:pasted__joint36" {
+                    <Xfm$Anim_S$> xform {
+                      <Scalar> fps { 24 }
+                      <Char*> order { srpht }
+                      <S$Anim> x { <V> { 0.156408 } }
+                      <S$Anim> y { <V> { -0.0232626 } }
+                    }
+                  }
+                }
+              }
+            }
+            <Table> "human1crouching:pasted__joint38" {
+              <Xfm$Anim_S$> xform {
+                <Scalar> fps { 24 }
+                <Char*> order { srpht }
+                <S$Anim> h { <V> { -31.569 } }
+                <S$Anim> x { <V> { 0.279461 } }
+                <S$Anim> y { <V> { -0.0162398 } }
+                <S$Anim> z { <V> { 0.209987 } }
+              }
+              <Table> "human1crouching:pasted__joint39" {
+                <Xfm$Anim_S$> xform {
+                  <Scalar> fps { 24 }
+                  <Char*> order { srpht }
+                  <S$Anim> h { <V> { -1.1995 } }
+                  <S$Anim> p { <V> { 10.4275 } }
+                  <S$Anim> r { <V> { 79.6792 } }
+                  <S$Anim> x { <V> { 0.114897 } }
+                  <S$Anim> y { <V> { 0.0175815 } }
+                  <S$Anim> z { <V> { 0.00814129 } }
+                }
+                <Table> "human1crouching:pasted__joint40" {
+                  <Xfm$Anim_S$> xform {
+                    <Scalar> fps { 24 }
+                    <Char*> order { srpht }
+                    <S$Anim> h { <V> { -5.99059 } }
+                    <S$Anim> r { <V> { 73.3254 } }
+                    <S$Anim> x { <V> { 0.158653 } }
+                    <S$Anim> y { <V> { -0.0145391 } }
+                    <S$Anim> z { <V> { 0.0120865 } }
+                  }
+                  <Table> "human1crouching:pasted__joint41" {
+                    <Xfm$Anim_S$> xform {
+                      <Scalar> fps { 24 }
+                      <Char*> order { srpht }
+                      <S$Anim> h { <V> { 6.61933 } }
+                      <S$Anim> x { <V> { 0.157897 } }
+                      <S$Anim> y { <V> { -0.0130852 } }
+                      <S$Anim> z { <V> { -0.0193042 } }
+                    }
+                  }
+                }
+              }
+            }
+            <Table> "human1crouching:pasted__joint85" {
+              <Xfm$Anim_S$> xform {
+                <Scalar> fps { 24 }
+                <Char*> order { srpht }
+                <S$Anim> h { <V> { -24.444 } }
+                <S$Anim> x { <V> { 0.12565 } }
+                <S$Anim> y { <V> { -0.000656602 } }
+                <S$Anim> z { <V> { -0.0397031 } }
+              }
+              <Table> "human1crouching:pasted__joint21" {
+                <Xfm$Anim_S$> xform {
+                  <Scalar> fps { 24 }
+                  <Char*> order { srpht }
+                  <S$Anim> h { <V> { 90 } }
+                  <S$Anim> x { <V> { 0.0480691 } }
+                  <S$Anim> y { <V> { 0.000656602 } }
+                  <S$Anim> z { <V> { -0.0455299 } }
+                }
+                <Table> "human1crouching:pasted__joint22" {
+                  <Xfm$Anim_S$> xform {
+                    <Scalar> fps { 24 }
+                    <Char*> order { srpht }
+                    <S$Anim> x { <V> { 0.0996853 } }
+                  }
+                  <Table> "human1crouching:pasted__joint23" {
+                    <Xfm$Anim_S$> xform {
+                      <Scalar> fps { 24 }
+                      <Char*> order { srpht }
+                      <S$Anim> r { <V> { -56.3099 } }
+                      <S$Anim> x { <V> { 0.0929268 } }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        <Table> "human1crouching:transform4" {
+          <Xfm$Anim_S$> xform {
+            <Scalar> fps { 24 }
+            <Char*> order { srpht }
+            <S$Anim> i { <V> { 0.248077 } }
+            <S$Anim> j { <V> { 0.248077 } }
+            <S$Anim> k { <V> { 0.248077 } }
+          }
+          <Table> "human1crouching:pasted__joint20" {
+            <Xfm$Anim_S$> xform {
+              <Scalar> fps { 24 }
+              <Char*> order { srpht }
+              <S$Anim> h {
+                <V> {
+                  150.693 127.227 148.915 -137.6 -137.6 -137.6 -137.6
+                  -137.6 -137.6 -137.6 -137.6 -137.6 -137.6 -137.6
+                  -137.6 -137.6 -137.6 -137.6 -137.6 -137.6 -137.6
+                  -137.6 -137.6 -137.6 -137.6 -137.6 -137.6 -137.6
+                  -137.6 -137.6 -137.6 -137.6 -137.6 -137.6 -137.6
+                  -137.6 -137.6 -137.6 -137.6 -137.6 -137.6 -137.6
+                  -137.6 -137.6 -137.6 -137.6 -137.6 -137.6
+                }
+              }
+              <S$Anim> p {
+                <V> {
+                  27.5153 -10.043 -63.6279 -68.0892 -68.0892 -68.0892
+                  -68.0892 -68.0892 -68.0892 -68.0892 -68.0892 -68.0892
+                  -68.0892 -68.0892 -68.0892 -68.0892 -68.0892 -68.0892
+                  -68.0892 -68.0892 -68.0892 -68.0892 -68.0892 -68.0892
+                  -68.0892 -68.0892 -68.0892 -68.0892 -68.0892 -68.0892
+                  -68.0892 -68.0892 -68.0892 -68.0892 -68.0892 -68.0892
+                  -68.0892 -68.0892 -68.0892 -68.0892 -68.0892 -68.0892
+                  -68.0892 -68.0892 -68.0892 -68.0892 -68.0892 -68.0892
+                }
+              }
+              <S$Anim> r {
+                <V> {
+                  -165.796 -110.665 -56.0217 25.1291 25.1291 25.1291
+                  25.1291 25.1291 25.1291 25.1291 25.1291 25.1291
+                  25.1291 25.1291 25.1291 25.1291 25.1291 25.1291
+                  25.1291 25.1291 25.1291 25.1291 25.1291 25.1291
+                  25.1291 25.1291 25.1291 25.1291 25.1291 25.1291
+                  25.1291 25.1291 25.1291 25.1291 25.1291 25.1291
+                  25.1291 25.1291 25.1291 25.1291 25.1291 25.1291
+                  25.1291 25.1291 25.1291 25.1291 25.1291 25.1291
+                }
+              }
+              <S$Anim> x {
+                <V> {
+                  -2.83668 -1.81872 -0.617648 -0.0217202 -0.0180181
+                  -0.0111428 -0.00744073 -0.00744073 -0.00744073
+                  -0.00744073 -0.00744073 -0.00744073 -0.00744073
+                  -0.00744073 -0.00744073 -0.00744073 -0.00744073
+                  -0.00744073 -0.00744073 -0.00744073 -0.00744073
+                  -0.00744073 -0.00744073 -0.00744073 -0.00744073
+                  -0.00744073 -0.00744073 -0.00744073 -0.00744073
+                  -0.00744073 -0.00744073 -0.00744073 -0.00744073
+                  -0.00744073 -0.00744073 -0.00744073 -0.00744073
+                  -0.00744073 -0.00744073 -0.00744073 -0.00744073
+                  -0.00744073 -0.00744073 -0.00744073 -0.00744073
+                  -0.00744073 -0.00744073 -0.00744073
+                }
+              }
+              <S$Anim> y {
+                <V> {
+                  5.21927 4.97966 4.67398 4.5751 4.56437 4.54444 4.53371
+                  4.69885 4.62317 4.49704 4.49704 4.49704 4.49704
+                  4.49704 4.49704 4.49704 4.49704 4.49704 4.49704
+                  4.49704 4.49704 4.49704 4.49704 4.49704 4.49704
+                  4.49704 4.49704 4.49704 4.49704 4.49704 4.49704
+                  4.49704 4.49704 4.49704 4.49704 4.49704 4.49704
+                  4.49704 4.49704 4.49704 4.49704 4.49704 4.49704
+                  4.49704 4.49704 4.49704 4.49704 4.49704
+                }
+              }
+              <S$Anim> z {
+                <V> {
+                  0.0361288 -0.719193 -1.47173 -1.81217 -1.81256
+                  -1.81328 -1.81366 -1.81366 -1.81366 -1.81366 -1.81366
+                  -1.81366 -1.81366 -1.81366 -1.81366 -1.81366 -1.81366
+                  -1.81366 -1.81366 -1.81366 -1.81366 -1.81366 -1.81366
+                  -1.81366 -1.81366 -1.81366 -1.81366 -1.81366 -1.81366
+                  -1.81366 -1.81366 -1.81366 -1.81366 -1.81366 -1.81366
+                  -1.81366 -1.81366 -1.81366 -1.81366 -1.81366 -1.81366
+                  -1.81366 -1.81366 -1.81366 -1.81366 -1.81366 -1.81366
+                  -1.81366
+                }
+              }
+            }
+            <Table> "human1crouching:pasted__joint24" {
+              <Xfm$Anim_S$> xform {
+                <Scalar> fps { 24 }
+                <Char*> order { srpht }
+                <S$Anim> h { <V> { -13.134 } }
+                <S$Anim> x { <V> { -0.35223 } }
+                <S$Anim> y { <V> { 0.01624 } }
+                <S$Anim> z { <V> { -0.0238068 } }
+              }
+              <Table> "human1crouching:pasted__joint25" {
+                <Xfm$Anim_S$> xform {
+                  <Scalar> fps { 24 }
+                  <Char*> order { srpht }
+                  <S$Anim> h { <V> { -20.2939 } }
+                  <S$Anim> p { <V> { 13.187 } }
+                  <S$Anim> r { <V> { 57.8571 } }
+                  <S$Anim> x { <V> { -0.17885 } }
+                  <S$Anim> y { <V> { -0.01758 } }
+                  <S$Anim> z { <V> { -0.00603371 } }
+                }
+                <Table> "human1crouching:pasted__joint26" {
+                  <Xfm$Anim_S$> xform {
+                    <Scalar> fps { 24 }
+                    <Char*> order { srpht }
+                    <S$Anim> h { <V> { -2.53917 } }
+                    <S$Anim> x { <V> { -0.112837 } }
+                    <S$Anim> y { <V> { 0.00290956 } }
+                    <S$Anim> z { <V> { 0.00614152 } }
+                  }
+                  <Table> "human1crouching:pasted__joint27" {
+                    <Xfm$Anim_S$> xform {
+                      <Scalar> fps { 24 }
+                      <Char*> order { srpht }
+                      <S$Anim> h { <V> { 30.5595 } }
+                      <S$Anim> x { <V> { -0.0992273 } }
+                      <S$Anim> y { <V> { 0.010177 } }
+                      <S$Anim> z { <V> { 0.00204061 } }
+                    }
+                  }
+                }
+              }
+            }
+            <Table> "human1crouching:pasted__joint28" {
+              <Xfm$Anim_S$> xform {
+                <Scalar> fps { 24 }
+                <Char*> order { srpht }
+                <S$Anim> h { <V> { -10.817 } }
+                <S$Anim> x { <V> { -0.350541 } }
+                <S$Anim> y { <V> { 0.01624 } }
+                <S$Anim> z { <V> { -0.090767 } }
+              }
+              <Table> "human1crouching:pasted__joint29" {
+                <Xfm$Anim_S$> xform {
+                  <Scalar> fps { 24 }
+                  <Char*> order { srpht }
+                  <S$Anim> h { <V> { -21.8017 } }
+                  <S$Anim> p { <V> { 14.94 } }
+                  <S$Anim> r { <V> { 50.5566 } }
+                  <S$Anim> x { <V> { -0.117523 } }
+                  <S$Anim> y { <V> { -0.01758 } }
+                  <S$Anim> z { <V> { -0.00982696 } }
+                }
+                <Table> "human1crouching:pasted__joint30" {
+                  <Xfm$Anim_S$> xform {
+                    <Scalar> fps { 24 }
+                    <Char*> order { srpht }
+                    <S$Anim> h { <V> { -7.39703 } }
+                    <S$Anim> x { <V> { -0.15503 } }
+                    <S$Anim> y { <V> { 0.00290956 } }
+                    <S$Anim> z { <V> { -0.0153804 } }
+                  }
+                  <Table> "human1crouching:pasted__joint31" {
+                    <Xfm$Anim_S$> xform {
+                      <Scalar> fps { 24 }
+                      <Char*> order { srpht }
+                      <S$Anim> h { <V> { -5.65072 } }
+                      <S$Anim> x { <V> { -0.160288 } }
+                      <S$Anim> y { <V> { 0.0218135 } }
+                      <S$Anim> z { <V> { -0.000682473 } }
+                    }
+                  }
+                }
+              }
+            }
+            <Table> "human1crouching:pasted__joint33" {
+              <Xfm$Anim_S$> xform {
+                <Scalar> fps { 24 }
+                <Char*> order { srpht }
+                <S$Anim> h { <V> { -22.7083 } }
+                <S$Anim> x { <V> { -0.329546 } }
+                <S$Anim> y { <V> { 0.01624 } }
+                <S$Anim> z { <V> { -0.152009 } }
+              }
+              <Table> "human1crouching:pasted__joint34" {
+                <Xfm$Anim_S$> xform {
+                  <Scalar> fps { 24 }
+                  <Char*> order { srpht }
+                  <S$Anim> h { <V> { -16.0401 } }
+                  <S$Anim> p { <V> { 7.46127 } }
+                  <S$Anim> r { <V> { 51.7509 } }
+                  <S$Anim> x { <V> { -0.116371 } }
+                  <S$Anim> y { <V> { -0.01758 } }
+                  <S$Anim> z { <V> { -0.0070069 } }
+                }
+                <Table> "human1crouching:pasted__joint35" {
+                  <Xfm$Anim_S$> xform {
+                    <Scalar> fps { 24 }
+                    <Char*> order { srpht }
+                    <S$Anim> h { <V> { 4.39871 } }
+                    <S$Anim> x { <V> { -0.155708 } }
+                    <S$Anim> y { <V> { 0.00290956 } }
+                    <S$Anim> z { <V> { 0.0069514 } }
+                  }
+                  <Table> "human1crouching:pasted__joint36" {
+                    <Xfm$Anim_S$> xform {
+                      <Scalar> fps { 24 }
+                      <Char*> order { srpht }
+                      <S$Anim> x { <V> { -0.152053 } }
+                      <S$Anim> y { <V> { 0.0218135 } }
+                    }
+                  }
+                }
+              }
+            }
+            <Table> "human1crouching:pasted__joint38" {
+              <Xfm$Anim_S$> xform {
+                <Scalar> fps { 24 }
+                <Char*> order { srpht }
+                <S$Anim> h { <V> { -31.569 } }
+                <S$Anim> x { <V> { -0.279465 } }
+                <S$Anim> y { <V> { 0.01624 } }
+                <S$Anim> z { <V> { -0.209989 } }
+              }
+              <Table> "human1crouching:pasted__joint39" {
+                <Xfm$Anim_S$> xform {
+                  <Scalar> fps { 24 }
+                  <Char*> order { srpht }
+                  <S$Anim> h { <V> { -1.86752 } }
+                  <S$Anim> p { <V> { 13.9738 } }
+                  <S$Anim> r { <V> { 50.7608 } }
+                  <S$Anim> x { <V> { -0.114897 } }
+                  <S$Anim> y { <V> { -0.01758 } }
+                  <S$Anim> z { <V> { -0.00814164 } }
+                }
+                <Table> "human1crouching:pasted__joint40" {
+                  <Xfm$Anim_S$> xform {
+                    <Scalar> fps { 24 }
+                    <Char*> order { srpht }
+                    <S$Anim> h { <V> { -5.99059 } }
+                    <S$Anim> x { <V> { -0.164449 } }
+                    <S$Anim> y { <V> { 0.00290956 } }
+                    <S$Anim> z { <V> { -0.012486 } }
+                  }
+                  <Table> "human1crouching:pasted__joint41" {
+                    <Xfm$Anim_S$> xform {
+                      <Scalar> fps { 24 }
+                      <Char*> order { srpht }
+                      <S$Anim> h { <V> { 6.61933 } }
+                      <S$Anim> x { <V> { -0.124535 } }
+                      <S$Anim> y { <V> { 0.0247213 } }
+                      <S$Anim> z { <V> { 0.0166578 } }
+                    }
+                  }
+                }
+              }
+            }
+            <Table> "human1crouching:joint83" {
+              <Xfm$Anim_S$> xform {
+                <Scalar> fps { 24 }
+                <Char*> order { srpht }
+                <S$Anim> h { <V> { 155.556 } }
+                <S$Anim> r { <V> { 180 } }
+                <S$Anim> x { <V> { -0.127343 } }
+                <S$Anim> y { <V> { 0.00176823 } }
+                <S$Anim> z { <V> { 0.042821 } }
+              }
+              <Table> "human1crouching:pasted__joint21" {
+                <Xfm$Anim_S$> xform {
+                  <Scalar> fps { 24 }
+                  <Char*> order { srpht }
+                  <S$Anim> h { <V> { 90 } }
+                  <S$Anim> r { <V> { -180 } }
+                  <S$Anim> x { <V> { -0.0478203 } }
+                  <S$Anim> y { <V> { 0.00176823 } }
+                  <S$Anim> z { <V> { -0.041991 } }
+                }
+                <Table> "human1crouching:pasted__joint22" {
+                  <Xfm$Anim_S$> xform {
+                    <Scalar> fps { 24 }
+                    <Char*> order { srpht }
+                    <S$Anim> x { <V> { -0.0996849 } }
+                  }
+                  <Table> "human1crouching:pasted__joint23" {
+                    <Xfm$Anim_S$> xform {
+                      <Scalar> fps { 24 }
+                      <Char*> order { srpht }
+                      <S$Anim> r { <V> { -56.3099 } }
+                      <S$Anim> x { <V> { -0.092927 } }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        <Table> "human1crouching:nurbsCircle1" {
+          <Xfm$Anim_S$> xform {
+            <Scalar> fps { 24 }
+            <Char*> order { srpht }
+            <S$Anim> i { <V> { 0.248077 } }
+            <S$Anim> j { <V> { 0.248077 } }
+            <S$Anim> k { <V> { 0.248077 } }
+          }
+          <Table> "human1crouching:joint69" {
+            <Xfm$Anim_S$> xform {
+              <Scalar> fps { 24 }
+              <Char*> order { srpht }
+              <S$Anim> h { <V> { -180 } }
+              <S$Anim> r { <V> { 18.8636 } }
+              <S$Anim> y { <V> { 3.16277 } }
+              <S$Anim> z { <V> { 0.036907 } }
+            }
+            <Table> "human1crouching:joint70" {
+              <Xfm$Anim_S$> xform {
+                <Scalar> fps { 24 }
+                <Char*> order { srpht }
+                <S$Anim> h { <V> { -90 } }
+                <S$Anim> p { <V> { 18.8636 } }
+                <S$Anim> r { <V> { 82.6785 } }
+                <S$Anim> x { <V> { 0.445249 } }
+              }
+              <Table> "human1crouching:joint71" {
+                <Xfm$Anim_S$> xform {
+                  <Scalar> fps { 24 }
+                  <Char*> order { srpht }
+                  <S$Anim> h { <V> { -180 } }
+                  <S$Anim> r { <V> { 162.926 } }
+                  <S$Anim> x { <V> { 1.50582 } }
+                }
+                <Table> "human1crouching:joint72" {
+                  <Xfm$Anim_S$> xform {
+                    <Scalar> fps { 24 }
+                    <Char*> order { srpht }
+                    <S$Anim> h { <V> { -180 } }
+                    <S$Anim> r { <V> { 91.304 } }
+                    <S$Anim> x { <V> { 1.30221 } }
+                  }
+                  <Table> "human1crouching:joint73" {
+                    <Xfm$Anim_S$> xform {
+                      <Scalar> fps { 24 }
+                      <Char*> order { srpht }
+                      <S$Anim> r { <V> { -6.58925 } }
+                      <S$Anim> x { <V> { 0.592534 } }
+                    }
+                    <Table> "human1crouching:joint74" {
+                      <Xfm$Anim_S$> xform {
+                        <Scalar> fps { 24 }
+                        <Char*> order { srpht }
+                        <S$Anim> h { <V> { 180 } }
+                        <S$Anim> r { <V> { -44.3469 } }
+                        <S$Anim> x { <V> { 0.4291 } }
+                      }
+                    }
+                    <Table> "human1crouching:effector8" {
+                      <Xfm$Anim_S$> xform {
+                        <Scalar> fps { 24 }
+                        <Char*> order { srpht }
+                        <S$Anim> x { <V> { 0.4291 } }
+                      }
+                    }
+                  }
+                  <Table> "human1crouching:effector7" {
+                    <Xfm$Anim_S$> xform {
+                      <Scalar> fps { 24 }
+                      <Char*> order { srpht }
+                      <S$Anim> x { <V> { 0.592534 } }
+                    }
+                  }
+                }
+                <Table> "human1crouching:effector10" {
+                  <Xfm$Anim_S$> xform {
+                    <Scalar> fps { 24 }
+                    <Char*> order { srpht }
+                    <S$Anim> x { <V> { 1.30221 } }
+                  }
+                }
+              }
+            }
+            <Table> "human1crouching:joint80" {
+              <Xfm$Anim_S$> xform {
+                <Scalar> fps { 24 }
+                <Char*> order { srpht }
+                <S$Anim> h { <V> { -90 } }
+                <S$Anim> p { <V> { 18.8636 } }
+                <S$Anim> r { <V> { -97.3215 } }
+                <S$Anim> x { <V> { -0.352164 } }
+                <S$Anim> y { <V> { -0.272445 } }
+              }
+              <Table> "human1crouching:joint71" {
+                <Xfm$Anim_S$> xform {
+                  <Scalar> fps { 24 }
+                  <Char*> order { srpht }
+                  <S$Anim> h { <V> { 180 } }
+                  <S$Anim> r { <V> { 162.926 } }
+                  <S$Anim> x { <V> { -1.50583 } }
+                }
+                <Table> "human1crouching:joint72" {
+                  <Xfm$Anim_S$> xform {
+                    <Scalar> fps { 24 }
+                    <Char*> order { srpht }
+                    <S$Anim> h { <V> { 180 } }
+                    <S$Anim> r { <V> { 91.304 } }
+                    <S$Anim> x { <V> { -1.30221 } }
+                  }
+                  <Table> "human1crouching:joint73" {
+                    <Xfm$Anim_S$> xform {
+                      <Scalar> fps { 24 }
+                      <Char*> order { srpht }
+                      <S$Anim> r { <V> { -6.58925 } }
+                      <S$Anim> x { <V> { -0.592534 } }
+                    }
+                    <Table> "human1crouching:joint74" {
+                      <Xfm$Anim_S$> xform {
+                        <Scalar> fps { 24 }
+                        <Char*> order { srpht }
+                        <S$Anim> h { <V> { -180 } }
+                        <S$Anim> r { <V> { -44.3469 } }
+                        <S$Anim> x { <V> { -0.4291 } }
+                      }
+                    }
+                    <Table> "human1crouching:effector6" {
+                      <Xfm$Anim_S$> xform {
+                        <Scalar> fps { 24 }
+                        <Char*> order { srpht }
+                        <S$Anim> x { <V> { -0.4291 } }
+                      }
+                    }
+                  }
+                  <Table> "human1crouching:effector5" {
+                    <Xfm$Anim_S$> xform {
+                      <Scalar> fps { 24 }
+                      <Char*> order { srpht }
+                      <S$Anim> x { <V> { -0.592534 } }
+                    }
+                  }
+                }
+                <Table> "human1crouching:effector9" {
+                  <Xfm$Anim_S$> xform {
+                    <Scalar> fps { 24 }
+                    <Char*> order { srpht }
+                    <S$Anim> x { <V> { -1.30221 } }
+                  }
+                }
+              }
+            }
+            <Table> "human1crouching:joint1" {
+              <Xfm$Anim_S$> xform {
+                <Scalar> fps { 24 }
+                <Char*> order { srpht }
+                <S$Anim> h { <V> { 90 } }
+                <S$Anim> p { <V> { -18.8636 } }
+                <S$Anim> r { <V> { -53.7873 } }
+              }
+              <Table> "human1crouching:joint2" {
+                <Xfm$Anim_S$> xform {
+                  <Scalar> fps { 24 }
+                  <Char*> order { srpht }
+                  <S$Anim> r { <V> { -19.1225 } }
+                  <S$Anim> x { <V> { 0.251448 } }
+                }
+                <Table> "human1crouching:joint3" {
+                  <Xfm$Anim_S$> xform {
+                    <Scalar> fps { 24 }
+                    <Char*> order { srpht }
+                    <S$Anim> r { <V> { -11.8575 } }
+                    <S$Anim> x { <V> { 0.36184 } }
+                  }
+                  <Table> "human1crouching:joint4" {
+                    <Xfm$Anim_S$> xform {
+                      <Scalar> fps { 24 }
+                      <Char*> order { srpht }
+                      <S$Anim> h { <V> { 180 } }
+                      <S$Anim> r { <V> { -174.754 } }
+                      <S$Anim> x { <V> { 0.379206 } }
+                    }
+                    <Table> "human1crouching:joint5" {
+                      <Xfm$Anim_S$> xform {
+                        <Scalar> fps { 24 }
+                        <Char*> order { srpht }
+                        <S$Anim> r { <V> { 1.60145 } }
+                        <S$Anim> x { <V> { 0.334521 } }
+                      }
+                      <Table> "human1crouching:joint6" {
+                        <Xfm$Anim_S$> xform {
+                          <Scalar> fps { 24 }
+                          <Char*> order { srpht }
+                          <S$Anim> h { <V> { 180 } }
+                          <S$Anim> r { <V> { -179.349 } }
+                          <S$Anim> x { <V> { 0.28385 } }
+                        }
+                        <Table> "human1crouching:joint7" {
+                          <Xfm$Anim_S$> xform {
+                            <Scalar> fps { 24 }
+                            <Char*> order { srpht }
+                            <S$Anim> h { <V> { 1.02064 } }
+                            <S$Anim> p { <V> { 0.0533253 } }
+                            <S$Anim> r { <V> { -5.92792 } }
+                            <S$Anim> x { <V> { 0.218081 } }
+                          }
+                          <Table> "human1crouching:joint8" {
+                            <Xfm$Anim_S$> xform {
+                              <Scalar> fps { 24 }
+                              <Char*> order { srpht }
+                              <S$Anim> h { <V> { 179.298 } }
+                              <S$Anim> p { <V> { -0.460072 } }
+                              <S$Anim> r { <V> { -153.584 } }
+                              <S$Anim> x { <V> { 0.21165 } }
+                              <S$Anim> y { <V> { -0.0327189 } }
+                              <S$Anim> z { <V> { 0.00382063 } }
+                            }
+                            <Table> "human1crouching:joint9" {
+                              <Xfm$Anim_S$> xform {
+                                <Scalar> fps { 24 }
+                                <Char*> order { srpht }
+                                <S$Anim> h { <V> { 0.254544 } }
+                                <S$Anim> p { <V> { -0.142885 } }
+                                <S$Anim> r { <V> { -24.9243 } }
+                                <S$Anim> x { <V> { 0.170573 } }
+                              }
+                              <Table> "human1crouching:joint10" {
+                                <Xfm$Anim_S$> xform {
+                                  <Scalar> fps { 24 }
+                                  <Char*> order { srpht }
+                                  <S$Anim> h { <V> { -179.895 } }
+                                  <S$Anim> p { <V> { 0.0141186 } }
+                                  <S$Anim> r { <V> { -169.897 } }
+                                  <S$Anim> x { <V> { 0.236542 } }
+                                }
+                                <Table> "human1crouching:joint11" {
+                                  <Xfm$Anim_S$> xform {
+                                    <Scalar> fps { 24 }
+                                    <Char*> order { srpht }
+                                    <S$Anim> h { <V> { 180 } }
+                                    <S$Anim> r { <V> { -146.195 } }
+                                    <S$Anim> x { <V> { 0.261269 } }
+                                  }
+                                  <Table> "human1crouching:joint12" {
+                                    <Xfm$Anim_S$> xform {
+                                      <Scalar> fps { 24 }
+                                      <Char*> order { srpht }
+                                      <S$Anim> r { <V> { 129.588 } }
+                                      <S$Anim> x { <V> { 0.296386 } }
+                                    }
+                                    <Table> "human1crouching:joint13" {
+                                      <Xfm$Anim_S$> xform {
+                                        <Scalar> fps { 24 }
+                                        <Char*> order { srpht }
+                                        <S$Anim> r { <V> { -84.8978 } }
+                                        <S$Anim> x { <V> { 0.254732 } }
+                                        <S$Anim> y { <V> { -0.000106217 } }
+                                        <S$Anim> z { <V> { 0.0105854 } }
+                                      }
+                                      <Table> "human1crouching:joint14" {
+                                        <Xfm$Anim_S$> xform {
+                                          <Scalar> fps { 24 }
+                                          <Char*> order { srpht }
+                                          <S$Anim> h { <V> { 179.389 } }
+                                          <S$Anim> p { <V> { 0.150214 } }
+                                          <S$Anim> r { <V> { -97.2362 } }
+                                          <S$Anim> x { <V> { 0.206782 } }
+                                          <S$Anim> y { <V> { 0.0201303 } }
+                                          <S$Anim> z { <V> { -0.129593 } }
+                                        }
+                                      }
+                                      <Table> "human1crouching:joint15" {
+                                        <Xfm$Anim_S$> xform {
+                                          <Scalar> fps { 24 }
+                                          <Char*> order { srpht }
+                                          <S$Anim> h { <V> { -0.614607 } }
+                                          <S$Anim> p { <V> { -0.1195 } }
+                                          <S$Anim> r { <V> { -0.000669459 } }
+                                          <S$Anim> x { <V> { 0.206782 } }
+                                          <S$Anim> y { <V> { 0.0201302 } }
+                                          <S$Anim> z { <V> { 0.129469 } }
+                                        }
+                                      }
+                                      <Table> "human1crouching:joint16" {
+                                        <Xfm$Anim_S$> xform {
+                                          <Scalar> fps { 24 }
+                                          <Char*> order { srpht }
+                                          <S$Anim> r { <V> { 37.2451 } }
+                                          <S$Anim> x { <V> { 0.0521102 } }
+                                          <S$Anim> y { <V> { -0.237894 } }
+                                        }
+                                        <Table> "human1crouching:joint17" {
+                                          <Xfm$Anim_S$> xform {
+                                            <Scalar> fps { 24 }
+                                            <Char*> order { srpht }
+                                            <S$Anim> r { <V> { -37.2553 } }
+                                            <S$Anim> x { <V> { 0.202102 } }
+                                          }
+                                        }
+                                        <Table> "human1crouching:effector11" {
+                                          <Xfm$Anim_S$> xform {
+                                            <Scalar> fps { 24 }
+                                            <Char*> order { srpht }
+                                            <S$Anim> x { <V> { 0.202102 } }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                                <Table> "human1crouching:effector2" {
+                                  <Xfm$Anim_S$> xform {
+                                    <Scalar> fps { 24 }
+                                    <Char*> order { srpht }
+                                    <S$Anim> x { <V> { 0.261269 } }
+                                  }
+                                }
+                              }
+                            }
+                            <Table> "human1crouching:joint18" {
+                              <Xfm$Anim_S$> xform {
+                                <Scalar> fps { 24 }
+                                <Char*> order { srpht }
+                                <S$Anim> h {
+                                  <V> {
+                                    -91.0863 -122.46 -81.2918 -63.6096
+                                    -60.6188 -59.6871 -60.5729 -63.1884
+                                    -64.7924 -66.6834 -69.0153 -70.8576
+                                    -70.8576 -70.8576 -70.8576 -70.8576
+                                    -70.8576 -70.8576 -70.8576 -70.8576
+                                    -70.8576 -70.8576 -70.8576 -70.8576
+                                    -70.8576 -70.8576 -70.8576 -70.8576
+                                    -70.8576 -70.8576 -70.8576 -70.8576
+                                    -70.8576 -70.8576 -70.8576 -70.8576
+                                    -70.8576 -70.8576 -70.8576 -70.8576
+                                    -70.8576 -70.8576 -70.8576 -70.8576
+                                    -70.8576 -70.8576 -70.8576 -70.8576
+                                  }
+                                }
+                                <S$Anim> p {
+                                  <V> {
+                                    19.5549 -7.0053 -23.3728 -8.40962
+                                    -8.86908 -9.50934 -9.76116 -6.20315
+                                    -8.07346 -10.9942 -11.04 -11.1072
+                                    -11.1072 -11.1072 -11.1072 -11.1072
+                                    -11.1072 -11.1072 -11.1072 -11.1072
+                                    -11.1072 -11.1072 -11.1072 -11.1072
+                                    -11.1072 -11.1072 -11.1072 -11.1072
+                                    -11.1072 -11.1072 -11.1072 -11.1072
+                                    -11.1072 -11.1072 -11.1072 -11.1072
+                                    -11.1072 -11.1072 -11.1072 -11.1072
+                                    -11.1072 -11.1072 -11.1072 -11.1072
+                                    -11.1072 -11.1072 -11.1072 -11.1072
+                                  }
+                                }
+                                <S$Anim> r {
+                                  <V> {
+                                    4.97383 34.8987 75.1795 87.6406
+                                    86.0606 85.6525 86.1529 85.4101
+                                    87.4506 90.0737 91.1747 92.0431
+                                    92.0431 92.0431 92.0431 92.0431
+                                    92.0431 92.0431 92.0431 92.0431
+                                    92.0431 92.0431 92.0431 92.0431
+                                    92.0431 92.0431 92.0431 92.0431
+                                    92.0431 92.0431 92.0431 92.0431
+                                    92.0431 92.0431 92.0431 92.0431
+                                    92.0431 92.0431 92.0431 92.0431
+                                    92.0431 92.0431 92.0431 92.0431
+                                    92.0431 92.0431 92.0431 92.0431
+                                  }
+                                }
+                                <S$Anim> x { <V> { 0.160264 } }
+                                <S$Anim> y { <V> { -0.240396 } }
+                                <S$Anim> z { <V> { 0.659541 } }
+                              }
+                              <Table> "human1crouching:joint19" {
+                                <Xfm$Anim_S$> xform {
+                                  <Scalar> fps { 24 }
+                                  <Char*> order { srpht }
+                                  <S$Anim> h {
+                                    <V> {
+                                      -8.01898 90.0126 90.8856 64.9563
+                                      64.8375 64.5986 64.46 66.0127
+                                      65.239 63.2633 63.2633 63.2633
+                                      63.2633 63.2633 63.2633 63.2633
+                                      63.2633 63.2633 63.2633 63.2633
+                                      63.2633 63.2633 63.2633 63.2633
+                                      63.2633 63.2633 63.2633 63.2633
+                                      63.2633 63.2633 63.2633 63.2633
+                                      63.2633 63.2633 63.2633 63.2633
+                                      63.2633 63.2633 63.2633 63.2633
+                                      63.2633 63.2633 63.2633 63.2633
+                                      63.2633 63.2633 63.2633 63.2633
+                                    }
+                                  }
+                                  <S$Anim> p {
+                                    <V> {
+                                      0.165219 6.35153 6.408 4.14517
+                                      4.13307 4.10871 4.09458 4.25252
+                                      4.17395 3.97223 3.97223 3.97223
+                                      3.97223 3.97223 3.97223 3.97223
+                                      3.97223 3.97223 3.97223 3.97223
+                                      3.97223 3.97223 3.97223 3.97223
+                                      3.97223 3.97223 3.97223 3.97223
+                                      3.97223 3.97223 3.97223 3.97223
+                                      3.97223 3.97223 3.97223 3.97223
+                                      3.97223 3.97223 3.97223 3.97223
+                                      3.97223 3.97223 3.97223 3.97223
+                                      3.97223 3.97223 3.97223 3.97223
+                                    }
+                                  }
+                                  <S$Anim> r {
+                                    <V> {
+                                      -0.551148 -0.191027 -0.311895
+                                      2.26049 2.26714 2.28038 2.28796
+                                      2.19921 2.24446 2.35077 2.35077
+                                      2.35077 2.35077 2.35077 2.35077
+                                      2.35077 2.35077 2.35077 2.35077
+                                      2.35077 2.35077 2.35077 2.35077
+                                      2.35077 2.35077 2.35077 2.35077
+                                      2.35077 2.35077 2.35077 2.35077
+                                      2.35077 2.35077 2.35077 2.35077
+                                      2.35077 2.35077 2.35077 2.35077
+                                      2.35077 2.35077 2.35077 2.35077
+                                      2.35077 2.35077 2.35077 2.35077
+                                      2.35077
+                                    }
+                                  }
+                                  <S$Anim> x { <V> { 1.10192 } }
+                                  <S$Anim> y { <V> { 0.0151084 } }
+                                  <S$Anim> z { <V> { 0.00438065 } }
+                                }
+                                <Table> "human1crouching:joint81" {
+                                  <Xfm$Anim_S$> xform {
+                                    <Scalar> fps { 24 }
+                                    <Char*> order { srpht }
+                                    <S$Anim> h { <V> { 0.6662 } }
+                                    <S$Anim> p { <V> { -0.384979 } }
+                                    <S$Anim> x { <V> { 0.556571 } }
+                                    <S$Anim> y { <V> { 0.00486415 } }
+                                    <S$Anim> z { <V> { -0.118981 } }
+                                  }
+                                  <Table> "human1crouching:joint20" {
+                                    <Xfm$Anim_S$> xform {
+                                      <Scalar> fps { 24 }
+                                      <Char*> order { srpht }
+                                      <S$Anim> h {
+                                        <V> {
+                                          134.253 6.47993 -27.7495
+                                          -2.17228 -1.27201 -0.281657
+                                          0.00915987 5.08804 7.65288
+                                          12.4309 12.3661 12.3617
+                                          12.3617 12.3617 12.3617
+                                          12.3617 12.3617 12.3617
+                                          12.3617 12.3617 12.3617
+                                          12.3617 12.3617 12.3617
+                                          12.3617 12.3617 12.3617
+                                          12.3617 12.3617 12.3617
+                                          12.3617 12.3617 12.3617
+                                          12.3617 12.3617 12.3617
+                                          12.3617 12.3617 12.3617
+                                          12.3617 12.3617 12.3617
+                                          12.3617 12.3617 12.3617
+                                          12.3617 12.3617 12.3617
+                                        }
+                                      }
+                                      <S$Anim> p {
+                                        <V> {
+                                          -63.591 -52.0338 -11.0741
+                                          6.33785 9.4597 10.3657 9.41639
+                                          3.85386 1.27041 -1.98464
+                                          -4.02389 -5.63622 -5.63622
+                                          -5.63622 -5.63622 -5.63622
+                                          -5.63622 -5.63622 -5.63622
+                                          -5.63622 -5.63622 -5.63622
+                                          -5.63622 -5.63622 -5.63622
+                                          -5.63622 -5.63622 -5.63622
+                                          -5.63622 -5.63622 -5.63622
+                                          -5.63622 -5.63622 -5.63622
+                                          -5.63622 -5.63622 -5.63622
+                                          -5.63622 -5.63622 -5.63622
+                                          -5.63622 -5.63622 -5.63622
+                                          -5.63622 -5.63622 -5.63622
+                                          -5.63622 -5.63622
+                                        }
+                                      }
+                                      <S$Anim> r {
+                                        <V> {
+                                          129.84 80.146 7.79574 -22.9028
+                                          -24.6743 -25.2742 -24.7454
+                                          -24.7799 -23.9018 -22.7176
+                                          -20.858 -19.3862 -19.3862
+                                          -19.3862 -19.3862 -19.3862
+                                          -19.3862 -19.3862 -19.3862
+                                          -19.3862 -19.3862 -19.3862
+                                          -19.3862 -19.3862 -19.3862
+                                          -19.3862 -19.3862 -19.3862
+                                          -19.3862 -19.3862 -19.3862
+                                          -19.3862 -19.3862 -19.3862
+                                          -19.3862 -19.3862 -19.3862
+                                          -19.3862 -19.3862 -19.3862
+                                          -19.3862 -19.3862 -19.3862
+                                          -19.3862 -19.3862 -19.3862
+                                          -19.3862 -19.3862
+                                        }
+                                      }
+                                      <S$Anim> x { <V> { 0.524062 } }
+                                      <S$Anim> y { <V> { 0.0192114 } }
+                                      <S$Anim> z { <V> { -0.119695 } }
+                                    }
+                                    <Table> "human1crouching:joint24" {
+                                      <Xfm$Anim_S$> xform {
+                                        <Scalar> fps { 24 }
+                                        <Char*> order { srpht }
+                                        <S$Anim> h { <V> { -13.134 } }
+                                        <S$Anim> x { <V> { 0.352227 } }
+                                        <S$Anim> y { <V> { -0.0162398 } }
+                                        <S$Anim> z { <V> { 0.0238054 } }
+                                      }
+                                      <Table> "human1crouching:joint25" {
+                                        <Xfm$Anim_S$> xform {
+                                          <Scalar> fps { 24 }
+                                          <Char*> order { srpht }
+                                          <S$Anim> h { <V> { -22.9912 } }
+                                          <S$Anim> p { <V> { 1.24091 } }
+                                          <S$Anim> r { <V> { 79.6541 } }
+                                          <S$Anim> x { <V> { 0.178852 } }
+                                          <S$Anim> y { <V> { 0.0175815 } }
+                                          <S$Anim> z { <V> { 0.00603399 } }
+                                        }
+                                        <Table> "human1crouching:joint26" {
+                                          <Xfm$Anim_S$> xform {
+                                            <Scalar> fps { 24 }
+                                            <Char*> order { srpht }
+                                            <S$Anim> h { <V> { -4.51602 } }
+                                            <S$Anim> p { <V> { -1.58761 } }
+                                            <S$Anim> r { <V> { 73.6672 } }
+                                            <S$Anim> x { <V> { 0.112876 } }
+                                            <S$Anim> y { <V> { -0.0130732 } }
+                                            <S$Anim> z { <V> { -0.00549622 } }
+                                          }
+                                          <Table> "human1crouching:joint27" {
+                                            <Xfm$Anim_S$> xform {
+                                              <Scalar> fps { 24 }
+                                              <Char*> order { srpht }
+                                              <S$Anim> h { <V> { 30.5595 } }
+                                              <S$Anim> x { <V> { 0.099171 } }
+                                              <S$Anim> y { <V> { -0.0130942 } }
+                                              <S$Anim> z { <V> { -0.00252165 } }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                    <Table> "human1crouching:joint28" {
+                                      <Xfm$Anim_S$> xform {
+                                        <Scalar> fps { 24 }
+                                        <Char*> order { srpht }
+                                        <S$Anim> h { <V> { -10.817 } }
+                                        <S$Anim> x { <V> { 0.350538 } }
+                                        <S$Anim> y { <V> { -0.0162398 } }
+                                        <S$Anim> z { <V> { 0.0907657 } }
+                                      }
+                                      <Table> "human1crouching:joint29" {
+                                        <Xfm$Anim_S$> xform {
+                                          <Scalar> fps { 24 }
+                                          <Char*> order { srpht }
+                                          <S$Anim> h { <V> { -23.7155 } }
+                                          <S$Anim> p { <V> { 9.8675 } }
+                                          <S$Anim> r { <V> { 79.4995 } }
+                                          <S$Anim> x { <V> { 0.117524 } }
+                                          <S$Anim> y { <V> { 0.0175815 } }
+                                          <S$Anim> z { <V> { 0.00982722 } }
+                                        }
+                                        <Table> "human1crouching:joint30" {
+                                          <Xfm$Anim_S$> xform {
+                                            <Scalar> fps { 24 }
+                                            <Char*> order { srpht }
+                                            <S$Anim> h { <V> { -9.3782 } }
+                                            <S$Anim> p { <V> { -1.58373 } }
+                                            <S$Anim> r { <V> { 73.2831 } }
+                                            <S$Anim> x { <V> { 0.173797 } }
+                                            <S$Anim> y { <V> { -0.0145308 } }
+                                            <S$Anim> z { <V> { 0.0177129 } }
+                                          }
+                                          <Table> "human1crouching:joint31" {
+                                            <Xfm$Anim_S$> xform {
+                                              <Scalar> fps { 24 }
+                                              <Char*> order { srpht }
+                                              <S$Anim> h { <V> { -5.65072 } }
+                                              <S$Anim> x { <V> { 0.147178 } }
+                                              <S$Anim> y { <V> { -0.0230445 } }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                    <Table> "human1crouching:joint33" {
+                                      <Xfm$Anim_S$> xform {
+                                        <Scalar> fps { 24 }
+                                        <Char*> order { srpht }
+                                        <S$Anim> h { <V> { -22.7083 } }
+                                        <S$Anim> x { <V> { 0.329545 } }
+                                        <S$Anim> y { <V> { -0.0162398 } }
+                                        <S$Anim> z { <V> { 0.152009 } }
+                                      }
+                                      <Table> "human1crouching:joint34" {
+                                        <Xfm$Anim_S$> xform {
+                                          <Scalar> fps { 24 }
+                                          <Char*> order { srpht }
+                                          <S$Anim> h { <V> { -13.5647 } }
+                                          <S$Anim> p { <V> { 0.431905 } }
+                                          <S$Anim> r { <V> { 79.6562 } }
+                                          <S$Anim> x { <V> { 0.116372 } }
+                                          <S$Anim> y { <V> { 0.0175815 } }
+                                          <S$Anim> z { <V> { 0.00700693 } }
+                                        }
+                                        <Table> "human1crouching:joint35" {
+                                          <Xfm$Anim_S$> xform {
+                                            <Scalar> fps { 24 }
+                                            <Char*> order { srpht }
+                                            <S$Anim> h { <V> { 2.42079 } }
+                                            <S$Anim> p { <V> { -1.5729 } }
+                                            <S$Anim> r { <V> { 72.9131 } }
+                                            <S$Anim> x { <V> { 0.165895 } }
+                                            <S$Anim> y { <V> { -0.0116262 } }
+                                            <S$Anim> z { <V> { -0.0072384 } }
+                                          }
+                                          <Table> "human1crouching:joint36" {
+                                            <Xfm$Anim_S$> xform {
+                                              <Scalar> fps { 24 }
+                                              <Char*> order { srpht }
+                                              <S$Anim> x { <V> { 0.156407 } }
+                                              <S$Anim> y { <V> { -0.0232605 } }
+                                              <S$Anim> z { <V> { 0.000296838 } }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                    <Table> "human1crouching:joint38" {
+                                      <Xfm$Anim_S$> xform {
+                                        <Scalar> fps { 24 }
+                                        <Char*> order { srpht }
+                                        <S$Anim> h { <V> { -31.569 } }
+                                        <S$Anim> x { <V> { 0.279461 } }
+                                        <S$Anim> y { <V> { -0.0162398 } }
+                                        <S$Anim> z { <V> { 0.209987 } }
+                                      }
+                                      <Table> "human1crouching:joint39" {
+                                        <Xfm$Anim_S$> xform {
+                                          <Scalar> fps { 24 }
+                                          <Char*> order { srpht }
+                                          <S$Anim> h { <V> { -3.19377 } }
+                                          <S$Anim> p { <V> { 8.6391 } }
+                                          <S$Anim> r { <V> { 79.5365 } }
+                                          <S$Anim> x { <V> { 0.114897 } }
+                                          <S$Anim> y { <V> { 0.0175815 } }
+                                          <S$Anim> z { <V> { 0.00814129 } }
+                                        }
+                                        <Table> "human1crouching:joint40" {
+                                          <Xfm$Anim_S$> xform {
+                                            <Scalar> fps { 24 }
+                                            <Char*> order { srpht }
+                                            <S$Anim> h { <V> { -7.97168 } }
+                                            <S$Anim> p { <V> { -1.58316 } }
+                                            <S$Anim> r { <V> { 73.2604 } }
+                                            <S$Anim> x { <V> { 0.158609 } }
+                                            <S$Anim> y { <V> { -0.0145307 } }
+                                            <S$Anim> z { <V> { 0.0127108 } }
+                                          }
+                                          <Table> "human1crouching:joint41" {
+                                            <Xfm$Anim_S$> xform {
+                                              <Scalar> fps { 24 }
+                                              <Char*> order { srpht }
+                                              <S$Anim> h { <V> { 6.61933 } }
+                                              <S$Anim> x { <V> { 0.157877 } }
+                                              <S$Anim> y { <V> { -0.0135748 } }
+                                              <S$Anim> z { <V> { -0.0193729 } }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                    <Table> "human1crouching:joint85" {
+                                      <Xfm$Anim_S$> xform {
+                                        <Scalar> fps { 24 }
+                                        <Char*> order { srpht }
+                                        <S$Anim> h { <V> { -24.3685 } }
+                                        <S$Anim> p { <V> { -2.1236 } }
+                                        <S$Anim> r { <V> { 0.00457421 } }
+                                        <S$Anim> x { <V> { 0.12574 } }
+                                        <S$Anim> y { <V> { -0.00152351 } }
+                                        <S$Anim> z { <V> { -0.0401825 } }
+                                      }
+                                      <Table> "human1crouching:joint21" {
+                                        <Xfm$Anim_S$> xform {
+                                          <Scalar> fps { 24 }
+                                          <Char*> order { srpht }
+                                          <S$Anim> h { <V> { 89.9245 } }
+                                          <S$Anim> p { <V> { -0.00177642 } }
+                                          <S$Anim> r { <V> { -2.1236 } }
+                                          <S$Anim> x { <V> { 0.0482447 } }
+                                          <S$Anim> y { <V> { 0.00319354 } }
+                                          <S$Anim> z { <V> { -0.0449054 } }
+                                        }
+                                        <Table> "human1crouching:joint22" {
+                                          <Xfm$Anim_S$> xform {
+                                            <Scalar> fps { 24 }
+                                            <Char*> order { srpht }
+                                            <S$Anim> x { <V> { 0.0996853 } }
+                                          }
+                                          <Table> "human1crouching:joint23" {
+                                            <Xfm$Anim_S$> xform {
+                                              <Scalar> fps { 24 }
+                                              <Char*> order { srpht }
+                                              <S$Anim> r { <V> { -56.3099 } }
+                                              <S$Anim> x { <V> { 0.0929268 } }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                                <Table> "human1crouching:effector3" {
+                                  <Xfm$Anim_S$> xform {
+                                    <Scalar> fps { 24 }
+                                    <Char*> order { srpht }
+                                    <S$Anim> x { <V> { 0.556571 } }
+                                    <S$Anim> y { <V> { 0.00486415 } }
+                                    <S$Anim> z { <V> { -0.118981 } }
+                                  }
+                                }
+                              }
+                            }
+                            <Table> "human1crouching:joint68" {
+                              <Xfm$Anim_S$> xform {
+                                <Scalar> fps { 24 }
+                                <Char*> order { srpht }
+                                <S$Anim> h {
+                                  <V> {
+                                    -99.6259 -130.697 -164.934 -165.109
+                                    -165.131 -165.192 -165.244 -165.057
+                                    -165.089 -165.49 -165.49 -165.49
+                                    -165.49 -165.49 -165.49 -165.49
+                                    -165.49 -165.49 -165.49 -165.49
+                                    -165.49 -165.49 -165.49 -165.49
+                                    -165.49 -165.49 -165.49 -165.49
+                                    -165.49 -165.49 -165.49 -165.49
+                                    -165.49 -165.49 -165.49 -165.49
+                                    -165.49 -165.49 -165.49 -165.49
+                                    -165.49 -165.49 -165.49 -165.49
+                                    -165.49 -165.49 -165.49 -165.49
+                                  }
+                                }
+                                <S$Anim> p {
+                                  <V> {
+                                    -67.272 -67.6441 -3.73318 25.506
+                                    25.7283 26.22 26.5523 26.5287
+                                    26.2693 27.3406 27.3406 27.3406
+                                    27.3406 27.3406 27.3406 27.3406
+                                    27.3406 27.3406 27.3406 27.3406
+                                    27.3406 27.3406 27.3406 27.3406
+                                    27.3406 27.3406 27.3406 27.3406
+                                    27.3406 27.3406 27.3406 27.3406
+                                    27.3406 27.3406 27.3406 27.3406
+                                    27.3406 27.3406 27.3406 27.3406
+                                    27.3406 27.3406 27.3406 27.3406
+                                    27.3406 27.3406 27.3406 27.3406
+                                  }
+                                }
+                                <S$Anim> r {
+                                  <V> {
+                                    -7.65419 -84.0283 -109.143 -83.7975
+                                    -83.3546 -82.2852 -81.4999 -83.4076
+                                    -83.3284 -78.7243 -78.7243 -78.7243
+                                    -78.7243 -78.7243 -78.7243 -78.7243
+                                    -78.7243 -78.7243 -78.7243 -78.7243
+                                    -78.7243 -78.7243 -78.7243 -78.7243
+                                    -78.7243 -78.7243 -78.7243 -78.7243
+                                    -78.7243 -78.7243 -78.7243 -78.7243
+                                    -78.7243 -78.7243 -78.7243 -78.7243
+                                    -78.7243 -78.7243 -78.7243 -78.7243
+                                    -78.7243 -78.7243 -78.7243 -78.7243
+                                    -78.7243 -78.7243 -78.7243 -78.7243
+                                  }
+                                }
+                                <S$Anim> x { <V> { 0.160264 } }
+                                <S$Anim> y { <V> { -0.240396 } }
+                                <S$Anim> z { <V> { -0.659541 } }
+                              }
+                              <Table> "human1crouching:joint19" {
+                                <Xfm$Anim_S$> xform {
+                                  <Scalar> fps { 24 }
+                                  <Char*> order { srpht }
+                                  <S$Anim> h {
+                                    <V> {
+                                      0.0352061 7.27017 -5.44428
+                                      -6.13287 -5.69389 -4.70444
+                                      -4.02577 -7.61819 -6.50181
+                                      -1.63526 -1.63526 -1.63526
+                                      -1.63526 -1.63526 -1.63526
+                                      -1.63526 -1.63526 -1.63526
+                                      -1.63526 -1.63526 -1.63526
+                                      -1.63526 -1.63526 -1.63526
+                                      -1.63526 -1.63526 -1.63526
+                                      -1.63526 -1.63526 -1.63526
+                                      -1.63526 -1.63526 -1.63526
+                                      -1.63526 -1.63526 -1.63526
+                                      -1.63526 -1.63526 -1.63526
+                                      -1.63526 -1.63526 -1.63526
+                                      -1.63526 -1.63526 -1.63526
+                                      -1.63526 -1.63526 -1.63526
+                                    }
+                                  }
+                                  <S$Anim> p {
+                                    <V> {
+                                      0.0717518 -33.3487 -26.6087
+                                      -1.8101 -1.52149 -0.974402
+                                      -0.673648 -3.0403 -2.07692
+                                      -0.0309295 -0.0309295 -0.0309295
+                                      -0.0309295 -0.0309295 -0.0309295
+                                      -0.0309295 -0.0309295 -0.0309295
+                                      -0.0309295 -0.0309295 -0.0309295
+                                      -0.0309295 -0.0309295 -0.0309295
+                                      -0.0309295 -0.0309295 -0.0309295
+                                      -0.0309295 -0.0309295 -0.0309295
+                                      -0.0309295 -0.0309295 -0.0309295
+                                      -0.0309295 -0.0309295 -0.0309295
+                                      -0.0309295 -0.0309295 -0.0309295
+                                      -0.0309295 -0.0309295 -0.0309295
+                                      -0.0309295 -0.0309295 -0.0309295
+                                      -0.0309295 -0.0309295 -0.0309295
+                                    }
+                                  }
+                                  <S$Anim> r {
+                                    <V> {
+                                      -4.009 99.4787 74.6798 14.049
+                                      12.6383 9.56889 7.53368 19.1374
+                                      15.263 0.658308 0.658308 0.658308
+                                      0.658308 0.658308 0.658308
+                                      0.658308 0.658308 0.658308
+                                      0.658308 0.658308 0.658308
+                                      0.658308 0.658308 0.658308
+                                      0.658308 0.658308 0.658308
+                                      0.658308 0.658308 0.658308
+                                      0.658308 0.658308 0.658308
+                                      0.658308 0.658308 0.658308
+                                      0.658308 0.658308 0.658308
+                                      0.658308 0.658308 0.658308
+                                      0.658308 0.658308 0.658308
+                                      0.658308 0.658308 0.658308
+                                    }
+                                  }
+                                  <S$Anim> x { <V> { -0.936027 } }
+                                  <S$Anim> y { <V> { -0.0662138 } }
+                                  <S$Anim> z { <V> { 0.0408433 } }
+                                }
+                                <Table> "human1crouching:joint82" {
+                                  <Xfm$Anim_S$> xform {
+                                    <Scalar> fps { 24 }
+                                    <Char*> order { srpht }
+                                    <S$Anim> h { <V> { -179.334 } }
+                                    <S$Anim> p { <V> { 0.311169 } }
+                                    <S$Anim> r { <V> { -179.998 } }
+                                    <S$Anim> x { <V> { -0.541317 } }
+                                    <S$Anim> y { <V> { 0.000174448 } }
+                                    <S$Anim> z { <V> { 0.0248372 } }
+                                  }
+                                  <Table> "human1crouching:joint20" {
+                                    <Xfm$Anim_S$> xform {
+                                      <Scalar> fps { 24 }
+                                      <Char*> order { srpht }
+                                      <S$Anim> h {
+                                        <V> {
+                                          23.97 -23.2256 -81.3404
+                                          -50.7486 -44.6689 -29.1627
+                                          -17.5814 -69.9094 -57.9124
+                                          22.2769 22.2769 22.2769
+                                          22.2769 22.2769 22.2769
+                                          22.2769 22.2769 22.2769
+                                          22.2769 22.2769 22.2769
+                                          22.2769 22.2769 22.2769
+                                          22.2769 22.2769 22.2769
+                                          22.2769 22.2769 22.2769
+                                          22.2769 22.2769 22.2769
+                                          22.2769 22.2769 22.2769
+                                          22.2769 22.2769 22.2769
+                                          22.2769 22.2769 22.2769
+                                          22.2769 22.2769 22.2769
+                                          22.2769 22.2769 22.2769
+                                        }
+                                      }
+                                      <S$Anim> p {
+                                        <V> {
+                                          -18.5632 47.3063 40.8478
+                                          81.8688 82.4814 83.4585
+                                          83.8104 77.0674 80.3978
+                                          83.3447 83.3447 83.3447
+                                          83.3447 83.3447 83.3447
+                                          83.3447 83.3447 83.3447
+                                          83.3447 83.3447 83.3447
+                                          83.3447 83.3447 83.3447
+                                          83.3447 83.3447 83.3447
+                                          83.3447 83.3447 83.3447
+                                          83.3447 83.3447 83.3447
+                                          83.3447 83.3447 83.3447
+                                          83.3447 83.3447 83.3447
+                                          83.3447 83.3447 83.3447
+                                          83.3447 83.3447 83.3447
+                                          83.3447 83.3447 83.3447
+                                        }
+                                      }
+                                      <S$Anim> r {
+                                        <V> {
+                                          6.03635 111.614 136.793
+                                          100.432 94.5721 79.5397
+                                          68.2688 117.191 106.55 29.7835
+                                          29.7835 29.7835 29.7835
+                                          29.7835 29.7835 29.7835
+                                          29.7835 29.7835 29.7835
+                                          29.7835 29.7835 29.7835
+                                          29.7835 29.7835 29.7835
+                                          29.7835 29.7835 29.7835
+                                          29.7835 29.7835 29.7835
+                                          29.7835 29.7835 29.7835
+                                          29.7835 29.7835 29.7835
+                                          29.7835 29.7835 29.7835
+                                          29.7835 29.7835 29.7835
+                                          29.7835 29.7835 29.7835
+                                          29.7835 29.7835
+                                        }
+                                      }
+                                      <S$Anim> x { <V> { -0.480411 } }
+                                      <S$Anim> y { <V> { 0.000772892 } }
+                                      <S$Anim> z { <V> { -0.0135641 } }
+                                    }
+                                    <Table> "human1crouching:joint24" {
+                                      <Xfm$Anim_S$> xform {
+                                        <Scalar> fps { 24 }
+                                        <Char*> order { srpht }
+                                        <S$Anim> h { <V> { -13.134 } }
+                                        <S$Anim> x { <V> { -0.35223 } }
+                                        <S$Anim> y { <V> { 0.01624 } }
+                                        <S$Anim> z { <V> { -0.0238068 } }
+                                      }
+                                      <Table> "human1crouching:joint25" {
+                                        <Xfm$Anim_S$> xform {
+                                          <Scalar> fps { 24 }
+                                          <Char*> order { srpht }
+                                          <S$Anim> h { <V> { -20.4345 } }
+                                          <S$Anim> p { <V> { 13.1202 } }
+                                          <S$Anim> r { <V> { 57.872 } }
+                                          <S$Anim> x { <V> { -0.17885 } }
+                                          <S$Anim> y { <V> { -0.01758 } }
+                                          <S$Anim> z { <V> { -0.00603371 } }
+                                        }
+                                        <Table> "human1crouching:joint26" {
+                                          <Xfm$Anim_S$> xform {
+                                            <Scalar> fps { 24 }
+                                            <Char*> order { srpht }
+                                            <S$Anim> h { <V> { -2.53917 } }
+                                            <S$Anim> x { <V> { -0.112838 } }
+                                            <S$Anim> y { <V> { 0.00290953 } }
+                                            <S$Anim> z { <V> { 0.00612074 } }
+                                          }
+                                          <Table> "human1crouching:joint27" {
+                                            <Xfm$Anim_S$> xform {
+                                              <Scalar> fps { 24 }
+                                              <Char*> order { srpht }
+                                              <S$Anim> h { <V> { 30.5595 } }
+                                              <S$Anim> x { <V> { -0.0992223 } }
+                                              <S$Anim> y { <V> { 0.010177 } }
+                                              <S$Anim> z { <V> { 0.00208614 } }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                    <Table> "human1crouching:joint28" {
+                                      <Xfm$Anim_S$> xform {
+                                        <Scalar> fps { 24 }
+                                        <Char*> order { srpht }
+                                        <S$Anim> h { <V> { -10.817 } }
+                                        <S$Anim> x { <V> { -0.350541 } }
+                                        <S$Anim> y { <V> { 0.01624 } }
+                                        <S$Anim> z { <V> { -0.090767 } }
+                                      }
+                                      <Table> "human1crouching:joint29" {
+                                        <Xfm$Anim_S$> xform {
+                                          <Scalar> fps { 24 }
+                                          <Char*> order { srpht }
+                                          <S$Anim> h { <V> { -21.9292 } }
+                                          <S$Anim> p { <V> { 14.8889 } }
+                                          <S$Anim> r { <V> { 50.5494 } }
+                                          <S$Anim> x { <V> { -0.117523 } }
+                                          <S$Anim> y { <V> { -0.01758 } }
+                                          <S$Anim> z { <V> { -0.00982696 } }
+                                        }
+                                        <Table> "human1crouching:joint30" {
+                                          <Xfm$Anim_S$> xform {
+                                            <Scalar> fps { 24 }
+                                            <Char*> order { srpht }
+                                            <S$Anim> h { <V> { -7.39703 } }
+                                            <S$Anim> x { <V> { -0.155027 } }
+                                            <S$Anim> y { <V> { 0.00290924 } }
+                                            <S$Anim> z { <V> { -0.0154077 } }
+                                          }
+                                          <Table> "human1crouching:joint31" {
+                                            <Xfm$Anim_S$> xform {
+                                              <Scalar> fps { 24 }
+                                              <Char*> order { srpht }
+                                              <S$Anim> h { <V> { -5.65072 } }
+                                              <S$Anim> x { <V> { -0.160289 } }
+                                              <S$Anim> y { <V> { 0.0217921 } }
+                                              <S$Anim> z { <V> { -0.000718869 } }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                    <Table> "human1crouching:joint33" {
+                                      <Xfm$Anim_S$> xform {
+                                        <Scalar> fps { 24 }
+                                        <Char*> order { srpht }
+                                        <S$Anim> h { <V> { -22.7083 } }
+                                        <S$Anim> x { <V> { -0.329546 } }
+                                        <S$Anim> y { <V> { 0.01624 } }
+                                        <S$Anim> z { <V> { -0.152009 } }
+                                      }
+                                      <Table> "human1crouching:joint34" {
+                                        <Xfm$Anim_S$> xform {
+                                          <Scalar> fps { 24 }
+                                          <Char*> order { srpht }
+                                          <S$Anim> h { <V> { -16.1679 } }
+                                          <S$Anim> p { <V> { 7.41121 } }
+                                          <S$Anim> r { <V> { 51.7385 } }
+                                          <S$Anim> x { <V> { -0.116371 } }
+                                          <S$Anim> y { <V> { -0.01758 } }
+                                          <S$Anim> z { <V> { -0.0070069 } }
+                                        }
+                                        <Table> "human1crouching:joint35" {
+                                          <Xfm$Anim_S$> xform {
+                                            <Scalar> fps { 24 }
+                                            <Char*> order { srpht }
+                                            <S$Anim> h { <V> { 4.39871 } }
+                                            <S$Anim> x { <V> { -0.15571 } }
+                                            <S$Anim> y { <V> { 0.00290906 } }
+                                            <S$Anim> z { <V> { 0.00691998 } }
+                                          }
+                                          <Table> "human1crouching:joint36" {
+                                            <Xfm$Anim_S$> xform {
+                                              <Scalar> fps { 24 }
+                                              <Char*> order { srpht }
+                                              <S$Anim> x { <V> { -0.152053 } }
+                                              <S$Anim> y { <V> { 0.021813 } }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                    <Table> "human1crouching:joint38" {
+                                      <Xfm$Anim_S$> xform {
+                                        <Scalar> fps { 24 }
+                                        <Char*> order { srpht }
+                                        <S$Anim> h { <V> { -31.569 } }
+                                        <S$Anim> x { <V> { -0.279465 } }
+                                        <S$Anim> y { <V> { 0.01624 } }
+                                        <S$Anim> z { <V> { -0.209989 } }
+                                      }
+                                      <Table> "human1crouching:joint39" {
+                                        <Xfm$Anim_S$> xform {
+                                          <Scalar> fps { 24 }
+                                          <Char*> order { srpht }
+                                          <S$Anim> h { <V> { -1.995 } }
+                                          <S$Anim> p { <V> { 13.9228 } }
+                                          <S$Anim> r { <V> { 50.7529 } }
+                                          <S$Anim> x { <V> { -0.114897 } }
+                                          <S$Anim> y { <V> { -0.01758 } }
+                                          <S$Anim> z { <V> { -0.00814164 } }
+                                        }
+                                        <Table> "human1crouching:joint40" {
+                                          <Xfm$Anim_S$> xform {
+                                            <Scalar> fps { 24 }
+                                            <Char*> order { srpht }
+                                            <S$Anim> h { <V> { -5.99059 } }
+                                            <S$Anim> x { <V> { -0.164447 } }
+                                            <S$Anim> y { <V> { 0.00290907 } }
+                                            <S$Anim> z { <V> { -0.0125172 } }
+                                          }
+                                          <Table> "human1crouching:joint41" {
+                                            <Xfm$Anim_S$> xform {
+                                              <Scalar> fps { 24 }
+                                              <Char*> order { srpht }
+                                              <S$Anim> h { <V> { 6.61933 } }
+                                              <S$Anim> x { <V> { -0.124539 } }
+                                              <S$Anim> y { <V> { 0.0247544 } }
+                                              <S$Anim> z { <V> { 0.0166201 } }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                    <Table> "human1crouching:joint84" {
+                                      <Xfm$Anim_S$> xform {
+                                        <Scalar> fps { 24 }
+                                        <Char*> order { srpht }
+                                        <S$Anim> h { <V> { 155.546 } }
+                                        <S$Anim> p { <V> { 0.164098 } }
+                                        <S$Anim> r { <V> { -180 } }
+                                        <S$Anim> x { <V> { -0.12749 } }
+                                        <S$Anim> y { <V> { 0.00134705 } }
+                                        <S$Anim> z { <V> { 0.0431064 } }
+                                      }
+                                      <Table> "human1crouching:joint21" {
+                                        <Xfm$Anim_S$> xform {
+                                          <Scalar> fps { 24 }
+                                          <Char*> order { srpht }
+                                          <S$Anim> h { <V> { 89.9904 } }
+                                          <S$Anim> p { <V> { -0.000389846 } }
+                                          <S$Anim> r { <V> { 179.836 } }
+                                          <S$Anim> x { <V> { -0.0477979 } }
+                                          <S$Anim> y { <V> { 0.00146607 } }
+                                          <S$Anim> z { <V> { -0.0416745 } }
+                                        }
+                                        <Table> "human1crouching:joint22" {
+                                          <Xfm$Anim_S$> xform {
+                                            <Scalar> fps { 24 }
+                                            <Char*> order { srpht }
+                                            <S$Anim> x { <V> { -0.0996849 } }
+                                          }
+                                          <Table> "human1crouching:joint23" {
+                                            <Xfm$Anim_S$> xform {
+                                              <Scalar> fps { 24 }
+                                              <Char*> order { srpht }
+                                              <S$Anim> r { <V> { -56.3099 } }
+                                              <S$Anim> x { <V> { -0.092927 } }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                                <Table> "human1crouching:effector4" {
+                                  <Xfm$Anim_S$> xform {
+                                    <Scalar> fps { 24 }
+                                    <Char*> order { srpht }
+                                    <S$Anim> x { <V> { -0.541317 } }
+                                    <S$Anim> y { <V> { 0.000174448 } }
+                                    <S$Anim> z { <V> { 0.0248372 } }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                          <Table> "human1crouching:effector1" {
+                            <Xfm$Anim_S$> xform {
+                              <Scalar> fps { 24 }
+                              <Char*> order { srpht }
+                              <S$Anim> x { <V> { 0.21165 } }
+                              <S$Anim> y { <V> { -0.0327189 } }
+                              <S$Anim> z { <V> { 0.00382063 } }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        <Table> "human1crouching:locator2" {
+          <Xfm$Anim_S$> xform {
+            <Scalar> fps { 24 }
+            <Char*> order { srpht }
+            <S$Anim> i { <V> { 0.140415 } }
+            <S$Anim> j { <V> { 0.140415 } }
+            <S$Anim> k { <V> { 0.140415 } }
+            <S$Anim> y { <V> { 0.0704977 } }
+          }
+        }
+        <Table> "human1crouching:locator3" {
+          <Xfm$Anim_S$> xform {
+            <Scalar> fps { 24 }
+            <Char*> order { srpht }
+            <S$Anim> i { <V> { 0.0619605 } }
+            <S$Anim> j { <V> { 0.0619605 } }
+            <S$Anim> k { <V> { 0.0619605 } }
+            <S$Anim> x {
+              <V> {
+                0.281457 0.313089 0.349083 0.382896 0.407984 0.4178
+                0.416068 0.411738 0.406109 0.40048 0.39615 0.394417
+                0.394417 0.394417 0.394417 0.394417 0.394417 0.394417
+                0.394417 0.394417 0.394417 0.394417 0.394417 0.394417
+                0.394417 0.394417 0.394417 0.394417 0.394417 0.394417
+                0.394417 0.394417 0.394417 0.394417 0.394417 0.394417
+                0.394417 0.394417 0.394417 0.394417 0.394417 0.394417
+                0.394417 0.394417 0.394417 0.394417 0.394417 0.394417
+              }
+            }
+            <S$Anim> y { <V> { 0.840846 } }
+            <S$Anim> z {
+              <V> {
+                0.141967 0.0859852 0.019869 -0.04118 -0.0819599
+                -0.0872689 -0.0536467 0.00636759 0.0839765 0.170383
+                0.256789 0.334398 0.334398 0.334398 0.334398 0.334398
+                0.334398 0.334398 0.334398 0.334398 0.334398 0.334398
+                0.334398 0.334398 0.334398 0.334398 0.334398 0.334398
+                0.334398 0.334398 0.334398 0.334398 0.334398 0.334398
+                0.334398 0.334398 0.334398 0.334398 0.334398 0.334398
+                0.334398 0.334398 0.334398 0.334398 0.334398 0.334398
+                0.334398 0.334398
+              }
+            }
+          }
+        }
+        <Table> "human1crouching:pasted__locator3" {
+          <Xfm$Anim_S$> xform {
+            <Scalar> fps { 24 }
+            <Char*> order { srpht }
+            <S$Anim> i { <V> { 0.0619605 } }
+            <S$Anim> j { <V> { 0.0619605 } }
+            <S$Anim> k { <V> { 0.0619605 } }
+            <S$Anim> x { <V> { -0.209715 } }
+            <S$Anim> y { <V> { 0.810342 } }
+            <S$Anim> z { <V> { 0.282824 } }
+          }
+        }
+        <Table> "human1crouching:locator4" {
+          <Xfm$Anim_S$> xform {
+            <Scalar> fps { 24 }
+            <Char*> order { srpht }
+            <S$Anim> i { <V> { 0.102079 } }
+            <S$Anim> j { <V> { 0.102079 } }
+            <S$Anim> k { <V> { 0.102079 } }
+            <S$Anim> x { <V> { -0.104523 } }
+            <S$Anim> y { <V> { 0.378384 } }
+            <S$Anim> z { <V> { -0.42607 } }
+          }
+        }
+        <Table> "human1crouching:pasted__locator4" {
+          <Xfm$Anim_S$> xform {
+            <Scalar> fps { 24 }
+            <Char*> order { srpht }
+            <S$Anim> i { <V> { 0.102079 } }
+            <S$Anim> j { <V> { 0.102079 } }
+            <S$Anim> k { <V> { 0.102079 } }
+            <S$Anim> x { <V> { 0.104523 } }
+            <S$Anim> y { <V> { 0.378384 } }
+            <S$Anim> z { <V> { -0.42607 } }
+          }
+        }
+        <Table> "human1crouching:right_hand_manip" {
+          <Xfm$Anim_S$> xform {
+            <Scalar> fps { 24 }
+            <Char*> order { srpht }
+            <S$Anim> i { <V> { 0.248077 } }
+            <S$Anim> j { <V> { 0.248077 } }
+            <S$Anim> k { <V> { 0.248077 } }
+            <S$Anim> h {
+              <V> {
+                -6.21203e-018 -15.0649 -17.3578 -1.93226 -1.93226
+                -1.93226 -1.93226 -1.93226 -1.93226 -1.93226 -1.93226
+                -1.93226 -1.93226 -1.93226 -1.93226 -1.93226 -1.93226
+                -1.93226 -1.93226 -1.93226 -1.93226 -1.93226 -1.93226
+                -1.93226 -1.93226 -1.93226 -1.93226 -1.93226 -1.93226
+                -1.93226 -1.93226 -1.93226 -1.93226 -1.93226 -1.93226
+                -1.93226 -1.93226 -1.93226 -1.93226 -1.93226 -1.93226
+                -1.93226 -1.93226 -1.93226 -1.93226 -1.93226 -1.93226
+                -1.93226
+              }
+            }
+            <S$Anim> p {
+              <V> {
+                0.0738268 -1.90612 25.2796 37.1248 37.1248 37.1248
+                37.1248 37.1248 37.1248 37.1248 37.1248 37.1248 37.1248
+                37.1248 37.1248 37.1248 37.1248 37.1248 37.1248 37.1248
+                37.1248 37.1248 37.1248 37.1248 37.1248 37.1248 37.1248
+                37.1248 37.1248 37.1248 37.1248 37.1248 37.1248 37.1248
+                37.1248 37.1248 37.1248 37.1248 37.1248 37.1248 37.1248
+                37.1248 37.1248 37.1248 37.1248 37.1248 37.1248 37.1248
+              }
+            }
+            <S$Anim> r {
+              <V> {
+                -90 -155.23 142.717 108.897 108.897 108.897 108.897
+                108.897 108.897 108.897 108.897 108.897 108.897 108.897
+                108.897 108.897 108.897 108.897 108.897 108.897 108.897
+                108.897 108.897 108.897 108.897 108.897 108.897 108.897
+                108.897 108.897 108.897 108.897 108.897 108.897 108.897
+                108.897 108.897 108.897 108.897 108.897 108.897 108.897
+                108.897 108.897 108.897 108.897 108.897 108.897
+              }
+            }
+            <S$Anim> x {
+              <V> {
+                -0.703714 -0.413914 -0.124113 0.00761435 0.00853275
+                0.0102383 0.0111567 0.0111567 0.0111567 0.0111567
+                0.0111567 0.0111567 0.0111567 0.0111567 0.0111567
+                0.0111567 0.0111567 0.0111567 0.0111567 0.0111567
+                0.0111567 0.0111567 0.0111567 0.0111567 0.0111567
+                0.0111567 0.0111567 0.0111567 0.0111567 0.0111567
+                0.0111567 0.0111567 0.0111567 0.0111567 0.0111567
+                0.0111567 0.0111567 0.0111567 0.0111567 0.0111567
+                0.0111567 0.0111567 0.0111567 0.0111567 0.0111567
+                0.0111567 0.0111567 0.0111567
+              }
+            }
+            <S$Anim> y {
+              <V> {
+                1.25206 1.21745 1.18285 1.16712 1.16446 1.15951 1.15685
+                1.19782 1.17905 1.14776 1.14776 1.14776 1.14776 1.14776
+                1.14776 1.14776 1.14776 1.14776 1.14776 1.14776 1.14776
+                1.14776 1.14776 1.14776 1.14776 1.14776 1.14776 1.14776
+                1.14776 1.14776 1.14776 1.14776 1.14776 1.14776 1.14776
+                1.14776 1.14776 1.14776 1.14776 1.14776 1.14776 1.14776
+                1.14776 1.14776 1.14776 1.14776 1.14776 1.14776
+              }
+            }
+            <S$Anim> z {
+              <V> {
+                0.00904405 -0.167626 -0.344296 -0.4246 -0.424696
+                -0.424875 -0.424971 -0.424971 -0.424971 -0.424971
+                -0.424971 -0.424971 -0.424971 -0.424971 -0.424971
+                -0.424971 -0.424971 -0.424971 -0.424971 -0.424971
+                -0.424971 -0.424971 -0.424971 -0.424971 -0.424971
+                -0.424971 -0.424971 -0.424971 -0.424971 -0.424971
+                -0.424971 -0.424971 -0.424971 -0.424971 -0.424971
+                -0.424971 -0.424971 -0.424971 -0.424971 -0.424971
+                -0.424971 -0.424971 -0.424971 -0.424971 -0.424971
+                -0.424971 -0.424971 -0.424971
+              }
+            }
+          }
+        }
+        <Table> "human1crouching:pasted__nurbsCircle1" {
+          <Xfm$Anim_S$> xform {
+            <Scalar> fps { 24 }
+            <Char*> order { srpht }
+            <S$Anim> i { <V> { 0.248077 } }
+            <S$Anim> j { <V> { 0.248077 } }
+            <S$Anim> k { <V> { 0.248077 } }
+            <S$Anim> h {
+              <V> {
+                0 25.3136 -11.4951 -83.427 -83.427 -83.427 -83.427
+                -108.464 -108.464 -108.464 -108.464 -108.464 -108.464
+                -108.464 -108.464 -108.464 -108.464 -108.464 -108.464
+                -108.464 -108.464 -108.464 -108.464 -108.464 -108.464
+                -108.464 -108.464 -108.464 -108.464 -108.464 -108.464
+                -108.464 -108.464 -108.464 -108.464 -108.464 -108.464
+                -108.464 -108.464 -108.464 -108.464 -108.464 -108.464
+                -108.464 -108.464 -108.464 -108.464 -108.464
+              }
+            }
+            <S$Anim> p {
+              <V> {
+                -0 25.8992 70.7516 65.6426 65.6426 65.6426 65.6426
+                64.4085 64.4085 64.4085 64.4085 64.4085 64.4085 64.4085
+                64.4085 64.4085 64.4085 64.4085 64.4085 64.4085 64.4085
+                64.4085 64.4085 64.4085 64.4085 64.4085 64.4085 64.4085
+                64.4085 64.4085 64.4085 64.4085 64.4085 64.4085 64.4085
+                64.4085 64.4085 64.4085 64.4085 64.4085 64.4085 64.4085
+                64.4085 64.4085 64.4085 64.4085 64.4085 64.4085
+              }
+            }
+            <S$Anim> r {
+              <V> {
+                -90 -49.9522 8.86802 80.1847 80.1847 80.1847 80.1847
+                107.709 107.709 107.709 107.709 107.709 107.709 107.709
+                107.709 107.709 107.709 107.709 107.709 107.709 107.709
+                107.709 107.709 107.709 107.709 107.709 107.709 107.709
+                107.709 107.709 107.709 107.709 107.709 107.709 107.709
+                107.709 107.709 107.709 107.709 107.709 107.709 107.709
+                107.709 107.709 107.709 107.709 107.709 107.709
+              }
+            }
+            <S$Anim> x {
+              <V> {
+                0.744308 0.476169 0.208029 0.0861473 0.0870657 0.0887713
+                0.0896897 0.0896897 0.0896897 0.0896897 0.0896897
+                0.0896897 0.0896897 0.0896897 0.0896897 0.0896897
+                0.0896897 0.0896897 0.0896897 0.0896897 0.0896897
+                0.0896897 0.0896897 0.0896897 0.0896897 0.0896897
+                0.0896897 0.0896897 0.0896897 0.0896897 0.0896897
+                0.0896897 0.0896897 0.0896897 0.0896897 0.0896897
+                0.0896897 0.0896897 0.0896897 0.0896897 0.0896897
+                0.0896897 0.0896897 0.0896897 0.0896897 0.0896897
+                0.0896897 0.0896897
+              }
+            }
+            <S$Anim> y {
+              <V> {
+                1.25045 1.23988 1.22023 1.20965 1.20699 1.20205 1.19939
+                1.24035 1.22158 1.19029 1.19029 1.19029 1.19029 1.19029
+                1.19029 1.19029 1.19029 1.19029 1.19029 1.19029 1.19029
+                1.19029 1.19029 1.19029 1.19029 1.19029 1.19029 1.19029
+                1.19029 1.19029 1.19029 1.19029 1.19029 1.19029 1.19029
+                1.19029 1.19029 1.19029 1.19029 1.19029 1.19029 1.19029
+                1.19029 1.19029 1.19029 1.19029 1.19029 1.19029
+              }
+            }
+            <S$Anim> z {
+              <V> {
+                -0.0317382 -0.198207 -0.364676 -0.440344 -0.44044
+                -0.440619 -0.440715 -0.440715 -0.440715 -0.440715
+                -0.440715 -0.440715 -0.440715 -0.440715 -0.440715
+                -0.440715 -0.440715 -0.440715 -0.440715 -0.440715
+                -0.440715 -0.440715 -0.440715 -0.440715 -0.440715
+                -0.440715 -0.440715 -0.440715 -0.440715 -0.440715
+                -0.440715 -0.440715 -0.440715 -0.440715 -0.440715
+                -0.440715 -0.440715 -0.440715 -0.440715 -0.440715
+                -0.440715 -0.440715 -0.440715 -0.440715 -0.440715
+                -0.440715 -0.440715 -0.440715
+              }
+            }
+          }
+          <Table> "human1crouching:left_hand" {
+            <Xfm$Anim_S$> xform {
+              <Scalar> fps { 24 }
+              <Char*> order { srpht }
+              <S$Anim> r { <V> { 90 } }
+              <S$Anim> y { <V> { 0.138626 } }
+            }
+          }
+        }
+      }
+    }
+    <Table> morph {
+    }
+  }
+}
