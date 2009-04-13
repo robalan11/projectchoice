@@ -58,6 +58,15 @@ class GUI:
         towerbutton((self.x+1*32, 6*32), [4,'D'])
         towerbutton((self.x+2*32, 6*32), [4,'S'])
         
+        towerbutton((self.x+1*32, 7*32), [6,'B'])
+        towerbutton((self.x+2*32, 7*32), [6,'T'])
+        towerbutton((self.x+3*32, 7*32), [6,'C'])
+        towerbutton((self.x+4*32, 7*32), [6,'M'])
+        towerbutton((self.x+5*32, 7*32), [6,'D'])
+        towerbutton((self.x+6*32, 7*32), [6,'K'])
+        towerbutton((self.x+7*32, 7*32), [6,'S'])
+        towerbutton((self.x+8*32, 7*32), [6,'L'])
+        
         towerbutton((self.x+1*32, 8*32), [5,'0'])
         towerbutton((self.x+2*32, 8*32), [5,'1'])
         towerbutton((self.x+3*32, 8*32), [5,'2'])
@@ -186,6 +195,23 @@ class GUI:
             self.towertext="InteriorFace"
         elif(self.towertext==[5,'3']):
             self.towertext="InteriorFace"
+            
+        elif(self.towertext==[6,'B']):
+            self.towertext="Barricade"
+        elif(self.towertext==[6,'T']):
+            self.towertext="Round Table"
+        elif(self.towertext==[6,'C']):
+            self.towertext="Wooden Chair"
+        elif(self.towertext==[6,'M']):
+            self.towertext="Metal Chair"
+        elif(self.towertext==[6,'D']):
+            self.towertext="Desks"
+        elif(self.towertext==[6,'K']):
+            self.towertext="Kitchen Console"
+        elif(self.towertext==[6,'S']):
+            self.towertext="Security Console"
+        elif(self.towertext==[6,'L']):
+            self.towertext="Bookshelf"
         
         elif(self.towertext==[8,'A']):
             self.towertext="PrisonMelee"
