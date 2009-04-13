@@ -71,6 +71,10 @@ class GUI:
         towerbutton((self.x+2*32, 8*32), [5,'1'])
         towerbutton((self.x+3*32, 8*32), [5,'2'])
         towerbutton((self.x+4*32, 8*32), [5,'3'])
+        towerbutton((self.x+5*32, 8*32), [8,'M'])
+        towerbutton((self.x+6*32, 8*32), [8,'N'])
+        towerbutton((self.x+7*32, 8*32), [8,'O'])
+        towerbutton((self.x+8*32, 8*32), [8,'P'])
         
         towerbutton((self.x+1*32, 9*32), [8,'A'])
         towerbutton((self.x+2*32, 9*32), [8,'B'])
@@ -81,10 +85,15 @@ class GUI:
         towerbutton((self.x+7*32, 9*32), [8,'G'])
         towerbutton((self.x+8*32, 9*32), [8,'H'])
         
-        towerbutton((self.x+1*32, 10*32), [7,'0'])
-        towerbutton((self.x+2*32, 10*32), [7,'1'])
-        towerbutton((self.x+3*32, 10*32), [7,'2'])
-        towerbutton((self.x+4*32, 10*32), [7,'3'])
+        towerbutton((self.x+1*32, 10*32), [8,'I'])
+        towerbutton((self.x+2*32, 10*32), [8,'J'])
+        towerbutton((self.x+3*32, 10*32), [8,'K'])
+        towerbutton((self.x+4*32, 10*32), [8,'L'])
+        towerbutton((self.x+5*32, 10*32), [7,'0'])
+        towerbutton((self.x+6*32, 10*32), [7,'1'])
+        towerbutton((self.x+7*32, 10*32), [7,'2'])
+        towerbutton((self.x+8*32, 10*32), [7,'3'])
+        
         
         towerbutton((self.x+1*32, 11*32), [10,'A'])
         towerbutton((self.x+2*32, 11*32), [10,'B'])
@@ -233,6 +242,22 @@ class GUI:
             self.towertext="GuardShotgun"
         elif(self.towertext==[8,'H']):
             self.towertext="GuardAutomatic"
+        elif(self.towertext==[8,'I']):
+            self.towertext="BeefyPrisonMelee"
+        elif(self.towertext==[8,'J']):
+            self.towertext="BeefyPrisonPistol"
+        elif(self.towertext==[8,'K']):
+            self.towertext="BeefyPrisonShotgun"
+        elif(self.towertext==[8,'L']):
+            self.towertext="BeefyPrisonAutomatic"
+        elif(self.towertext==[8,'M']):
+            self.towertext="BeefyGuardMelee"
+        elif(self.towertext==[8,'N']):
+            self.towertext="BeefyGuardPistol"
+        elif(self.towertext==[8,'O']):
+            self.towertext="BeefyGuardShotgun"
+        elif(self.towertext==[8,'P']):
+            self.towertext="BeefyGuardAutomatic"
         
         elif(self.towertext==[7,'0']):
             self.towertext="EnemyFace"
