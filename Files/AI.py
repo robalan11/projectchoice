@@ -364,10 +364,13 @@ class AI():
                         self.targetlist=[target]
                         break
             if self.seetarget==False:
+                #print self.seeplayer
+                #print self.model.getH()
                 #~ if self.health<10: #Health is at 1/5th strength
                     #~ if self.rundistance<10:
                         #~ self.dy=AI.runspeed
                 if self.seeplayer and self.follow:
+                    print "obey"
                     self.targetpos=AI.playerhandle.model.getPos()
                     self.look_angles = self.targetpos-Vec3(self.model.getPos())
                     self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
@@ -376,6 +379,7 @@ class AI():
                     if abs(self.dh)<1:
                         distance = Vec3(self.targetpos)-Vec3(self.model.getPos())
                         distance.setZ(0)
+                        print distance.length()
                         #If facing player, run if you're >10 feet from them
                         if distance.length() >AI.followradius:
                             self.dy=min(AI.runspeed, distance.length()-AI.followradius)
@@ -462,7 +466,7 @@ class AI():
         self.model.setY(self.model.getY()+ca*self.dy*time_tick-sa*self.dx*time_tick)
         self.model.setH(self.model.getH()+self.dh*time_tick)
         self.model.setH((self.model.getH()+180)%360-180)
-        self.loud=self.dy+(self.weapon.firesound.status()==2)*40
+        self.loud=(self.weapon.firesound.status()==2)*40
         return Task.cont
     
 class AI_manifest(FSM.FSM):

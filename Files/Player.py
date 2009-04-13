@@ -5,6 +5,7 @@ from direct.actor.Actor import Actor
 from direct.task.Task import Task
 from direct.gui.OnscreenImage import OnscreenImage
 from AI import AI
+from AI import calculateHpr
 import math
 import Weapon
 
@@ -67,11 +68,11 @@ class Player ():
         self.ctpath.node().setFromCollideMask(BitMask32(0x00))
         self.ctpath.setCollideMask(BitMask32(0x08))
         
-        #Powerup pickup and mission objective handling
-        self.ps=CollisionSphere(0,0,-1.25, 1.4)
+        #Powerup pickup and mission objective handling and touching AI
+        self.ps=CollisionSphere(0,0,-1.25, 2)
         self.pspath=self.model.attachNewNode(CollisionNode('ppower'))
         self.pspath.node().addSolid(self.ps)
-        self.pspath.node().setFromCollideMask(BitMask32(0x20))
+        self.pspath.node().setFromCollideMask(BitMask32(0x24))
         self.pspath.setCollideMask(BitMask32(0x00))
         self.phandle=CollisionHandlerQueue()
         base.cTrav.addCollider(self.pspath, self.phandle)
@@ -110,8 +111,10 @@ class Player ():
         self.loud=0
         self.health=100
         self.armor=0
+        self.use=False
+        self.usecheck=True
         self.haveweapon=[1,1,1,1] #Knife, Pistol Shotgun Assault Rifle
-        self.loyalty = [0, 50] # out of a minimum of 0 and a maximum of 100
+        self.loyalty = [0, 70] # out of a minimum of 0 and a maximum of 100
         self.pobjective=[False, False]
         self.gobjective=[False, False]
         
@@ -175,6 +178,14 @@ class Player ():
         
         if (self.keyMap["reload"] == 1):
             self.weapon.reload()
+            
+        if (self.keyMap["use"]==1) and self.usecheck==True:
+            self.use=True
+            self.usecheck=False
+        else:
+            self.use=False
+            if (self.keyMap["use"]==0):
+                self.usecheck=True
         
         #~ if input requests changing the weapon and have that weapon, change to that weapon
         if (self.keyMap["knife"]==1 and self.weapon != self.knife and self.haveweapon[0]):
@@ -197,6 +208,7 @@ class Player ():
             self.crosshair.destroy()
             self.crosshair=OnscreenImage(image = self.rifle.crosshair, pos = (0,0,0), scale =0.07)
             self.crosshair.setTransparency(TransparencyAttrib.MAlpha)
+        
             
         return Task.cont
         
@@ -241,7 +253,7 @@ class Player ():
         #~ check and set lights of current room to player
         #~ if under cinematic control
             #~ run cinema_tick(self) and nothing else
-        self.loud=abs(self.dx)+abs(self.dy)+(self.weapon.firesound.status()==2)*20
+        self.loud=(self.weapon.firesound.status()==2)*40
         angle = math.radians(self.model.getH())
         sa = math.sin(angle)
         ca = math.cos(angle)
@@ -257,6 +269,7 @@ class Player ():
         for i in range(self.phandle.getNumEntries()):
             #Check the node's name against all powerup types and change accordingly
             name = self.phandle.getEntry(i).getIntoNodePath().getName()
+            remove=True
             if name == "health":
                 self.health = min(100, self.health+25)
             elif name == "armor":
@@ -290,7 +303,29 @@ class Player ():
                 self.gobjective[0]=True
             elif name == "guardobjective2":
                 self.gobjective[2]=True
-            self.phandle.getEntry(i).getIntoNodePath().getParent().remove()
+            elif name == "cinematic1":
+                pass
+            elif name == "cinematic2":
+                pass
+            elif name == "cinematic3":
+                pass
+            elif name == "cinematic4":
+                pass
+            elif name.split(";")[0] == "AItarget" and name!="AItarget":
+                remove=False
+                temp = AI.AI_dict[int(name.split(";")[-1])]
+                v = temp.model.getPos() - self.model.getPos()
+                Player_look = calculateHpr(v, self.model.getHpr())
+                AI_look = calculateHpr(-v, temp.model.getHpr())
+                if abs(AI_look[0]-temp.model.getH())>AI.FOV and temp.targetlist==[]: #turn to face what bumped me
+                    temp.forceturn = True
+                    temp.targetpos = self.model.getPos()
+                elif self.use==True and abs(Player_look[0]-self.model.getH())<5 and self.loyalty[temp.team]>65: #facing and you want me to follow
+                    temp.follow=not temp.follow
+                    self.use=False
+                    print temp.follow
+            if remove==True:
+                self.phandle.getEntry(i).getIntoNodePath().getParent().remove()
         #~ update the GUI
         return Task.cont
     def collided(self):
