@@ -26,31 +26,31 @@ class Level(object):
     def loadenemies(self):
         for y in xrange(len(self.level)):
             for x in xrange(len(self.level[y])):
-                enemyFacing=self.level[y][x].EnemyFacing*90
+                enemyFacing=int(self.level[y][x].EnemyFacing)*90.0
                 if(self.level[y][x].Enemy=="a"):
                     #prison knife
-                    Enemy(loader.loadModel("Art/Models/human1-model.egg"),False,True,(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0)
+                    AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0)
                 if(self.level[y][x].Enemy=="b"):
                     #prison pistol
-                    Enemy(loader.loadModel("Art/Models/human1-model.egg"),False,True,(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1)
+                    AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1)
                 if(self.level[y][x].Enemy=="c"):
                     #prison shotgun
-                    Enemy(loader.loadModel("Art/Models/human1-model.egg"),False,True,(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2)
+                    AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2)
                 if(self.level[y][x].Enemy=="d"):
                     #prison AK
-                    Enemy(loader.loadModel("Art/Models/human1-model.egg"),False,True,(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3)
+                    AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3)
                 if(self.level[y][x].Enemy=="e"):
                     #guard melee
-                    Enemy(loader.loadModel("Art/Models/human1-model.egg"),False,False,(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0)
+                    AI(loader.loadModel("Art/Models/human1-model.egg"),False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0)
                 if(self.level[y][x].Enemy=="f"):
                     #guard pistol
-                    Enemy(loader.loadModel("Art/Models/human1-model.egg"),False,False,(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1)
+                    AI(loader.loadModel("Art/Models/human1-model.egg"),False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1)
                 if(self.level[y][x].Enemy=="g"):
                     #guard shotgun
-                    Enemy(loader.loadModel("Art/Models/human1-model.egg"),False,False,(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2)
+                    AI(loader.loadModel("Art/Models/human1-model.egg"),False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2)
                 if(self.level[y][x].Enemy=="h"):
                     #guard ak
-                    Enemy(loader.loadModel("Art/Models/human1-model.egg"),False,False,(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3)
+                    AI(loader.loadModel("Art/Models/human1-model.egg"),False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3)
                 
     def prepareFloorModel(self, environ, texture):
         myTexture = loader.loadTexture(texture)
@@ -97,7 +97,10 @@ class Level(object):
             self.prepareWallModel(environ, texture)
             environ.setPos(x*cellsize,((-1*y)+(wallbuffer))*cellsize,(0+0.5)*cellsize)
             environ.setHpr(180,0,0)
-            
+    def isWestWallEmpty(self,y,x):
+        return (self.level[y][x].WestWall == "." and self.level[y][x].WestWallType == ".")
+    def isNorthWallEmpty(self,y,x):
+        return (self.level[y][x].NorthWall == "." and self.level[y][x].NorthWallType == ".") 
     def draw(self):
         #for each room
         for y in xrange(len(self.level)):
@@ -115,26 +118,26 @@ class Level(object):
                     # make a normal north wall
                     self.drawNorthWall(y,x, "Art/Textures/stone_tiles_1.jpg")
                     
-                if(not self.level[y][x].Floor=="." and self.level[y][x].WestWall=="." and self.level[y][x].NorthWall=="."):
-                    if(x>0 and y>0 and not( self.level[y-1][x].WestWall=="." and self.level[y][x-1].NorthWall==".")):
+                if(not self.level[y][x].Floor=="." and self.isWestWallEmpty(y,x) and self.isNorthWallEmpty(y,x)):
+                    if(x>0 and y>0 and not( self.isWestWallEmpty(y-1,x) and self.isNorthWallEmpty(y,x-1))):
                         environ = loader.loadModel("Art/Models/corner_1.egg")
                         self.prepareWallModel(environ, "Art/Textures/stone_tiles_1.jpg")
                         environ.setPos((x-(1-wallbuffer))*cellsize,((-1*y)+(1-wallbuffer))*cellsize,(0+0.5)*cellsize)
                         environ.setHpr(-90,0,0)
-                if(not self.level[y][x].Floor=="." and self.level[y][x+1].WestWall=="." and self.level[y][x].NorthWall=="."):
-                    if(x>0 and y>0 and not( self.level[y][x+1].NorthWall=="." and self.level[y-1][x+1].WestWall==".")):
+                if(not self.level[y][x].Floor=="." and self.isWestWallEmpty(y,x+1) and self.isNorthWallEmpty(y,x)):
+                    if(x>0 and y>0 and not( self.isNorthWallEmpty(y,x+1) and self.isWestWallEmpty(y-1,x+1))):
                         environ = loader.loadModel("Art/Models/corner_1.egg")
                         self.prepareWallModel(environ, "Art/Textures/stone_tiles_1.jpg")
                         environ.setPos((x+(1-wallbuffer))*cellsize,((-1*y)+(1-wallbuffer))*cellsize,(0+0.5)*cellsize)
                         environ.setHpr(180,0,0)
-                if(not self.level[y][x].Floor=="." and self.level[y][x].WestWall=="." and self.level[y+1][x].NorthWall=="."):
-                    if(x>0 and y>0 and not( self.level[y+1][x].WestWall=="." and self.level[y+1][x-1].NorthWall==".")):
+                if(not self.level[y][x].Floor=="." and self.isWestWallEmpty(y,x) and self.isNorthWallEmpty(y+1,x)):
+                    if(x>0 and y>0 and not( self.isWestWallEmpty(y+1,x) and self.isNorthWallEmpty(y+1,x-1))):
                         environ = loader.loadModel("Art/Models/corner_1.egg")
                         self.prepareWallModel(environ, "Art/Textures/stone_tiles_1.jpg")
                         environ.setPos((x-(1-wallbuffer))*cellsize,((-1*y)-(1-wallbuffer))*cellsize,(0+0.5)*cellsize)
                         environ.setHpr(0,0,0)
-                if(not self.level[y][x].Floor=="." and self.level[y][x+1].WestWall=="." and self.level[y+1][x].NorthWall=="."):
-                    if(x>0 and y>0 and not( self.level[y+1][x+1].WestWall=="." and self.level[y+1][x+1].NorthWall==".")):
+                if(not self.level[y][x].Floor=="." and self.isWestWallEmpty(y,x+1) and self.isNorthWallEmpty(y+1,x)):
+                    if(x>0 and y>0 and not( self.isWestWallEmpty(y+1,x+1) and self.isNorthWallEmpty(y+1,x+1))):
                         environ = loader.loadModel("Art/Models/corner_1.egg")
                         self.prepareWallModel(environ, "Art/Textures/stone_tiles_1.jpg")
                         environ.setPos((x+(1-wallbuffer))*cellsize,((-1*y)-(1-wallbuffer))*cellsize,(0+0.5)*cellsize)
@@ -154,4 +157,8 @@ class Room(object):
         self.InteriorFacing = room[5]
         self.Items = room[10]
         self.Cin = room[12]
+        if(self.EnemyFacing == "."):
+            self.EnemyFacing = "0"
+        if(self.InteriorFacing == "."):
+            self.InteriorFacing = "0"
         
