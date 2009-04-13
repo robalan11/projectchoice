@@ -1,10 +1,10 @@
 Level Editor Needs:
 
-CHECK!- Two Doors. (Sliding, Swing)
-Level Start Points. (Discreet ones, as there will be more then one after the first level)
-Level Exit points. (Same as start points)
-Check! - Guard/Prisoner start positions (Note that they need to discriminate what weapon they're holding as well)(4 of each)
-Weapon/Ammo start points
+Check! - Two Doors. (Sliding, Swing)
+Check! - Level Start Points.
+Check! - Level Exit points. (Same as start points)
+Check! - Guard/Prisoner start positions(4 of each)
+Check! - Weapon/Ammo start points
 Check! - Stairs-up
 Check! - Stairs-down
 
