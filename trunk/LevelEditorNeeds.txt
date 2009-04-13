@@ -7,22 +7,13 @@ Check! - Guard/Prisoner start positions(4 of each)
 Check! - Weapon/Ammo start points
 Check! - Stairs-up
 Check! - Stairs-down
-
-Gah! Stop being efficient, John!
-
-Barricade
-
-Round Table
-
-Chairs (Metal/wood)
-
-Desks
-
-Kitchen Console
-
-Security Console
-
-Bookcase
+Check! - Barricade
+Check! - Round Table
+Check! - Chairs (Metal/wood)
+Check! - Desks
+Check! - Kitchen Console
+Check! - Security Console
+Check! - Bookcase
 
 More cinematic triggers, please.
 
