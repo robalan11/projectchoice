@@ -23,9 +23,9 @@ class World(DirectObject):
         
         #Execute level construction code
         
-        self.level=Level("Interesting.txt")
+        self.level=Level("Interesting.txt",self.player,"P")
         
-        self.player.nodepath().setPos(10,-10,5)
+        
         
         
         #Create dummy targets with a collision hull attached to them. No collision handler.
