@@ -99,6 +99,10 @@ class GUI:
         towerbutton((self.x+2*32, 13*32), [12,'2'])
         towerbutton((self.x+3*32, 13*32), [12,'3'])
         towerbutton((self.x+4*32, 13*32), [12,'4'])
+        towerbutton((self.x+5*32, 13*32), [12,'5'])
+        towerbutton((self.x+6*32, 13*32), [12,'6'])
+        towerbutton((self.x+7*32, 13*32), [12,'7'])
+        towerbutton((self.x+8*32, 13*32), [12,'8'])
         
         towerbutton((self.x+1*32, 15*32), [14,'P'])
         towerbutton((self.x+2*32, 15*32), [14,'G'])
@@ -134,7 +138,7 @@ class GUI:
     def update(self,):
         self.towertext=self.getbuttoninfo()
         if self.towertext==None:
-            self.towertext=self.towertype
+            self.towertext=="None?"
         elif(self.towertext==[0,'F']):
             self.towertext="ConcreteFloor"
         elif(self.towertext==[0,'u']):
@@ -264,6 +268,14 @@ class GUI:
             self.towertext="Cinematic3"
         elif(self.towertext==[12,'4']):
             self.towertext="Cinematic4"
+        elif(self.towertext==[12,'5']):
+            self.towertext="Cinematic5"
+        elif(self.towertext==[12,'6']):
+            self.towertext="Cinematic6"
+        elif(self.towertext==[12,'7']):
+            self.towertext="Cinematic7"
+        elif(self.towertext==[12,'8']):
+            self.towertext="Cinematic8"
         
         elif(self.towertext==[14,'P']):
             self.towertext="PrisonEnter"
