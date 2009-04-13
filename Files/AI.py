@@ -122,7 +122,7 @@ class AI():
         #~ initialize the actor and FSM
         #Load the appropriate team model and specified model type
         if team: #load prisoner garb if it's a prisoner
-            self.model=Actor("Art/Models/human1-model.egg")
+            self.model=Actor("Art/Models/human1-modelp.egg")
         else:
             self.model=Actor("Art/Models/human1-model.egg")
         self.model.reparentTo(render)
