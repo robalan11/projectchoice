@@ -280,7 +280,7 @@ class Player ():
                 self.shotgun.ammo = min(self.shotgun.maxammo, self.shotgun.ammo+10)
             elif name == "aammo":
                 self.assaultrifle.ammo = min(self.assaultrifle.maxammo, self.assaultrifle.ammo+24)
-                elif name == "aammo":
+            elif name == "aammolarge":
                 self.assaultrifle.ammo = min(self.assaultrifle.maxammo, self.assaultrifle.ammo+60)
             elif name == "prisonerobjective1":
                 self.pobjective[0]=True
