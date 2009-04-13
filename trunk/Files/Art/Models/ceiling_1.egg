@@ -3,6 +3,14 @@
 <Comment> {
   "maya2egg2008 -a model -o 'C:\Documents and Settings\Robert Link\Desktop\Game Dev\Art\Models\ceiling_1.egg' 'C:\Documents and Settings\Robert Link\Desktop\Game Dev\Art\Models\ceiling_1.mb'"
 }
+<Texture> phong1SG {
+  "../Textures/concrete1.jpg"
+  <Scalar> format { rgb }
+  <Scalar> wrapu { repeat }
+  <Scalar> wrapv { repeat }
+  <Scalar> minfilter { linear_mipmap_linear }
+  <Scalar> magfilter { linear }
+}
 <Group> ceiling_1 {
   <Dart> { 1 }
   <Group> groundPlane_transform {
@@ -11,27 +19,32 @@
     <VertexPool> pPlaneShape1.verts {
       <Vertex> 0 {
         -5 4.979e-016 -5
+        <UV> { 0 0 }
         <Normal> { 0 -1 0 }
-        <RGBA> { 0.5 0.5 0.5 1 }
+        <RGBA> { 1 1 1 1 }
       }
       <Vertex> 1 {
         5 4.979e-016 -5
+        <UV> { 1 0 }
         <Normal> { 0 -1 0 }
-        <RGBA> { 0.5 0.5 0.5 1 }
+        <RGBA> { 1 1 1 1 }
       }
       <Vertex> 2 {
         5 -4.979e-016 5
+        <UV> { 1 1 }
         <Normal> { 0 -1 0 }
-        <RGBA> { 0.5 0.5 0.5 1 }
+        <RGBA> { 1 1 1 1 }
       }
       <Vertex> 3 {
         -5 -4.979e-016 5
+        <UV> { 0 1 }
         <Normal> { 0 -1 0 }
-        <RGBA> { 0.5 0.5 0.5 1 }
+        <RGBA> { 1 1 1 1 }
       }
     }
     <Polygon> {
       <Normal> { 0 -1 0 }
+      <TRef> { phong1SG }
       <VertexRef> { 0 1 2 3 <Ref> { pPlaneShape1.verts } }
     }
   }
