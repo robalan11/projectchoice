@@ -104,6 +104,11 @@ class GUI:
     def draw(self, screen):
         for button in towerbutton.towerbuttons:
             button.draw(screen, self.towertype)
+        if self.towertext!=None:
+            i=0
+            for line in self.towertext:
+                screen.blit(self.text.render(line, True, (0,0,0)), (self.x+2, 350+i))
+                i=i+self.text.get_linesize()+1
     def getbuttoninfo(self):
         type=None
         for button in towerbutton.towerbuttons:
@@ -121,8 +126,138 @@ class GUI:
         self.towertext=self.getbuttoninfo()
         if self.towertext==None:
             self.towertext=self.towertype
+        elif(self.towertext==[0,'F']):
+            self.towertext="ConcreteFloor"
+        elif(self.towertext==[0,'u']):
+            self.towertext="Stairs"
+        elif(self.towertext==[0,'d']):
+            self.towertext="Stairs"
+        elif(self.towertext==[0,'l']):
+            self.towertext="Stairs"
+        elif(self.towertext==[0,'r']):
+            self.towertext="Stairs"
+        elif(self.towertext==[0,'g']):
+            self.towertext="FloorTex2"
+        
+        elif(self.towertext==[0,'h']):
+            self.towertext="FloorTex3"
+        elif(self.towertext==[0,'a']):
+            self.towertext="StairsDown"
+        elif(self.towertext==[0,'b']):
+            self.towertext="StairsDown"
+        elif(self.towertext==[0,'c']):
+            self.towertext="StairsDown"
+        elif(self.towertext==[0,'e']):
+            self.towertext="StairsDown"
+        
+        elif(self.towertext==[1,'W']):
+            self.towertext="DefaultWallTex"
+        elif(self.towertext==[1,'A']):
+            self.towertext="WallTex2"
+        elif(self.towertext==[1,'B']):
+            self.towertext="WallTex3"
+        elif(self.towertext==[1,'C']):
+            self.towertext="WallTex4"
+        
+        elif(self.towertext==[2,'D']):
+            self.towertext="Door"
+        elif(self.towertext==[2,'S']):
+            self.towertext="Sliding Door"
+        
+        elif(self.towertext==[3,'W']):
+            self.towertext="DefaultWallTex"
+        elif(self.towertext==[3,'A']):
+            self.towertext="WallTex2"
+        elif(self.towertext==[3,'B']):
+            self.towertext="WallTex3"
+        elif(self.towertext==[3,'C']):
+            self.towertext="WallTex4"
+        
+        elif(self.towertext==[4,'D']):
+            self.towertext="Door"
+        elif(self.towertext==[4,'S']):
+            self.towertext="SlidingDoor"
+        
+        elif(self.towertext==[5,'0']):
+            self.towertext="InteriorFace"
+        elif(self.towertext==[5,'1']):
+            self.towertext="InteriorFace"
+        elif(self.towertext==[5,'2']):
+            self.towertext="InteriorFace"
+        elif(self.towertext==[5,'3']):
+            self.towertext="InteriorFace"
+        
+        elif(self.towertext==[8,'A']):
+            self.towertext="PrisonMelee"
+        elif(self.towertext==[8,'B']):
+            self.towertext="PrisonPistol"
+        elif(self.towertext==[8,'C']):
+            self.towertext="PrisonShotgun"
+        elif(self.towertext==[8,'D']):
+            self.towertext="PrisonAutomatic"
+        elif(self.towertext==[8,'E']):
+            self.towertext="GuardMelee"
+        elif(self.towertext==[8,'F']):
+            self.towertext="GuardPistol"
+        elif(self.towertext==[8,'G']):
+            self.towertext="GuardShotgun"
+        elif(self.towertext==[8,'H']):
+            self.towertext="GuardAutomatic"
+        
+        elif(self.towertext==[7,'0']):
+            self.towertext="EnemyFace"
+        elif(self.towertext==[7,'1']):
+            self.towertext="EnemyFace"
+        elif(self.towertext==[7,'2']):
+            self.towertext="EnemyFace"
+        elif(self.towertext==[7,'3']):
+            self.towertext="EnemyFace"
+        
+        elif(self.towertext==[10,'A']):
+            self.towertext="SmallPistol"
+        elif(self.towertext==[10,'B']):
+            self.towertext="SmallShotgun"
+        elif(self.towertext==[10,'C']):
+            self.towertext="SmallAutomatic"
+        elif(self.towertext==[10,'D']):
+            self.towertext="Health"
+        elif(self.towertext==[10,'E']):
+            self.towertext="Armor"
+        elif(self.towertext==[10,'F']):
+            self.towertext="BigPistol"
+        elif(self.towertext==[10,'G']):
+            self.towertext="BigShotgun"
+        elif(self.towertext==[10,'H']):
+            self.towertext="BigAutomatic"
+        
+        elif(self.towertext==[12,'1']):
+            self.towertext="Cinematic1"
+        elif(self.towertext==[12,'2']):
+            self.towertext="Cinematic2"
+        elif(self.towertext==[12,'3']):
+            self.towertext="Cinematic3"
+        elif(self.towertext==[12,'4']):
+            self.towertext="Cinematic4"
+        
+        elif(self.towertext==[14,'P']):
+            self.towertext="PrisonEnter"
+        elif(self.towertext==[14,'G']):
+            self.towertext="GuardEnter"
+        elif(self.towertext==[14,'Q']):
+            self.towertext="PrisonExit"
+        elif(self.towertext==[14,'H']):
+            self.towertext="GuardExit"
+        
+        elif(self.towertext==[13,'0']):
+            self.towertext="EntranceFace"
+        elif(self.towertext==[13,'1']):
+            self.towertext="EntranceFace"
+        elif(self.towertext==[13,'2']):
+            self.towertext="EntranceFace"
+        elif(self.towertext==[13,'3']):
+            self.towertext="EntranceFace"
         else:
-            self.towertext=''
+            self.towertext="Unknown"
     def shutdown(self):
         pygame.font.quit()
 
