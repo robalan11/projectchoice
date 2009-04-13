@@ -121,10 +121,12 @@ class AI():
         # weapon = int indication weapon
         #~ initialize the actor and FSM
         #Load the appropriate team model and specified model type
+        if model!=1 and model !=2:
+            model=1
         if team: #load prisoner garb if it's a prisoner
-            self.model=Actor("Art/Models/human1-modelp.egg")
+            self.model=Actor("Art/Models/human"+str(model)+"-modelp.egg")
         else:
-            self.model=Actor("Art/Models/human1-model.egg")
+            self.model=Actor("Art/Models/human"+str(model)+"-model.egg")
         self.model.reparentTo(render)
         self.model.setPos(startpos)
         self.model.setH(starth)
@@ -147,7 +149,7 @@ class AI():
         self.cspath.node().addSolid(self.cs)
         self.cspath.node().setFromCollideMask(BitMask32(0x01))
         self.cspath.setCollideMask(BitMask32(0x11))
-        #self.cspath.show()
+        self.cspath.show()
         
         self.cr=CollisionRay(0,0,0.1/AI.scale,0,0,-1/AI.scale)
         self.crpath=self.model.attachNewNode(CollisionNode('AIray;' +  str(AI.ID)))
@@ -202,11 +204,11 @@ class AI():
             self.drop = "Pistol"
             self.weapon = Weapon.Pistol(self.model, False, Vec3(0,0,4))
             self.killzone=15
-            self.model.loadAnims({"Crouch": "Art/animations/human1-crouchingpistol.egg"})
-            self.model.loadAnims({"Run": "Art/animations/human1-runningpistol.egg"})
-            self.model.loadAnims({"Walk": "Art/animations/human1-walkingpistol.egg"})
-            #Load idling
-            #Load firing
+            self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouchingpistol.egg"})
+            self.model.loadAnims({"Run": "Art/animations/human"+str(model)+"-runningpistol.egg"})
+            self.model.loadAnims({"Walk": "Art/animations/human"+str(model)+"-walkingpistol.egg"})
+            self.model.loadAnims({"Idle": "Art/animations/human"+str(model)+"-idlepistol.egg"})
+            self.model.loadAnims({"Fire": "Art/animations/human"+str(model)+"-firepistol.egg"})
             w=loader.loadModel("Art/Models/pistol.egg")
             w.setScale(0.05,0.05,0.05)
             w.setPos(-0.1, 0.6, 0.2)
@@ -216,23 +218,36 @@ class AI():
             self.drop = "Shotgun"
             self.weapon = Weapon.Shotgun(self.model, False, Vec3(0,0,4))
             self.killzone=10
-            self.model.loadAnims({"Crouch": "Art/animations/human1-crouchingbiggun.egg"})
-            self.model.loadAnims({"Run": "Art/animations/human1-runningbiggun.egg"})
-            self.model.loadAnims({"Walk": "Art/animations/human1-walkingbiggun.egg"})
-            #Load idling
-            #Load firing
+            self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouchingbiggun.egg"})
+            self.model.loadAnims({"Run": "Art/animations/human"+str(model)+"-runningbiggun.egg"})
+            self.model.loadAnims({"Walk": "Art/animations/human"+str(model)+"-walkingbiggun.egg"})
+            self.model.loadAnims({"Idle": "Art/animations/human"+str(model)+"-idleshotgun.egg"})
+            self.model.loadAnims({"Fire": "Art/animations/human"+str(model)+"-fireshotgun.egg"})
             w=loader.loadModel("Art/Models/shotgun.egg")
             w.setScale(0.1, 0.1,0.1)
             w.setPos(-0.56, 0.23, 0.3)
             w.setHpr(175,90,10)
             w.reparentTo(temp)
-        #elif (weapon ==3):
-            #self.weapon = Weapon.Rifle(self.model, False, Vec3(0,0,4)
-            #self.model.loadAnims({"Crouch": "Art/animations/human1-crouchingbiggun.egg"})
-            #self.model.loadAnims({"Run": "Art/animations/human1-runningbiggun.egg"})
-            #self.model.loadAnims({"Walk": "Art/animations/human1-walkingbiggun.egg"})
-            #Load idling
-            #Load firing
+        elif (weapon ==3):
+            self.weapon = Weapon.Rifle(self.model, False, Vec3(0,0,4))
+            self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouchingbiggun.egg"})
+            self.model.loadAnims({"Run": "Art/animations/human"+str(model)+"-runningbiggun.egg"})
+            self.model.loadAnims({"Walk": "Art/animations/human"+str(model)+"-walkingbiggun.egg"})
+            self.model.loadAnims({"Idle": "Art/animations/human"+str(model)+"-idleassaultrifle.egg"})
+            self.model.loadAnims({"Fire": "Art/animations/human"+str(model)+"-fireassaultrifle.egg"})
+            w=loader.loadModel("Art/Models/assaultrifle.egg")
+            w.setScale(0.1,0.1,0.1)
+            w.reparentTo(temp)
+        elif (weapon==4):
+            # Change later to different melee weaps for different AI
+            self.drop = "Medkit"
+            self.weapon = Weapon.Knife(self.model, False, Vec3(0,0,4))
+            self.killzone = 2
+            self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouching.egg"})
+            self.model.loadAnims({"Run": "Art/animations/human"+str(model)+"-running.egg"})
+            self.model.loadAnims({"Walk": "Art/animations/human"+str(model)+"-walking.egg"})
+            self.model.loadAnims({"Idle": "Art/animations/human"+str(model)+"-fireknife.egg"})
+            self.model.loadAnims({"Fire": "Art/animations/human"+str(model)+"-fireknife.egg"})
             #w=loader.loadModel("Art/Models/shotgun.egg")
             #w.setScale(0.1,0.1,0.1)
             #w.reparentTo(temp)
@@ -240,12 +255,12 @@ class AI():
             # Change later to different melee weaps for different AI
             self.drop = "Medkit"
             self.weapon = Weapon.Knife(self.model, False, Vec3(0,0,4))
-            self.killzone = 3
-            self.model.loadAnims({"Crouch": "Art/animations/human1-crouching.egg"})
-            self.model.loadAnims({"Run": "Art/animations/human1-running.egg"})
-            self.model.loadAnims({"Walk": "Art/animations/human1-walking.egg"})
-            #Load idling
-            #Load firing
+            self.killzone = 2
+            self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouching.egg"})
+            self.model.loadAnims({"Run": "Art/animations/human"+str(model)+"-running.egg"})
+            self.model.loadAnims({"Walk": "Art/animations/human"+str(model)+"-walking.egg"})
+            self.model.loadAnims({"Idle": "Art/animations/human"+str(model)+"-firetonfa.egg"})
+            self.model.loadAnims({"Fire": "Art/animations/human"+str(model)+"-firetonfa.egg"})
             #w=loader.loadModel("Art/Models/shotgun.egg")
             #w.setScale(0.1,0.1,0.1)
             #w.reparentTo(temp)
@@ -271,6 +286,8 @@ class AI():
         self.ID = AI.ID
         self.dead=False
         self.rundistance=0
+        
+        self.model.play("Idle")
         
         #Tasks
         taskMgr.add(self.tick, "AI tick;"+str(AI.ID))
@@ -321,8 +338,8 @@ class AI():
         #------------------------
         
         #Check for uninterruptable states
-        #if self.model.getAnimControl("Fire").isPlaying() and self.model.getCurrentFrame("Fire")<self.model.getNumFrames("Fire"):
-            #return
+        if self.model.getAnimControl("Fire").isPlaying() and self.model.getCurrentFrame("Fire")<self.model.getNumFrames("Fire"):
+            return Task.cont
         #if self.health<0:
             #if self.model.getAnimControl("Dying").isPlaying() and self.model.getCurrentFrame("Dying")<self.model.getNumFrames("Dying")":
                 #Spawn your drop
@@ -370,7 +387,6 @@ class AI():
                     #~ if self.rundistance<10:
                         #~ self.dy=AI.runspeed
                 if self.seeplayer and self.follow:
-                    print "obey"
                     self.targetpos=AI.playerhandle.model.getPos()
                     self.look_angles = self.targetpos-Vec3(self.model.getPos())
                     self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
@@ -379,7 +395,6 @@ class AI():
                     if abs(self.dh)<1:
                         distance = Vec3(self.targetpos)-Vec3(self.model.getPos())
                         distance.setZ(0)
-                        print distance.length()
                         #If facing player, run if you're >10 feet from them
                         if distance.length() >AI.followradius:
                             self.dy=min(AI.runspeed, distance.length()-AI.followradius)
@@ -434,12 +449,11 @@ class AI():
         
         #print self.ID
         #print self.dy
-        #if self.shooting:
-            #pass
-            #if self.dy > 0
+        if self.shooting:
+            #if self.dy > 0:
                 #run shooting part on top half and moving part on bottom half
             #else:
-                #self.model.play("Fire")
+            self.model.play("Fire")
         if self.dy>AI.runanim:
             #print "Run"
             self.model.setPlayRate(self.dy/AI.runanim, "Run")
@@ -451,8 +465,8 @@ class AI():
             if not self.model.getAnimControl("Walk").isPlaying():
                 self.model.loop("Walk")
         else:
-            #print "Still"
-            self.model.stop()
+            if not self.model.getAnimControl("Idle").isPlaying():
+                self.model.play("Idle")
         #elif not self.model.getAnimControl("Idle").isPlaying():
             #self.model.loop("Idle")
         #------------------------    
