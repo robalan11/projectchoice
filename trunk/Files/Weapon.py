@@ -207,7 +207,6 @@ class Shotgun(Weapon):
         self.type = "shotgun"
     
     def shoot(self, player):
-        self.frpath.show()
         if self.reloadsound.status() != 2 and self.firesound.status() != 2:
             if self.shots > 0:
                 for i in xrange(6):
@@ -222,6 +221,7 @@ class Shotgun(Weapon):
                 self.sight.sortEntries()
                 self.firesound.play()
                 self.shots -= 1
+                hit_targets=[]
                 for i in range(self.sight.getNumEntries()):
                     object=self.sight.getEntry(i)
                     #~ if weapon hits an AI
@@ -232,16 +232,19 @@ class Shotgun(Weapon):
                         break
                     if (object.getIntoNodePath().getName()=="wall" or object.getIntoNodePath().getName()=="floor"):
                         break
-                    if (object.getIntoNodePath().getName().split(";")[0]=="AItarget") and object.getIntoNodePath().getParent().node()!=player.model.node(): #Not shooting yourself
+                    if (object.getIntoNodePath().getName().split(";")[0]=="AItarget") and object.getIntoNodePath().getParent().node()!=player.model.node() and hit_targets.count(object.getIntoNodePath().getName())==0: #Not shooting yourself or the same person twise
+                        hit_targets.append(object.getIntoNodePath().getName())
                         ID=object.getIntoNodePath().getName().split(";")[1]
                         target=AI.AI.AI_dict[int(ID)]
-                        target.damage(player, 5)
+                        distance = player.model.getPos()-target.model.getPos()
+                        target.damage(player, int(100/distance.length())+1)
                         if player==AI.AI.playerhandle:
                             player.broadcast_attack(target)
-                        break
+                        continue
                     if (object.getIntoNodePath().getName()=="ptarget"):
-                        AI.AI.playerhandle.damage(player, 5)
-                        break
+                        distance = player.model.getPos()-AI.AI.playerhandle.model.getPos()
+                        AI.AI.playerhandle.damage(player, int(100/distance.length()+1))
+                        continue
                     
                 for i in xrange(6):
                     self.frpath.node().removeSolid(0)
