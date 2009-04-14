@@ -114,19 +114,22 @@ class Level(object):
         
         
     def drawWestDoor(self, y, x, texture):
-        print "Drawing a western door"
         if(not self.level[y][x].Floor=="."):
             environ = loader.loadModel("Art/Models/wall_door_1.egg")
             self.prepareWallModel(environ, texture)
             environ.setPos((x-(1-wallbuffer))*cellsize,(-1*y)*cellsize,(0+0.5)*cellsize)
-            environ.setHpr(90,0,0)
+            environ.setHpr(0,0,0)
             
         if(x>0 and not self.level[y][x-1].Floor=="."):
             # make a normal wall on the east
             environ = loader.loadModel("Art/Models/wall_door_1.egg")
             self.prepareWallModel(environ, texture)
             environ.setPos((x-(wallbuffer))*cellsize,(-1*y)*cellsize,(0+0.5)*cellsize)
-            environ.setHpr(-90,0,0)
+            environ.setHpr(-180,0,0)
+        environ = loader.loadModel("Art/Models/door_spacer_1.egg")
+        self.prepareWallModel(environ,texture)
+        environ.setPos((x-1+wallbuffer)*cellsize,(-1*y)*cellsize,(0+0.5)*cellsize)
+        environ.setHpr(-180,0,0)
             
     def drawWestWall(self, y, x, texture):
         
