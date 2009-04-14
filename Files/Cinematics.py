@@ -32,6 +32,17 @@ class Event(object):
             self.first = True
             self.target = int(remainder[0])
             self.file = remainder[1]
+            self.start = remainder[2]
+            self.end = remainder[3]
+        
+        elif self.type == 'c':
+            self.function = self.camera
+            self.rotation = float(remainder[0])
+            self.startrot = base.camera.getH()
+            self.points = []
+            for point in remainder[1:]:
+                nums = point.split(',')
+                self.points.append((float(nums[0]), float(nums[1]), float(nums[2])))
         
         elif self.type == 'q':
             self.function = self.quit
@@ -59,7 +70,7 @@ class Event(object):
             #put text on the screen
             pos = 1
             self.textlines = []
-            for line in text:
+            for line in text[self.start:self.end]:
                 pos -= 0.06
                 self.textlines.append(OnscreenText(text=line, style=1, fg=(1,1,1,1), pos=(0, pos), align=TextNode.ACenter, scale = .06))
             self.first = False
@@ -68,6 +79,16 @@ class Event(object):
         for line in self.textlines:
             pass
             #line.clearText()
+        return Task.done
+    
+    def camera(self, title):
+        elapsed = time.clock()-self.time
+        if elapsed < self.duration:
+            pos = self.bezier(self.points[:], elapsed/self.duration)
+            base.camera.setPos(pos)
+            rot = self.startrot + self.rotation * (elapsed/self.duration)
+            base.camera.setH(rot)
+            return Task.cont
         return Task.done
     
     def quit(self, title):
