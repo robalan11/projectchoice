@@ -14,7 +14,7 @@ import Weapon
 # bit 0 is walls, bit 1 is floor, bit 3 is player bullets, bit 4 is AI bullets, bit 5 is AI vision, bit 6 is powerups and mission objectives
 
 class Player ():
-    def __init__(self,arm_model):
+    def __init__(self,arm_model):        
         #~ initialize actor with the arm model
         self.keyMap = {}
         self.model=Actor(arm_model)
@@ -123,7 +123,11 @@ class Player ():
     
     def setKey(self, key, value):
         self.keyMap[key] = value
-        
+    
+    def setLevel(self, level):
+        #~ It's a pointer to the level, nyah
+        self.levelref = level
+    
     def count(self, object):
         if object==self:
             return 1
@@ -326,7 +330,11 @@ class Player ():
                     print temp.follow
             if remove==True:
                 self.phandle.getEntry(i).getIntoNodePath().getParent().remove()
-        #~ update the GUI
+        
+        gridpos = (-1*int((self.model.getY()-5)/10), int((self.model.getX()+5)/10))
+        if self.levelref.cines[gridpos] != '.':
+            print self.levelref.cines[gridpos]
+        
         return Task.cont
     def collided(self):
         pass

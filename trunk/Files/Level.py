@@ -9,7 +9,9 @@ class Level(object):
         self.level=[]
         self.EntranceP=False
         self.EntranceG=False
-        self.loadLevelfile(levelfile)    
+        self.loadLevelfile(levelfile)
+        self.cines = {}
+        self.ais = []
         self.start()
         if(entrancetype=="P" and self.EntranceP):
             player.nodepath().setPos(self.EntrancePx*cellsize,(-1*self.EntrancePy)*cellsize, 0.5*cellsize)
@@ -32,6 +34,7 @@ class Level(object):
         self.draw()
         self.loadenemies()
         self.loaditems()
+        self.loadcines()
         
     def loaditems(self):
         for y in xrange(len(self.level)):
@@ -69,29 +72,33 @@ class Level(object):
                 #TO BE FIXED: AUTOMATIC WEAPONS DON"T LOAD
                 if(self.level[y][x].Enemy=="A"):
                     #prison knife
-                    AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0)
+                    self.ais.append(AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0))
                 if(self.level[y][x].Enemy=="B"):
                     #prison pistol
-                    AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1)
+                    self.ais.append(AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1))
                 if(self.level[y][x].Enemy=="C"):
                     #prison shotgun
-                    AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2)
+                    self.ais.append(AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2))
                 if(self.level[y][x].Enemy=="D"):
                     #prison AK
-                    pass#AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3)
-                if(self.level[y][x].Enemy=="E"):
-                    #guard melee
-                    AI(loader.loadModel("Art/Models/human1-model.egg"),False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0)
+                    pass#self.ais.append(AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3))
                 if(self.level[y][x].Enemy=="F"):
                     #guard pistol
-                    AI(loader.loadModel("Art/Models/human1-model.egg"),False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1)
+                    self.ais.append(AI(loader.loadModel("Art/Models/human1-model.egg"),False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1))
                 if(self.level[y][x].Enemy=="G"):
                     #guard shotgun
-                    AI(loader.loadModel("Art/Models/human1-model.egg"),False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2)
+                    self.ais.append(AI(loader.loadModel("Art/Models/human1-model.egg"),False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2))
                 if(self.level[y][x].Enemy=="H"):
                     #guard ak
                     pass#AI(loader.loadModel("Art/Models/human1-model.egg"),False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3)
-                
+    
+    def loadcines(self):
+        for y in xrange(len(self.level)):
+            for x in xrange(len(self.level[y])):
+                self.cines[(y, x)] = self.level[y][x].Cin
+                if self.level[y][x].Cin != '.':
+                    print (y, x), self.level[y][x].Cin
+    
     def prepareFloorModel(self, environ, texture):
         myTexture = loader.loadTexture(texture)
         environ.setCollideMask(BitMask32(0x02))

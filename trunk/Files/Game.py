@@ -23,8 +23,8 @@ class World(DirectObject):
         
         #Execute level construction code
         
-        self.level=Level("Interesting.txt",self.player,"P")
-        
+        self.level=Level("leveledit/ExportedMap.txt",self.player,"G")
+        self.player.setLevel(self.level)
         
         
         

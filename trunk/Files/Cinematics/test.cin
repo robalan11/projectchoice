@@ -1,4 +1,4 @@
 2.0 m 2.0 player 0,0,0 1,1,1 2,0,1
 4.0 t 0.3 player 90
-4.5 s 2.5 player Cinematics/test1.spk
+4.5 s 2.5 player Cinematics/test1.spk 0 3
 8.0 q 0.5 player
