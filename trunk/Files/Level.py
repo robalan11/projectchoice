@@ -66,30 +66,31 @@ class Level(object):
         for y in xrange(len(self.level)):
             for x in xrange(len(self.level[y])):
                 enemyFacing=int(self.level[y][x].EnemyFacing)*90.0
-                if(self.level[y][x].Enemy=="a"):
+                #TO BE FIXED: AUTOMATIC WEAPONS DON"T LOAD
+                if(self.level[y][x].Enemy=="A"):
                     #prison knife
                     AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0)
-                if(self.level[y][x].Enemy=="b"):
+                if(self.level[y][x].Enemy=="B"):
                     #prison pistol
                     AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1)
-                if(self.level[y][x].Enemy=="c"):
+                if(self.level[y][x].Enemy=="C"):
                     #prison shotgun
                     AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2)
-                if(self.level[y][x].Enemy=="d"):
+                if(self.level[y][x].Enemy=="D"):
                     #prison AK
-                    AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3)
-                if(self.level[y][x].Enemy=="e"):
+                    pass#AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3)
+                if(self.level[y][x].Enemy=="E"):
                     #guard melee
                     AI(loader.loadModel("Art/Models/human1-model.egg"),False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0)
-                if(self.level[y][x].Enemy=="f"):
+                if(self.level[y][x].Enemy=="F"):
                     #guard pistol
                     AI(loader.loadModel("Art/Models/human1-model.egg"),False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1)
-                if(self.level[y][x].Enemy=="g"):
+                if(self.level[y][x].Enemy=="G"):
                     #guard shotgun
                     AI(loader.loadModel("Art/Models/human1-model.egg"),False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2)
-                if(self.level[y][x].Enemy=="h"):
+                if(self.level[y][x].Enemy=="H"):
                     #guard ak
-                    AI(loader.loadModel("Art/Models/human1-model.egg"),False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3)
+                    pass#AI(loader.loadModel("Art/Models/human1-model.egg"),False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3)
                 
     def prepareFloorModel(self, environ, texture):
         myTexture = loader.loadTexture(texture)
@@ -106,11 +107,42 @@ class Level(object):
         environ.reparentTo(render)
         environ.setTexture(myTexture, 1)
         
-    def drawFloor(self, y, x, texture):
         
-        environ = loader.loadModel("Art/Models/floor_1.egg")
+    def drawCeiling(self, y, x):
+        environ = loader.loadModel("Art/Models/ceiling_1.egg")
+        environ.setCollideMask(BitMask32(0x02))
+        environ.reparentTo(render)
+        environ.setPos(x*cellsize,(-1*y)*cellsize,1*cellsize)
+        
+    def drawFloor(self, y, x):
+        texture = self.getFloorTextureName(self.level[y][x].Floor)
+        
+        environ = None
+        type = self.level[y][x].Floor
+        if(type=='F' or type=='g' or type=='h'):
+            environ=loader.loadModel("Art/Models/floor_1.egg")
+            environ.setPos(x*cellsize,(-1*y)*cellsize,0*cellsize)
+            self.drawCeiling( y, x)
+        elif(type=='a' or type == 'b' or type == 'c' or type == 'e'):
+            environ=loader.loadModel("Art/Models/stairs.egg")
+        elif(type=='u' or type == 'd' or type == 'l' or type == 'r'):
+            environ=loader.loadModel("Art/Models/stairs.egg")
         self.prepareFloorModel(environ, texture)
-        environ.setPos(x*cellsize,(-1*y)*cellsize,0*cellsize)
+        if(type=='a' or type == 'l'):
+            environ.setHpr(-90,0,0)
+            environ.setPos(x*cellsize,(-1*y+1)*cellsize,0*cellsize)
+        elif(type=='b' or type == 'u'):
+            environ.setHpr(0,0,0)
+            environ.setPos((x-1)*cellsize,(-1*y)*cellsize,0*cellsize)
+        elif(type=='c' or type == 'r'):
+            environ.setHpr(90,0,0)
+            environ.setPos(x*cellsize,(-1*y-1)*cellsize,0*cellsize)
+        elif(type=='e' or type == 'd'):
+            environ.setHpr(180,0,0)
+            environ.setPos((x+1)*cellsize,(-1*y)*cellsize,0*cellsize)
+        
+        
+        
         
         
     def drawWestDoor(self, y, x, texture):
@@ -196,7 +228,7 @@ class Level(object):
                 
                 if(not self.level[y][x].Floor == "."):
                     # make a normal floor
-                    self.drawFloor(y,x, self.getFloorTextureName(self.level[y][x].Floor))
+                    self.drawFloor(y,x)
                 
                 if(self.level[y][x].WestWall=="." and not self.level[y][x].WestWallType == "."):
                     # make a normal wall on the west
