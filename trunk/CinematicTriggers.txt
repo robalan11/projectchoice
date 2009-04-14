@@ -1,0 +1,47 @@
+Ties triggers to cinematics and gives their activation triggers. Numbers and letters in () describe which cutscenes are triggered. (Links to Dialogue file notes)
+
+Level 1:
+
+1(1): Active at start. Turns off if you shoot the guards.
+2(2): Active at Start. Turns off if you shoot the prisoners
+3(3): Activates if you kill the prisoners and not the guards. Also unlocks the door by the guards.
+4(4): Activates if you kill the guards and not the prisoners. Also unlocks the door by the prisoners. Door is also unlocked if you kill everyone.
+
+Level 2:
+
+1 (1A): Active if you come through prisoner entrance and helped the prisoners in level 1.
+2 (1B): Active if you came through the guard entrance.
+3 (1C): Active if you came through the guard entrance.
+5 (2): Active if you came through prisoner entrance and killed everyone in level 1
+6(3A): Active if the guards are dead and you didn't shoot the prisoners
+7(3B): Active if the prisoners are dead and you didn't shoot the guards
+8(3C): Active if everyone is dead.
+
+Level 3A:
+
+1 (1A): Active only if you helped the guards in level 1
+2 (1B): Active otherwise
+3 (2): Active at start
+4 (3B): Active if you killed all the prisoners and didn't shoot the guards.
+
+Level 3B:
+1 (1A):Active if you helped the prisoners in level one or ever killed everyone in a level
+2 (1B):Active otherwise
+3 (2): Active if trigger 1 is active.
+4 (3):Active if you killed the guards and didn't shoot a prisoner
+
+Level 4:
+1(1C):Active if you entered from level 3B and never helped the prisoners
+2(1D):Active if you entered from level 3B and helped the prisoners once
+3(1A):Active if you entered from level 3A and never helped the guards
+4(1B): Active if you entered from level 3A and helped the guards once
+5(2A):Active if you entered from 3A and helped the guards
+6(2B):Active if you entered from 3A and helped the prisoners or killed everyone
+7(2C):Active if you entered from 3B and helped the prisoners or killed everyone
+8(2D):Active if you entered from 3A and helped the guards
+
+Level 5:
+1(1A): Active if Level 4 triggers 5 or 8 were active.
+2(1B); Active if level 4 triggers 6 or 7 were active.
+3(2A): Active if Trigger 1 was active.
+4(2B): Active if Trigger 2 was active.
