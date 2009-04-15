@@ -9,8 +9,7 @@ class Level(object):
         self.level=[]
         self.EntranceP=False
         self.EntranceG=False
-        self.EntranceFacingP=0.0
-        self.EntranceFacingG=0.0
+        self.EntranceFacingP=0.0        self.EntranceFacingG=0.0        self.levelfilename = levelfile.split('/')[-1].split('.')[0]
         self.loadLevelfile(levelfile)
         self.cines = {}
         self.ais = []

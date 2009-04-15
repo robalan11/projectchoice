@@ -8,6 +8,7 @@ from AI import AI
 from AI import calculateHpr
 import math
 import Weapon
+import Cinematics
 
 #This assumes that base.cTrav has been defined
 
@@ -118,6 +119,8 @@ class Player ():
         self.pobjective=[False, False]
         self.gobjective=[False, False]
         
+        self.runningcinematic = False
+        
     def nodepath(self):
         return self.model
     
@@ -135,6 +138,8 @@ class Player ():
             return 0
         
     def get_input (self, task_object):
+        if self.runningcinematic:
+            return Task.cont
         #~ set player to running or stopped depending upon key input
         #Panda3D has built-in support for moving the camera?
         
@@ -254,6 +259,9 @@ class Player ():
                 #~ AI_hit attacks player
                 AI_hit.forcedenemy=True
     def tick(self,task_object):
+        if self.runningcinematic:
+            return Task.cont
+        
         #~ check and set lights of current room to player
         #~ if under cinematic control
             #~ run cinema_tick(self) and nothing else
@@ -333,7 +341,15 @@ class Player ():
         
         gridpos = (-1*int((self.model.getY()-5)/10), int((self.model.getX()+5)/10))
         if self.levelref.cines[gridpos] != '.':
-            print self.levelref.cines[gridpos]
+            base.camera.reparentTo(render)
+            actors = {"player": self}
+            for ai in self.levelref.ais:
+                index = "ai" + str(self.levelref.ais.index(ai))
+                actors[index] = ai
+            file = "Cinematics/" + self.levelref.levelfilename + self.levelref.cines[gridpos] + ".cin"
+            Cinematics.Cinematic(file, actors)
+            self.levelref.cines[gridpos] = '.'
+            self.runningcinematic = True
         
         return Task.cont
     def collided(self):
