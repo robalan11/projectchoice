@@ -124,7 +124,7 @@ class AI():
         if model!=1 and model !=2:
             model=1
         if team: #load prisoner garb if it's a prisoner
-            self.model=Actor("Art/Models/human"+str(model)+"-modelp.egg")
+            self.model=Actor("Art/Models/human"+str(model)+"-model.egg")
         else:
             self.model=Actor("Art/Models/human"+str(model)+"-model.egg")
         self.model.reparentTo(render)
@@ -199,7 +199,7 @@ class AI():
         
         #Set weapon, weapon model, and load animations based on weapon
         
-        temp=self.model.exposeJoint(None, "modelRoot", "right_hand_manip")
+        temp=self.model.exposeJoint(None, "modelRoot", "right_hand")
         if (weapon == 1):
             self.drop = "Pistol"
             self.weapon = Weapon.Pistol(self.model, False, Vec3(0,0,4))
