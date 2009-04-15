@@ -233,6 +233,23 @@ class Level(object):
         self.prepareWallModel(environ,texture)
         environ.setPos((x-1+wallbuffer)*cellsize,(-1*y)*cellsize,(0+0.5)*cellsize)
         environ.setHpr(-180,0,0)
+    def drawWestSliding(self, y, x, texture):
+        if(not self.level[y][x].Floor=="."):
+            environ = loader.loadModel("Art/Models/wall_door_1.egg")
+            self.prepareWallModel(environ, texture)
+            environ.setPos((x-(1-wallbuffer))*cellsize,(-1*y)*cellsize,(0+0.5)*cellsize)
+            environ.setHpr(0,0,0)
+            
+        if(x>0 and not self.level[y][x-1].Floor=="."):
+            # make a normal wall on the east
+            environ = loader.loadModel("Art/Models/wall_door_1.egg")
+            self.prepareWallModel(environ, texture)
+            environ.setPos((x-(wallbuffer))*cellsize,(-1*y)*cellsize,(0+0.5)*cellsize)
+            environ.setHpr(-180,0,0)
+        environ = loader.loadModel("Art/Models/door_spacer_1.egg")
+        self.prepareWallModel(environ,texture)
+        environ.setPos((x-1+wallbuffer)*cellsize,(-1*y)*cellsize,(0+0.5)*cellsize)
+        environ.setHpr(-180,0,0)
             
     def drawWestWall(self, y, x, texture):
         
@@ -279,6 +296,24 @@ class Level(object):
         self.prepareWallModel(environ,texture)
         environ.setPos(x*cellsize,((-1*y)+(wallbuffer))*cellsize,(0+0.5)*cellsize)
         environ.setHpr(-90,0,0)
+        
+    def drawNorthSliding(self, y, x, texture):
+        myTexture = loader.loadTexture(texture)
+        if(not self.level[y][x].Floor=="."):
+            environ = loader.loadModel("Art/Models/wall_door_1.egg")
+            self.prepareWallModel(environ, texture)
+            environ.setPos(x*cellsize,((-1*y)+(1-wallbuffer))*cellsize,(0+0.5)*cellsize)
+            environ.setHpr(-90,0,0)
+                    
+        if(y>0 and not self.level[y-1][x].Floor=="."):
+            environ = loader.loadModel("Art/Models/wall_door_1.egg")
+            self.prepareWallModel(environ, texture)
+            environ.setPos(x*cellsize,((-1*y)+(wallbuffer))*cellsize,(0+0.5)*cellsize)
+            environ.setHpr(90,0,0)
+        environ = loader.loadModel("Art/Models/door_spacer_1.egg")
+        self.prepareWallModel(environ,texture)
+        environ.setPos(x*cellsize,((-1*y)+(wallbuffer))*cellsize,(0+0.5)*cellsize)
+        environ.setHpr(-90,0,0)
             
             
     def isWestWallEmpty(self,y,x):
@@ -305,18 +340,25 @@ class Level(object):
                     # make a normal wall on the west
                     self.drawWestWall(y,x,"Art/Textures/stone_tiles_1.jpg")
                     
-                if(self.level[y][x].WestWall=="D"):
+                elif(self.level[y][x].WestWall=="D"):
                     # make a door on the west
                     self.drawWestDoor(y,x,"Art/Textures/stone_tiles_1.jpg")
-                    
+                elif(self.level[y][x].WestWall=="S"):
+                    #make a sliding door on the west
+                    self.drawWestSliding(y,x,"Art/Textures/stone_tiles_1.jpg")
+                        
                 if(self.level[y][x].NorthWall=="." and not self.level[y][x].NorthWallType == "." ):
                     # make a normal north wall
                     self.drawNorthWall(y,x, "Art/Textures/stone_tiles_1.jpg")
                     
-                if(self.level[y][x].NorthWall=="D"):
+                elif(self.level[y][x].NorthWall=="D"):
                     # make a door on the north
                     self.drawNorthDoor(y,x,"Art/Textures/stone_tiles_1.jpg")
-                    
+                
+                elif(self.level[y][x].NorthWall=="S"):
+                    #make a sliding door on the west
+                    self.drawNorthSliding(y,x,"Art/Textures/stone_tiles_1.jpg")
+                  
                 if(not self.level[y][x].Floor=="." and self.isWestWallEmpty(y,x) and self.isNorthWallEmpty(y,x)):
                     if(x>0 and y>0 and not( self.isWestWallEmpty(y-1,x) and self.isNorthWallEmpty(y,x-1))):
                         environ = loader.loadModel("Art/Models/corner_1.egg")
