@@ -7,6 +7,7 @@ import direct.directbase.DirectStart
 from direct.task import Task
 from direct.gui.OnscreenText import OnscreenText
 from pandac.PandaModules import TextNode
+from pandac.PandaModules import VBase3
 
 class Event(object):
     def __init__(self, time, type, duration, target, remainder):
@@ -30,10 +31,11 @@ class Event(object):
         elif self.type == 's':
             self.function = self.speak
             self.first = True
-            self.target = int(remainder[0])
-            self.file = remainder[1]
-            self.start = remainder[2]
-            self.end = remainder[3]
+            self.target = target
+            self.file = remainder[0]
+            self.start = int(remainder[1])
+            self.end = int(remainder[2])
+            self.font = loader.loadFont("Art/Fonts/Soviet2.ttf")
         
         elif self.type == 'c':
             self.function = self.camera
@@ -45,13 +47,16 @@ class Event(object):
                 self.points.append((float(nums[0]), float(nums[1]), float(nums[2])))
         
         elif self.type == 'q':
+            self.target = target
             self.function = self.quit
     
     def move(self, title):
         elapsed = time.clock()-self.time
         if elapsed < self.duration:
             pos = self.bezier(self.points[:], elapsed/self.duration)
-            self.target.model.setPos(pos)
+            self.target.model.x = pos[0]
+            self.target.model.y = pos[1]
+            self.target.model.z = pos[2]
             return Task.cont
         return Task.done
     
@@ -59,7 +64,7 @@ class Event(object):
         elapsed = time.clock()-self.time
         if elapsed < self.duration:
             rot = self.startrot + self.rotation * (elapsed/self.duration)
-            self.target.model.setH(rot)
+            self.target.model.setH(self.startrot + rot)
             return Task.cont
         return Task.done
     
@@ -71,28 +76,34 @@ class Event(object):
             pos = 1
             self.textlines = []
             for line in text[self.start:self.end]:
-                pos -= 0.06
-                self.textlines.append(OnscreenText(text=line, style=1, fg=(1,1,1,1), pos=(0, pos), align=TextNode.ACenter, scale = .06))
+                pos -= 0.09
+                self.textlines.append(OnscreenText(text=line, style=1, fg=(0.9,0.8,0.6,1), shadow=(0,0,0,0.7), pos=(0, pos), align=TextNode.ACenter, scale = .09, font = self.font))
             self.first = False
         if elapsed < self.duration:
             return Task.cont
         for line in self.textlines:
-            pass
-            #line.clearText()
+            line.hide()
         return Task.done
     
     def camera(self, title):
         elapsed = time.clock()-self.time
         if elapsed < self.duration:
             pos = self.bezier(self.points[:], elapsed/self.duration)
-            base.camera.setPos(pos)
+            print pos
+            print base.camera.getPos()
+            print self.target.model.getPos()
+            posv = VBase3(pos[0], pos[1], pos[2])
+            base.camera.setPos(posv)
             rot = self.startrot + self.rotation * (elapsed/self.duration)
             base.camera.setH(rot)
             return Task.cont
         return Task.done
     
     def quit(self, title):
-        sys.exit(12345)
+        self.target.runningcinematic = False
+        base.camera.reparentTo(self.target.model)
+        base.camera.setH(0)
+        base.camera.setPos(VBase3(0,0,0))
     
     def bezier(self, points, t):
         if len(points) == 1:
@@ -119,7 +130,7 @@ class Cinematic(object):
         events = open(cinefile, 'r').readlines()
         for event in events:
             parts = event.split()
-            self.events.append(Event(parts[0], parts[1], parts[2], parts[3], parts[4:]))
+            self.events.append(Event(parts[0], parts[1], parts[2], self.actors[parts[3]], parts[4:]))
     
     def runCin(self, title):
         elapsed = time.clock()-self.start
