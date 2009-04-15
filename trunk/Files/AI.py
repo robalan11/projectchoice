@@ -44,11 +44,15 @@ def AIsight(task_object):
                 if "AIspher" in entry.getIntoNodePath().getName():
                     name = entry.getIntoNodePath().getName().split(";")
                     fromAI=AI.AI_dict[int(name[1])]
+                    if fromAI.dying:
+                        continue
                     fromAI.look_angles = calculateHpr(player.model.getPos()-fromAI.model.getPos(), fromAI.model.getHpr())
                 else:
                     continue
             else:
                 fromAI=AI.AI_dict[int(name[1])]
+                if fromAI.dying or entry.getIntoNodePath().getParent():
+                    continue
                 #print entry.getIntoNodePath().getParent().getPos()-Looker.getParent().getPos()
                 fromAI.look_angles = calculateHpr(entry.getIntoNodePath().getParent().getPos()-Looker.getParent().getPos(), Looker.getParent().getHpr())
             if fromAI.forceturn:
@@ -124,9 +128,10 @@ class AI():
         if model!=1 and model !=2:
             model=1
         if team: #load prisoner garb if it's a prisoner
-            self.model=Actor("Art/Models/human"+str(model)+"-model.egg")
+            self.model=Actor("Art/Models/human"+str(model)+"-modelp.egg")
         else:
             self.model=Actor("Art/Models/human"+str(model)+"-model.egg")
+        self.model.loadAnims({"Dying": "Art/animations/human"+str(model)+"-death.egg"})
         self.model.reparentTo(render)
         self.model.setPos(startpos)
         self.model.setH(starth)
@@ -149,7 +154,7 @@ class AI():
         self.cspath.node().addSolid(self.cs)
         self.cspath.node().setFromCollideMask(BitMask32(0x01))
         self.cspath.setCollideMask(BitMask32(0x11))
-        self.cspath.show()
+        #self.cspath.show()
         
         self.cr=CollisionRay(0,0,0.1/AI.scale,0,0,-1/AI.scale)
         self.crpath=self.model.attachNewNode(CollisionNode('AIray;' +  str(AI.ID)))
@@ -201,7 +206,8 @@ class AI():
         
         temp=self.model.exposeJoint(None, "modelRoot", "right_hand")
         if (weapon == 1):
-            self.drop = "Pistol"
+            self.drop = "pistol"
+            self.dropmodel = "Art/Models/pistol.egg"
             self.weapon = Weapon.Pistol(self.model, False, Vec3(0,0,4))
             self.killzone=15
             self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouchingpistol.egg"})
@@ -215,7 +221,8 @@ class AI():
             w.setHpr(90,70,135)
             w.reparentTo(temp)
         elif (weapon ==2):
-            self.drop = "Shotgun"
+            self.drop = "shotgun"
+            self.dropmodel = "Art/Models/shotgun.egg"
             self.weapon = Weapon.Shotgun(self.model, False, Vec3(0,0,4))
             self.killzone=10
             self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouchingbiggun.egg"})
@@ -229,6 +236,8 @@ class AI():
             w.setHpr(175,90,10)
             w.reparentTo(temp)
         elif (weapon ==3):
+            self.drop="assault"
+            self.dropmodel = "Art/Models/assaultrifle.egg"
             self.weapon = Weapon.Rifle(self.model, False, Vec3(0,0,4))
             self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouchingbiggun.egg"})
             self.model.loadAnims({"Run": "Art/animations/human"+str(model)+"-runningbiggun.egg"})
@@ -240,7 +249,8 @@ class AI():
             w.reparentTo(temp)
         elif (weapon==4):
             # Change later to different melee weaps for different AI
-            self.drop = "Medkit"
+            self.drop = "health"
+            self.dropmodel = "Art/Models/health.egg"
             self.weapon = Weapon.Knife(self.model, False, Vec3(0,0,4))
             self.killzone = 2
             self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouching.egg"})
@@ -248,22 +258,29 @@ class AI():
             self.model.loadAnims({"Walk": "Art/animations/human"+str(model)+"-walking.egg"})
             self.model.loadAnims({"Idle": "Art/animations/human"+str(model)+"-fireknife.egg"})
             self.model.loadAnims({"Fire": "Art/animations/human"+str(model)+"-fireknife.egg"})
-            #w=loader.loadModel("Art/Models/shotgun.egg")
-            #w.setScale(0.1,0.1,0.1)
-            #w.reparentTo(temp)
+            if team:
+                w=loader.loadModel("Art/Models/shiv.egg")
+            else:
+                w=loader.loadModel("Art/Models/knife.egg")
+            w.setScale(0.1,0.1,0.1)
+            w.reparentTo(temp)
         else:
             # Change later to different melee weaps for different AI
-            self.drop = "Medkit"
-            self.weapon = Weapon.Knife(self.model, False, Vec3(0,0,4))
+            self.drop = "health"
+            self.dropmodel = "Art/Models/health.egg"
+            self.weapon = Weapon.Pipe(self.model, False, Vec3(0,0,4))
             self.killzone = 2
             self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouching.egg"})
             self.model.loadAnims({"Run": "Art/animations/human"+str(model)+"-running.egg"})
             self.model.loadAnims({"Walk": "Art/animations/human"+str(model)+"-walking.egg"})
             self.model.loadAnims({"Idle": "Art/animations/human"+str(model)+"-firetonfa.egg"})
             self.model.loadAnims({"Fire": "Art/animations/human"+str(model)+"-firetonfa.egg"})
-            #w=loader.loadModel("Art/Models/shotgun.egg")
-            #w.setScale(0.1,0.1,0.1)
-            #w.reparentTo(temp)
+            if team:
+                w=loader.loadModel("Art/Models/pipe.egg")
+            else:
+                w=loader.loadModel("Art/Models/tonfa.egg")
+            w.setScale(0.1,0.1,0.1)
+            w.reparentTo(temp)
         #Variables
         self.dx=0
         self.dy=0
@@ -284,9 +301,12 @@ class AI():
         self.forcedenemy=False
         self.loud=0
         self.ID = AI.ID
+        self.dying=False
+        self.dropped=False
         self.dead=False
         self.rundistance=0
         
+        self.idle=True
         self.model.play("Idle")
         
         #Tasks
@@ -304,6 +324,8 @@ class AI():
     
     def damage(self, attacker, damage):
         #attacker is the attacking player/AI which is passed to the weapon
+        if self.health<0: #Already dying
+            return
         self.health -= damage
         self.look_angles = attacker.model.getPos()-self.model.getPos()
         self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
@@ -311,14 +333,17 @@ class AI():
             self.forceturn = True
             self.target = attacker
             self.targetpos = attacker.model.getPos()
-        print "AI #"+str(self.ID)
-        print self.health
-    
-    def destroy():
+        if self.health<0:
+            self.model.play("Dying")
+            self.dying=True
+        
+    def destroy(self, task_object):
+        print "DESTROY"
         self.model.node().removeAllChildren()
-        self.model.node().remove()
+        self.model.remove()
         del AI.AI_dict[self.ID]
         self.dead=True
+        print "Dead to me"
         
     
     def tick(self,task_object):
@@ -340,13 +365,21 @@ class AI():
         #Check for uninterruptable states
         if self.model.getAnimControl("Fire").isPlaying() and self.model.getCurrentFrame("Fire")<self.model.getNumFrames("Fire"):
             return Task.cont
-        #if self.health<0:
-            #if self.model.getAnimControl("Dying").isPlaying() and self.model.getCurrentFrame("Dying")<self.model.getNumFrames("Dying")":
-                #Spawn your drop
-                #AI.AI_dict.remove(self)
-                #self.model.remove()
-                #self.remove()
-            #return
+        if self.dying==True:
+            if self.model.getCurrentFrame("Dying")>=self.model.getNumFrames("Dying")-1 and self.dropped==False:
+                powerup=loader.loadModel(self.dropmodel)
+                powerup.setPos(self.model.getPos()+Vec3(0,0,3))
+                sphere=CollisionSphere(0,0,0,1)
+                spherep=powerup.attachNewNode(CollisionNode(self.drop))
+                spherep.node().addSolid(sphere)
+                spherep.setCollideMask(BitMask32(0x20))
+                self.model.node().removeAllChildren()
+                self.cspath.node().clearSolids()
+                self.AIspath.node().clearSolids()
+                base.cTrav.removeCollider(self.AIspath)
+                self.dropped=True
+                taskMgr.doMethodLater(5, self.destroy, "Remove me")
+            return Task.cont
         if self.targetlist==[] and self.awareof!=0: #If see nothing and hear something, turn to it
             self.targetpos=self.awareof.model.getPos()
             self.forceturn=True #Trips the next statement
@@ -450,23 +483,27 @@ class AI():
         #print self.ID
         #print self.dy
         if self.shooting:
+            self.idle=False
             #if self.dy > 0:
                 #run shooting part on top half and moving part on bottom half
             #else:
             self.model.play("Fire")
         if self.dy>AI.runanim:
+            self.idle=False
             #print "Run"
             self.model.setPlayRate(self.dy/AI.runanim, "Run")
             if not self.model.getAnimControl("Run").isPlaying():
                 self.model.loop("Run")
         elif self.dy>0:
             #print "Walk"
+            self.idle=False
             self.model.setPlayRate(self.dy/AI.runanim, "Walk")
             if not self.model.getAnimControl("Walk").isPlaying():
                 self.model.loop("Walk")
         else:
-            if not self.model.getAnimControl("Idle").isPlaying():
+            if not self.model.getAnimControl("Idle").isPlaying() and self.idle==False:
                 self.model.play("Idle")
+                self.Idle=True
         #elif not self.model.getAnimControl("Idle").isPlaying():
             #self.model.loop("Idle")
         #------------------------    
