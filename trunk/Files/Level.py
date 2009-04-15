@@ -36,6 +36,30 @@ class Level(object):
         self.loaditems()
         self.loadcines()
         
+    def drawInterior(self, x, y, model, orientation):
+        environ=loader.loadModel(model)
+        environ.setCollideMask(BitMask32(0x01))
+        environ.reparentTo(render)
+        environ.setPos(x*cellsize,(-1*y)*cellsize,(0)*cellsize)
+        environ.setHpr(90.0*int(orientation),0,0)
+            
+    def loadInterior(self, y, x):
+        if(self.level[y][x].Interior == "B"):
+            self.drawInterior(x, y, "Art/Models/barricade.egg", self.level[y][x].InteriorFacing)
+        elif(self.level[y][x].Interior == "T"):
+            self.drawInterior(x, y, "Art/Models/table.egg", self.level[y][x].InteriorFacing)
+        elif(self.level[y][x].Interior == "C"):
+            self.drawInterior(x, y, "Art/Models/chair_wood.egg", self.level[y][x].InteriorFacing)
+        elif(self.level[y][x].Interior == "M"):
+            self.drawInterior(x, y, "Art/Models/chair_metal.egg", self.level[y][x].InteriorFacing)
+        elif(self.level[y][x].Interior == "D"):
+            self.drawInterior(x, y, "Art/Models/desk.egg", self.level[y][x].InteriorFacing)
+        elif(self.level[y][x].Interior == "K"):
+            self.drawInterior(x, y, "Art/Models/oven.egg", self.level[y][x].InteriorFacing)
+        elif(self.level[y][x].Interior == "S"):
+            self.drawInterior(x, y, "Art/Models/securityconsole.egg", self.level[y][x].InteriorFacing)
+        elif(self.level[y][x].Interior == "L"):
+            self.drawInterior(x, y, "Art/Models/bookcase.egg", self.level[y][x].InteriorFacing)
     def loaditems(self):
         for y in xrange(len(self.level)):
             for x in xrange(len(self.level[y])):
@@ -47,7 +71,8 @@ class Level(object):
                     self.EntranceG=True
                     self.EntranceGx=x
                     self.EntranceGy=y
-            
+                    
+                self.loadInterior(y, x)
                 if(self.level[y][x].Items == "A"):
                     pass
                 elif(self.level[y][x].Items == "B"):
@@ -70,27 +95,59 @@ class Level(object):
             for x in xrange(len(self.level[y])):
                 enemyFacing=int(self.level[y][x].EnemyFacing)*90.0
                 #TO BE FIXED: AUTOMATIC WEAPONS DON"T LOAD
+                #TO BE FIXED: Beefy guys are the same as normal guys
+                if(not self.level[y][x].Enemy=='.'):
+                    print self.level[y][x].Enemy
                 if(self.level[y][x].Enemy=="A"):
                     #prison knife
-                    self.ais.append(AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0))
-                if(self.level[y][x].Enemy=="B"):
+                    self.ais.append(AI(1,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0))
+                elif(self.level[y][x].Enemy=="B"):
                     #prison pistol
-                    self.ais.append(AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1))
-                if(self.level[y][x].Enemy=="C"):
+                    self.ais.append(AI(1,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1))
+                elif(self.level[y][x].Enemy=="C"):
                     #prison shotgun
-                    self.ais.append(AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2))
-                if(self.level[y][x].Enemy=="D"):
+                    self.ais.append(AI(1,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2))
+                elif(self.level[y][x].Enemy=="D"):
                     #prison AK
+                    pass#AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3)
                     pass#self.ais.append(AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3))
-                if(self.level[y][x].Enemy=="F"):
+                elif(self.level[y][x].Enemy=="E"):
+                    #guard melee
+                    AI(1,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0)
+                elif(self.level[y][x].Enemy=="F"):
                     #guard pistol
-                    self.ais.append(AI(loader.loadModel("Art/Models/human1-model.egg"),False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1))
-                if(self.level[y][x].Enemy=="G"):
+                    self.ais.append(AI(1,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1))
+                elif(self.level[y][x].Enemy=="G"):
                     #guard shotgun
-                    self.ais.append(AI(loader.loadModel("Art/Models/human1-model.egg"),False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2))
-                if(self.level[y][x].Enemy=="H"):
+                    self.ais.append(AI(1,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2))
+                elif(self.level[y][x].Enemy=="H"):
                     #guard ak
-                    pass#AI(loader.loadModel("Art/Models/human1-model.egg"),False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3)
+                    pass#AI(1,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3)
+                elif(self.level[y][x].Enemy=="I"):
+                    #prison knife
+                    AI(2,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0)
+                elif(self.level[y][x].Enemy=="J"):
+                    #prison pistol
+                    AI(2,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1)
+                elif(self.level[y][x].Enemy=="K"):
+                    #prison shotgun
+                    AI(2,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2)
+                elif(self.level[y][x].Enemy=="L"):
+                    #prison AK
+                    pass#AI(2,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3)
+                elif(self.level[y][x].Enemy=="M"):
+                    #guard melee
+                    AI(2,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0)
+                elif(self.level[y][x].Enemy=="N"):
+                    #guard pistol
+                    AI(2,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1)
+                elif(self.level[y][x].Enemy=="O"):
+                    #guard shotgun
+                    AI(2,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2)
+                elif(self.level[y][x].Enemy=="P"):
+                    #guard ak
+                    pass#AI(2,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3)
+                
     
     def loadcines(self):
         for y in xrange(len(self.level)):
@@ -131,22 +188,22 @@ class Level(object):
             environ.setPos(x*cellsize,(-1*y)*cellsize,0*cellsize)
             self.drawCeiling( y, x)
         elif(type=='a' or type == 'b' or type == 'c' or type == 'e'):
-            environ=loader.loadModel("Art/Models/stairs.egg")
+            environ=loader.loadModel("Art/Models/stairs_2.egg")
         elif(type=='u' or type == 'd' or type == 'l' or type == 'r'):
-            environ=loader.loadModel("Art/Models/stairs.egg")
+            environ=loader.loadModel("Art/Models/stairs_up.egg")
         self.prepareFloorModel(environ, texture)
         if(type=='a' or type == 'l'):
             environ.setHpr(-90,0,0)
-            environ.setPos(x*cellsize,(-1*y+1)*cellsize,0*cellsize)
+            environ.setPos(x*cellsize,(-1*y)*cellsize,0*cellsize)
         elif(type=='b' or type == 'u'):
             environ.setHpr(0,0,0)
-            environ.setPos((x-1)*cellsize,(-1*y)*cellsize,0*cellsize)
+            environ.setPos((x)*cellsize,(-1*y)*cellsize,0*cellsize)
         elif(type=='c' or type == 'r'):
             environ.setHpr(90,0,0)
-            environ.setPos(x*cellsize,(-1*y-1)*cellsize,0*cellsize)
+            environ.setPos(x*cellsize,(-1*y)*cellsize,0*cellsize)
         elif(type=='e' or type == 'd'):
             environ.setHpr(180,0,0)
-            environ.setPos((x+1)*cellsize,(-1*y)*cellsize,0*cellsize)
+            environ.setPos((x)*cellsize,(-1*y)*cellsize,0*cellsize)
         
         
         
@@ -300,4 +357,12 @@ class Room(object):
             self.EnemyFacing = "0"
         if(self.InteriorFacing == "."):
             self.InteriorFacing = "0"
+        if(self.EntranceFacing == "."):
+            self.EntranceFacing = "0"
+        if(int(self.InteriorFacing)% 2 == 1):
+            self.InteriorFacing= str(int(self.InteriorFacing)-2)
+        if(int(self.EnemyFacing)% 2 == 1):
+            self.EnemyFacing= str(int(self.EnemyFacing)-2)
+        if(int(self.EntranceFacing)% 2 == 1):
+            self.EntranceFacing= str(int(self.EntranceFacing)-2)
         

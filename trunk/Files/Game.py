@@ -17,13 +17,13 @@ class World(DirectObject):
         base.cTrav=CollisionTraverser()
         self.player = Player("Art/Models/box.egg") #Add the dummy model
         self.gui = GUI(self)
-        temp=AI(1, False, 0, Vec3(0,0,0), 0, 2) #Just to instantiate all AI global variables
-        temp2=AI(2, False, 1, Vec3(20,-40,0), 270, 1)
+        #temp=AI(1, False, 0, Vec3(0,0,0), 0, 2) #Just to instantiate all AI global variables
+        #temp2=AI(2, False, 1, Vec3(20,-40,0), 270, 1)
         AI.playerhandle=self.player
         
         #Execute level construction code
         
-        self.level=Level("leveledit/ExportedMap.txt",self.player,"G")
+        self.level=Level("Interesting.txt",self.player,"G")
         self.player.setLevel(self.level)
         
         
