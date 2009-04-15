@@ -84,8 +84,8 @@ class Player ():
         self.knife = Weapon.Knife(base.camera, True, Vec3(0,0,0))
         self.pipe = Weapon.Pipe(base.camera, True, Vec3(0,0,0))
         self.rifle = Weapon.Rifle(base.camera, True, Vec3(0,0,0))
-        self.weapon = self.pistol
-        self.crosshair=OnscreenImage(image = self.pistol.crosshair, pos = (0,0,0), scale =0.05)
+        self.weapon = self.knife
+        self.crosshair=OnscreenImage(image = self.weapon.crosshair, pos = (0,0,0), scale =0.125)
         self.crosshair.setTransparency(TransparencyAttrib.MAlpha)
         
         #Set up weapon animations
@@ -114,7 +114,7 @@ class Player ():
         self.armor=0
         self.use=False
         self.usecheck=True
-        self.haveweapon=[1,1,1,1] #Knife, Pistol Shotgun Assault Rifle
+        self.haveweapon=[1,0,0,0] #Knife, Pistol Shotgun Assault Rifle
         self.loyalty = [50, 50] # out of a minimum of 0 and a maximum of 100
         self.pobjective=[False, False]
         self.gobjective=[False, False]
