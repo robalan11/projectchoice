@@ -256,7 +256,7 @@ class AI():
             self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouching.egg"})
             self.model.loadAnims({"Run": "Art/animations/human"+str(model)+"-running.egg"})
             self.model.loadAnims({"Walk": "Art/animations/human"+str(model)+"-walking.egg"})
-            self.model.loadAnims({"Idle": "Art/animations/human"+str(model)+"-fireknife.egg"})
+            self.model.loadAnims({"Idle": "Art/animations/human"+str(model)+"-idlepistol.egg"})
             self.model.loadAnims({"Fire": "Art/animations/human"+str(model)+"-fireknife.egg"})
             if team:
                 w=loader.loadModel("Art/Models/shiv.egg")
@@ -273,7 +273,7 @@ class AI():
             self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouching.egg"})
             self.model.loadAnims({"Run": "Art/animations/human"+str(model)+"-running.egg"})
             self.model.loadAnims({"Walk": "Art/animations/human"+str(model)+"-walking.egg"})
-            self.model.loadAnims({"Idle": "Art/animations/human"+str(model)+"-firetonfa.egg"})
+            self.model.loadAnims({"Idle": "Art/animations/human"+str(model)+"-idlepistol.egg"})
             self.model.loadAnims({"Fire": "Art/animations/human"+str(model)+"-firetonfa.egg"})
             if team:
                 w=loader.loadModel("Art/Models/pipe.egg")
@@ -368,7 +368,7 @@ class AI():
         if self.dying==True:
             if self.model.getCurrentFrame("Dying")>=self.model.getNumFrames("Dying")-1 and self.dropped==False:
                 powerup=loader.loadModel(self.dropmodel)
-                powerup.setPos(self.model.getPos()+Vec3(0,0,3))
+                powerup.setPos(self.model.getPos())
                 sphere=CollisionSphere(0,0,0,1)
                 spherep=powerup.attachNewNode(CollisionNode(self.drop))
                 spherep.node().addSolid(sphere)
