@@ -346,7 +346,7 @@ class Player ():
             for ai in self.levelref.ais:
                 index = "ai" + str(self.levelref.ais.index(ai))
                 actors[index] = ai
-            file = "Cinematics/" + self.levelref.levelfilename + self.levelref.cines[gridpos] + ".cin"
+            file = "Cinematics/" + self.levelref.levelfilename + "-" + self.levelref.cines[gridpos] + ".cin"
             Cinematics.Cinematic(file, actors)
             self.levelref.cines[gridpos] = '.'
             self.runningcinematic = True
