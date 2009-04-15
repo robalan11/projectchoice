@@ -10,8 +10,8 @@ from pandac.PandaModules import TextNode
 from pandac.PandaModules import VBase3
 
 class Event(object):
-    def __init__(self, time, type, duration, target, remainder):
-        self.time = float(time)
+    def __init__(self, time, type, duration, target, remainder, starttime):
+        self.time = float(time) + starttime
         self.type = type
         self.duration = float(duration)
         self.target = target
@@ -35,14 +35,15 @@ class Event(object):
             self.file = remainder[0]
             self.start = int(remainder[1])
             self.end = int(remainder[2])
-            self.font = loader.loadFont("Art/Fonts/Soviet2.ttf")
+            #self.font = loader.loadFont("Art/Fonts/Soviet2.ttf")
         
         elif self.type == 'c':
             self.function = self.camera
             self.rotation = float(remainder[0])
-            self.startrot = base.camera.getH()
+            self.pitch = float(remainder[1])
+            self.first = True
             self.points = []
-            for point in remainder[1:]:
+            for point in remainder[2:]:
                 nums = point.split(',')
                 self.points.append((float(nums[0]), float(nums[1]), float(nums[2])))
         
@@ -77,7 +78,7 @@ class Event(object):
             self.textlines = []
             for line in text[self.start:self.end]:
                 pos -= 0.09
-                self.textlines.append(OnscreenText(text=line, style=1, fg=(0.9,0.8,0.6,1), shadow=(0,0,0,0.7), pos=(0, pos), align=TextNode.ACenter, scale = .09, font = self.font))
+                self.textlines.append(OnscreenText(text=line, style=1, fg=(0.9,0.8,0.6,1), shadow=(0,0,0,0.7), pos=(0, pos), align=TextNode.ACenter, scale = .09))#, font = self.font))
             self.first = False
         if elapsed < self.duration:
             return Task.cont
@@ -86,16 +87,19 @@ class Event(object):
         return Task.done
     
     def camera(self, title):
+        if self.first:
+            self.startrot = base.camera.getH()
+            self.startpitch = base.camera.getP()
+            self.first = False
         elapsed = time.clock()-self.time
         if elapsed < self.duration:
             pos = self.bezier(self.points[:], elapsed/self.duration)
-            print pos
-            print base.camera.getPos()
-            print self.target.model.getPos()
             posv = VBase3(pos[0], pos[1], pos[2])
             base.camera.setPos(posv)
             rot = self.startrot + self.rotation * (elapsed/self.duration)
             base.camera.setH(rot)
+            pit = self.startpitch + self.pitch * (elapsed/self.duration)
+            base.camera.setP(pit)
             return Task.cont
         return Task.done
     
@@ -119,28 +123,28 @@ class Event(object):
 
 class Cinematic(object):
     def __init__(self, cinefile, actors):
+        self.start = time.clock()
         self.events = []
         self.actors = actors
         self.loadCinefile(cinefile)
-        base.camera.setH(self.camstart[0])
-        base.camera.setP(self.camstart[1])
+        base.camera.setH(float(self.camstart[0]))
+        base.camera.setP(float(self.camstart[1]))
         pos = self.camstart[2].split(',')
-        base.camera.setPos(Vbase3(pos[0], pos[1], pos[2]))
+        base.camera.setPos(VBase3(float(pos[0]), float(pos[1]), float(pos[2])))
         self.nextevent = 0
-        self.start = time.clock()
-        taskMgr.add(self.runCin, 'cinematic')
+        taskMgr.add(self.runCin, cinefile)
 
     def loadCinefile(self, cinefile):
         events = open(cinefile, 'r').readlines()
         self.camstart = events[0].split()
         for event in events[1:]:
             parts = event.split()
-            self.events.append(Event(parts[0], parts[1], parts[2], self.actors[parts[3]], parts[4:]))
+            self.events.append(Event(parts[0], parts[1], parts[2], self.actors[parts[3]], parts[4:], self.start))
     
     def runCin(self, title):
-        elapsed = time.clock()-self.start
-        while self.events[self.nextevent].time <= elapsed:
-            taskMgr.add(self.events[self.nextevent].function, str(self.events[self.nextevent]))
+        currtime = time.clock()
+        while self.events[self.nextevent].time <= currtime:
+            taskMgr.add(self.events[self.nextevent].function, str(title) + str(self.events[self.nextevent]))
             self.nextevent += 1
             if self.nextevent >= len(self.events):
                 return Task.done
