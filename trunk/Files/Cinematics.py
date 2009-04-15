@@ -107,7 +107,7 @@ class Event(object):
         self.target.runningcinematic = False
         base.camera.reparentTo(self.target.model)
         base.camera.setH(0)
-        base.camera.setPos(VBase3(0,0,0))
+        base.camera.setPos(VBase3(0,0,0.75))
     
     def bezier(self, points, t):
         if len(points) == 1:
