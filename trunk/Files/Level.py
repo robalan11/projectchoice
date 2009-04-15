@@ -9,17 +9,21 @@ class Level(object):
         self.level=[]
         self.EntranceP=False
         self.EntranceG=False
+        self.EntranceFacingP=0.0
+        self.EntranceFacingG=0.0
         self.loadLevelfile(levelfile)
         self.cines = {}
         self.ais = []
         self.start()
         if(entrancetype=="P" and self.EntranceP):
             player.nodepath().setPos(self.EntrancePx*cellsize,(-1*self.EntrancePy)*cellsize, 0.5*cellsize)
+            player.nodepath().setHpr(self.EntranceFacingP,0,0)
         elif(entrancetype=="G" and self.EntranceG):
             player.nodepath().setPos(self.EntranceGx*cellsize,(-1*self.EntranceGy)*cellsize, 0.5*cellsize)
+            player.nodepath().setHpr(self.EntranceFacingG,0,0)
         else:
             player.nodepath().setPos(1*cellsize,(-1*1)*cellsize,0.5*cellsize) #default location
-
+            player.nodepath().setHpr(0,0,0)
     def loadLevelfile(self,levelfile):
         grid = open(levelfile, 'r').readlines()
         for row in grid:
@@ -67,10 +71,12 @@ class Level(object):
                     self.EntranceP=True
                     self.EntrancePx=x
                     self.EntrancePy=y
+                    self.EntranceFacingP=int(self.level[y][x].EntranceFacing)
                 elif(self.level[y][x].Entrance=="G"):
                     self.EntranceG=True
                     self.EntranceGx=x
                     self.EntranceGy=y
+                    self.EntranceFacingG=int(self.level[y][x].EntranceFacing)
                     
                 self.loadInterior(y, x)
                 if(self.level[y][x].Items == "A"):
