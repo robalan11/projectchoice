@@ -26,8 +26,6 @@ class World(DirectObject):
         self.level=Level("leveledit/LevelOne.txt",self.player,"G")
         self.player.setLevel(self.level)
         
-        
-        
         #Create dummy targets with a collision hull attached to them. No collision handler.
         
         #Set up input

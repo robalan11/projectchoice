@@ -115,7 +115,7 @@ class Player ():
         self.use=False
         self.usecheck=True
         self.haveweapon=[1,1,1,1] #Knife, Pistol Shotgun Assault Rifle
-        self.loyalty = [0, 70] # out of a minimum of 0 and a maximum of 100
+        self.loyalty = [50, 50] # out of a minimum of 0 and a maximum of 100
         self.pobjective=[False, False]
         self.gobjective=[False, False]
         
@@ -164,7 +164,11 @@ class Player ():
         y = md.getY()
         if base.win.movePointer(0, base.win.getXSize()/2, base.win.getYSize()/2):
             self.model.setH(self.model.getH() -  (x - base.win.getXSize()/2)*0.1)
-            base.camera.setP(base.camera.getP() - (y - base.win.getYSize()/2)*0.1) 
+            base.camera.setP(base.camera.getP() - (y - base.win.getYSize()/2)*0.1)
+            if base.camera.getP()>90:
+                base.camera.setP(90)
+            elif base.camera.getP()<-90:
+                base.camera.setP(-90)
         
         if self.mhandle_floor.isOnGround(): #~ if not in the air
             self.dy = self.keyMap["forward"]-self.keyMap["backward"]
