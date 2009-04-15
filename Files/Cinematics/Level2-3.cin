@@ -1,0 +1,7 @@
+0 -8 140,-20,4
+0.0 s 3.0 ai2 Cinematics/Level2-3.spk 0 1
+2.7 c 1.0 ai3 45 0 140,-20,4
+3.0 s 6.0 ai3 Cinematics/Level2-3.spk 1 3
+8.7 c 1.0 ai2 -45 0 140,-20,4
+9.0 s 9.0 ai2 Cinematics/Level2-3.spk 3 7 
+18.0 q 0.5 player
