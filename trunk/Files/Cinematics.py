@@ -122,13 +122,18 @@ class Cinematic(object):
         self.events = []
         self.actors = actors
         self.loadCinefile(cinefile)
+        base.camera.setH(self.camstart[0])
+        base.camera.setP(self.camstart[1])
+        pos = self.camstart[2].split(',')
+        base.camera.setPos(Vbase3(pos[0], pos[1], pos[2]))
         self.nextevent = 0
         self.start = time.clock()
         taskMgr.add(self.runCin, 'cinematic')
 
     def loadCinefile(self, cinefile):
         events = open(cinefile, 'r').readlines()
-        for event in events:
+        self.camstart = events[0].split()
+        for event in events[1:]:
             parts = event.split()
             self.events.append(Event(parts[0], parts[1], parts[2], self.actors[parts[3]], parts[4:]))
     
