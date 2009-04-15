@@ -51,7 +51,7 @@ def AIsight(task_object):
                     continue
             else:
                 fromAI=AI.AI_dict[int(name[1])]
-                if fromAI.dying or entry.getIntoNodePath().getParent():
+                if fromAI.dying or not entry.getIntoNodePath().getParent():
                     continue
                 #print entry.getIntoNodePath().getParent().getPos()-Looker.getParent().getPos()
                 fromAI.look_angles = calculateHpr(entry.getIntoNodePath().getParent().getPos()-Looker.getParent().getPos(), Looker.getParent().getHpr())
