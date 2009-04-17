@@ -1,7 +1,7 @@
 <CoordinateSystem> { Y-Up }
 
 <Comment> {
-  "maya2egg2008 human1runningpistol.mb -a chan -cn human1 -o human1-runningpistol.egg"
+  "maya2egg2008 human1runningpistol2.mb -a chan -cn human1 -o human1-runningpistol.egg"
 }
 <Table> {
   <Bundle> human1 {
@@ -1416,7 +1416,7 @@
                                 <Char*> order { srpht }
                                 <S$Anim> h {
                                   <V> {
-                                    0.253881 0.253881 -0.457151 -2.02227
+                                    0.253881 0.253881 -0.457152 -2.02227
                                     -3.58855 -4.30083 -4.30083 -4.30083
                                     -4.30083 -4.30083 -3.71727 -2.41789
                                     -1.07929 -0.376615 -0.449442
@@ -1474,7 +1474,7 @@
                                       -0.0453151 -0.0679058 -0.0785635
                                       -0.0785636 -0.0785636 -0.0785636
                                       -0.0785636 -0.065078 -0.0348508
-                                      -0.00330277
+                                      -0.00330278
                                     }
                                   }
                                   <S$Anim> r {
@@ -1568,7 +1568,7 @@
                                           <Char*> order { srpht }
                                           <S$Anim> h {
                                             <V> {
-                                              6.58211 8.1454 10.6978
+                                              6.58211 8.14541 10.6978
                                               12.1904 11.8209 10.7906
                                               10.4407 10.091 9.93198
                                               7.14055 1.6592 -3.0759
@@ -1755,7 +1755,7 @@
                                     <S$Anim> y { <V> { 0.000968851 } }
                                     <S$Anim> z { <V> { -0.0248247 } }
                                   }
-                                  <Table> joint20 {
+                                  <Table> right_hand {
                                     <Xfm$Anim_S$> xform {
                                       <Scalar> fps { 24 }
                                       <Char*> order { srpht }
