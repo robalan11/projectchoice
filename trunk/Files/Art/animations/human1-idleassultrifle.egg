@@ -1,7 +1,7 @@
 <CoordinateSystem> { Y-Up }
 
 <Comment> {
-  "maya2egg2008 human1idleassultrifle.mb -a chan -cn human1 -o human1-idleassultrifle.egg"
+  "maya2egg2008 human1idleassultrifle2.mb -a chan -cn human1 -o human1-idleassultrifle.egg"
 }
 <Table> {
   <Bundle> human1 {
@@ -1254,7 +1254,7 @@
                                     <S$Anim> y { <V> { 0.000968851 } }
                                     <S$Anim> z { <V> { -0.0248247 } }
                                   }
-                                  <Table> joint20 {
+                                  <Table> right_hand {
                                     <Xfm$Anim_S$> xform {
                                       <Scalar> fps { 24 }
                                       <Char*> order { srpht }
@@ -1279,7 +1279,7 @@
                                       }
                                       <S$Anim> p {
                                         <V> {
-                                          0.0431834 0.0431837 0.043184
+                                          0.043184 0.0431843 0.0431846
                                           2.81344 5.07686 6.96236
                                           8.57134 10.0016 11.3371
                                           12.6519 14.0086 15.4579
@@ -1633,7 +1633,7 @@
                                   <S$Anim> p {
                                     <V> {
                                       -12.6127 -12.6127 -12.6127
-                                      -16.3931 -19.9187 -23.1461
+                                      -16.3932 -19.9187 -23.1461
                                       -26.0386 -28.5579 -30.6674
                                       -32.3316 -33.5184 -34.2029
                                       -34.3697 -34.0151 -33.1472

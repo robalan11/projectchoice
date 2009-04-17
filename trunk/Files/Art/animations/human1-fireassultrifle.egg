@@ -1,7 +1,7 @@
 <CoordinateSystem> { Y-Up }
 
 <Comment> {
-  "maya2egg2008 human1fireassultrifle.mb -a chan -cn human1 -o human1-fireassultrifle.egg"
+  "maya2egg2008 human1fireassultrifle2.mb -a chan -cn human1 -o human1-fireassultrifle.egg"
 }
 <Table> {
   <Bundle> human1 {
@@ -907,7 +907,7 @@
                             <Scalar> fps { 24 }
                             <Char*> order { srpht }
                             <S$Anim> h { <V> { 1.01981 } }
-                            <S$Anim> p { <V> { 0.053283 } }
+                            <S$Anim> p { <V> { 0.0532829 } }
                             <S$Anim> r { <V> { -5.92777 } }
                             <S$Anim> x { <V> { 0.218081 } }
                           }
@@ -916,7 +916,7 @@
                               <Scalar> fps { 24 }
                               <Char*> order { srpht }
                               <S$Anim> h { <V> { 179.298 } }
-                              <S$Anim> p { <V> { -0.459697 } }
+                              <S$Anim> p { <V> { -0.459696 } }
                               <S$Anim> r { <V> { -153.584 } }
                               <S$Anim> x { <V> { 0.21165 } }
                               <S$Anim> y { <V> { -0.0327184 } }
@@ -1150,7 +1150,7 @@
                                     <S$Anim> y { <V> { 0.000968851 } }
                                     <S$Anim> z { <V> { -0.0248247 } }
                                   }
-                                  <Table> joint20 {
+                                  <Table> right_hand {
                                     <Xfm$Anim_S$> xform {
                                       <Scalar> fps { 24 }
                                       <Char*> order { srpht }
@@ -1176,9 +1176,9 @@
                                       }
                                       <S$Anim> p {
                                         <V> {
-                                          0.0430438 0.0430441 0.0430444
-                                          -28.9609 0.043045 -28.9609
-                                          0.0430456 -28.9609 -28.9609
+                                          0.0430441 0.0430444 0.0430447
+                                          -28.9609 0.0430453 -28.9609
+                                          0.0430459 -28.9609 -28.9609
                                           -28.9609 -28.9609 -28.9609
                                           -28.9609 -28.9609 -28.9609
                                           -28.9609 -28.9609 -28.9609
