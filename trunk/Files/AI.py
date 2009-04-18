@@ -220,7 +220,7 @@ class AI():
             self.model.loadAnims({"Idle": "Art/animations/human"+str(model)+"-idlepistol.egg"})
             self.model.loadAnims({"Fire": "Art/animations/human"+str(model)+"-firepistol.egg"})
             w=loader.loadModel("Art/Models/pistol.egg")
-            self.anim_start={"Crouch":1, "Run":1, "Walk":1, "Idle":6, "Fire":6}
+            self.anim_start={"Crouch":1, "Run":0, "Walk":0, "Idle":6, "Fire":6}
             self.anim_end={"Crouch":self.model.getNumFrames("Crouch")-1}
             self.anim_end["Run"]=self.model.getNumFrames("Run")-1
             self.anim_end["Walk"]=self.model.getNumFrames("Walk")-1
@@ -241,7 +241,7 @@ class AI():
             self.model.loadAnims({"Idle": "Art/animations/human"+str(model)+"-idleshotgun.egg"})
             self.model.loadAnims({"Fire": "Art/animations/human"+str(model)+"-fireshotgun.egg"})
             w=loader.loadModel("Art/Models/shotgun.egg")
-            self.anim_start={"Crouch":1, "Run":1, "Walk":1, "Idle":1, "Fire":1}
+            self.anim_start={"Crouch":0, "Run":0, "Walk":3, "Idle":0, "Fire":0}
             self.anim_end={"Crouch":self.model.getNumFrames("Crouch")-1}
             self.anim_end["Run"]=self.model.getNumFrames("Run")-1
             self.anim_end["Walk"]=self.model.getNumFrames("Walk")-1
@@ -261,12 +261,12 @@ class AI():
             self.model.loadAnims({"Idle": "Art/animations/human"+str(model)+"-idleassaultrifle.egg"})
             self.model.loadAnims({"Fire": "Art/animations/human"+str(model)+"-fireassaultrifle.egg"})
             w=loader.loadModel("Art/Models/assaultrifle.egg")
-            self.anim_start={"Crouch":1, "Run":1, "Walk":1, "Idle":1, "Fire":1}
+            self.anim_start={"Crouch":0, "Run":0, "Walk":3, "Idle":0, "Fire":2}
             self.anim_end={"Crouch":self.model.getNumFrames("Crouch")-1}
             self.anim_end["Run"]=self.model.getNumFrames("Run")-1
             self.anim_end["Walk"]=self.model.getNumFrames("Walk")-1
             self.anim_end["Idle"]=self.model.getNumFrames("Idle")-1
-            self.anim_end["Fire"]=self.model.getNumFrames("Fire")-1
+            self.anim_end["Fire"]=10
             w.setScale(0.1,0.1,0.1)
             w.reparentTo(temp)
         elif (weapon==4):
@@ -284,7 +284,7 @@ class AI():
                 w=loader.loadModel("Art/Models/shiv.egg")
             else:
                 w=loader.loadModel("Art/Models/knife.egg")
-            self.anim_start={"Crouch":1, "Run":1, "Walk":1, "Idle":1, "Fire":1}
+            self.anim_start={"Crouch":0, "Run":0, "Walk":6, "Idle":0, "Fire":6}
             self.anim_end={"Crouch":self.model.getNumFrames("Crouch")-1}
             self.anim_end["Run"]=self.model.getNumFrames("Run")-1
             self.anim_end["Walk"]=self.model.getNumFrames("Walk")-1
@@ -307,12 +307,12 @@ class AI():
                 w=loader.loadModel("Art/Models/pipe.egg")
             else:
                 w=loader.loadModel("Art/Models/tonfa.egg")
-            self.anim_start={"Crouch":1, "Run":1, "Walk":1, "Idle":1, "Fire":1}
+            self.anim_start={"Crouch":0, "Run":0, "Walk":6, "Idle":0, "Fire":0}
             self.anim_end={"Crouch":self.model.getNumFrames("Crouch")-1}
             self.anim_end["Run"]=self.model.getNumFrames("Run")-1
             self.anim_end["Walk"]=self.model.getNumFrames("Walk")-1
             self.anim_end["Idle"]=self.model.getNumFrames("Idle")-1
-            self.anim_end["Fire"]=self.model.getNumFrames("Fire")-1
+            self.anim_end["Fire"]=self.model.getNumFrames("Fire")-20
             w.setScale(0.1,0.1,0.1)
             w.reparentTo(temp)
         #Variables
