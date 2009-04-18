@@ -43,6 +43,7 @@ class World(DirectObject):
         self.setKey("shoot",0)
         self.setKey("reload",0)
         self.setKey("use",0)
+        self.setKey("run",0)
         
         
         self.accept("escape", sys.exit)
@@ -54,6 +55,9 @@ class World(DirectObject):
         self.accept("d-up", self.setKey, ["right",0])
         self.accept("w-up", self.setKey, ["forward",0])
         self.accept("s-up", self.setKey, ["backward",0])
+        
+        self.accept("shift", self.setKey, ["run",1])
+        self.accept("shift-up", self.setKey, ["run",0])
         
         self.accept("e", self.setKey, ["use",1])
         self.accept("e-up", self.setKey, ["use",0])

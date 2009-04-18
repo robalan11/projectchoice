@@ -115,6 +115,8 @@ class AI():
     turnanim=5
     walkanim=1
     scale=0.53
+    movetweak=2
+    accuracy1=15
     
     def __init__(self, model, incell,team, startpos, starth, weapon):
         #Model = Number of model body type. Just use 0 for default body
@@ -202,9 +204,11 @@ class AI():
         base.cTrav.addCollider(self.AIspath, AI.sight)
         #self.AIspath.show()
         
-        #Set weapon, weapon model, and load animations based on weapon
+        #Root is joint69: on human2 it's human1crouching:joint69
         
+        #Set weapon, weapon model, and load animations based on weapon
         temp=self.model.exposeJoint(None, "modelRoot", "right_hand")
+        self.model.makeSubpart("arms", ["joint18", "joint68"])
         if (weapon == 1):
             self.drop = "pistol"
             self.dropmodel = "Art/Models/pistol.egg"
@@ -216,9 +220,15 @@ class AI():
             self.model.loadAnims({"Idle": "Art/animations/human"+str(model)+"-idlepistol.egg"})
             self.model.loadAnims({"Fire": "Art/animations/human"+str(model)+"-firepistol.egg"})
             w=loader.loadModel("Art/Models/pistol.egg")
+            self.anim_start={"Crouch":1, "Run":1, "Walk":1, "Idle":6, "Fire":6}
+            self.anim_end={"Crouch":self.model.getNumFrames("Crouch")-1}
+            self.anim_end["Run"]=self.model.getNumFrames("Run")-1
+            self.anim_end["Walk"]=self.model.getNumFrames("Walk")-1
+            self.anim_end["Idle"]=42
+            self.anim_end["Fire"]=self.model.getNumFrames("Fire")-30
             w.setScale(0.05,0.05,0.05)
-            w.setPos(-0.1, 0.6, 0.2)
-            w.setHpr(90,70,135)
+            w.setPos(0,0,0)
+            w.setHpr(0,0,0)
             w.reparentTo(temp)
         elif (weapon ==2):
             self.drop = "shotgun"
@@ -231,6 +241,12 @@ class AI():
             self.model.loadAnims({"Idle": "Art/animations/human"+str(model)+"-idleshotgun.egg"})
             self.model.loadAnims({"Fire": "Art/animations/human"+str(model)+"-fireshotgun.egg"})
             w=loader.loadModel("Art/Models/shotgun.egg")
+            self.anim_start={"Crouch":1, "Run":1, "Walk":1, "Idle":1, "Fire":1}
+            self.anim_end={"Crouch":self.model.getNumFrames("Crouch")-1}
+            self.anim_end["Run"]=self.model.getNumFrames("Run")-1
+            self.anim_end["Walk"]=self.model.getNumFrames("Walk")-1
+            self.anim_end["Idle"]=self.model.getNumFrames("Idle")-1
+            self.anim_end["Fire"]=self.model.getNumFrames("Fire")-1
             w.setScale(0.1, 0.1,0.1)
             w.setPos(-0.56, 0.23, 0.3)
             w.setHpr(175,90,10)
@@ -245,6 +261,12 @@ class AI():
             self.model.loadAnims({"Idle": "Art/animations/human"+str(model)+"-idleassaultrifle.egg"})
             self.model.loadAnims({"Fire": "Art/animations/human"+str(model)+"-fireassaultrifle.egg"})
             w=loader.loadModel("Art/Models/assaultrifle.egg")
+            self.anim_start={"Crouch":1, "Run":1, "Walk":1, "Idle":1, "Fire":1}
+            self.anim_end={"Crouch":self.model.getNumFrames("Crouch")-1}
+            self.anim_end["Run"]=self.model.getNumFrames("Run")-1
+            self.anim_end["Walk"]=self.model.getNumFrames("Walk")-1
+            self.anim_end["Idle"]=self.model.getNumFrames("Idle")-1
+            self.anim_end["Fire"]=self.model.getNumFrames("Fire")-1
             w.setScale(0.1,0.1,0.1)
             w.reparentTo(temp)
         elif (weapon==4):
@@ -252,7 +274,7 @@ class AI():
             self.drop = "health"
             self.dropmodel = "Art/Models/health.egg"
             self.weapon = Weapon.Knife(self.model, False, Vec3(0,0,4))
-            self.killzone = 2
+            self.killzone = 4
             self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouching.egg"})
             self.model.loadAnims({"Run": "Art/animations/human"+str(model)+"-running.egg"})
             self.model.loadAnims({"Walk": "Art/animations/human"+str(model)+"-walking.egg"})
@@ -262,6 +284,12 @@ class AI():
                 w=loader.loadModel("Art/Models/shiv.egg")
             else:
                 w=loader.loadModel("Art/Models/knife.egg")
+            self.anim_start={"Crouch":1, "Run":1, "Walk":1, "Idle":1, "Fire":1}
+            self.anim_end={"Crouch":self.model.getNumFrames("Crouch")-1}
+            self.anim_end["Run"]=self.model.getNumFrames("Run")-1
+            self.anim_end["Walk"]=self.model.getNumFrames("Walk")-1
+            self.anim_end["Idle"]=self.model.getNumFrames("Idle")-1
+            self.anim_end["Fire"]=self.model.getNumFrames("Fire")-1
             w.setScale(0.1,0.1,0.1)
             w.reparentTo(temp)
         else:
@@ -269,7 +297,7 @@ class AI():
             self.drop = "health"
             self.dropmodel = "Art/Models/health.egg"
             self.weapon = Weapon.Pipe(self.model, False, Vec3(0,0,4))
-            self.killzone = 2
+            self.killzone = 4
             self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouching.egg"})
             self.model.loadAnims({"Run": "Art/animations/human"+str(model)+"-running.egg"})
             self.model.loadAnims({"Walk": "Art/animations/human"+str(model)+"-walking.egg"})
@@ -279,6 +307,12 @@ class AI():
                 w=loader.loadModel("Art/Models/pipe.egg")
             else:
                 w=loader.loadModel("Art/Models/tonfa.egg")
+            self.anim_start={"Crouch":1, "Run":1, "Walk":1, "Idle":1, "Fire":1}
+            self.anim_end={"Crouch":self.model.getNumFrames("Crouch")-1}
+            self.anim_end["Run"]=self.model.getNumFrames("Run")-1
+            self.anim_end["Walk"]=self.model.getNumFrames("Walk")-1
+            self.anim_end["Idle"]=self.model.getNumFrames("Idle")-1
+            self.anim_end["Fire"]=self.model.getNumFrames("Fire")-1
             w.setScale(0.1,0.1,0.1)
             w.reparentTo(temp)
         #Variables
@@ -305,9 +339,7 @@ class AI():
         self.dropped=False
         self.dead=False
         self.rundistance=0
-        
-        self.idle=True
-        self.model.play("Idle")
+        self.idle=False
         
         #Tasks
         taskMgr.add(self.tick, "AI tick;"+str(AI.ID))
@@ -334,7 +366,7 @@ class AI():
             self.target = attacker
             self.targetpos = attacker.model.getPos()
         if self.health<0:
-            self.model.play("Dying")
+            self.model.play("Dying", fromFrame=6)
             self.dying=True
         
     def destroy(self, task_object):
@@ -363,8 +395,7 @@ class AI():
         #------------------------
         
         #Check for uninterruptable states
-        if self.model.getAnimControl("Fire").isPlaying() and self.model.getCurrentFrame("Fire")<self.model.getNumFrames("Fire"):
-            return Task.cont
+        
         if self.dying==True:
             if self.model.getCurrentFrame("Dying")>=self.model.getNumFrames("Dying")-1 and self.dropped==False:
                 powerup=loader.loadModel(self.dropmodel)
@@ -378,7 +409,7 @@ class AI():
                 self.AIspath.node().clearSolids()
                 base.cTrav.removeCollider(self.AIspath)
                 self.dropped=True
-                taskMgr.doMethodLater(5, self.destroy, "Remove me")
+                #taskMgr.doMethodLater(5, self.destroy, "Remove me")
             return Task.cont
         if self.targetlist==[] and self.awareof!=0: #If see nothing and hear something, turn to it
             self.targetpos=self.awareof.model.getPos()
@@ -430,7 +461,7 @@ class AI():
                         distance.setZ(0)
                         #If facing player, run if you're >10 feet from them
                         if distance.length() >AI.followradius:
-                            self.dy=min(AI.runspeed, distance.length()-AI.followradius)
+                            self.dy=min(AI.runspeed, (distance.length()-AI.followradius)/AI.movetweak)
                 elif self.targetlist != [] : #If had a target you lost sight of
                     #Did your primary target move right behind you? Turn to face them first
                     #~ if self.targetlist.len()>0:
@@ -448,7 +479,7 @@ class AI():
                         distance = Vec3(self.targetpos)-Vec3(self.model.getPos())
                         distance.setZ(0)
                         if distance.length()>0:
-                            self.dy=min(AI.runspeed, distance.length())
+                            self.dy=min(AI.runspeed, distance.length()/AI.movetweak)
                         else:
                             self.targetlist=[] #Lost your target
                 #If already there, idle
@@ -463,18 +494,14 @@ class AI():
                 #Turn to face target
                 self.dh=min(AI.turnspeed, max(self.look_angles.getX()-self.model.getH(), -AI.turnspeed))
                 #If facing target, fire at them
-                if abs(self.dh)<5:
+                if abs(self.dh)<AI.accuracy1:
                     distance = Vec3(self.targetpos)-Vec3(self.model.getPos())
                     distance.setZ(0)
                     if distance.length()>self.killzone:
                         self.dy=min(AI.runspeed, distance.length())
-                        if distance.length()<self.killzone*1.4:
-                            self.shooting=True
-                            self.weapon.shoot(self)
-                            self.weapon.shots=self.weapon.maxshots
+                        #if distance.length()<self.killzone*1.4:
+                            #self.shooting=True
                     else:
-                        self.weapon.shoot(self)
-                        self.weapon.shots=self.weapon.maxshots # AI don't run out of ammo
                         self.shooting=True
         #------------------------
         #Animation Handling
@@ -482,30 +509,29 @@ class AI():
         
         #print self.ID
         #print self.dy
-        if self.shooting:
-            self.idle=False
-            #if self.dy > 0:
-                #run shooting part on top half and moving part on bottom half
-            #else:
-            self.model.play("Fire")
         if self.dy>AI.runanim:
             self.idle=False
             #print "Run"
             self.model.setPlayRate(self.dy/AI.runanim, "Run")
             if not self.model.getAnimControl("Run").isPlaying():
-                self.model.loop("Run")
+                self.model.loop("Run", restart=self.anim_start["Run"], fromFrame=self.anim_start["Run"], toFrame=self.anim_end["Run"])
         elif self.dy>0:
             #print "Walk"
             self.idle=False
             self.model.setPlayRate(self.dy/AI.runanim, "Walk")
             if not self.model.getAnimControl("Walk").isPlaying():
-                self.model.loop("Walk")
+                self.model.loop("Walk", restart=self.anim_start["Walk"], fromFrame=self.anim_start["Walk"], toFrame=self.anim_end["Walk"])
+        #elif self.dh>0:
+            #self.model.pose("Fire", self.anim_start["Fire"], partName="arms")        
         else:
             if not self.model.getAnimControl("Idle").isPlaying() and self.idle==False:
-                self.model.play("Idle")
-                self.Idle=True
-        #elif not self.model.getAnimControl("Idle").isPlaying():
-            #self.model.loop("Idle")
+                self.model.play("Idle", fromFrame=self.anim_start["Idle"], toFrame=self.anim_end["Idle"])
+                self.idle=True
+        if self.shooting:
+            if not self.model.getAnimControl("Fire").isPlaying():
+                self.model.play("Fire", fromFrame=self.anim_start["Fire"], toFrame=self.anim_end["Fire"])
+                self.weapon.shoot(self)
+                self.weapon.shots=self.weapon.maxshots
         #------------------------    
         #Movement
         #------------------------

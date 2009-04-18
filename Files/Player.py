@@ -171,8 +171,8 @@ class Player ():
                 base.camera.setP(-90)
         
         if self.mhandle_floor.isOnGround(): #~ if not in the air
-            self.dy = self.keyMap["forward"]-self.keyMap["backward"]
-            self.dx=self.keyMap["left"]-self.keyMap["right"]
+            self.dy = (self.keyMap["forward"]-self.keyMap["backward"])#*3
+            self.dx=(self.keyMap["left"]-self.keyMap["right"])#*3
             
             #self.dz = key_mapping["jump"]
         #~ if player pressed use key
@@ -269,7 +269,10 @@ class Player ():
         #~ check and set lights of current room to player
         #~ if under cinematic control
             #~ run cinema_tick(self) and nothing else
-        self.loud=(self.weapon.firesound.status()==2)*40
+        if self.weapon != self.knife:
+            self.loud=(self.weapon.firesound.status()==2)*40
+        else:
+            self.loud=0
         angle = math.radians(self.model.getH())
         sa = math.sin(angle)
         ca = math.cos(angle)
