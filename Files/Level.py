@@ -6,6 +6,9 @@ wallbuffer = 0.55
 
 class Level(object):
     def __init__(self,levelfile, player, entrancetype):
+        self.rootnode = loader.loadModel("Art/Models/wall_1.egg")
+        self.rootnode.setPos(-1,-1,-1)
+        self.rootnode.reparentTo(render)
         self.level=[]
         self.EntranceP=False
         self.EntranceG=False
@@ -44,7 +47,7 @@ class Level(object):
     def drawInterior(self, x, y, model, orientation):
         environ=loader.loadModel(model)
         environ.setCollideMask(BitMask32(0x01))
-        environ.reparentTo(render)
+        environ.reparentTo(self.rootnode)
         environ.setPos(x*cellsize,(-1*y)*cellsize,(0)*cellsize)
         environ.setHpr(90.0*int(orientation),0,0)
             
@@ -103,8 +106,7 @@ class Level(object):
                 enemyFacing=int(self.level[y][x].EnemyFacing)*90.0
                 #TO BE FIXED: AUTOMATIC WEAPONS DON"T LOAD
                 #TO BE FIXED: Beefy guys are the same as normal guys
-                if(not self.level[y][x].Enemy=='.'):
-                    print self.level[y][x].Enemy
+                
                 if(self.level[y][x].Enemy=="A"):
                     #prison knife
                     self.ais.append(AI(1,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0))
@@ -166,7 +168,7 @@ class Level(object):
     def prepareFloorModel(self, environ, texture):
         myTexture = loader.loadTexture(texture)
         environ.setCollideMask(BitMask32(0x02))
-        environ.reparentTo(render)
+        environ.reparentTo(self.rootnode)
         
         #TO BE FIXED
         environ.setTexture(myTexture, 1) 
@@ -175,14 +177,14 @@ class Level(object):
     def prepareWallModel(self, environ, texture):
         myTexture = loader.loadTexture(texture)
         environ.setCollideMask(BitMask32(0x01))
-        environ.reparentTo(render)
+        environ.reparentTo(self.rootnode)
         environ.setTexture(myTexture, 1)
         
         
     def drawCeiling(self, y, x):
         environ = loader.loadModel("Art/Models/ceiling_1.egg")
         environ.setCollideMask(BitMask32(0x02))
-        environ.reparentTo(render)
+        environ.reparentTo(self.rootnode)
         environ.setPos(x*cellsize,(-1*y)*cellsize,1*cellsize)
         
     def drawFloor(self, y, x):
