@@ -26,7 +26,7 @@ class Player ():
         #World collision
         #Bit channels are only walls and floors!
         base.camera.reparentTo(self.model)
-        base.camera.setPos(0,0,0.75)
+        base.camera.setPos(0,0,4.0)
         base.camera.setHpr(0,0,0)
         base.camLens.setFov(60)
         base.disableMouse()

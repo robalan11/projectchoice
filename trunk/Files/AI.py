@@ -114,7 +114,7 @@ class AI():
     runanim=1.5
     turnanim=5
     walkanim=1
-    scale=0.53
+    scale=1.06#0.53
     movetweak=2
     accuracy1=15
     
