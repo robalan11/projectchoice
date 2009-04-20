@@ -173,8 +173,8 @@ class Player ():
                 base.camera.setP(-90)
         
         if self.mhandle_floor.isOnGround(): #~ if not in the air
-            self.dy = (self.keyMap["forward"]-self.keyMap["backward"])*2
-            self.dx=(self.keyMap["left"]-self.keyMap["right"])*2
+            self.dy = (self.keyMap["forward"]-self.keyMap["backward"])*3
+            self.dx=(self.keyMap["left"]-self.keyMap["right"])*3
             
             #self.dz = key_mapping["jump"]
         #~ if player pressed use key
