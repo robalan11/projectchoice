@@ -177,7 +177,7 @@ class AI():
         
         #Firing collision (Passive/Into object only, bullets are active)
         #Bit channel is only bullets
-        self.ct=CollisionTube(0,0,3/AI.scale,0,0,0/AI.scale,0.5/AI.scale)
+        self.ct=CollisionTube(0,0,5*AI.scale,0,0,0/AI.scale,1*AI.scale)
         self.ctpath=self.model.attachNewNode(CollisionNode('AItarget;' +  str(AI.ID)))
         self.ctpath.node().addSolid(self.ct)
         self.ctpath.node().setFromCollideMask(BitMask32(0x00))
@@ -208,8 +208,10 @@ class AI():
         
         #Set weapon, weapon model, and load animations based on weapon
         temp=self.model.exposeJoint(None, "modelRoot", "right_hand")
+        temp2=self.model.exposeJoint(None, "modelRoot", "joint20")
         self.model.makeSubpart("arms", ["joint18", "joint68"])
-        if (weapon == 1):
+        self.blah=False
+        if (weapon == 2):
             self.drop = "pistol"
             self.dropmodel = "Art/Models/pistol.egg"
             self.weapon = Weapon.Pistol(self.model, False, Vec3(0,0,4))
@@ -227,10 +229,11 @@ class AI():
             self.anim_end["Idle"]=42
             self.anim_end["Fire"]=self.model.getNumFrames("Fire")-30
             w.setScale(0.05,0.05,0.05)
-            w.setPos(0,0,0)
-            w.setHpr(0,0,0)
+            w.setPos(0.55,0.0,-0.1)
+            w.setHpr(160,90,0)
             w.reparentTo(temp)
-        elif (weapon ==2):
+        elif (weapon ==1):
+            self.blah=True
             self.drop = "shotgun"
             self.dropmodel = "Art/Models/shotgun.egg"
             self.weapon = Weapon.Shotgun(self.model, False, Vec3(0,0,4))
@@ -248,9 +251,11 @@ class AI():
             self.anim_end["Idle"]=self.model.getNumFrames("Idle")-1
             self.anim_end["Fire"]=self.model.getNumFrames("Fire")-1
             w.setScale(0.1, 0.1,0.1)
-            w.setPos(-0.56, 0.23, 0.3)
-            w.setHpr(175,90,10)
+            w.setPos(0.80, 0.0, -0.1)
+            #w.lookAt(temp2, 0,0,0)
+            #w.setHpr(90,135,130)
             w.reparentTo(temp)
+            self.w=w
         elif (weapon ==3):
             self.drop="assault"
             self.dropmodel = "Art/Models/assaultrifle.egg"
@@ -284,11 +289,11 @@ class AI():
                 w=loader.loadModel("Art/Models/shiv.egg")
             else:
                 w=loader.loadModel("Art/Models/knife.egg")
-            self.anim_start={"Crouch":0, "Run":0, "Walk":6, "Idle":0, "Fire":6}
+            self.anim_start={"Crouch":0, "Run":0, "Walk":6, "Idle":6, "Fire":6}
             self.anim_end={"Crouch":self.model.getNumFrames("Crouch")-1}
             self.anim_end["Run"]=self.model.getNumFrames("Run")-1
             self.anim_end["Walk"]=self.model.getNumFrames("Walk")-1
-            self.anim_end["Idle"]=self.model.getNumFrames("Idle")-1
+            self.anim_end["Idle"]=42
             self.anim_end["Fire"]=self.model.getNumFrames("Fire")-1
             w.setScale(0.1,0.1,0.1)
             w.reparentTo(temp)
@@ -307,11 +312,11 @@ class AI():
                 w=loader.loadModel("Art/Models/pipe.egg")
             else:
                 w=loader.loadModel("Art/Models/tonfa.egg")
-            self.anim_start={"Crouch":0, "Run":0, "Walk":6, "Idle":0, "Fire":0}
+            self.anim_start={"Crouch":0, "Run":0, "Walk":6, "Idle":6, "Fire":0}
             self.anim_end={"Crouch":self.model.getNumFrames("Crouch")-1}
             self.anim_end["Run"]=self.model.getNumFrames("Run")-1
             self.anim_end["Walk"]=self.model.getNumFrames("Walk")-1
-            self.anim_end["Idle"]=self.model.getNumFrames("Idle")-1
+            self.anim_end["Idle"]=42
             self.anim_end["Fire"]=self.model.getNumFrames("Fire")-20
             w.setScale(0.1,0.1,0.1)
             w.reparentTo(temp)
@@ -395,6 +400,9 @@ class AI():
         #------------------------
         
         #Check for uninterruptable states
+        
+        #if self.blah:
+            #self.w.setR(self.w.getR()+1)
         
         if self.dying==True:
             if self.model.getCurrentFrame("Dying")>=self.model.getNumFrames("Dying")-1 and self.dropped==False:
