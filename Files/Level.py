@@ -19,6 +19,7 @@ class Level(object):
         self.cines = {}
         self.ais = []
         self.start()
+        print entrancetype, self.EntranceG
         if(entrancetype=="P" and self.EntranceP):
             player.nodepath().setPos(self.EntrancePx*cellsize,(-1*self.EntrancePy)*cellsize, 0.5*cellsize)
             player.nodepath().setHpr(self.EntranceFacingP,0,0)

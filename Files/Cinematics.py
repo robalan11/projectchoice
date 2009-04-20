@@ -9,8 +9,11 @@ from direct.gui.OnscreenText import OnscreenText
 from pandac.PandaModules import TextNode
 from pandac.PandaModules import VBase3
 
+from Level import Level
+
 class Event(object):
-    def __init__(self, time, type, duration, target, remainder, starttime):
+    def __init__(self, world, time, type, duration, target, remainder, starttime):
+        self.worldref = world
         self.time = float(time) + starttime
         self.type = type
         self.duration = float(duration)
@@ -46,6 +49,15 @@ class Event(object):
             for point in remainder[2:]:
                 nums = point.split(',')
                 self.points.append((float(nums[0]), float(nums[1]), float(nums[2])))
+        
+        elif self.type == 'n':
+            self.function = self.nextlevel
+            self.levelfile = remainder[0]
+            self.entrance = remainder[1]
+        
+        elif self.type == 'g':
+            self.function = self.give
+            self.wepnum = int(remainder[0])
         
         elif self.type == 'q':
             self.target = target
@@ -103,11 +115,19 @@ class Event(object):
             return Task.cont
         return Task.done
     
+    def nextlevel(self, title):
+        self.worldref.level.rootnode.removeNode()
+        self.worldref.level = Level(self.levelfile, self.worldref.player, self.entrance)
+        self.worldref.player.setLevel(self.worldref.level)
+
+    def give(self, title):
+        self.worldref.player.haveweapon[self.wepnum] = 1;
+    
     def quit(self, title):
         self.target.runningcinematic = False
         base.camera.reparentTo(self.target.model)
         base.camera.setH(0)
-        base.camera.setPos(VBase3(0,0,0.75))
+        base.camera.setPos(VBase3(0,0,4.0))
     
     def bezier(self, points, t):
         if len(points) == 1:
@@ -122,7 +142,8 @@ class Event(object):
         return self.bezier(next_itr, t)
 
 class Cinematic(object):
-    def __init__(self, cinefile, actors):
+    def __init__(self, cinefile, actors, world):
+        self.worldref = world;
         self.start = time.clock()
         self.events = []
         self.actors = actors
@@ -139,7 +160,7 @@ class Cinematic(object):
         self.camstart = events[0].split()
         for event in events[1:]:
             parts = event.split()
-            self.events.append(Event(parts[0], parts[1], parts[2], self.actors[parts[3]], parts[4:], self.start))
+            self.events.append(Event(self.worldref, parts[0], parts[1], parts[2], self.actors[parts[3]], parts[4:], self.start))
     
     def runCin(self, title):
         currtime = time.clock()

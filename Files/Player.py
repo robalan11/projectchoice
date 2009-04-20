@@ -15,7 +15,9 @@ import Cinematics
 # bit 0 is walls, bit 1 is floor, bit 3 is player bullets, bit 4 is AI bullets, bit 5 is AI vision, bit 6 is powerups and mission objectives
 
 class Player ():
-    def __init__(self,arm_model):        
+    def __init__(self, arm_model, world):
+        self.worldref = world
+        
         #~ initialize actor with the arm model
         self.keyMap = {}
         self.model=Actor(arm_model)
@@ -54,7 +56,7 @@ class Player ():
         self.mhandle_wall.addCollider(self.cspath, self.model)
         self.mhandle_floor=CollisionHandlerGravity()
         self.mhandle_floor.addCollider(self.crpath, self.model)
-        self.mhandle_floor.setGravity(0.5)
+        self.mhandle_floor.setGravity(9.8)
         self.mhandle_floor.setMaxVelocity(2)
         self.mhandle_floor.setOffset(2)
         
@@ -171,8 +173,8 @@ class Player ():
                 base.camera.setP(-90)
         
         if self.mhandle_floor.isOnGround(): #~ if not in the air
-            self.dy = (self.keyMap["forward"]-self.keyMap["backward"])#*3
-            self.dx=(self.keyMap["left"]-self.keyMap["right"])#*3
+            self.dy = (self.keyMap["forward"]-self.keyMap["backward"])*2
+            self.dx=(self.keyMap["left"]-self.keyMap["right"])*2
             
             #self.dz = key_mapping["jump"]
         #~ if player pressed use key
@@ -322,14 +324,6 @@ class Player ():
                 self.gobjective[0]=True
             elif name == "guardobjective2":
                 self.gobjective[2]=True
-            elif name == "cinematic1":
-                pass
-            elif name == "cinematic2":
-                pass
-            elif name == "cinematic3":
-                pass
-            elif name == "cinematic4":
-                pass
             elif name.split(";")[0] == "AItarget" and name!="AItarget":
                 remove=False
                 temp = AI.AI_dict[int(name.split(";")[-1])]
@@ -347,14 +341,14 @@ class Player ():
                 self.phandle.getEntry(i).getIntoNodePath().getParent().remove()
         
         gridpos = (-1*int((self.model.getY()-5)/10), int((self.model.getX()+5)/10))
-        if self.levelref.cines[gridpos] != '.':
+        if gridpos[0] >= 0 and gridpos[1] >= 0 and self.levelref.cines[gridpos] != '.':
             base.camera.reparentTo(render)
             actors = {"player": self}
             for ai in self.levelref.ais:
                 index = "ai" + str(self.levelref.ais.index(ai))
                 actors[index] = ai
             file = "Cinematics/" + self.levelref.levelfilename + "-" + self.levelref.cines[gridpos] + ".cin"
-            Cinematics.Cinematic(file, actors)
+            Cinematics.Cinematic(file, actors, self.worldref)
             self.levelref.cines[gridpos] = '.'
             self.runningcinematic = True
         
