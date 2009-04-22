@@ -257,13 +257,13 @@ class Player ():
                 if AI_hit.team==enemy.team:
                     #~ lower team loyalty
                     if (self.loyalty[enemy.team]>0):
-                        self.loyalty[enemy.team]-=1
+                        self.loyalty[enemy.team]-=2
                     #~ enemy attacks player
                     enemy.forcedenemy=True
                 else:
                     #~ raise team loyalty
                     if (self.loyalty[enemy.team]<100):
-                        self.loyalty[enemy.team]+=1
+                        self.loyalty[enemy.team]+=2
             else:
                 #~ AI_hit attacks player
                 AI_hit.forcedenemy=True
@@ -345,54 +345,15 @@ class Player ():
         
         gridpos = (-1*int((self.model.getY()-5)/10), int((self.model.getX()+5)/10))
         if gridpos[0] >= 0 and gridpos[1] >= 0 and self.levelref.cines[gridpos] != '.':
-            cinenumber = self.levelref.cines[gridpos]
-            
-            if self.levelref.levelfilename == "LevelOne":
-                if cinenumber == '1':
-                    for ai in self.levelref.ais:
-                        if ai.team == False and ai.dead:
-                            return Task.cont
-                if cinenumber == '2':
-                    for ai in self.levelref.ais:
-                        if ai.team == True and ai.dead:
-                            return Task.cont
-                if cinenumber == '3':
-                    for ai in self.levelref.ais:
-                        if ai.team == True and not ai.dead:
-                            return Task.cont
-                        if ai.team == False and ai.dead:
-                            return Task.cont
-                if cinenumber == '4':
-                    for ai in self.levelref.ais:
-                        if ai.team == False and not ai.dead:
-                            return Task.cont
-                        if ai.team == True and ai.dead:
-                            return Task.cont
-                if cinenumber == '5':
-                    for ai in self.levelref.ais:
-                        if ai.team == True and not ai.dead:
-                            return Task.cont
-            
-            if self.levelref.levelfilename == "Level2":
-                if cinenumber == '1':
-                    if self.levelref.entrancetype == "G":
-                        return Task.cont
-                if cinenumber == '2':
-                    if self.levelref.entrancetype == "P":
-                        return Task.cont
             base.camera.reparentTo(render)
             actors = {"player": self}
             for ai in self.levelref.ais:
                 index = "ai" + str(self.levelref.ais.index(ai))
                 actors[index] = ai
-                ai.cinematic = True
             file = "Cinematics/" + self.levelref.levelfilename + "-" + self.levelref.cines[gridpos] + ".cin"
             Cinematics.Cinematic(file, actors, self.worldref)
-            for key in self.levelref.cines.keys():
-                if self.levelref.cines[key] == cinenumber:
-                    self.levelref.cines[key] = '.'
+            self.levelref.cines[gridpos] = '.'
             self.runningcinematic = True
-            self.arms.hide()
         
         return Task.cont
     def collided(self):
