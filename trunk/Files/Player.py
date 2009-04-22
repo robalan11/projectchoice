@@ -65,7 +65,7 @@ class Player ():
         
         #Firing collision (Passive/Into object only, bullets are active)
         #Bit channel is only bullets
-        self.ct=CollisionTube(0,0,1,0,0,-2,0.5)
+        self.ct=CollisionTube(0,0,4,0,0,-2,0.5)
         self.ctpath=self.model.attachNewNode(CollisionNode('ptarget'))
         self.ctpath.node().addSolid(self.ct)
         self.ctpath.node().setFromCollideMask(BitMask32(0x00))
@@ -122,6 +122,8 @@ class Player ():
         self.gobjective=[False, False]
         
         self.runningcinematic = False
+        
+        self.dying=False
         
     def nodepath(self):
         return self.model

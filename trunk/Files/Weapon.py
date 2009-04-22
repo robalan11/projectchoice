@@ -17,6 +17,7 @@ class Weapon(object):
             self.frpath.node().setFromCollideMask(BitMask32(0x07))
         else:
             self.frpath.node().setFromCollideMask(BitMask32(0x0f))
+        self.isplayer=isplayer
         self.frpath.setCollideMask(BitMask32(0x00))
         self.sight=CollisionHandlerQueue()
         self.ftrav.addCollider(self.frpath, self.sight)
@@ -70,7 +71,7 @@ class Knife(Weapon):
                 if (object.getIntoNodePath().getName().split(";")[0]=="AItarget") and object.getIntoNodePath().getParent().node()!=player.model.node(): #Not shooting yourself
                     targ = object.getSurfacePoint(render)
                     dist = sqrt(pow(player.model.getX()-targ[0],2) + pow(player.model.getY()-targ[1],2) + pow(player.model.getZ()-targ[2],2))
-                    if dist < 4:
+                    if dist < 4 or not self.isplayer and dist<8:
                         self.hitsound.play()
                         ID=object.getIntoNodePath().getName().split(";")[1]
                         target=AI.AI.AI_dict[int(ID)]
@@ -81,7 +82,7 @@ class Knife(Weapon):
                 if (object.getIntoNodePath().getName()=="ptarget"):
                     targ = object.getSurfacePoint(render)
                     dist = sqrt(pow(player.model.getX()-targ[0],2) + pow(player.model.getY()-targ[1],2) + pow(player.model.getZ()-targ[2],2))
-                    if dist < 4:
+                    if dist < 4 or not self.isplayer and dist<8:
                         self.hitsound.play()
                         AI.AI.playerhandle.damage(player, 20)
                         break
@@ -127,7 +128,7 @@ class Pipe(Weapon):
                 if (object.getIntoNodePath().getName().split(";")[0]=="AItarget") and object.getIntoNodePath().getParent().node()!=player.model.node(): #Not shooting yourself
                     targ = object.getSurfacePoint(render)
                     dist = sqrt(pow(player.model.getX()-targ[0],2) + pow(player.model.getY()-targ[1],2) + pow(player.model.getZ()-targ[2],2))
-                    if dist < 4:
+                    if dist < 4 or not self.isplayer and dist<8:
                         self.hitsound.play()
                         ID=object.getIntoNodePath().getName().split(";")[1]
                         target=AI.AI.AI_dict[int(ID)]
@@ -138,7 +139,7 @@ class Pipe(Weapon):
                 if (object.getIntoNodePath().getName()=="ptarget"):
                     targ = object.getSurfacePoint(render)
                     dist = sqrt(pow(player.model.getX()-targ[0],2) + pow(player.model.getY()-targ[1],2) + pow(player.model.getZ()-targ[2],2))
-                    if dist < 4:
+                    if dist < 4 or not self.isplayer and dist<8:
                         self.hitsound.play()
                         AI.AI.playerhandle.damage(player, 20)
                         break
