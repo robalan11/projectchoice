@@ -3,6 +3,7 @@ from direct.showbase.DirectObject import DirectObject
 from pandac.PandaModules import * 
 from direct.actor.Actor import Actor
 from direct.task.Task import Task
+from direct.interval.IntervalGlobal import *
 from direct.gui.OnscreenImage import OnscreenImage
 from AI import AI
 from AI import calculateHpr
@@ -124,6 +125,7 @@ class Player ():
         
         self.runningcinematic = False
         
+        self.dead=False
         self.dying=False
         
     def nodepath(self):
@@ -144,6 +146,8 @@ class Player ():
         
     def get_input (self, task_object):
         if self.runningcinematic:
+            return Task.cont
+        if self.dying or self.dead:
             return Task.cont
         #~ set player to running or stopped depending upon key input
         #Panda3D has built-in support for moving the camera?
@@ -246,8 +250,22 @@ class Player ():
                 self.armor-=damage
         else:
             self.health -= damage
-        if self.health<0:
-            pass #add death triggering
+        if self.health<=0:
+            self.health=0
+            self.dying=True
+            self.dead=True
+            deathcam=LerpPosInterval(base.camera, 1, Vec3(0,0,0))
+            restart=Func(self.restart)
+            delay = Wait(2)
+            interval=Sequence(deathcam, delay, restart)
+            interval.play()
+    
+    def restart:
+        print "Reload level"
+        base.camera.setPos(0,0,4)
+        self.dead=False
+        self.dying=False
+        
     
     def broadcast_attack(self, AI_hit):
         for enemy in self.enemies_watching:
@@ -269,6 +287,8 @@ class Player ():
                 AI_hit.forcedenemy=True
     def tick(self,task_object):
         if self.runningcinematic:
+            return Task.cont
+        if self.dying or self.dead:
             return Task.cont
         
         #~ check and set lights of current room to player
