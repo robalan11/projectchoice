@@ -97,12 +97,12 @@ class Level(object):
                     self.EntranceP=True
                     self.EntrancePx=x
                     self.EntrancePy=y
-                    self.EntranceFacingP=int(self.level[y][x].EntranceFacing)
+                    self.EntranceFacingP=int(self.level[y][x].EntranceFacing) + 180
                 elif(self.level[y][x].Entrance=="G"):
                     self.EntranceG=True
                     self.EntranceGx=x
                     self.EntranceGy=y
-                    self.EntranceFacingG=int(self.level[y][x].EntranceFacing)
+                    self.EntranceFacingG=int(self.level[y][x].EntranceFacing) + 180
                     
                 self.loadInterior(y, x)
                 if(self.level[y][x].Items == "A"):
