@@ -116,6 +116,8 @@ class Event(object):
         return Task.done
     
     def nextlevel(self, title):
+        self.worldref.player.dx = 0
+        self.worldref.player.dy = 0
         self.worldref.level.rootnode.removeNode()
         self.worldref.level = Level(self.levelfile, self.worldref.player, self.entrance)
         self.worldref.player.setLevel(self.worldref.level)
