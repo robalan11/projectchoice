@@ -10,6 +10,10 @@ class Level(object):
         self.rootnode = loader.loadModel("Art/Models/wall_1.egg")
         self.rootnode.setPos(-1,-1,-1)
         self.rootnode.reparentTo(render)
+        self.geometrynode=loader.loadModel("Art/Models/wall_1.egg")
+        self.geometrynode.setPos(-1,-1,-1)
+        self.geometrynode.reparentTo(self.rootnode)
+        
         self.level=[]
         self.EntranceP=False
         self.EntranceG=False
@@ -21,6 +25,22 @@ class Level(object):
         self.ais = []
         self.start()
         self.entrancetype = entrancetype
+        
+        alight = AmbientLight('alight')
+        alight.setColor(VBase4(0.6, 0.5, 0.5, 1))
+        alnp = self.geometrynode.attachNewNode(alight)
+        self.geometrynode.setLight(alnp)
+        
+        alight2 = AmbientLight('alight')
+        alight2.setColor(VBase4(0.2, 0.2, 0.2, 1))
+        alnp2 = self.geometrynode.attachNewNode(alight2)
+        self.rootnode.setLight(alnp2)
+        
+        dlight = DirectionalLight('dlight')
+        dlight.setColor(VBase4(0.9, 0.9, 0.6, 1))
+        dlnp = self.rootnode.attachNewNode(dlight)
+        dlnp.setHpr(10, -80, 0)
+        self.rootnode.setLight(dlnp)
         if(entrancetype=="P" and self.EntranceP):
             player.nodepath().setPos(self.EntrancePx*cellsize,(-1*self.EntrancePy)*cellsize, 0.5*cellsize)
             player.nodepath().setHpr(self.EntranceFacingP,0,0)
@@ -79,7 +99,8 @@ class Level(object):
             powerup = Actor()
             powerup.loadModel(powerup_model)
             powerup.loadAnims({'spin':powerup_model})
-            powerup.play('spin')
+            
+            powerup.loop('spin')
         else:
             powerup=loader.loadModel(powerup_model)
         powerup.setPos(Vec3(x*cellsize, -y*cellsize, 3))
@@ -188,7 +209,7 @@ class Level(object):
     def prepareFloorModel(self, environ, texture):
         myTexture = loader.loadTexture(texture)
         environ.setCollideMask(BitMask32(0x02))
-        environ.reparentTo(self.rootnode)
+        environ.reparentTo(self.geometrynode)
         
         #TO BE FIXED
         environ.setTexture(myTexture, 1) 
@@ -197,14 +218,14 @@ class Level(object):
     def prepareWallModel(self, environ, texture):
         myTexture = loader.loadTexture(texture)
         environ.setCollideMask(BitMask32(0x01))
-        environ.reparentTo(self.rootnode)
+        environ.reparentTo(self.geometrynode)
         environ.setTexture(myTexture, 1)
         
         
     def drawCeiling(self, y, x):
         environ = loader.loadModel("Art/Models/ceiling_1.egg")
         environ.setCollideMask(BitMask32(0x02))
-        environ.reparentTo(self.rootnode)
+        environ.reparentTo(self.geometrynode)
         environ.setPos(x*cellsize,(-1*y)*cellsize,1*cellsize)
         
     def drawFloor(self, y, x):
