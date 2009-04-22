@@ -1,5 +1,6 @@
 from pandac.PandaModules import * 
 from AI import AI
+from direct.actor.Actor import Actor
 
 cellsize = 10
 wallbuffer = 0.55
@@ -19,7 +20,6 @@ class Level(object):
         self.cines = {}
         self.ais = []
         self.start()
-        self.entrancetype = entrancetype
         if(entrancetype=="P" and self.EntranceP):
             player.nodepath().setPos(self.EntrancePx*cellsize,(-1*self.EntrancePy)*cellsize, 0.5*cellsize)
             player.nodepath().setHpr(self.EntranceFacingP,0,0)
@@ -47,10 +47,13 @@ class Level(object):
         
     def drawInterior(self, x, y, model, orientation):
         environ=loader.loadModel(model)
-        environ.setCollideMask(BitMask32(0x01))
         environ.reparentTo(self.rootnode)
         environ.setPos(x*cellsize,(-1*y)*cellsize,(0)*cellsize)
         environ.setHpr(90.0*int(orientation),0,0)
+        tube=CollisionSphere(0,0,0,3)
+        tubep=environ.attachNewNode(CollisionNode("Interior"))
+        tubep.node().addSolid(tube)
+        tubep.setCollideMask(BitMask32(0x01))
             
     def loadInterior(self, y, x):
         if(self.level[y][x].Interior == "B"):
@@ -70,7 +73,14 @@ class Level(object):
         elif(self.level[y][x].Interior == "L"):
             self.drawInterior(x, y, "Art/Models/bookcase.egg", self.level[y][x].InteriorFacing)
     def loadPowerup(self, powerup_model, powerup_name, x, y):
-        powerup=loader.loadModel(powerup_model)
+        powerup = None
+        if(powerup_name == "armor"):
+            powerup = Actor()
+            powerup.loadModel(powerup_model)
+            powerup.loadAnims({'spin':powerup_model})
+            powerup.play('spin')
+        else:
+            powerup=loader.loadModel(powerup_model)
         powerup.setPos(Vec3(x*cellsize, -y*cellsize, 3))
         sphere=CollisionSphere(0,0,0,1)
         spherep=powerup.attachNewNode(CollisionNode(powerup_name))
@@ -129,7 +139,8 @@ class Level(object):
                     self.ais.append(AI(1,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2,self.rootnode))
                 elif(self.level[y][x].Enemy=="D"):
                     #prison AK
-                    self.ais.append(AI(1,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3))
+                    pass#AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3,self.rootnode)
+                    pass#self.ais.append(AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3,self.rootnode))
                 elif(self.level[y][x].Enemy=="E"):
                     #guard melee
                     AI(1,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0,self.rootnode)
@@ -402,27 +413,43 @@ class Level(object):
                 if(not self.level[y][x].Floor=="." and self.isWestWallEmpty(y,x) and self.isNorthWallEmpty(y,x)):
                     if(x>0 and y>0 and not( self.isWestWallEmpty(y-1,x) and self.isNorthWallEmpty(y,x-1))):
                         environ = loader.loadModel("Art/Models/corner_1.egg")
-                        self.prepareWallModel(environ, "Art/Textures/stone_tiles_1.jpg")
+                        self.prepareWallModel(environ, WestWallTexture)
                         environ.setPos((x-(1-wallbuffer))*cellsize,((-1*y)+(1-wallbuffer))*cellsize,(0+0.5)*cellsize)
                         environ.setHpr(-90,0,0)
+                        tube=CollisionTube(0,0,0,0,0,cellsize,2)
+                        tubep=environ.attachNewNode(CollisionNode("corner"))
+                        tubep.node().addSolid(tube)
+                        tubep.setCollideMask(BitMask32(0x01))
                 if(not self.level[y][x].Floor=="." and self.isWestWallEmpty(y,x+1) and self.isNorthWallEmpty(y,x)):
                     if(x>0 and y>0 and not( self.isNorthWallEmpty(y,x+1) and self.isWestWallEmpty(y-1,x+1))):
                         environ = loader.loadModel("Art/Models/corner_1.egg")
-                        self.prepareWallModel(environ, "Art/Textures/stone_tiles_1.jpg")
+                        self.prepareWallModel(environ, WestWallTexture)
                         environ.setPos((x+(1-wallbuffer))*cellsize,((-1*y)+(1-wallbuffer))*cellsize,(0+0.5)*cellsize)
                         environ.setHpr(180,0,0)
+                        tube=CollisionTube(0,0,0,0,0,cellsize,2)
+                        tubep=environ.attachNewNode(CollisionNode("corner"))
+                        tubep.node().addSolid(tube)
+                        tubep.setCollideMask(BitMask32(0x01))
                 if(not self.level[y][x].Floor=="." and self.isWestWallEmpty(y,x) and self.isNorthWallEmpty(y+1,x)):
                     if(x>0 and y>0 and not( self.isWestWallEmpty(y+1,x) and self.isNorthWallEmpty(y+1,x-1))):
                         environ = loader.loadModel("Art/Models/corner_1.egg")
-                        self.prepareWallModel(environ, "Art/Textures/stone_tiles_1.jpg")
+                        self.prepareWallModel(environ, WestWallTexture)
                         environ.setPos((x-(1-wallbuffer))*cellsize,((-1*y)-(1-wallbuffer))*cellsize,(0+0.5)*cellsize)
                         environ.setHpr(0,0,0)
+                        tube=CollisionTube(0,0,0,0,0,cellsize,2)
+                        tubep=environ.attachNewNode(CollisionNode("corner"))
+                        tubep.node().addSolid(tube)
+                        tubep.setCollideMask(BitMask32(0x01))
                 if(not self.level[y][x].Floor=="." and self.isWestWallEmpty(y,x+1) and self.isNorthWallEmpty(y+1,x)):
                     if(x>0 and y>0 and not( self.isWestWallEmpty(y+1,x+1) and self.isNorthWallEmpty(y+1,x+1))):
                         environ = loader.loadModel("Art/Models/corner_1.egg")
-                        self.prepareWallModel(environ, "Art/Textures/stone_tiles_1.jpg")
+                        self.prepareWallModel(environ, WestWallTexture)
                         environ.setPos((x+(1-wallbuffer))*cellsize,((-1*y)-(1-wallbuffer))*cellsize,(0+0.5)*cellsize)
                         environ.setHpr(90,0,0)
+                        tube=CollisionTube(0,0,0,0,0,cellsize,2)
+                        tubep=environ.attachNewNode(CollisionNode("corner"))
+                        tubep.node().addSolid(tube)
+                        tubep.setCollideMask(BitMask32(0x01))
 
 class Room(object):
     def __init__(self,room):
