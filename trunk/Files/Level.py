@@ -20,6 +20,7 @@ class Level(object):
         self.cines = {}
         self.ais = []
         self.start()
+        self.entrancetype = entrancetype
         if(entrancetype=="P" and self.EntranceP):
             player.nodepath().setPos(self.EntrancePx*cellsize,(-1*self.EntrancePy)*cellsize, 0.5*cellsize)
             player.nodepath().setHpr(self.EntranceFacingP,0,0)
@@ -183,8 +184,6 @@ class Level(object):
         for y in xrange(len(self.level)):
             for x in xrange(len(self.level[y])):
                 self.cines[(y, x)] = self.level[y][x].Cin
-                if self.level[y][x].Cin != '.':
-                    print (y, x), self.level[y][x].Cin
     
     def prepareFloorModel(self, environ, texture):
         myTexture = loader.loadTexture(texture)
