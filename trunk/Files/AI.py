@@ -57,19 +57,21 @@ def AIsight(task_object):
                 fromAI.look_angles = calculateHpr(entry.getIntoNodePath().getParent().getPos()-Looker.getParent().getPos(), Looker.getParent().getHpr())
             if fromAI.forceturn:
                 continue
-            if (abs(fromAI.look_angles.getX()-fromAI.model.getH())< AI.FOV and abs(fromAI.look_angles.getY()-fromAI.model.getP())<AI.FOV): #if in front of me
+            if abs(fromAI.look_angles.getX()-fromAI.model.getH())< AI.FOV: # and abs(fromAI.look_angles.getY()-fromAI.model.getP())<AI.FOV): #if in front of me
                 if (entry.getIntoNodePath().getName()=="pspher" or entry.getFromNodePath().getName()=="pshper"):
                     #print look_angles
                     #Make sure vision isn't through walls
                     #Redirect ray so that it's the right direction
-                    fromAI.frpath.setHpr(fromAI.look_angles-fromAI.model.getHpr())
+                    #fromAI.frpath.setHpr(fromAI.look_angles-fromAI.model.getHpr())
+                    #temp =player.cspath.getPos()+player.model.getPos()-fromAI.frpath.getPos()-fromAI.model.getPos()
+                    fromAI.frpath.lookAt(player.cspath)
                     fromAI.cspath.setCollideMask(BitMask32(0x00))
                     fromAI.ctpath.setCollideMask(BitMask32(0x00))
                     fromAI.ftrav.traverse(render)
                     fromAI.fire.sortEntries()
                     fromAI.cspath.setCollideMask(BitMask32(0x11))
                     fromAI.ctpath.setCollideMask(BitMask32(0x04))
-                    fromAI.frpath.setHpr(Vec3(0,0,0))
+                    #fromAI.frpath.setHpr(Vec3(0,0,0))
                     #print fromAI.fire.getEntry(0).getIntoNodePath().getParent()
                     #print player.model.getGeomNode()
                     if fromAI.fire.getNumEntries()>0 and fromAI.fire.getEntry(0).getIntoNodePath().getParent()==player.model.getGeomNode():
@@ -108,10 +110,10 @@ class AI():
     ID=0
     playerhandle=0
     turnspeed=50
-    runspeed=2
+    runspeed=0.65
     followradius=10
     FOV=87
-    runanim=1.5
+    runanim=1.5/2*0.65
     turnanim=5
     walkanim=1
     scale=1.06#0.53
@@ -151,14 +153,14 @@ class AI():
         #World collision
         #Bit channels are only walls and floors!
     
-        self.cs=CollisionSphere(0,0, 1.25/AI.scale,1.25/AI.scale)
+        self.cs=CollisionSphere(0,0, 2.5*AI.scale,2.5*AI.scale)
         self.cspath=self.model.attachNewNode(CollisionNode('AIspher;' +  str(AI.ID)))
         self.cspath.node().addSolid(self.cs)
         self.cspath.node().setFromCollideMask(BitMask32(0x01))
         self.cspath.setCollideMask(BitMask32(0x11))
         #self.cspath.show()
         
-        self.cr=CollisionRay(0,0,0.1/AI.scale,0,0,-1/AI.scale)
+        self.cr=CollisionRay(0,0,0.1,0,0,-1)
         self.crpath=self.model.attachNewNode(CollisionNode('AIray;' +  str(AI.ID)))
         self.crpath.node().addSolid(self.cr)
         self.crpath.node().setFromCollideMask(BitMask32(0x02))
@@ -170,7 +172,7 @@ class AI():
         self.mhandle_floor.addCollider(self.crpath, self.model)
         self.mhandle_floor.setGravity(0.5)
         self.mhandle_floor.setMaxVelocity(2)
-        self.mhandle_floor.setOffset(0.1/AI.scale)
+        self.mhandle_floor.setOffset(0.1)
         
         base.cTrav.addCollider(self.cspath, self.mhandle_wall)
         base.cTrav.addCollider(self.crpath, self.mhandle_floor)
@@ -190,13 +192,14 @@ class AI():
         self.frpath=self.model.attachNewNode(CollisionNode('AIcray;' +  str(AI.ID)))
         self.frpath.node().addSolid(self.fr)
         self.frpath.node().setFromCollideMask(BitMask32(0x0f))
+        self.frpath.setPos(0,0,5*AI.scale)
         self.frpath.setCollideMask(BitMask32(0x00))
         self.fire=CollisionHandlerQueue()
         self.ftrav.addCollider(self.frpath, self.fire)
         #self.frpath.show()
         
         #Sight collision
-        self.AIs=CollisionSphere(0,0,-1.25,30)
+        self.AIs=CollisionSphere(0,0,-1.25,60)
         self.AIspath=self.model.attachNewNode(CollisionNode('AIsight;' +  str(AI.ID)))
         self.AIspath.node().addSolid(self.AIs)
         self.AIspath.node().setFromCollideMask(BitMask32(0x10))
@@ -462,11 +465,12 @@ class AI():
                     break
                 self.look_angles = Vec3(target.model.getPos())-Vec3(self.model.getPos())
                 self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
-                self.frpath.setHpr(self.look_angles-self.model.getHpr())
+                #self.frpath.setHpr(self.look_angles-self.model.getHpr())
+                self.frpath.lookAt(target.cspath)
                 self.ftrav.traverse(render)
                 self.fire.sortEntries()
                 self.frpath.setHpr(Point3(0,0,0))
-                if self.fire.getEntry(0).getIntoNodePath().getParent().getName()==target.model.getName():
+                if self.fire.getNumEntries()>0 and self.fire.getEntry(0).getIntoNodePath().getParent()==target.model.getGeomNode():
                         #Vision is not occluded, use this target
                         self.seetarget=True
                         self.targetpos = target.model.getPos()
@@ -567,8 +571,8 @@ class AI():
         sa = math.sin(angle)
         ca = math.cos(angle)
         time_tick = globalClock.getDt()*6
-        self.model.setX(self.model.getX()-ca*self.dx*time_tick-sa*self.dy*time_tick)
-        self.model.setY(self.model.getY()+ca*self.dy*time_tick-sa*self.dx*time_tick)
+        self.model.setX(self.model.getX()-ca*self.dx-sa*self.dy)
+        self.model.setY(self.model.getY()+ca*self.dy-sa*self.dx)
         self.model.setH(self.model.getH()+self.dh*time_tick)
         self.model.setH((self.model.getH()+180)%360-180)
         self.loud=(self.weapon.firesound.status()==2)*40

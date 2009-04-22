@@ -71,7 +71,7 @@ class Knife(Weapon):
                 if (object.getIntoNodePath().getName().split(";")[0]=="AItarget") and object.getIntoNodePath().getParent().node()!=player.model.node(): #Not shooting yourself
                     targ = object.getSurfacePoint(render)
                     dist = sqrt(pow(player.model.getX()-targ[0],2) + pow(player.model.getY()-targ[1],2) + pow(player.model.getZ()-targ[2],2))
-                    if dist < 4 or not self.isplayer and dist<8:
+                    if dist < 5 or not self.isplayer and dist<8:
                         self.hitsound.play()
                         ID=object.getIntoNodePath().getName().split(";")[1]
                         target=AI.AI.AI_dict[int(ID)]
@@ -82,7 +82,7 @@ class Knife(Weapon):
                 if (object.getIntoNodePath().getName()=="ptarget"):
                     targ = object.getSurfacePoint(render)
                     dist = sqrt(pow(player.model.getX()-targ[0],2) + pow(player.model.getY()-targ[1],2) + pow(player.model.getZ()-targ[2],2))
-                    if dist < 4 or not self.isplayer and dist<8:
+                    if dist < 5 or not self.isplayer and dist<8:
                         self.hitsound.play()
                         AI.AI.playerhandle.damage(player, 20)
                         break

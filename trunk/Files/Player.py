@@ -40,11 +40,12 @@ class Player ():
             self.mouse_x = 0
             self.mouse_y = 0
     
-        self.cs=CollisionSphere(0,0,-1.25,1.25)
+        self.cs=CollisionSphere(0,0,0,1.25)
         self.cspath=self.model.attachNewNode(CollisionNode('pspher'))
         self.cspath.node().addSolid(self.cs)
         self.cspath.node().setFromCollideMask(BitMask32(0x01))
         self.cspath.setCollideMask(BitMask32.bit(0x11))
+        #self.cspath.show()
         
         self.cr=CollisionRay(0,0,0,0,0,-1)
         self.crpath=self.model.attachNewNode(CollisionNode('pray'))
@@ -72,7 +73,7 @@ class Player ():
         self.ctpath.setCollideMask(BitMask32(0x08))
         
         #Powerup pickup and mission objective handling and touching AI
-        self.ps=CollisionSphere(0,0,-1.25, 2)
+        self.ps=CollisionSphere(0,0,0, 2.5)
         self.pspath=self.model.attachNewNode(CollisionNode('ppower'))
         self.pspath.node().addSolid(self.ps)
         self.pspath.node().setFromCollideMask(BitMask32(0x24))
@@ -116,7 +117,7 @@ class Player ():
         self.armor=0
         self.use=False
         self.usecheck=True
-        self.haveweapon=[1,0,0,0] #Knife, Pistol Shotgun Assault Rifle
+        self.haveweapon=[1,1,0,0] #Knife, Pistol Shotgun Assault Rifle
         self.loyalty = [50, 50] # out of a minimum of 0 and a maximum of 100
         self.pobjective=[False, False]
         self.gobjective=[False, False]
@@ -175,8 +176,8 @@ class Player ():
                 base.camera.setP(-90)
         
         if self.mhandle_floor.isOnGround(): #~ if not in the air
-            self.dy = (self.keyMap["forward"]-self.keyMap["backward"])*3
-            self.dx=(self.keyMap["left"]-self.keyMap["right"])*3
+            self.dy = (self.keyMap["forward"]-self.keyMap["backward"])*0.75
+            self.dx = (self.keyMap["left"]-self.keyMap["right"])*0.75
             
             #self.dz = key_mapping["jump"]
         #~ if player pressed use key
@@ -281,8 +282,8 @@ class Player ():
         sa = math.sin(angle)
         ca = math.cos(angle)
         time_tick = globalClock.getDt()*6
-        self.model.setX(self.model.getX()-ca*self.dx*time_tick-sa*self.dy*time_tick)
-        self.model.setY(self.model.getY()+ca*self.dy*time_tick-sa*self.dx*time_tick)
+        self.model.setX(self.model.getX()-ca*self.dx-sa*self.dy)
+        self.model.setY(self.model.getY()+ca*self.dy-sa*self.dx)
         #print self.model.getH()
         #~ if (self.m_handlefloor.isOnGround()):
             #~ self.m_handlefloor.setVelocity(self.dz)
