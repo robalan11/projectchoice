@@ -432,6 +432,7 @@ class AI():
                 self.ctpath.node().clearSolids()
                 base.cTrav.removeCollider(self.AIspath)
                 self.dropped=True
+                self.dead = True
                 #del AI.AI_dict[self.ID]
                 #taskMgr.doMethodLater(5, self.destroy, "Remove me")
             return Task.cont
