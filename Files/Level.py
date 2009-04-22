@@ -129,7 +129,8 @@ class Level(object):
                     self.ais.append(AI(1,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2,self.rootnode))
                 elif(self.level[y][x].Enemy=="D"):
                     #prison AK
-                    self.ais.append(AI(1,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3))                elif(self.level[y][x].Enemy=="E"):
+                    self.ais.append(AI(1,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3))
+                elif(self.level[y][x].Enemy=="E"):
                     #guard melee
                     AI(1,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0,self.rootnode)
                 elif(self.level[y][x].Enemy=="F"):
