@@ -130,6 +130,9 @@ class Event(object):
         base.camera.reparentTo(self.target.model)
         base.camera.setH(0)
         base.camera.setPos(VBase3(0,0,4.0))
+        self.worldref.player.arms.show()
+        for ai in self.worldref.level.ais:
+            ai.cinematic = False
     
     def bezier(self, points, t):
         if len(points) == 1:

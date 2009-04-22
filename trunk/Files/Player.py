@@ -349,10 +349,15 @@ class Player ():
             for ai in self.levelref.ais:
                 index = "ai" + str(self.levelref.ais.index(ai))
                 actors[index] = ai
+                ai.cinematic = True
             file = "Cinematics/" + self.levelref.levelfilename + "-" + self.levelref.cines[gridpos] + ".cin"
             Cinematics.Cinematic(file, actors, self.worldref)
-            self.levelref.cines[gridpos] = '.'
+            cinenumber = self.levelref.cines[gridpos]
+            for key in self.levelref.cines.keys():
+                if self.levelref.cines[key] == cinenumber:
+                    self.levelref.cines[key] = '.'
             self.runningcinematic = True
+            self.arms.hide()
         
         return Task.cont
     def collided(self):

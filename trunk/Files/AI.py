@@ -355,6 +355,7 @@ class AI():
         self.dead=False
         self.rundistance=0
         self.idle=False
+        self.cinematic = False
         
         #Tasks
         taskMgr.add(self.tick, "AI tick;"+str(AI.ID))
@@ -397,6 +398,9 @@ class AI():
         if self.dead:
             del self
             return
+        
+        if self.cinematic:
+            return Task.cont
        
         self.dx=0
         self.dy=0
