@@ -119,53 +119,53 @@ class Level(object):
                 
                 if(self.level[y][x].Enemy=="A"):
                     #prison knife
-                    self.ais.append(AI(1,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0))
+                    self.ais.append(AI(1,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0,self.rootnode))
                 elif(self.level[y][x].Enemy=="B"):
                     #prison pistol
-                    self.ais.append(AI(1,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1))
+                    self.ais.append(AI(1,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1,self.rootnode))
                 elif(self.level[y][x].Enemy=="C"):
                     #prison shotgun
-                    self.ais.append(AI(1,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2))
+                    self.ais.append(AI(1,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2,self.rootnode))
                 elif(self.level[y][x].Enemy=="D"):
                     #prison AK
-                    pass#AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3)
-                    pass#self.ais.append(AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3))
+                    pass#AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3,self.rootnode)
+                    pass#self.ais.append(AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3,self.rootnode))
                 elif(self.level[y][x].Enemy=="E"):
                     #guard melee
-                    AI(1,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0)
+                    AI(1,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0,self.rootnode)
                 elif(self.level[y][x].Enemy=="F"):
                     #guard pistol
-                    self.ais.append(AI(1,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1))
+                    self.ais.append(AI(1,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1,self.rootnode))
                 elif(self.level[y][x].Enemy=="G"):
                     #guard shotgun
-                    self.ais.append(AI(1,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2))
+                    self.ais.append(AI(1,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2,self.rootnode))
                 elif(self.level[y][x].Enemy=="H"):
                     #guard ak
-                    AI(1,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3)
+                    AI(1,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3,self.rootnode)
                 elif(self.level[y][x].Enemy=="I"):
                     #prison knife
-                    AI(2,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0)
+                    AI(2,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0,self.rootnode)
                 elif(self.level[y][x].Enemy=="J"):
                     #prison pistol
-                    AI(2,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1)
+                    AI(2,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1,self.rootnode)
                 elif(self.level[y][x].Enemy=="K"):
                     #prison shotgun
-                    AI(2,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2)
+                    AI(2,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2,self.rootnode)
                 elif(self.level[y][x].Enemy=="L"):
                     #prison AK
-                    AI(2,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3)
+                    AI(2,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3,self.rootnode)
                 elif(self.level[y][x].Enemy=="M"):
                     #guard melee
-                    AI(2,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0)
+                    AI(2,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0,self.rootnode)
                 elif(self.level[y][x].Enemy=="N"):
                     #guard pistol
-                    AI(2,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1)
+                    AI(2,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1,self.rootnode)
                 elif(self.level[y][x].Enemy=="O"):
                     #guard shotgun
-                    AI(2,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2)
+                    AI(2,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2,self.rootnode)
                 elif(self.level[y][x].Enemy=="P"):
                     #guard ak
-                    AI(2,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3)
+                    AI(2,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3,self.rootnode)
                 
     
     def loadcines(self):
@@ -343,30 +343,33 @@ class Level(object):
         #for each room
         for y in xrange(len(self.level)):
             for x in xrange(len(self.level[y])):
-                
+            
                 if(not self.level[y][x].Floor == "."):
                     # make a normal floor
                     self.drawFloor(y,x)
-                NorthWallTexture=None
+                    
+                NorthWallTexture="Art/Textures/concrete1.jpg"
                 if(self.level[y][x].NorthWallType == "A"):
                     NorthWallTexture="Art/Textures/stone_bricks_1.jpg"
                     
+                    
                 elif(self.level[y][x].WestWallType == "B"):
                     NorthWallTexture="Art/Textures/dirty_bricks.jpg"
+                    
                     
                 elif(self.level[y][x].WestWallType == "C"):
                     NorthWallTexture="Art/Textures/drywall_rough.jpg"
                     
                 else:
                     NorthWallTexture="Art/Textures/concrete2.jpg"
+                    
                 
-                WestWallTexture=None
+                WestWallTexture="Art/Textures/concrete1.jpg"
                 if(self.level[y][x].WestWallType == "A"):
                     WestWallTexture="Art/Textures/stone_bricks_1.jpg"
                     
                 elif(self.level[y][x].WestWallType == "B"):
                     WestWallTexture="Art/Textures/dirty_bricks.jpg"
-                
                 elif(self.level[y][x].WestWallType == "C"):
                     WestWallTexture="Art/Textures/drywall_rough.jpg"
                     

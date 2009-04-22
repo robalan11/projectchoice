@@ -118,7 +118,7 @@ class AI():
     movetweak=2
     accuracy1=15
     
-    def __init__(self, model, incell,team, startpos, starth, weapon):
+    def __init__(self, model, incell,team, startpos, starth, weapon,rootnode):
         #Model = Number of model body type. Just use 0 for default body
         # incell = Are you in a cell (This may not be used)
         #Team = 0 for guards, 1 for prisoner
@@ -134,7 +134,7 @@ class AI():
         else:
             self.model=Actor("Art/Models/human"+str(model)+"-model.egg")
         self.model.loadAnims({"Dying": "Art/animations/human"+str(model)+"-death.egg"})
-        self.model.reparentTo(render)
+        self.model.reparentTo(rootnode)
         self.model.setPos(startpos)
         self.model.setH(starth)
         self.model.setScale(AI.scale,AI.scale,AI.scale)
