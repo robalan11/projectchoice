@@ -85,12 +85,12 @@ class Level(object):
                     self.EntranceP=True
                     self.EntrancePx=x
                     self.EntrancePy=y
-                    self.EntranceFacingP=int(self.level[y][x].EntranceFacing)+180
+                    self.EntranceFacingP=int(self.level[y][x].EntranceFacing)
                 elif(self.level[y][x].Entrance=="G"):
                     self.EntranceG=True
                     self.EntranceGx=x
                     self.EntranceGy=y
-                    self.EntranceFacingG=int(self.level[y][x].EntranceFacing)+180
+                    self.EntranceFacingG=int(self.level[y][x].EntranceFacing)
                     
                 self.loadInterior(y, x)
                 if(self.level[y][x].Items == "A"):
@@ -172,6 +172,8 @@ class Level(object):
         for y in xrange(len(self.level)):
             for x in xrange(len(self.level[y])):
                 self.cines[(y, x)] = self.level[y][x].Cin
+                if self.level[y][x].Cin != '.':
+                    print (y, x), self.level[y][x].Cin
     
     def prepareFloorModel(self, environ, texture):
         myTexture = loader.loadTexture(texture)
@@ -345,29 +347,54 @@ class Level(object):
                 if(not self.level[y][x].Floor == "."):
                     # make a normal floor
                     self.drawFloor(y,x)
+                NorthWallTexture=None
+                if(self.level[y][x].NorthWallType == "A"):
+                    NorthWallTexture="Art/Textures/stone_bricks_1.jpg"
+                    
+                elif(self.level[y][x].WestWallType == "B"):
+                    NorthWallTexture="Art/Textures/dirty_bricks.jpg"
+                    
+                elif(self.level[y][x].WestWallType == "C"):
+                    NorthWallTexture="Art/Textures/drywall_rough.jpg"
+                    
+                else:
+                    NorthWallTexture="Art/Textures/concrete2.jpg"
                 
+                WestWallTexture=None
+                if(self.level[y][x].WestWallType == "A"):
+                    WestWallTexture="Art/Textures/stone_bricks_1.jpg"
+                    
+                elif(self.level[y][x].WestWallType == "B"):
+                    WestWallTexture="Art/Textures/dirty_bricks.jpg"
+                
+                elif(self.level[y][x].WestWallType == "C"):
+                    WestWallTexture="Art/Textures/drywall_rough.jpg"
+                    
+                else:
+                    WestWallTexture="Art/Textures/concrete2.jpg"
+                        
                 if(self.level[y][x].WestWall=="." and not self.level[y][x].WestWallType == "."):
                     # make a normal wall on the west
-                    self.drawWestWall(y,x,"Art/Textures/stone_tiles_1.jpg")
+                    self.drawWestWall(y,x,WestWallTexture)
                     
                 elif(self.level[y][x].WestWall=="D"):
                     # make a door on the west
-                    self.drawWestDoor(y,x,"Art/Textures/stone_tiles_1.jpg")
+                    self.drawWestDoor(y,x,WestWallTexture)
                 elif(self.level[y][x].WestWall=="S"):
                     #make a sliding door on the west
-                    self.drawWestSliding(y,x,"Art/Textures/stone_tiles_1.jpg")
+                    self.drawWestSliding(y,x,WestWallTexture)
                         
                 if(self.level[y][x].NorthWall=="." and not self.level[y][x].NorthWallType == "." ):
                     # make a normal north wall
-                    self.drawNorthWall(y,x, "Art/Textures/stone_tiles_1.jpg")
+                    self.drawNorthWall(y,x, NorthWallTexture)
                     
                 elif(self.level[y][x].NorthWall=="D"):
                     # make a door on the north
-                    self.drawNorthDoor(y,x,"Art/Textures/stone_tiles_1.jpg")
+                    self.drawNorthDoor(y,x,NorthWallTexture)
                 
                 elif(self.level[y][x].NorthWall=="S"):
                     #make a sliding door on the west
-                    self.drawNorthSliding(y,x,"Art/Textures/stone_tiles_1.jpg")
+                    self.drawNorthSliding(y,x,NorthWallTexture)
                   
                 if(not self.level[y][x].Floor=="." and self.isWestWallEmpty(y,x) and self.isNorthWallEmpty(y,x)):
                     if(x>0 and y>0 and not( self.isWestWallEmpty(y-1,x) and self.isNorthWallEmpty(y,x-1))):
