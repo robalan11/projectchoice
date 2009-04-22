@@ -141,7 +141,7 @@ class Level(object):
                     self.ais.append(AI(1,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2))
                 elif(self.level[y][x].Enemy=="H"):
                     #guard ak
-                    pass#AI(1,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3)
+                    AI(1,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3)
                 elif(self.level[y][x].Enemy=="I"):
                     #prison knife
                     AI(2,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0)
@@ -153,7 +153,7 @@ class Level(object):
                     AI(2,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2)
                 elif(self.level[y][x].Enemy=="L"):
                     #prison AK
-                    pass#AI(2,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3)
+                    AI(2,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3)
                 elif(self.level[y][x].Enemy=="M"):
                     #guard melee
                     AI(2,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0)
@@ -165,7 +165,7 @@ class Level(object):
                     AI(2,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2)
                 elif(self.level[y][x].Enemy=="P"):
                     #guard ak
-                    pass#AI(2,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3)
+                    AI(2,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3)
                 
     
     def loadcines(self):
