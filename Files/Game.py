@@ -15,7 +15,7 @@ import sys
 class World(DirectObject):
     def __init__(self):
         base.cTrav=CollisionTraverser()
-        self.player = Player("Art/Models/player.egg", self) #Add the dummy model
+        self.player = Player("Art/Models/humanplayer-model.egg", self) #Add the dummy model
         self.player.model.setH(180)
         self.gui = GUI(self)
         #temp=AI(1, False, 0, Vec3(0,0,0), 0, 2) #Just to instantiate all AI global variables
@@ -24,7 +24,7 @@ class World(DirectObject):
         
         #Execute level construction code
         
-        self.level=Level("leveledit/LevelOne.txt",self.player,"G")
+        self.level=Level("leveledit/Level2.txt",self.player,"G")
         self.player.setLevel(self.level)
         
         #Create dummy targets with a collision hull attached to them. No collision handler.

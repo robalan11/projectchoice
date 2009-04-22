@@ -19,6 +19,7 @@ class Level(object):
         self.cines = {}
         self.ais = []
         self.start()
+        self.entrancetype = entrancetype
         if(entrancetype=="P" and self.EntranceP):
             player.nodepath().setPos(self.EntrancePx*cellsize,(-1*self.EntrancePy)*cellsize, 0.5*cellsize)
             player.nodepath().setHpr(self.EntranceFacingP,0,0)
@@ -128,9 +129,7 @@ class Level(object):
                     self.ais.append(AI(1,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2,self.rootnode))
                 elif(self.level[y][x].Enemy=="D"):
                     #prison AK
-                    pass#AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3,self.rootnode)
-                    pass#self.ais.append(AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3,self.rootnode))
-                elif(self.level[y][x].Enemy=="E"):
+                    self.ais.append(AI(1,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3))                elif(self.level[y][x].Enemy=="E"):
                     #guard melee
                     AI(1,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0,self.rootnode)
                 elif(self.level[y][x].Enemy=="F"):

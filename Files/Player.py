@@ -345,6 +345,7 @@ class Player ():
         gridpos = (-1*int((self.model.getY()-5)/10), int((self.model.getX()+5)/10))
         if gridpos[0] >= 0 and gridpos[1] >= 0 and self.levelref.cines[gridpos] != '.':
             cinenumber = self.levelref.cines[gridpos]
+            
             if self.levelref.levelfilename == "LevelOne":
                 if cinenumber == '1':
                     for ai in self.levelref.ais:
@@ -358,10 +359,26 @@ class Player ():
                     for ai in self.levelref.ais:
                         if ai.team == True and not ai.dead:
                             return Task.cont
+                        if ai.team == False and ai.dead:
+                            return Task.cont
                 if cinenumber == '4':
                     for ai in self.levelref.ais:
                         if ai.team == False and not ai.dead:
                             return Task.cont
+                        if ai.team == True and ai.dead:
+                            return Task.cont
+                if cinenumber == '5':
+                    for ai in self.levelref.ais:
+                        if ai.team == True and not ai.dead:
+                            return Task.cont
+            
+            if self.levelref.levelfilename == "Level2":
+                if cinenumber == '1':
+                    if self.levelref.entrancetype == "G":
+                        return Task.cont
+                if cinenumber == '2':
+                    if self.levelref.entrancetype == "P":
+                        return Task.cont
             base.camera.reparentTo(render)
             actors = {"player": self}
             for ai in self.levelref.ais:
