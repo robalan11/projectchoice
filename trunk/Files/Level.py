@@ -68,6 +68,16 @@ class Level(object):
             self.drawInterior(x, y, "Art/Models/securityconsole.egg", self.level[y][x].InteriorFacing)
         elif(self.level[y][x].Interior == "L"):
             self.drawInterior(x, y, "Art/Models/bookcase.egg", self.level[y][x].InteriorFacing)
+    def loadPowerup(self, powerup_model, powerup_name, x, y):
+        powerup=loader.loadModel(powerup_model)
+        powerup.setPos(Vec3(x*cellsize, -y*cellsize, 3))
+        sphere=CollisionSphere(0,0,0,1)
+        spherep=powerup.attachNewNode(CollisionNode(powerup_name))
+        spherep.node().addSolid(sphere)
+        spherep.setCollideMask(BitMask32(0x20))
+        powerup.reparentTo(self.rootnode)
+
+    
     def loaditems(self):
         for y in xrange(len(self.level)):
             for x in xrange(len(self.level[y])):
@@ -84,21 +94,21 @@ class Level(object):
                     
                 self.loadInterior(y, x)
                 if(self.level[y][x].Items == "A"):
-                    pass
+                    self.loadPowerup("Art/Models/pi_ammo_small", "pammo", x, y)
                 elif(self.level[y][x].Items == "B"):
-                    pass
+                    self.loadPowerup("Art/Models/sh_ammo_small", "sammo", x, y)
                 elif(self.level[y][x].Items == "C"):
-                    pass
+                    self.loadPowerup("Art/Models/ar_ammo_small", "aammo", x, y)
                 elif(self.level[y][x].Items == "D"):
-                    pass
+                    self.loadPowerup("Art/Models/health", "health", x, y)
                 elif(self.level[y][x].Items == "E"):
-                    pass
+                    self.loadPowerup("Art/Models/body_armor", "armor", x, y)
                 elif(self.level[y][x].Items == "F"):
-                    pass
+                    self.loadPowerup("Art/Models/pi_ammo_large", "pammolarge", x, y)
                 elif(self.level[y][x].Items == "G"):
-                    pass
+                    self.loadPowerup("Art/Models/sh_ammo_large", "sammolarge", x, y)
                 elif(self.level[y][x].Items == "H"):
-                    pass
+                    self.loadPowerup("Art/Models/ar_ammo_large", "aammolarge", x, y)
                     
     def loadenemies(self):
         for y in xrange(len(self.level)):
