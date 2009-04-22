@@ -19,7 +19,6 @@ class Level(object):
         self.cines = {}
         self.ais = []
         self.start()
-        print entrancetype, self.EntranceG
         if(entrancetype=="P" and self.EntranceP):
             player.nodepath().setPos(self.EntrancePx*cellsize,(-1*self.EntrancePy)*cellsize, 0.5*cellsize)
             player.nodepath().setHpr(self.EntranceFacingP,0,0)
@@ -104,7 +103,7 @@ class Level(object):
     def loadenemies(self):
         for y in xrange(len(self.level)):
             for x in xrange(len(self.level[y])):
-                enemyFacing=int(self.level[y][x].EnemyFacing)*90.0
+                enemyFacing=int(self.level[y][x].EnemyFacing)*90.0+180.0
                 #TO BE FIXED: AUTOMATIC WEAPONS DON"T LOAD
                 #TO BE FIXED: Beefy guys are the same as normal guys
                 
