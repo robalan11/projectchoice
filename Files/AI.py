@@ -51,7 +51,7 @@ def AIsight(task_object):
                     continue
             else:
                 fromAI=AI.AI_dict[int(name[1])]
-                if fromAI.dying or not entry.getIntoNodePath().getParent():
+                if fromAI.dying or entry.getIntoNodePath().getParent().isEmpty() or Looker.getParent().isEmpty():
                     continue
                 #print entry.getIntoNodePath().getParent().getPos()-Looker.getParent().getPos()
                 fromAI.look_angles = calculateHpr(entry.getIntoNodePath().getParent().getPos()-Looker.getParent().getPos(), Looker.getParent().getHpr())
@@ -196,7 +196,7 @@ class AI():
         #self.frpath.show()
         
         #Sight collision
-        self.AIs=CollisionSphere(0,0,-1.25,60)
+        self.AIs=CollisionSphere(0,0,-1.25,30)
         self.AIspath=self.model.attachNewNode(CollisionNode('AIsight;' +  str(AI.ID)))
         self.AIspath.node().addSolid(self.AIs)
         self.AIspath.node().setFromCollideMask(BitMask32(0x10))
@@ -211,11 +211,11 @@ class AI():
         temp2=self.model.exposeJoint(None, "modelRoot", "joint20")
         self.model.makeSubpart("arms", ["joint18", "joint68"])
         self.blah=False
-        if (weapon == 2):
+        if (weapon == 1):
             self.drop = "pistol"
             self.dropmodel = "Art/Models/pistol.egg"
             self.weapon = Weapon.Pistol(self.model, False, Vec3(0,0,4))
-            self.killzone=15
+            self.killzone=30*AI.scale
             self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouchingpistol.egg"})
             self.model.loadAnims({"Run": "Art/animations/human"+str(model)+"-runningpistol.egg"})
             self.model.loadAnims({"Walk": "Art/animations/human"+str(model)+"-walkingpistol.egg"})
@@ -232,12 +232,12 @@ class AI():
             w.setPos(0.55,0.0,-0.1)
             w.setHpr(160,90,0)
             w.reparentTo(temp)
-        elif (weapon ==1):
+        elif (weapon ==2):
             self.blah=True
             self.drop = "shotgun"
             self.dropmodel = "Art/Models/shotgun.egg"
             self.weapon = Weapon.Shotgun(self.model, False, Vec3(0,0,4))
-            self.killzone=10
+            self.killzone=20*AI.scale
             self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouchingbiggun.egg"})
             self.model.loadAnims({"Run": "Art/animations/human"+str(model)+"-runningbiggun.egg"})
             self.model.loadAnims({"Walk": "Art/animations/human"+str(model)+"-walkingbiggun.egg"})
@@ -251,35 +251,37 @@ class AI():
             self.anim_end["Idle"]=self.model.getNumFrames("Idle")-1
             self.anim_end["Fire"]=self.model.getNumFrames("Fire")-1
             w.setScale(0.1, 0.1,0.1)
-            w.setPos(0.80, 0.0, -0.1)
-            #w.lookAt(temp2, 0,0,0)
-            #w.setHpr(90,135,130)
+            w.setPos(0.80, 0.0, -0.4)
+            w.setHpr(180,0,-15)
             w.reparentTo(temp)
             self.w=w
         elif (weapon ==3):
             self.drop="assault"
             self.dropmodel = "Art/Models/assaultrifle.egg"
+            self.killzone=30*AI.scale
             self.weapon = Weapon.Rifle(self.model, False, Vec3(0,0,4))
             self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouchingbiggun.egg"})
             self.model.loadAnims({"Run": "Art/animations/human"+str(model)+"-runningbiggun.egg"})
             self.model.loadAnims({"Walk": "Art/animations/human"+str(model)+"-walkingbiggun.egg"})
-            self.model.loadAnims({"Idle": "Art/animations/human"+str(model)+"-idleassaultrifle.egg"})
-            self.model.loadAnims({"Fire": "Art/animations/human"+str(model)+"-fireassaultrifle.egg"})
+            self.model.loadAnims({"Idle": "Art/animations/human"+str(model)+"-idleassultrifle.egg"})
+            self.model.loadAnims({"Fire": "Art/animations/human"+str(model)+"-fireassultrifle.egg"})
             w=loader.loadModel("Art/Models/assaultrifle.egg")
             self.anim_start={"Crouch":0, "Run":0, "Walk":3, "Idle":0, "Fire":2}
             self.anim_end={"Crouch":self.model.getNumFrames("Crouch")-1}
             self.anim_end["Run"]=self.model.getNumFrames("Run")-1
             self.anim_end["Walk"]=self.model.getNumFrames("Walk")-1
             self.anim_end["Idle"]=self.model.getNumFrames("Idle")-1
-            self.anim_end["Fire"]=10
-            w.setScale(0.1,0.1,0.1)
+            self.anim_end["Fire"]=4
+            w.setScale(0.1, 0.1,0.1)
+            w.setPos(0.70, 0.0, 0)
+            w.setHpr(170,0,0)
             w.reparentTo(temp)
         elif (weapon==4):
             # Change later to different melee weaps for different AI
             self.drop = "health"
             self.dropmodel = "Art/Models/health.egg"
             self.weapon = Weapon.Knife(self.model, False, Vec3(0,0,4))
-            self.killzone = 4
+            self.killzone = 2.75
             self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouching.egg"})
             self.model.loadAnims({"Run": "Art/animations/human"+str(model)+"-running.egg"})
             self.model.loadAnims({"Walk": "Art/animations/human"+str(model)+"-walking.egg"})
@@ -287,22 +289,25 @@ class AI():
             self.model.loadAnims({"Fire": "Art/animations/human"+str(model)+"-fireknife.egg"})
             if team:
                 w=loader.loadModel("Art/Models/shiv.egg")
+                w.setPos(0.3,-0.1,-0.1)
+                w.setHpr(45,0,0)
             else:
                 w=loader.loadModel("Art/Models/knife.egg")
+                w.setPos(0.3,-0.1,-0.1)
+                w.setHpr(45,0,0)
             self.anim_start={"Crouch":0, "Run":0, "Walk":6, "Idle":6, "Fire":6}
             self.anim_end={"Crouch":self.model.getNumFrames("Crouch")-1}
             self.anim_end["Run"]=self.model.getNumFrames("Run")-1
             self.anim_end["Walk"]=self.model.getNumFrames("Walk")-1
             self.anim_end["Idle"]=42
-            self.anim_end["Fire"]=self.model.getNumFrames("Fire")-1
-            w.setScale(0.1,0.1,0.1)
+            self.anim_end["Fire"]=self.model.getNumFrames("Fire")-23
             w.reparentTo(temp)
         else:
             # Change later to different melee weaps for different AI
             self.drop = "health"
             self.dropmodel = "Art/Models/health.egg"
             self.weapon = Weapon.Pipe(self.model, False, Vec3(0,0,4))
-            self.killzone = 4
+            self.killzone = 2.75
             self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouching.egg"})
             self.model.loadAnims({"Run": "Art/animations/human"+str(model)+"-running.egg"})
             self.model.loadAnims({"Walk": "Art/animations/human"+str(model)+"-walking.egg"})
@@ -310,15 +315,20 @@ class AI():
             self.model.loadAnims({"Fire": "Art/animations/human"+str(model)+"-firetonfa.egg"})
             if team:
                 w=loader.loadModel("Art/Models/pipe.egg")
+                w.setScale(0.4, 0.4, 0.4)
+                w.setHpr(-135, 0, 0)
+                w.setPos(0.6,-0.4,-0.6)
             else:
                 w=loader.loadModel("Art/Models/tonfa.egg")
-            self.anim_start={"Crouch":0, "Run":0, "Walk":6, "Idle":6, "Fire":0}
+                w.setScale(0.4, 0.4, 0.4)
+                w.setHpr(-135, 0, 0)
+                w.setPos(1.4,-0.6,-0.1)
+            self.anim_start={"Crouch":0, "Run":0, "Walk":6, "Idle":6, "Fire":29}
             self.anim_end={"Crouch":self.model.getNumFrames("Crouch")-1}
             self.anim_end["Run"]=self.model.getNumFrames("Run")-1
             self.anim_end["Walk"]=self.model.getNumFrames("Walk")-1
             self.anim_end["Idle"]=42
-            self.anim_end["Fire"]=self.model.getNumFrames("Fire")-20
-            w.setScale(0.1,0.1,0.1)
+            self.anim_end["Fire"]=self.model.getNumFrames("Fire")-1
             w.reparentTo(temp)
         #Variables
         self.dx=0
@@ -412,11 +422,13 @@ class AI():
                 spherep=powerup.attachNewNode(CollisionNode(self.drop))
                 spherep.node().addSolid(sphere)
                 spherep.setCollideMask(BitMask32(0x20))
-                self.model.node().removeAllChildren()
+                #self.model.node().removeAllChildren()
                 self.cspath.node().clearSolids()
                 self.AIspath.node().clearSolids()
+                self.ctpath.node().clearSolids()
                 base.cTrav.removeCollider(self.AIspath)
                 self.dropped=True
+                #del AI.AI_dict[self.ID]
                 #taskMgr.doMethodLater(5, self.destroy, "Remove me")
             return Task.cont
         if self.targetlist==[] and self.awareof!=0: #If see nothing and hear something, turn to it
@@ -439,6 +451,9 @@ class AI():
                     self.targetpos=target.model.getPos()
                     self.look_angles = self.targetpos-Vec3(self.model.getPos())
                     self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
+                    break
+                if target.dying: #Don't waste your time on a dying target
+                    self.targetpos=self.model.getPos()
                     break
                 self.look_angles = Vec3(target.model.getPos())-Vec3(self.model.getPos())
                 self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
