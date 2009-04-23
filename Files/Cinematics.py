@@ -168,6 +168,8 @@ class Cinematic(object):
             self.events.append(Event(self.worldref, parts[0], parts[1], parts[2], self.actors[parts[3]], parts[4:], self.start))
     
     def runCin(self, title):
+        #if self.worldref.player.keymap["shoot"] == 1:
+        #    return Task.done
         currtime = time.clock()
         while self.events[self.nextevent].time <= currtime:
             taskMgr.add(self.events[self.nextevent].function, str(title) + str(self.events[self.nextevent]))

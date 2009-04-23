@@ -1,8 +1,8 @@
 -45 -8 160,-150,4
 0.0 s 5.0 ai2 Cinematics/Level2-6.spk 0 2
-4.7 c 1.0 ai3 25 0 160,-150,4
-4.7 m 1.0 ai0 170,-180,0 170,-165,0
+4.7 c 1.0 ai3 -90 0 160,-150,4
 5.0 s 9.0 ai0 Cinematics/Level2-6.spk 2 5
-4.7 c 1.0 ai3 -115 0 160,-150,4
-5.0 s 9.0 ai3 Cinematics/Level2-6.spk 5 6
-14.0 q 0.5 player
+13.7 c 1.0 ai3 90 0 160,-150,4
+14.0 s 5.0 ai3 Cinematics/Level2-6.spk 5 6
+19.0 n 0.5 player leveledit/Level3A.txt P
+19.0 q 0.5 player
