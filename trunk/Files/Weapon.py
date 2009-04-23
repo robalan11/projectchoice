@@ -180,7 +180,7 @@ class Pistol(Weapon):
                     if (object.getIntoNodePath().getName().split(";")[0]=="AItarget") and object.getIntoNodePath().getParent().node()!=player.model.node(): #Not shooting yourself
                         ID=object.getIntoNodePath().getName().split(";")[1]
                         target=AI.AI.AI_dict[int(ID)]
-                        target.damage(player, 15)
+                        target.damage(player, 115)
                         if player==AI.AI.playerhandle:
                             player.broadcast_attack(target)
                         break

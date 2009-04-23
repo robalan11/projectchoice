@@ -387,6 +387,7 @@ class AI():
         if self.health<0:
             self.model.play("Dying", fromFrame=6)
             self.dying=True
+            self.dead = True
         
     def destroy(self, task_object):
         print "DESTROY"
@@ -435,7 +436,6 @@ class AI():
                 self.ctpath.node().clearSolids()
                 base.cTrav.removeCollider(self.AIspath)
                 self.dropped=True
-                self.dead = True
                 #del AI.AI_dict[self.ID]
                 #taskMgr.doMethodLater(5, self.destroy, "Remove me")
             return Task.cont

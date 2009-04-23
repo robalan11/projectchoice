@@ -87,7 +87,7 @@ class Player ():
         self.shotgun = Weapon.Shotgun(base.camera, True, Vec3(0,0,0))
         self.knife = Weapon.Knife(base.camera, True, Vec3(0,0,0))
         self.pipe = Weapon.Pipe(base.camera, True, Vec3(0,0,0))
-        self.rifle = Weapon.Rifle(base.camera, True, Vec3(0,0,0))
+        self.assaultrifle = Weapon.Rifle(base.camera, True, Vec3(0,0,0))
         self.weapon = self.knife
         self.crosshair=OnscreenImage(image = self.weapon.crosshair, pos = (0,0,0), scale =0.125)
         self.crosshair.setTransparency(TransparencyAttrib.MAlpha)
@@ -193,7 +193,7 @@ class Player ():
         #~ if animation playing is not the weapon firing/weapon is not reloading
             #~ if player pressed fire button
         if (self.keyMap["shoot"]==1):
-            if self.weapon != self.rifle:
+            if self.weapon != self.assaultrifle:
                 self.keyMap["shoot"]=0
             #self.arms.play(self.weapon.type)
             self.weapon.shoot(self)
@@ -225,10 +225,10 @@ class Player ():
             self.crosshair.destroy()
             self.crosshair=OnscreenImage(image = self.shotgun.crosshair, pos = (0,0,0), scale =0.15)
             self.crosshair.setTransparency(TransparencyAttrib.MAlpha)
-        if (self.keyMap["rifle"]==1 and self.weapon != self.rifle and self.haveweapon[3]):
-            self.weapon = self.rifle
+        if (self.keyMap["rifle"]==1 and self.weapon != self.assaultrifle and self.haveweapon[3]):
+            self.weapon = self.assaultrifle
             self.crosshair.destroy()
-            self.crosshair=OnscreenImage(image = self.rifle.crosshair, pos = (0,0,0), scale =0.07)
+            self.crosshair=OnscreenImage(image = self.assaultrifle.crosshair, pos = (0,0,0), scale =0.07)
             self.crosshair.setTransparency(TransparencyAttrib.MAlpha)
         
             
@@ -400,6 +400,25 @@ class Player ():
                 if cinenumber == '2':
                     if self.levelref.entrancetype == "P":
                         return Task.cont
+                    for ai in self.levelref.ais:
+                        if (self.levelref.ais.index(ai) == 2 or self.levelref.ais.index(ai) == 3) and ai.dead:
+                            return Task.cont
+                if cinenumber == '5':
+                    for ai in self.levelref.ais:
+                        if (self.levelref.ais.index(ai) == 5 or self.levelref.ais.index(ai) == 6) and ai.dead:
+                            return Task.cont
+                if cinenumber == '6':
+                    for ai in self.levelref.ais:
+                        if ai.team == False and not ai.dead:
+                            return Task.cont
+                if cinenumber == '7':
+                    for ai in self.levelref.ais:
+                        if ai.team == True and not ai.dead:
+                            return Task.cont
+                if cinenumber == '8':
+                    for ai in self.levelref.ais:
+                        if not ai.dead:
+                            return Task.cont
             
             base.camera.reparentTo(render)
             actors = {"player": self}
@@ -409,7 +428,8 @@ class Player ():
             file = "Cinematics/" + self.levelref.levelfilename + "-" + self.levelref.cines[gridpos] + ".cin"
             Cinematics.Cinematic(file, actors, self.worldref)
             for key in self.levelref.cines.keys():
-                self.levelref.cines[key] = '.'
+                if self.levelref.cines[key] == cinenumber:
+                    self.levelref.cines[key] = '.'
             self.runningcinematic = True
             self.arms.hide()
         
