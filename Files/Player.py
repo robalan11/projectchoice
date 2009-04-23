@@ -260,7 +260,7 @@ class Player ():
             interval=Sequence(deathcam, delay, restart)
             interval.play()
     
-    def restart:
+    def restart(self):
         print "Reload level"
         base.camera.setPos(0,0,4)
         self.dead=False
@@ -411,6 +411,7 @@ class Player ():
             for key in self.levelref.cines.keys():
                 self.levelref.cines[key] = '.'
             self.runningcinematic = True
+            self.arms.hide()
         
         return Task.cont
     def collided(self):
