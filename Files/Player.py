@@ -384,9 +384,10 @@ class Player ():
                     self.use=False
                     print temp.follow
             elif name[0:4] == "door":
-                #remove=False
+                remove=False
                 if self.use==True:
-                    self.worldref.level.door_dict[name].play('open')
+                    self.worldref.level.door_dict[name].play("open")
+                    self.worldref.level.door_col[name].remove()
                     print "I'm a door"
                 
             if remove==True:
