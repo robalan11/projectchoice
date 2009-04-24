@@ -457,6 +457,13 @@ class AI():
                 #del AI.AI_dict[self.ID]
                 #taskMgr.doMethodLater(5, self.destroy, "Remove me")
             return Task.cont
+            
+        distance = Vec3(self.targetpos)-Vec3(self.model.getPos())
+        distance.setZ(0)
+        #STOP AI over 50 from player! Does this help? It doesn't seem to help much...
+        if distance.length() >50:
+            return Task.cont
+        
         if self.targetlist==[] and self.awareof!=0: #If see nothing and hear something, turn to it
             self.targetpos=self.awareof.model.getPos()
             self.forceturn=True #Trips the next statement
