@@ -132,7 +132,10 @@ class AI():
         #Load the appropriate team model and specified model type
         if model!=1 and model !=2:
             model=1
-        if team: #load prisoner garb if it's a prisoner
+        if team==2:
+            self.model=Actor("Art/Models/warden.egg")
+            team=0
+        elif team==1: #load prisoner garb if it's a prisoner
             self.model=Actor("Art/Models/human"+str(model)+"-modelp.egg")
         else:
             self.model=Actor("Art/Models/human"+str(model)+"-model.egg")
