@@ -67,6 +67,8 @@ class Level(object):
         dlnp = self.rootnode.attachNewNode(dlight)
         dlnp.setHpr(10, -80, 0)
         self.rootnode.setLight(dlnp)
+        
+        
         if(entrancetype=="P" and self.EntranceP):
             player.nodepath().setPos(self.EntrancePx*cellsize,(-1*self.EntrancePy)*cellsize, 0.5*cellsize)
             player.nodepath().setHpr(self.EntranceFacingP,0,0)
@@ -132,7 +134,7 @@ class Level(object):
             powerup.loop('spin')
         else:
             powerup=loader.loadModel(powerup_model)
-        powerup.setPos(Vec3(x*cellsize, -y*cellsize, 2.5))
+        powerup.setPos(Vec3(x*cellsize, -y*cellsize, 0))
         sphere=CollisionSphere(0,0,0,1)
         spherep=powerup.attachNewNode(CollisionNode(powerup_name))
         spherep.node().addSolid(sphere)
@@ -147,12 +149,12 @@ class Level(object):
                     self.EntranceP=True
                     self.EntrancePx=x
                     self.EntrancePy=y
-                    self.EntranceFacingP=int(self.level[y][x].EntranceFacing) + 180
+                    self.EntranceFacingP=int(self.level[y][x].EntranceFacing)
                 elif(self.level[y][x].Entrance=="G"):
                     self.EntranceG=True
                     self.EntranceGx=x
                     self.EntranceGy=y
-                    self.EntranceFacingG=int(self.level[y][x].EntranceFacing) + 180
+                    self.EntranceFacingG=int(self.level[y][x].EntranceFacing)
                     
                 self.loadInterior(y, x)
                 if(self.level[y][x].Items == "A"):
@@ -339,6 +341,13 @@ class Level(object):
         self.prepareWallModel(environ,texture)
         environ.setPos((x-1+wallbuffer)*cellsize,(-1*y)*cellsize,(0+0.5)*cellsize)
         environ.setHpr(-180,0,0)
+        
+        #Create the Door Itself
+        environ = loader.loadModel("Art/Models/door_1")
+        environ.setCollideMask(BitMask32(0x01))
+        environ.reparentTo(self.wallnode)
+        environ.setPos((x-(wallbuffer))*cellsize,(-1*y)*cellsize,(0+0.5)*cellsize)
+        environ.setHpr(-180,0,0)
             
     def drawWestWall(self, y, x, texture):
         
@@ -408,6 +417,13 @@ class Level(object):
             environ.setHpr(90,0,0)
         environ = loader.loadModel("Art/Models/door_spacer_1.egg")
         self.prepareWallModel(environ,texture)
+        environ.setPos(x*cellsize,((-1*y)+(wallbuffer))*cellsize,(0+0.5)*cellsize)
+        environ.setHpr(-90,0,0)
+        
+        #Create the Door Itself
+        environ = loader.loadModel("Art/Models/door_1")
+        environ.setCollideMask(BitMask32(0x01))
+        environ.reparentTo(self.wallnode)
         environ.setPos(x*cellsize,((-1*y)+(wallbuffer))*cellsize,(0+0.5)*cellsize)
         environ.setHpr(-90,0,0)
             
@@ -562,10 +578,15 @@ class Room(object):
             self.InteriorFacing = "0"
         if(self.EntranceFacing == "."):
             self.EntranceFacing = "0"
+            
         if(int(self.InteriorFacing)% 2 == 1):
             self.InteriorFacing= str(int(self.InteriorFacing)-2)
+        
         if(int(self.EnemyFacing)% 2 == 1):
             self.EnemyFacing= str(int(self.EnemyFacing)-2)
+            
+        
         if(int(self.EntranceFacing)% 2 == 1):
             self.EntranceFacing= str(int(self.EntranceFacing)-2)
+        self.EntranceFacing=str((int(self.EntranceFacing)+2)*90)
         
