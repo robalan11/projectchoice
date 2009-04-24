@@ -255,6 +255,7 @@ class Player ():
         else:
             self.health -= damage
         if self.health<=0 and self.Respawning == False:
+            self.Respawning=True
             self.health=0
             self.dying=True
             self.dead=True
@@ -262,11 +263,9 @@ class Player ():
             restart=Func(self.restart)
             delay = Wait(2)
             interval=Sequence(deathcam, delay, restart)
-            #interval.start()
-            self.restart()
+            interval.start()
     
     def restart(self):
-        print "Reload level"
         self.Respawning = True
         self.model.reparentTo(render)
         self.dx = 0
@@ -379,6 +378,12 @@ class Player ():
                     temp.follow=not temp.follow
                     self.use=False
                     print temp.follow
+            elif name[0:4] == "door":
+                #remove=False
+                if self.use==True:
+                    self.worldref.level.door_dict[name].play('open')
+                    print "I'm a door"
+                
             if remove==True:
                 self.phandle.getEntry(i).getIntoNodePath().getParent().remove()
         

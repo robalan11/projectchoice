@@ -29,6 +29,8 @@ class Level(object):
         
         player.model.reparentTo(self.collisionStuff)
         self.level=[]
+        self.door_dict={}
+        self.doornum=0
         self.EntranceP=False
         self.EntranceG=False
         self.EntranceFacingP=0.0
@@ -40,6 +42,7 @@ class Level(object):
         self.ais = []
         self.start()
         self.entrancetype = entrancetype
+        
         
         alight = AmbientLight('alight')
         alight.setColor(VBase4(0.1, 0.1, 0.1, 1))
@@ -129,9 +132,9 @@ class Level(object):
         if(powerup_name == "armor"):
             powerup = Actor()
             powerup.loadModel(powerup_model)
-            powerup.loadAnims({'spin':powerup_model})
+            powerup.loadAnims({"spin":powerup_model})
             
-            powerup.loop('spin')
+            powerup.loop("spin")
         else:
             powerup=loader.loadModel(powerup_model)
         powerup.setPos(Vec3(x*cellsize, -y*cellsize, 0))
@@ -294,8 +297,13 @@ class Level(object):
             environ.setPos((x)*cellsize,(-1*y)*cellsize,0)
         
         
-        
-        
+    def prepareDoor(self, environ):
+        sphere=CollisionSphere(0,0,0,3)
+        spherep=environ.attachNewNode(CollisionNode("door"+str(self.doornum)))
+        spherep.node().addSolid(sphere)
+        spherep.setCollideMask(BitMask32(0x21))
+        self.door_dict["door"+str(self.doornum)]=environ
+        self.doornum=self.doornum+1
         
     def drawWestDoor(self, y, x, texture):
         if(not self.level[y][x].Floor=="."):
@@ -316,11 +324,15 @@ class Level(object):
         environ.setHpr(-180,0,0)
         
         #Create the Door Itself
-        environ = loader.loadModel("Art/Models/door_2")
-        environ.setCollideMask(BitMask32(0x01))
+        environ = Actor()
+        environ.loadModel("Art/Models/door_2")
+        
+        environ.loadAnims({'open':"Art/Models/door_2_open.egg"})
         environ.reparentTo(self.wallnode)
         environ.setPos((x-(wallbuffer)+0.05)*cellsize,(-1*y)*cellsize,(0+0.4)*cellsize)
         environ.setHpr(-180,0,0)
+        
+        self.prepareDoor(environ)
         
         
         
@@ -343,11 +355,14 @@ class Level(object):
         environ.setHpr(-180,0,0)
         
         #Create the Door Itself
-        environ = loader.loadModel("Art/Models/door_1")
+        environ = Actor("Art/Models/door_1")
+        environ.loadAnims({'open':"Art/Models/door_1_open.egg"})
         environ.setCollideMask(BitMask32(0x01))
         environ.reparentTo(self.wallnode)
-        environ.setPos((x-(wallbuffer))*cellsize,(-1*y)*cellsize,(0+0.5)*cellsize)
+        environ.setPos((x-(wallbuffer)+0.1)*cellsize,(-1*y)*cellsize,(0+0.5)*cellsize)
         environ.setHpr(-180,0,0)
+        
+        self.prepareDoor(environ)
             
     def drawWestWall(self, y, x, texture):
         
@@ -396,11 +411,14 @@ class Level(object):
         environ.setHpr(-90,0,0)
         
         #Create the Door Itself
-        environ = loader.loadModel("Art/Models/door_2")
+        environ = Actor("Art/Models/door_2")
+        environ.loadAnims({'open':"Art/Models/door_2_open.egg"})
         environ.setCollideMask(BitMask32(0x01))
         environ.reparentTo(self.wallnode)
         environ.setPos(x*cellsize,((-1*y)+(wallbuffer)-0.05)*cellsize,(0+0.4)*cellsize)
         environ.setHpr(-90,0,0)
+        
+        self.prepareDoor(environ)
         
     def drawNorthSliding(self, y, x, texture):
         myTexture = loader.loadTexture(texture)
@@ -421,11 +439,14 @@ class Level(object):
         environ.setHpr(-90,0,0)
         
         #Create the Door Itself
-        environ = loader.loadModel("Art/Models/door_1")
+        environ = Actor("Art/Models/door_1")
+        environ.loadAnims({'open':"Art/Models/door_1_open.egg"})
         environ.setCollideMask(BitMask32(0x01))
         environ.reparentTo(self.wallnode)
         environ.setPos(x*cellsize,((-1*y)+(wallbuffer))*cellsize,(0+0.5)*cellsize)
         environ.setHpr(-90,0,0)
+        
+        self.prepareDoor(environ)
             
             
     def isWestWallEmpty(self,y,x):
