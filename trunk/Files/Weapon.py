@@ -237,14 +237,15 @@ class Shotgun(Weapon):
                         hit_targets.append(object.getIntoNodePath().getName())
                         ID=object.getIntoNodePath().getName().split(";")[1]
                         target=AI.AI.AI_dict[int(ID)]
-                        distance = player.model.getPos()-target.model.getPos()
-                        target.damage(player, int(100/distance.length())+1)
+                        distance = self.frpath.getPos()+player.model.getPos()-target.cspath.getPos()-target.model.getPos()
+                        target.damage(player, int(200/distance.length())+1)
+                        print target.health
                         if player==AI.AI.playerhandle:
                             player.broadcast_attack(target)
                         continue
                     if (object.getIntoNodePath().getName()=="ptarget"):
-                        distance = player.model.getPos()-AI.AI.playerhandle.model.getPos()
-                        AI.AI.playerhandle.damage(player, int(100/distance.length()+1))
+                        distance = self.frpath.getPos()+player.model.getPos()-AI.AI.playerhandle.cspath.getPos()-AI.AI.playerhandle.model.getPos()
+                        AI.AI.playerhandle.damage(player, int(30/distance.length())+1)
                         continue
                     
                 for i in xrange(6):

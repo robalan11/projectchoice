@@ -222,6 +222,7 @@ class AI():
         if (weapon == 1):
             self.drop = "pistol"
             self.dropmodel = "Art/Models/pistol.egg"
+            self.pscale=Vec3(0.05, 0.05, 0.05)
             self.weapon = Weapon.Pistol(self.model, False, Vec3(0,0,4))
             self.killzone=30*AI.scale
             self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouchingpistol.egg"})
@@ -244,6 +245,7 @@ class AI():
             self.blah=True
             self.drop = "shotgun"
             self.dropmodel = "Art/Models/shotgun.egg"
+            self.pscale=Vec3(0.1, 0.1, 0.1)
             self.weapon = Weapon.Shotgun(self.model, False, Vec3(0,0,4))
             self.killzone=20*AI.scale
             self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouchingbiggun.egg"})
@@ -252,7 +254,7 @@ class AI():
             self.model.loadAnims({"Idle": "Art/animations/human"+str(model)+"-idleshotgun.egg"})
             self.model.loadAnims({"Fire": "Art/animations/human"+str(model)+"-fireshotgun.egg"})
             w=loader.loadModel("Art/Models/shotgun.egg")
-            self.anim_start={"Crouch":0, "Run":0, "Walk":3, "Idle":0, "Fire":6}
+            self.anim_start={"Crouch":0, "Run":6, "Walk":6, "Idle":0, "Fire":6}
             self.anim_end={"Crouch":self.model.getNumFrames("Crouch")-1}
             self.anim_end["Run"]=self.model.getNumFrames("Run")-1
             self.anim_end["Walk"]=self.model.getNumFrames("Walk")-1
@@ -266,6 +268,7 @@ class AI():
         elif (weapon ==3):
             self.drop="assault"
             self.dropmodel = "Art/Models/assaultrifle.egg"
+            self.pscale=Vec3(0.1, 0.1, 0.1)
             self.killzone=30*AI.scale
             self.weapon = Weapon.Rifle(self.model, False, Vec3(0,0,4))
             self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouchingbiggun.egg"})
@@ -274,7 +277,7 @@ class AI():
             self.model.loadAnims({"Idle": "Art/animations/human"+str(model)+"-idleassultrifle.egg"})
             self.model.loadAnims({"Fire": "Art/animations/human"+str(model)+"-fireassultrifle.egg"})
             w=loader.loadModel("Art/Models/assaultrifle.egg")
-            self.anim_start={"Crouch":0, "Run":0, "Walk":3, "Idle":0, "Fire":2}
+            self.anim_start={"Crouch":0, "Run":6, "Walk":6, "Idle":0, "Fire":2}
             self.anim_end={"Crouch":self.model.getNumFrames("Crouch")-1}
             self.anim_end["Run"]=self.model.getNumFrames("Run")-1
             self.anim_end["Walk"]=self.model.getNumFrames("Walk")-1
@@ -288,6 +291,7 @@ class AI():
             # Change later to different melee weaps for different AI
             self.drop = "health"
             self.dropmodel = "Art/Models/health.egg"
+            self.pscale=Vec3(0.5, 0.5, 0.5)
             self.weapon = Weapon.Knife(self.model, False, Vec3(0,0,4))
             self.killzone = 2.75
             self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouching.egg"})
@@ -314,6 +318,7 @@ class AI():
             # Change later to different melee weaps for different AI
             self.drop = "health"
             self.dropmodel = "Art/Models/health.egg"
+            self.pscale=Vec3(0.5, 0.5, 0.5)
             self.weapon = Weapon.Pipe(self.model, False, Vec3(0,0,4))
             self.killzone = 2.75
             self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouching.egg"})
@@ -389,7 +394,7 @@ class AI():
             self.forceturn = True
             self.target = attacker
             self.targetpos = attacker.model.getPos()
-        if self.health<0:
+        if self.health<=0:
             self.model.play("Dying", fromFrame=6)
             self.dying=True
             self.dead = True
@@ -428,19 +433,23 @@ class AI():
             #self.w.setR(self.w.getR()+1)
         
         if self.dying==True:
-            if self.model.getCurrentFrame("Dying")>=self.model.getNumFrames("Dying")-1 and self.dropped==False:
-                powerup=loader.loadModel(self.dropmodel)
-                powerup.setPos(self.model.getPos())
-                sphere=CollisionSphere(0,0,0,1)
-                spherep=powerup.attachNewNode(CollisionNode(self.drop))
-                spherep.node().addSolid(sphere)
-                spherep.setCollideMask(BitMask32(0x20))
+            if self.model.getCurrentFrame("Dying")>=self.model.getNumFrames("Dying")-4 and self.dropped==False:
                 self.model.node().removeAllChildren()
                 self.cspath.node().clearSolids()
                 self.AIspath.node().clearSolids()
                 self.ctpath.node().clearSolids()
                 base.cTrav.removeCollider(self.AIspath)
+                powerup=loader.loadModel(self.dropmodel)
+                powerup.setPos(self.model.getPos())
+                powerup.setScale(self.pscale)
+                powerup.reparentTo(self.level.rootnode)
+                sphere=CollisionSphere(0,0,0,1)
+                spherep=powerup.attachNewNode(CollisionNode(self.drop))
+                spherep.node().addSolid(sphere)
+                spherep.setCollideMask(BitMask32(0x20))
+                #spherep.show()
                 self.dropped=True
+                #self.dead=True
                 #del AI.AI_dict[self.ID]
                 #taskMgr.doMethodLater(5, self.destroy, "Remove me")
             return Task.cont
@@ -588,7 +597,27 @@ class AI():
         self.model.setH((self.model.getH()+180)%360-180)
         self.loud=(self.weapon.firesound.status()==2)*40
         return Task.cont
-    
+ 
+#~ class Powerup():
+        #~ def __init__(self, AI):
+            #~ self.powerup=loader.loadModel("Art/Models/box.egg")
+            #~ #self.powerup=loader.loadModel(AI.dropmodel)
+            #~ self.powerup.show()
+            #~ self.powerup.reparentTo(render)
+            #~ self.powerup.setPos(AI.model.getPos()+Vec3(0,0,1))
+            #~ sphere=CollisionSphere(0,0,0,3)
+            #~ self.spherep=self.powerup.attachNewNode(CollisionNode(AI.drop))
+            #~ self.spherep.node().addSolid(sphere)
+            #~ self.spherep.setCollideMask(BitMask32(0x20))
+            #~ #self.spherep.show()
+            #~ taskMgr.add(self.tick, "Powerup tick")
+        #~ def tick(self, task):
+            #~ distance=self.powerup.getPos()-AI.playerhandle.model.getPos()
+            #~ print distance.length()
+            #~ #print self.powerup.getPos()
+            #~ #print self.spherep.getPos()
+            #~ return Task.cont
+            
 class AI_manifest(FSM.FSM):
     def init(self, model):
         self.model=model

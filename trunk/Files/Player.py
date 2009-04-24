@@ -206,6 +206,7 @@ class Player ():
         if (self.keyMap["use"]==1) and self.usecheck==True:
             self.use=True
             self.usecheck=False
+            print self.model.getPos()
         else:
             self.use=False
             if (self.keyMap["use"]==0):
