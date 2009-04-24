@@ -66,7 +66,7 @@ class Level(object):
             player.nodepath().setHpr(0,0,0)
             
             
-        self.rootnode.setShaderAuto()
+        #self.rootnode.setShaderAuto()
     def loadLevelfile(self,levelfile):
         grid = open(levelfile, 'r').readlines()
         for row in grid:
