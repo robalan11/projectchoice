@@ -86,9 +86,10 @@ class Event(object):
         if self.worldref.player.keyMap["shoot"] == 1:
             for line in self.textlines:
                 line.hide()
-            timediff = self.cinematic.events[self.cinematic.nextevent].time - time.clock()
-            for event in self.cinematic.events:
-                event.time -= timediff
+            if self.cinematic.nextevent < len(self.cinematic.events):
+                timediff = self.cinematic.events[self.cinematic.nextevent].time - time.clock()
+                for event in self.cinematic.events:
+                    event.time -= timediff
             return Task.done
         elapsed = time.clock()-self.time
         if self.first:

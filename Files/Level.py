@@ -238,6 +238,9 @@ class Level(object):
                 elif(self.level[y][x].Enemy=="P"):
                     #guard ak
                     AI(2,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3,self.collisionStuff, self)
+                elif(self.level[y][x].Enemy=="Q"):
+                    #Warden
+                    AI(3,False,2,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,5,self.collisionStuff, self)
                 
     
     def loadcines(self):
