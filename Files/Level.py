@@ -9,22 +9,22 @@ class Level(object):
     def __init__(self,levelfile, player, entrancetype):
         
         self.rootnode = loader.loadModel("Art/Models/wall_1.egg")
-        self.rootnode.setPos(-1,-1,-1)
+        self.rootnode.setPos(0,0,0)
         self.rootnode.reparentTo(render)
         self.geometrynode=loader.loadModel("Art/Models/wall_1.egg")
-        self.geometrynode.setPos(-1,-1,-1)
+        self.geometrynode.setPos(0,0,0)
         self.geometrynode.reparentTo(self.rootnode)
         
         self.collisionStuff = loader.loadModel("Art/Models/wall_1.egg")
-        self.collisionStuff.setPos(-1,-1,-1)
+        self.collisionStuff.setPos(0,0,0)
         self.collisionStuff.reparentTo(self.rootnode)
         
         self.floorceilnode = loader.loadModel("Art/Models/wall_1.egg")
-        self.floorceilnode.setPos(-1,-1,-1)
+        self.floorceilnode.setPos(0,0,0)
         self.floorceilnode.reparentTo(self.geometrynode)
         
         self.wallnode = loader.loadModel("Art/Models/wall_1.egg")
-        self.wallnode.setPos(-1,-1,-1)
+        self.wallnode.setPos(0,0,0)
         self.wallnode.reparentTo(self.collisionStuff)
         
         player.model.reparentTo(self.collisionStuff)
@@ -132,7 +132,7 @@ class Level(object):
             powerup.loop('spin')
         else:
             powerup=loader.loadModel(powerup_model)
-        powerup.setPos(Vec3(x*cellsize, -y*cellsize, 3))
+        powerup.setPos(Vec3(x*cellsize, -y*cellsize, 2.5))
         sphere=CollisionSphere(0,0,0,1)
         spherep=powerup.attachNewNode(CollisionNode(powerup_name))
         spherep.node().addSolid(sphere)
@@ -262,7 +262,7 @@ class Level(object):
         type = self.level[y][x].Floor
         if(type=='F' or type=='g' or type=='h'):
             environ=loader.loadModel("Art/Models/floor_1.egg")
-            environ.setPos(x*cellsize,(-1*y)*cellsize,0*cellsize)
+            environ.setPos(x*cellsize,(-1*y)*cellsize,0)
             self.drawCeiling( y, x)
             
             normtext=self.getFloorNormalName(self.level[y][x].Floor)
@@ -280,16 +280,16 @@ class Level(object):
         self.prepareFloorModel(environ, texture)
         if(type=='a' or type == 'l'):
             environ.setHpr(-90,0,0)
-            environ.setPos(x*cellsize,(-1*y)*cellsize,0*cellsize)
+            environ.setPos(x*cellsize,(-1*y)*cellsize,0)
         elif(type=='b' or type == 'u'):
             environ.setHpr(0,0,0)
-            environ.setPos((x)*cellsize,(-1*y)*cellsize,0*cellsize)
+            environ.setPos((x)*cellsize,(-1*y)*cellsize,0)
         elif(type=='c' or type == 'r'):
             environ.setHpr(90,0,0)
-            environ.setPos(x*cellsize,(-1*y)*cellsize,0*cellsize)
+            environ.setPos(x*cellsize,(-1*y)*cellsize,0)
         elif(type=='e' or type == 'd'):
             environ.setHpr(180,0,0)
-            environ.setPos((x)*cellsize,(-1*y)*cellsize,0*cellsize)
+            environ.setPos((x)*cellsize,(-1*y)*cellsize,0)
         
         
         
@@ -299,7 +299,7 @@ class Level(object):
         if(not self.level[y][x].Floor=="."):
             environ = loader.loadModel("Art/Models/wall_door_1.egg")
             self.prepareWallModel(environ, texture)
-            environ.setPos((x-(1-wallbuffer))*cellsize,(-1*y)*cellsize,(0+0.5)*cellsize)
+            environ.setPos((x-(1-wallbuffer))*cellsize,(-1*y)*cellsize,(0.5)*cellsize)
             environ.setHpr(0,0,0)
             
         if(x>0 and not self.level[y][x-1].Floor=="."):
@@ -312,6 +312,16 @@ class Level(object):
         self.prepareWallModel(environ,texture)
         environ.setPos((x-1+wallbuffer)*cellsize,(-1*y)*cellsize,(0+0.5)*cellsize)
         environ.setHpr(-180,0,0)
+        
+        #Create the Door Itself
+        environ = loader.loadModel("Art/Models/door_2")
+        environ.setCollideMask(BitMask32(0x01))
+        environ.reparentTo(self.wallnode)
+        environ.setPos((x-(wallbuffer)+0.05)*cellsize,(-1*y)*cellsize,(0+0.4)*cellsize)
+        environ.setHpr(-180,0,0)
+        
+        
+        
     def drawWestSliding(self, y, x, texture):
         if(not self.level[y][x].Floor=="."):
             environ = loader.loadModel("Art/Models/wall_door_1.egg")
@@ -374,6 +384,13 @@ class Level(object):
         environ = loader.loadModel("Art/Models/door_spacer_1.egg")
         self.prepareWallModel(environ,texture)
         environ.setPos(x*cellsize,((-1*y)+(wallbuffer))*cellsize,(0+0.5)*cellsize)
+        environ.setHpr(-90,0,0)
+        
+        #Create the Door Itself
+        environ = loader.loadModel("Art/Models/door_2")
+        environ.setCollideMask(BitMask32(0x01))
+        environ.reparentTo(self.wallnode)
+        environ.setPos(x*cellsize,((-1*y)+(wallbuffer)-0.05)*cellsize,(0+0.4)*cellsize)
         environ.setHpr(-90,0,0)
         
     def drawNorthSliding(self, y, x, texture):
