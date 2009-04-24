@@ -38,9 +38,12 @@ class Player ():
         if base.mouseWatcherNode.hasMouse():
             self.mouse_x = base.mouseWatcherNode.getMouseX()
             self.mouse_y = base.mouseWatcherNode.getMouseY()
+            pass
         else:
             self.mouse_x = 0
             self.mouse_y = 0
+            
+        base.win.movePointer(0, base.win.getXSize()/2, base.win.getYSize()/2)
     
         self.cs=CollisionSphere(0,0,0,1.25)
         self.cspath=self.model.attachNewNode(CollisionNode('pspher'))
