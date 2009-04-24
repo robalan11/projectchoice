@@ -20,6 +20,7 @@ class Level(object):
         self.EntranceFacingP=0.0
         self.EntranceFacingG=0.0
         self.levelfilename = levelfile.split('/')[-1].split('.')[0]
+        self.currentfilename=levelfile
         self.loadLevelfile(levelfile)
         self.cines = {}
         self.ais = []
@@ -27,14 +28,25 @@ class Level(object):
         self.entrancetype = entrancetype
         
         alight = AmbientLight('alight')
-        alight.setColor(VBase4(0.6, 0.5, 0.5, 1))
+        alight.setColor(VBase4(0.1, 0.1, 0.1, 1))
         alnp = self.geometrynode.attachNewNode(alight)
         self.geometrynode.setLight(alnp)
         
         alight2 = AmbientLight('alight')
-        alight2.setColor(VBase4(0.2, 0.2, 0.2, 1))
+        alight2.setColor(VBase4(0.1, 0.1, 0.1, 1))
         alnp2 = self.geometrynode.attachNewNode(alight2)
         self.rootnode.setLight(alnp2)
+        
+        self.lightpivot = render.attachNewNode("lightpivot")
+        plight = PointLight('plight')
+        plight.setColor(Vec4(1.5, 1.5, 1.5, 1))
+        plight.setAttenuation(Vec3(0.7,0.05,0))
+        self.plnp = self.lightpivot.attachNewNode(plight)
+        self.plnp.setPos(0, 0, 5)
+        self.rootnode.setLight(self.plnp)
+        self.rootnode.setShaderInput("light", self.plnp)
+        
+        
         
         dlight = DirectionalLight('dlight')
         dlight.setColor(VBase4(0.9, 0.9, 0.6, 1))
@@ -50,6 +62,9 @@ class Level(object):
         else:
             player.nodepath().setPos(1*cellsize,(-1*1)*cellsize,0.5*cellsize) #default location
             player.nodepath().setHpr(0,0,0)
+            
+            
+        self.rootnode.setShaderAuto()
     def loadLevelfile(self,levelfile):
         grid = open(levelfile, 'r').readlines()
         for row in grid:
@@ -211,9 +226,7 @@ class Level(object):
         environ.setCollideMask(BitMask32(0x02))
         environ.reparentTo(self.geometrynode)
         
-        #TO BE FIXED
         environ.setTexture(myTexture, 1) 
-        #Causes flickering, but texture doesn't appear!
         
     def prepareWallModel(self, environ, texture):
         myTexture = loader.loadTexture(texture)
@@ -237,6 +250,13 @@ class Level(object):
             environ=loader.loadModel("Art/Models/floor_1.egg")
             environ.setPos(x*cellsize,(-1*y)*cellsize,0*cellsize)
             self.drawCeiling( y, x)
+            
+            normtext=self.getFloorNormalName(self.level[y][x].Floor)
+            myTexture = loader.loadTexture(normtext)
+            ts = TextureStage('ts')
+            ts.setMode(TextureStage.MNormal)
+            environ.setTexture(ts, myTexture)
+
         elif(type=='a' or type == 'b' or type == 'c' or type == 'e'):
             environ=loader.loadModel("Art/Models/stairs_2.egg")
         elif(type=='u' or type == 'd' or type == 'l' or type == 'r'):
@@ -367,8 +387,21 @@ class Level(object):
     def getFloorTextureName(self, type):
         if(type == "F"):
             return "Art/Textures/stone_tiles_1.jpg"
+        elif(type == "g"):
+            return "Art/Textures/stone_bricks_1.jpg"
+        elif(type == "h"):
+            return "Art/Textures/dirty_bricks.jpg"
         else:
             return "Art/Textures/stone_tiles_1.jpg"
+    def getFloorNormalName(self, type):
+        if(type == "F"):
+            return "Art/Textures/stone_tiles_1_norm.jpg"
+        elif(type == "g"):
+            return "Art/Textures/stone_bricks_1_norm.jpg"
+        elif(type == "h"):
+            return "Art/Textures/dirty_bricks_norm.jpg"
+        else:
+            return "Art/Textures/stone_tiles_1_norm.jpg"
             
     def draw(self):
         #for each room

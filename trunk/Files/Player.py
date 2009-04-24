@@ -10,6 +10,7 @@ from AI import calculateHpr
 import math
 import Weapon
 import Cinematics
+from Level import Level
 
 #This assumes that base.cTrav has been defined
 
@@ -122,6 +123,7 @@ class Player ():
         self.loyalty = [50, 50] # out of a minimum of 0 and a maximum of 100
         self.pobjective=[False, False]
         self.gobjective=[False, False]
+        self.Respawning = False
         
         self.runningcinematic = False
         
@@ -250,7 +252,7 @@ class Player ():
                 self.armor-=damage
         else:
             self.health -= damage
-        if self.health<=0:
+        if self.health<=0 and self.Respawning == False:
             self.health=0
             self.dying=True
             self.dead=True
@@ -258,13 +260,25 @@ class Player ():
             restart=Func(self.restart)
             delay = Wait(2)
             interval=Sequence(deathcam, delay, restart)
-            interval.start()
+            #interval.start()
+            self.restart()
     
     def restart(self):
         print "Reload level"
+        self.Respawning = True
+        self.dx = 0
+        self.dy = 0
+        entrancetype = self.worldref.level.entrancetype
+        filename=self.worldref.level.currentfilename
+        self.worldref.level.rootnode.removeNode()
+        self.worldref.level = Level(filename, self, entrancetype)
+        self.worldref.player.setLevel(self.worldref.level)
+        
         base.camera.setPos(0,0,4)
         self.dead=False
         self.dying=False
+        self.health = 100
+        self.Respawning = False
         
     
     def broadcast_attack(self, AI_hit):
@@ -286,6 +300,8 @@ class Player ():
                 #~ AI_hit attacks player
                 AI_hit.forcedenemy=True
     def tick(self,task_object):
+        self.worldref.level.plnp.setPos(self.model.getPos().getX(), self.model.getPos().getY(), 5)
+    
         if self.runningcinematic:
             return Task.cont
         if self.dying or self.dead:
