@@ -257,8 +257,8 @@ class AI():
             self.anim_start={"Crouch":0, "Run":6, "Walk":6, "Idle":0, "Fire":6}
             self.anim_end={"Crouch":self.model.getNumFrames("Crouch")-1}
             self.anim_end["Run"]=self.model.getNumFrames("Run")-1
-            self.anim_end["Walk"]=self.model.getNumFrames("Walk")-1
-            self.anim_end["Idle"]=self.model.getNumFrames("Idle")-1
+            self.anim_end["Walk"]=self.model.getNumFrames("Walk")-20
+            self.anim_end["Idle"]=self.model.getNumFrames("Idle")-20
             self.anim_end["Fire"]=self.model.getNumFrames("Fire")-1
             w.setScale(0.1, 0.1,0.1)
             w.setPos(0.80, 0.0, -0.4)
@@ -279,8 +279,9 @@ class AI():
             w=loader.loadModel("Art/Models/assaultrifle.egg")
             self.anim_start={"Crouch":0, "Run":6, "Walk":6, "Idle":0, "Fire":2}
             self.anim_end={"Crouch":self.model.getNumFrames("Crouch")-1}
-            self.anim_end["Run"]=self.model.getNumFrames("Run")-1
-            self.anim_end["Walk"]=self.model.getNumFrames("Walk")-1
+            self.anim_end["Run"]=self.model.getNumFrames("Run")-20
+            print self.model.getNumFrames("Run")
+            self.anim_end["Walk"]=self.model.getNumFrames("Walk")-20
             self.anim_end["Idle"]=self.model.getNumFrames("Idle")-1
             self.anim_end["Fire"]=4
             w.setScale(0.1, 0.1,0.1)
