@@ -396,7 +396,6 @@ class Player ():
                 if self.use==True:
                     self.worldref.level.door_dict[name].play("open")
                     self.worldref.level.door_col[name].remove()
-                    print "I'm a door"
                 
             if remove==True:
                 self.phandle.getEntry(i).getIntoNodePath().getParent().remove()
