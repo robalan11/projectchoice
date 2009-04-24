@@ -83,14 +83,6 @@ class Event(object):
         return Task.done
     
     def speak(self, title):
-        if self.worldref.player.keyMap["shoot"] == 1:
-            for line in self.textlines:
-                line.hide()
-            if self.cinematic.nextevent < len(self.cinematic.events):
-                timediff = self.cinematic.events[self.cinematic.nextevent].time - time.clock()
-                for event in self.cinematic.events:
-                    event.time -= timediff
-            return Task.done
         elapsed = time.clock()-self.time
         if self.first:
             text = open(self.file, 'r').readlines()
@@ -101,6 +93,14 @@ class Event(object):
                 pos -= 0.09
                 self.textlines.append(OnscreenText(text=line, style=1, fg=(0.9,0.8,0.6,1), shadow=(0,0,0,0.7), pos=(0, pos), align=TextNode.ACenter, scale = .09))#, font = self.font))
             self.first = False
+        if self.worldref.player.keyMap["shoot"] == 1:
+            for line in self.textlines:
+                line.hide()
+            if self.cinematic.nextevent < len(self.cinematic.events):
+                timediff = self.cinematic.events[self.cinematic.nextevent].time - time.clock()
+                for event in self.cinematic.events:
+                    event.time -= timediff
+            return Task.done
         if elapsed < self.duration:
             return Task.cont
         for line in self.textlines:
