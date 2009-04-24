@@ -1,5 +1,5 @@
-30 -8 65,-5,4
+30 -8 65,-5,7
 0.0 s 4.0 ai2 Cinematics/Level4-1.spk 0 2
-3.7 c 1.0 ai3 45 0 65,-5,4  
+3.7 c 1.0 ai3 45 0 65,-5,7  
 4.0 s 4.0 ai3 Cinematics/Level4-1.spk 2 4
 8.0 q 0.5 player

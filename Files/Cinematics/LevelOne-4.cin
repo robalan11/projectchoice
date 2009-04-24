@@ -1,6 +1,6 @@
-225 -8 180,-160,4
+225 -8 180,-160,7
 0.0 s 4.0 ai0 Cinematics/Level1-4.spk 0 2
-3.7 c 1.0 ai1 -90 0 180,-160,4
+3.7 c 1.0 ai1 -90 0 180,-160,7
 4.0 s 6.0 ai1 Cinematics/Level1-4.spk 2 5
 10.0 g 0.5 player 2
 10.0 n 0.5 player leveledit/Level2.txt P
