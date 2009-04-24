@@ -1,3 +1,6 @@
+from pandac.PandaModules import loadPrcFileData
+loadPrcFileData("", """fullscreen 1
+win-size 1024 768""")
 import direct.directbase.DirectStart
 from direct.showbase.DirectObject import DirectObject
 from pandac.PandaModules import * 
