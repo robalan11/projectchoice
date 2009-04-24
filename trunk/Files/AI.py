@@ -471,7 +471,7 @@ class AI():
         distance = Vec3(self.level.player.model.getPos())-Vec3(self.model.getPos())
         distance.setZ(0)
         #STOP AI over 50 from player! Does this help? It doesn't seem to help much...
-        if distance.length() >120:
+        if False:#distance.length() >120:
             return Task.cont
         else:
             if self.targetlist==[] and self.awareof!=0: #If see nothing and hear something, turn to it
