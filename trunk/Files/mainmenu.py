@@ -58,7 +58,8 @@ class MainMenu(object):
 
 class YouWin(object):
     def __init__(self):
-        self.background = self.createGuiLabel("Art/Menu/MenuTip.png", 800, 600, 0, 0)
+        props.setCursorHidden(False)
+        self.background = self.createGuiLabel("Art/Menu/YouWin.png", 800, 600, 0, 0)
         
         self.quitButton = self.createGuiButton("Exit", -90, 350, 100, sys.exit)
         
