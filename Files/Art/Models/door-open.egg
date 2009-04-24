@@ -1,0 +1,29 @@
+<CoordinateSystem> { Y-Up }
+
+<Comment> {
+  "maya2egg2008 door_1_open.mb -a chan -cn door -o door-open.egg"
+}
+<Table> {
+  <Bundle> door {
+    <Table> "<skeleton>" {
+      <Table> joint1 {
+        <Xfm$Anim_S$> xform {
+          <Scalar> fps { 24 }
+          <Char*> order { srpht }
+          <S$Anim> x { <V> { 0.346154 } }
+          <S$Anim> y { <V> { -0.519231 } }
+          <S$Anim> z {
+            <V> {
+              0 0.178094 0.356187 0.534281 0.712375 0.890468 1.06856
+              1.24666 1.42475 1.60284 1.78094 1.95903 2.13712 2.31522
+              2.49331 2.6714 2.8495 3.02759 3.20569 3.38378 3.56187
+              3.73997 3.91806 4.09615
+            }
+          }
+        }
+      }
+    }
+    <Table> morph {
+    }
+  }
+}
