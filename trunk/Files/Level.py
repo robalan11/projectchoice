@@ -331,9 +331,9 @@ class Level(object):
         
         #Create the Door Itself
         environ = Actor()
-        environ.loadModel("Art/Models/door_1")
+        environ.loadModel("Art/Models/door_2")
         
-        environ.loadAnims({'open':"Art/Models/door_1-open.egg"})
+        environ.loadAnims({'open':"Art/Models/door_2-open.egg"})
         environ.reparentTo(self.wallnode)
         environ.setPos((x-(wallbuffer)+0.05)*cellsize,(-1*y)*cellsize,(0+0.4)*cellsize)
         environ.setHpr(-180,0,0)
@@ -417,8 +417,8 @@ class Level(object):
         environ.setHpr(-90,0,0)
         
         #Create the Door Itself
-        environ = Actor("Art/Models/door_1")
-        environ.loadAnims({'open':"Art/Models/door_1-open.egg"})
+        environ = Actor("Art/Models/door_2")
+        environ.loadAnims({'open':"Art/Models/door_2-open.egg"})
         environ.setCollideMask(BitMask32(0x01))
         environ.reparentTo(self.wallnode)
         environ.setPos(x*cellsize,((-1*y)+(wallbuffer)-0.05)*cellsize,(0+0.4)*cellsize)
@@ -523,7 +523,7 @@ class Level(object):
                     
                 elif(self.level[y][x].WestWall=="D"):
                     # make a door on the west
-                    self.drawWestDoor(y,x,WestWallTexture)
+                    self.drawWestSliding(y,x,WestWallTexture)
                 elif(self.level[y][x].WestWall=="S"):
                     #make a sliding door on the west
                     self.drawWestSliding(y,x,WestWallTexture)
@@ -534,7 +534,7 @@ class Level(object):
                     
                 elif(self.level[y][x].NorthWall=="D"):
                     # make a door on the north
-                    self.drawNorthDoor(y,x,NorthWallTexture)
+                    self.drawNorthSliding(y,x,NorthWallTexture)
                 
                 elif(self.level[y][x].NorthWall=="S"):
                     #make a sliding door on the west

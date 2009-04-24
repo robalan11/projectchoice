@@ -161,7 +161,7 @@ class AI():
         #World collision
         #Bit channels are only walls and floors!
     
-        self.cs=CollisionSphere(0,0,0,1.5*AI.scale)
+        self.cs=CollisionSphere(0,0,0,1.0*AI.scale)
         self.cspath=self.model.attachNewNode(CollisionNode('AIspher;' +  str(AI.ID)))
         self.cspath.node().addSolid(self.cs)
         self.cspath.node().setFromCollideMask(BitMask32(0x01))
