@@ -30,7 +30,7 @@ class Player ():
         #World collision
         #Bit channels are only walls and floors!
         base.camera.reparentTo(self.model)
-        base.camera.setPos(0,0,4.0)
+        base.camera.setPos(0,0,5.0)
         base.camera.setHpr(0,0,0)
         base.camLens.setFov(60)
         base.disableMouse()
@@ -98,6 +98,7 @@ class Player ():
         self.arms.setScale(0.5)
         self.arms.reparentTo(self.model)
         self.arms.setPos(0,0,-1.8)
+        self.arms.hide()
         
         self.AIs=CollisionSphere(0,0,-1.25,1.25)
         self.AIspath=self.model.attachNewNode(CollisionNode('pspher'))
@@ -176,10 +177,10 @@ class Player ():
         if base.win.movePointer(0, base.win.getXSize()/2, base.win.getYSize()/2):
             self.model.setH(self.model.getH() -  (x - base.win.getXSize()/2)*0.1)
             base.camera.setP(base.camera.getP() - (y - base.win.getYSize()/2)*0.1)
-            if base.camera.getP()>90:
-                base.camera.setP(90)
-            elif base.camera.getP()<-90:
-                base.camera.setP(-90)
+            if base.camera.getP()>60:
+                base.camera.setP(60)
+            elif base.camera.getP()<-60:
+                base.camera.setP(-60)
         
         if self.mhandle_floor.isOnGround(): #~ if not in the air
             self.dy = (self.keyMap["forward"]-self.keyMap["backward"])*0.75

@@ -12,12 +12,13 @@ from pandac.PandaModules import VBase3
 from Level import Level
 
 class Event(object):
-    def __init__(self, world, time, type, duration, target, remainder, starttime):
+    def __init__(self, world, time, type, duration, target, remainder, starttime, cinematic):
         self.worldref = world
         self.time = float(time) + starttime
         self.type = type
         self.duration = float(duration)
         self.target = target
+        self.cinematic = cinematic
         
         if self.type == 'm':
             self.function = self.move
@@ -82,6 +83,13 @@ class Event(object):
         return Task.done
     
     def speak(self, title):
+        if self.worldref.player.keyMap["shoot"] == 1:
+            for line in self.textlines:
+                line.hide()
+            timediff = self.cinematic.events[self.cinematic.nextevent].time - time.clock()
+            for event in self.cinematic.events:
+                event.time -= timediff
+            return Task.done
         elapsed = time.clock()-self.time
         if self.first:
             text = open(self.file, 'r').readlines()
@@ -133,7 +141,7 @@ class Event(object):
         self.target.runningcinematic = False
         base.camera.reparentTo(self.target.model)
         base.camera.setH(0)
-        base.camera.setPos(VBase3(0,0,4.0))
+        base.camera.setPos(VBase3(0,0,5.0))
         self.worldref.player.arms.show()
         for ai in self.worldref.level.ais:
             ai.cinematic = False
@@ -169,11 +177,9 @@ class Cinematic(object):
         self.camstart = events[0].split()
         for event in events[1:]:
             parts = event.split()
-            self.events.append(Event(self.worldref, parts[0], parts[1], parts[2], self.actors[parts[3]], parts[4:], self.start))
+            self.events.append(Event(self.worldref, parts[0], parts[1], parts[2], self.actors[parts[3]], parts[4:], self.start, self))
     
     def runCin(self, title):
-        #if self.worldref.player.keymap["shoot"] == 1:
-        #    return Task.done
         currtime = time.clock()
         while self.events[self.nextevent].time <= currtime:
             taskMgr.add(self.events[self.nextevent].function, str(title) + str(self.events[self.nextevent]))
