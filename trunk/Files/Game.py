@@ -5,6 +5,7 @@ from direct.task.Task import Task
 from direct.task.Task import TaskManager
 from Player import Player
 from Level import Level
+from mainmenu import MainMenu
 from AI import AI
 from AI import AIsight
 from GUI import GUI
@@ -14,6 +15,10 @@ import sys
 
 class World(DirectObject):
     def __init__(self):
+        self.mainmenu = MainMenu(self)
+    
+    def initMainGame(self):
+        self.mainmenu.__del__()
         base.cTrav=CollisionTraverser()
         self.player = Player("Art/Models/humanplayer-model.egg", self) #Add the dummy model
         self.player.model.setH(180)
