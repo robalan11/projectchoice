@@ -4,6 +4,8 @@ from direct.actor.Actor import Actor
 
 cellsize = 10
 wallbuffer = 0.55
+BumpMapping=True
+
 
 class Level(object):
     def __init__(self,levelfile, player, entrancetype):
@@ -50,11 +52,6 @@ class Level(object):
         alnp = self.geometrynode.attachNewNode(alight)
         self.geometrynode.setLight(alnp)
         
-        alight2 = AmbientLight('alight')
-        alight2.setColor(VBase4(0.1, 0.1, 0.1, 1))
-        alnp2 = self.geometrynode.attachNewNode(alight2)
-        self.rootnode.setLight(alnp2)
-        
         self.lightpivot = render.attachNewNode("lightpivot")
         plight = PointLight('plight')
         plight.setColor(Vec4(1.5, 1.5, 1.5, 1))
@@ -83,8 +80,8 @@ class Level(object):
             player.nodepath().setPos(1*cellsize,(-1*1)*cellsize,0.5*cellsize) #default location
             player.nodepath().setHpr(0,0,0)
             
-            
-        #self.rootnode.setShaderAuto()
+        if(BumpMapping==True):
+            self.rootnode.setShaderAuto()
     def loadLevelfile(self,levelfile):
         grid = open(levelfile, 'r').readlines()
         for row in grid:
@@ -137,7 +134,7 @@ class Level(object):
         if(powerup_name == "armor"):
             powerup = Actor()
             powerup.loadModel(powerup_model)
-            powerup.loadAnims({"spin":powerup_model})
+            powerup.loadAnims({"spin":"Art/Models/body_armor_anim.egg"})
             
             powerup.loop("spin")
         else:
@@ -278,14 +275,13 @@ class Level(object):
             environ.setPos(x*cellsize,(-1*y)*cellsize,0)
             self.drawCeiling( y, x)
             
-            normtext=self.getFloorNormalName(self.level[y][x].Floor)
-            myTexture = loader.loadTexture(normtext)
-            """
-            ts = TextureStage('ts')
-            ts.setMode(TextureStage.MNormal)
-            environ.setTexture(ts, myTexture)
-            """
-
+            if(BumpMapping==True):
+                normtext=self.getFloorNormalName(self.level[y][x].Floor)
+                myTexture = loader.loadTexture(normtext)
+                ts = TextureStage('ts')
+                ts.setMode(TextureStage.MNormal)
+                environ.setTexture(ts, myTexture)
+            
         elif(type=='a' or type == 'b' or type == 'c' or type == 'e'):
             environ=loader.loadModel("Art/Models/stairs_2.egg")
         elif(type=='u' or type == 'd' or type == 'l' or type == 'r'):
