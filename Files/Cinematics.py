@@ -123,7 +123,10 @@ class Event(object):
         self.worldref.player.setLevel(self.worldref.level)
 
     def give(self, title):
-        self.worldref.player.haveweapon[self.wepnum] = 1;
+        if self.wepnum == 10:
+            self.worldref.player.armor = 100
+        else:
+            self.worldref.player.haveweapon[self.wepnum] = 1
     
     def quit(self, title):
         self.target.runningcinematic = False

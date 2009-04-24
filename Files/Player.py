@@ -436,11 +436,30 @@ class Player ():
                         if not ai.dead:
                             return Task.cont
             
+            if self.levelref.levelfilename == "Level3A":
+                if cinenumber == '2':
+                    for ai in self.levelref.ais:
+                        if ai.team == True and ai.dead:
+                            return Task.cont
+                if cinenumber == '3':
+                    for ai in self.levelref.ais:
+                        if ai.team == False and ai.dead:
+                            return Task.cont
+                if cinenumber == '4':
+                    for ai in self.levelref.ais:
+                        if ai.team == True and not ai.dead:
+                            return Task.cont
+                if cinenumber == '5':
+                    for ai in self.levelref.ais:
+                        if ai.team == False and not ai.dead:
+                            return Task.cont
+            
             base.camera.reparentTo(render)
             actors = {"player": self}
             for ai in self.levelref.ais:
                 index = "ai" + str(self.levelref.ais.index(ai))
                 actors[index] = ai
+                ai.cinematic = True
             file = "Cinematics/" + self.levelref.levelfilename + "-" + self.levelref.cines[gridpos] + ".cin"
             Cinematics.Cinematic(file, actors, self.worldref)
             for key in self.levelref.cines.keys():
