@@ -304,7 +304,7 @@ class AI():
             self.dropmodel = "Art/Models/health.egg"
             self.pscale=Vec3(0.5, 0.5, 0.5)
             self.weapon = Weapon.Knife(self.model, False, Vec3(0,0,4))
-            self.killzone = 2.75
+            self.killzone = 4
             self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouching.egg"})
             self.model.loadAnims({"Run": "Art/animations/human"+str(model)+"-running.egg"})
             self.model.loadAnims({"Walk": "Art/animations/human"+str(model)+"-running.egg"})
@@ -331,7 +331,7 @@ class AI():
             self.dropmodel = "Art/Models/health.egg"
             self.pscale=Vec3(0.5, 0.5, 0.5)
             self.weapon = Weapon.Pipe(self.model, False, Vec3(0,0,4))
-            self.killzone = 2.75
+            self.killzone = 4
             self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouching.egg"})
             self.model.loadAnims({"Run": "Art/animations/human"+str(model)+"-running.egg"})
             self.model.loadAnims({"Walk": "Art/animations/human"+str(model)+"-running.egg"})
