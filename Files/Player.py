@@ -379,10 +379,18 @@ class Player ():
                 if abs(AI_look[0]-temp.model.getH())>AI.FOV and temp.targetlist==[]: #turn to face what bumped me
                     temp.forceturn = True
                     temp.targetpos = self.model.getPos()
-                elif self.use==True and abs(Player_look[0]-self.model.getH())<5 and self.loyalty[temp.team]>65: #facing and you want me to follow
-                    temp.follow=not temp.follow
+                    AI.huh[temp.team].play()
+                elif self.use==True and abs(Player_look[0]-self.model.getH())<5: #facing and you want me to follow
+                    if self.loyalty[temp.team]>65:
+                        temp.follow=not temp.follow
+                        if temp.follow:
+                            AI.follow[temp.team].play()
+                        else:
+                            AI.stay[temp.team].play()
+                    else:
+                        temp.follow=False
+                        AI.nofollow[temp.team].play()
                     self.use=False
-                    print temp.follow
             elif name[0:4] == "door":
                 remove=False
                 if self.use==True:

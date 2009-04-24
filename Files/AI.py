@@ -121,6 +121,11 @@ class AI():
     movetweak=2
     accuracy1=12
     accuracy2=0
+    follow=[loader.loadSfx("Sound/Guard/guardfollow.wav"), loader.loadSfx("Sound/Prisoner/inmatefollow.wav")]
+    stay=[loader.loadSfx("Sound/Guard/guardstay.wav"), loader.loadSfx("Sound/Prisoner/inmatestay.wav")]
+    nofollow=[loader.loadSfx("Sound/Guard/guardnofollow.wav"), loader.loadSfx("Sound/Prisoner/inmatenofollow.wav")]
+    huh=[loader.loadSfx("Sound/Guard/guardhuh.wav"), loader.loadSfx("Sound/Prisoner/inmateshuh.wav")]
+    hit=loader.loadSfx("Sound/Effects/hit.wav")
     
     def __init__(self, model, incell,team, startpos, starth, weapon,rootnode, level):
         #Model = Number of model body type. Just use 0 for default body
@@ -394,6 +399,7 @@ class AI():
         #attacker is the attacking player/AI which is passed to the weapon
         if self.health<0: #Already dying
             return
+        AI.hit.play()
         self.health -= damage
         self.look_angles = attacker.model.getPos()-self.model.getPos()
         self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
@@ -448,7 +454,7 @@ class AI():
                 self.ctpath.node().clearSolids()
                 base.cTrav.removeCollider(self.AIspath)
                 powerup=loader.loadModel(self.dropmodel)
-                powerup.setPos(self.model.getPos())
+                powerup.setPos(self.model.getPos()+Vec3(0,0,0.5))
                 powerup.setScale(self.pscale)
                 powerup.reparentTo(self.level.rootnode)
                 sphere=CollisionSphere(0,0,0,1)
