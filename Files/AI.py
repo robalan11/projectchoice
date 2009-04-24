@@ -71,7 +71,7 @@ def AIsight(task_object):
                     fromAI.fire.sortEntries()
                     fromAI.cspath.setCollideMask(BitMask32(0x11))
                     fromAI.ctpath.setCollideMask(BitMask32(0x04))
-                    #fromAI.frpath.setHpr(Vec3(0,0,0))
+                    fromAI.frpath.setHpr(Vec3(0,0,0))
                     #print fromAI.fire.getEntry(0).getIntoNodePath().getParent()
                     #print player.model.getGeomNode()
                     if fromAI.fire.getNumEntries()>0 and fromAI.fire.getEntry(0).getIntoNodePath().getParent()==player.model.getGeomNode():
@@ -118,7 +118,8 @@ class AI():
     walkanim=1
     scale=1.06#0.53
     movetweak=2
-    accuracy1=15
+    accuracy1=12
+    accuracy2=0
     
     def __init__(self, model, incell,team, startpos, starth, weapon,rootnode):
         #Model = Number of model body type. Just use 0 for default body
@@ -196,7 +197,7 @@ class AI():
         self.frpath.setCollideMask(BitMask32(0x00))
         self.fire=CollisionHandlerQueue()
         self.ftrav.addCollider(self.frpath, self.fire)
-        #self.frpath.show()
+        self.frpath.show()
         
         #Sight collision
         self.AIs=CollisionSphere(0,0,-1.25,60)
@@ -247,7 +248,7 @@ class AI():
             self.model.loadAnims({"Idle": "Art/animations/human"+str(model)+"-idleshotgun.egg"})
             self.model.loadAnims({"Fire": "Art/animations/human"+str(model)+"-fireshotgun.egg"})
             w=loader.loadModel("Art/Models/shotgun.egg")
-            self.anim_start={"Crouch":0, "Run":0, "Walk":3, "Idle":0, "Fire":0}
+            self.anim_start={"Crouch":0, "Run":0, "Walk":3, "Idle":0, "Fire":6}
             self.anim_end={"Crouch":self.model.getNumFrames("Crouch")-1}
             self.anim_end["Run"]=self.model.getNumFrames("Run")-1
             self.anim_end["Walk"]=self.model.getNumFrames("Walk")-1
@@ -506,7 +507,7 @@ class AI():
                     #Move to the target's last position                
                     self.look_angles = self.targetpos-Vec3(self.model.getPos())
                     self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
-                    self.dh=min(AI.turnspeed, max(self.look_angles.getX()-self.model.getH(), -AI.turnspeed))
+                    self.dh=min(AI.turnspeed, max(self.look_angles.getX()-self.model.getH()-AI.accuracy2, -AI.turnspeed))
                     if abs(self.dh)<1:
                         distance = Vec3(self.targetpos)-Vec3(self.model.getPos())
                         distance.setZ(0)
@@ -524,7 +525,7 @@ class AI():
                         #~ self.dy=AI.runspeed
                 #~ else:
                 #Turn to face target
-                self.dh=min(AI.turnspeed, max(self.look_angles.getX()-self.model.getH(), -AI.turnspeed))
+                self.dh=min(AI.turnspeed, max(self.look_angles.getX()-self.model.getH()-AI.accuracy2, -AI.turnspeed))
                 #If facing target, fire at them
                 if abs(self.dh)<AI.accuracy1:
                     distance = Vec3(self.targetpos)-Vec3(self.model.getPos())
