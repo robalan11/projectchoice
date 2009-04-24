@@ -116,6 +116,7 @@ class Event(object):
         return Task.done
     
     def nextlevel(self, title):
+        self.worldref.player.model.reparentTo(render)
         self.worldref.player.dx = 0
         self.worldref.player.dy = 0
         self.worldref.level.rootnode.removeNode()

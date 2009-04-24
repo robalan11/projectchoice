@@ -7,15 +7,27 @@ wallbuffer = 0.55
 
 class Level(object):
     def __init__(self,levelfile, player, entrancetype):
+        
         self.rootnode = loader.loadModel("Art/Models/wall_1.egg")
         self.rootnode.setPos(-1,-1,-1)
         self.rootnode.reparentTo(render)
         self.geometrynode=loader.loadModel("Art/Models/wall_1.egg")
         self.geometrynode.setPos(-1,-1,-1)
         self.geometrynode.reparentTo(self.rootnode)
-        self.floorceilnode=PandaNode("floorceil")
-        #self.floorceilnode.reparent_to(self.geometrynode)
         
+        self.collisionStuff = loader.loadModel("Art/Models/wall_1.egg")
+        self.collisionStuff.setPos(-1,-1,-1)
+        self.collisionStuff.reparentTo(self.rootnode)
+        
+        self.floorceilnode = loader.loadModel("Art/Models/wall_1.egg")
+        self.floorceilnode.setPos(-1,-1,-1)
+        self.floorceilnode.reparentTo(self.geometrynode)
+        
+        self.wallnode = loader.loadModel("Art/Models/wall_1.egg")
+        self.wallnode.setPos(-1,-1,-1)
+        self.wallnode.reparentTo(self.collisionStuff)
+        
+        player.model.reparentTo(self.collisionStuff)
         self.level=[]
         self.EntranceP=False
         self.EntranceG=False
@@ -85,8 +97,8 @@ class Level(object):
         
     def drawInterior(self, x, y, model, orientation):
         environ=loader.loadModel(model)
-        environ.reparentTo(self.rootnode)
-        environ.setPos(x*cellsize,(-1*y)*cellsize,(0)*cellsize)
+        environ.reparentTo(self.collisionStuff)
+        environ.setPos(x*cellsize,(-1*y)*cellsize, 0.0)
         environ.setHpr(90.0*int(orientation),0,0)
         tube=CollisionSphere(0,0,0,3)
         tubep=environ.attachNewNode(CollisionNode("Interior"))
@@ -169,53 +181,53 @@ class Level(object):
                 
                 if(self.level[y][x].Enemy=="A"):
                     #prison knife
-                    self.ais.append(AI(1,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0,self.rootnode))
+                    self.ais.append(AI(1,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0,self.collisionStuff, self))
                 elif(self.level[y][x].Enemy=="B"):
                     #prison pistol
-                    self.ais.append(AI(1,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1,self.rootnode))
+                    self.ais.append(AI(1,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1,self.collisionStuff, self))
                 elif(self.level[y][x].Enemy=="C"):
                     #prison shotgun
-                    self.ais.append(AI(1,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2,self.rootnode))
+                    self.ais.append(AI(1,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2,self.collisionStuff, self))
                 elif(self.level[y][x].Enemy=="D"):
                     #prison AK
-                    pass#AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3,self.rootnode)
-                    pass#self.ais.append(AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3,self.rootnode))
+                    pass#AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3,self.collisionStuff,self)
+                    pass#self.ais.append(AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3,self.collisionStuff,self))
                 elif(self.level[y][x].Enemy=="E"):
                     #guard melee
-                    AI(1,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0,self.rootnode)
+                    AI(1,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0,self.collisionStuff, self)
                 elif(self.level[y][x].Enemy=="F"):
                     #guard pistol
-                    self.ais.append(AI(1,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1,self.rootnode))
+                    self.ais.append(AI(1,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1,self.collisionStuff, self))
                 elif(self.level[y][x].Enemy=="G"):
                     #guard shotgun
-                    self.ais.append(AI(1,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2,self.rootnode))
+                    self.ais.append(AI(1,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2,self.collisionStuff, self))
                 elif(self.level[y][x].Enemy=="H"):
                     #guard ak
-                    AI(1,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3,self.rootnode)
+                    AI(1,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3,self.collisionStuff, self)
                 elif(self.level[y][x].Enemy=="I"):
                     #prison knife
-                    AI(2,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0,self.rootnode)
+                    AI(2,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0,self.collisionStuff, self)
                 elif(self.level[y][x].Enemy=="J"):
                     #prison pistol
-                    AI(2,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1,self.rootnode)
+                    AI(2,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1,self.collisionStuff, self)
                 elif(self.level[y][x].Enemy=="K"):
                     #prison shotgun
-                    AI(2,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2,self.rootnode)
+                    AI(2,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2,self.collisionStuff, self)
                 elif(self.level[y][x].Enemy=="L"):
                     #prison AK
-                    AI(2,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3,self.rootnode)
+                    AI(2,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3,self.collisionStuff, self)
                 elif(self.level[y][x].Enemy=="M"):
                     #guard melee
-                    AI(2,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0,self.rootnode)
+                    AI(2,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0,self.collisionStuff, self)
                 elif(self.level[y][x].Enemy=="N"):
                     #guard pistol
-                    AI(2,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1,self.rootnode)
+                    AI(2,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,1,self.collisionStuff, self)
                 elif(self.level[y][x].Enemy=="O"):
                     #guard shotgun
-                    AI(2,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2,self.rootnode)
+                    AI(2,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,2,self.collisionStuff, self)
                 elif(self.level[y][x].Enemy=="P"):
                     #guard ak
-                    AI(2,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3,self.rootnode)
+                    AI(2,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3,self.collisionStuff, self)
                 
     
     def loadcines(self):
@@ -226,21 +238,21 @@ class Level(object):
     def prepareFloorModel(self, environ, texture):
         myTexture = loader.loadTexture(texture)
         environ.setCollideMask(BitMask32(0x02))
-        environ.reparentTo(self.geometrynode)
+        environ.reparentTo(self.floorceilnode)
         
         environ.setTexture(myTexture, 1) 
         
     def prepareWallModel(self, environ, texture):
         myTexture = loader.loadTexture(texture)
         environ.setCollideMask(BitMask32(0x01))
-        environ.reparentTo(self.geometrynode)
+        environ.reparentTo(self.wallnode)
         environ.setTexture(myTexture, 1)
         
         
     def drawCeiling(self, y, x):
         environ = loader.loadModel("Art/Models/ceiling_1.egg")
         environ.setCollideMask(BitMask32(0x02))
-        environ.reparentTo(self.geometrynode)
+        environ.reparentTo(self.floorceilnode)
         environ.setPos(x*cellsize,(-1*y)*cellsize,1*cellsize)
         
     def drawFloor(self, y, x):
