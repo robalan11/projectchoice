@@ -42,6 +42,7 @@ class Level(object):
         self.ais = []
         self.start()
         self.entrancetype = entrancetype
+        self.player=player
         
         
         alight = AmbientLight('alight')

@@ -6,6 +6,7 @@ from direct.task.Task import Task
 from direct.fsm import FSM
 import Weapon
 import math
+import time
 
     #5th collision bit is AI vision
 def calculateHpr(v, norm_angles):
@@ -413,6 +414,7 @@ class AI():
         
     
     def tick(self,task_object):
+        
         #if self.dead:
             #del self
             #return
@@ -458,114 +460,114 @@ class AI():
                 #taskMgr.doMethodLater(5, self.destroy, "Remove me")
             return Task.cont
             
-        distance = Vec3(self.targetpos)-Vec3(self.model.getPos())
+        distance = Vec3(self.level.player.model.getPos())-Vec3(self.model.getPos())
         distance.setZ(0)
         #STOP AI over 50 from player! Does this help? It doesn't seem to help much...
-        if distance.length() >50:
+        if distance.length() >120:
             return Task.cont
-        
-        if self.targetlist==[] and self.awareof!=0: #If see nothing and hear something, turn to it
-            self.targetpos=self.awareof.model.getPos()
-            self.forceturn=True #Trips the next statement
-            self.awareof=0
-        if self.forceturn==True:
-            self.look_angles = self.targetpos-Vec3(self.model.getPos())
-            self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
-            self.dh=min(AI.turnspeed, max(self.look_angles.getX()-self.model.getH(), -AI.turnspeed))
-            if abs(self.dh)<1:
-                self.forceturn=False
-                self.dh=0
-                self.targetpos=self.model.getPos()
         else:
-            #Select the first target that isn't hidden by something else
-            for target in self.targetlist:
-                if target==AI.playerhandle and self.seeplayer == True:
-                    self.seetarget=True
-                    self.targetpos=target.model.getPos()
-                    self.look_angles = self.targetpos-Vec3(self.model.getPos())
-                    self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
-                    break
-                if target.dying: #Don't waste your time on a dying target
-                    self.targetpos=self.model.getPos()
-                    break
-                self.look_angles = Vec3(target.model.getPos())-Vec3(self.model.getPos())
+            if self.targetlist==[] and self.awareof!=0: #If see nothing and hear something, turn to it
+                self.targetpos=self.awareof.model.getPos()
+                self.forceturn=True #Trips the next statement
+                self.awareof=0
+            if self.forceturn==True:
+                self.look_angles = self.targetpos-Vec3(self.model.getPos())
                 self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
-                #self.frpath.setHpr(self.look_angles-self.model.getHpr())
-                self.frpath.lookAt(target.cspath)
-                #self.frpath.show()
-                self.cspath.setCollideMask(BitMask32(0x00))
-                self.ctpath.setCollideMask(BitMask32(0x00))
-                self.ftrav.traverse(self.level.collisionStuff)
-                self.fire.sortEntries()
-                self.cspath.setCollideMask(BitMask32(0x11))
-                self.ctpath.setCollideMask(BitMask32(0x04))
-                self.fire.sortEntries()
-                #self.frpath.setHpr(Point3(0,0,0))
-                if self.fire.getNumEntries()>0 and self.fire.getEntry(0).getIntoNodePath().getParent()==target.model.getGeomNode():
-                        #Vision is not occluded, use this target
-                        self.seetarget=True
-                        self.targetpos = target.model.getPos()
-                        self.targetlist=[target]
-                        break
-            if self.seetarget==False:
-                #print self.seeplayer
-                #print self.model.getH()
-                #~ if self.health<10: #Health is at 1/5th strength
-                    #~ if self.rundistance<10:
-                        #~ self.dy=AI.runspeed
-                if self.seeplayer and self.follow:
-                    self.targetpos=AI.playerhandle.model.getPos()
-                    self.look_angles = self.targetpos-Vec3(self.model.getPos())
-                    self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
-                    #If following player, turn to player
-                    self.dh=min(AI.turnspeed, max(self.look_angles.getX()-self.model.getH(), -AI.turnspeed))
-                    if abs(self.dh)<1:
-                        distance = Vec3(self.targetpos)-Vec3(self.model.getPos())
-                        distance.setZ(0)
-                        #If facing player, run if you're >10 feet from them
-                        if distance.length() >AI.followradius:
-                            self.dy=min(AI.runspeed, (distance.length()-AI.followradius)/AI.movetweak)
-                elif self.targetlist != [] : #If had a target you lost sight of
-                    #Did your primary target move right behind you? Turn to face them first
-                    #~ if self.targetlist.len()>0:
-                        #~ temp=target[0].model.getPos()
-                        #~ self.look_angles = temp -self.model.getPos()
-                        #~ self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
-                        #~ temp = self.targetpos - self.model.getPos()
-                        #~ if abs(self.look_angles - self.getHpr())>AI.FOV and temp.length()<3:
-                            #~ #Turn
-                    #Move to the target's last position                
-                    self.look_angles = self.targetpos-Vec3(self.model.getPos())
-                    self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
-                    self.dh=min(AI.turnspeed, max(self.look_angles.getX()-self.model.getH()-AI.accuracy2, -AI.turnspeed))
-                    if abs(self.dh)<1:
-                        distance = Vec3(self.targetpos)-Vec3(self.model.getPos())
-                        distance.setZ(0)
-                        if distance.length()>0:
-                            self.dy=min(AI.runspeed, distance.length()/AI.movetweak)
-                        else:
-                            self.targetlist=[] #Lost your target
-                #If already there, idle
+                self.dh=min(AI.turnspeed, max(self.look_angles.getX()-self.model.getH(), -AI.turnspeed))
+                if abs(self.dh)<1:
+                    self.forceturn=False
+                    self.dh=0
+                    self.targetpos=self.model.getPos()
             else:
-                #~ if self.health<10: #Health is at 1/5th strength
-                    #~ #Turn away from target
-                    #~ self.dh=min(AI.turnspeed, max((self.look_angles[0]+180)%360-self.model.getH(), -AI.turnspeed))
-                    #~ #If turned away from target, run
-                    #~ if abs(self.dh)<20:
-                        #~ self.dy=AI.runspeed
-                #~ else:
-                #Turn to face target
-                self.dh=min(AI.turnspeed, max(self.look_angles.getX()-self.model.getH()-AI.accuracy2, -AI.turnspeed))
-                #If facing target, fire at them
-                if abs(self.dh)<AI.accuracy1:
-                    distance = Vec3(self.targetpos)-Vec3(self.model.getPos())
-                    distance.setZ(0)
-                    if distance.length()>self.killzone:
-                        self.dy=min(AI.runspeed, distance.length())
-                        #if distance.length()<self.killzone*1.4:
-                            #self.shooting=True
-                    else:
-                        self.shooting=True
+                #Select the first target that isn't hidden by something else
+                for target in self.targetlist:
+                    if target==AI.playerhandle and self.seeplayer == True:
+                        self.seetarget=True
+                        self.targetpos=target.model.getPos()
+                        self.look_angles = self.targetpos-Vec3(self.model.getPos())
+                        self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
+                        break
+                    if target.dying: #Don't waste your time on a dying target
+                        self.targetpos=self.model.getPos()
+                        break
+                    self.look_angles = Vec3(target.model.getPos())-Vec3(self.model.getPos())
+                    self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
+                    #self.frpath.setHpr(self.look_angles-self.model.getHpr())
+                    self.frpath.lookAt(target.cspath)
+                    #self.frpath.show()
+                    self.cspath.setCollideMask(BitMask32(0x00))
+                    self.ctpath.setCollideMask(BitMask32(0x00))
+                    self.ftrav.traverse(self.level.collisionStuff)
+                    self.fire.sortEntries()
+                    self.cspath.setCollideMask(BitMask32(0x11))
+                    self.ctpath.setCollideMask(BitMask32(0x04))
+                    self.fire.sortEntries()
+                    #self.frpath.setHpr(Point3(0,0,0))
+                    if self.fire.getNumEntries()>0 and self.fire.getEntry(0).getIntoNodePath().getParent()==target.model.getGeomNode():
+                            #Vision is not occluded, use this target
+                            self.seetarget=True
+                            self.targetpos = target.model.getPos()
+                            self.targetlist=[target]
+                            break
+                if self.seetarget==False:
+                    #print self.seeplayer
+                    #print self.model.getH()
+                    #~ if self.health<10: #Health is at 1/5th strength
+                        #~ if self.rundistance<10:
+                            #~ self.dy=AI.runspeed
+                    if self.seeplayer and self.follow:
+                        self.targetpos=AI.playerhandle.model.getPos()
+                        self.look_angles = self.targetpos-Vec3(self.model.getPos())
+                        self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
+                        #If following player, turn to player
+                        self.dh=min(AI.turnspeed, max(self.look_angles.getX()-self.model.getH(), -AI.turnspeed))
+                        if abs(self.dh)<1:
+                            distance = Vec3(self.targetpos)-Vec3(self.model.getPos())
+                            distance.setZ(0)
+                            #If facing player, run if you're >10 feet from them
+                            if distance.length() >AI.followradius:
+                                self.dy=min(AI.runspeed, (distance.length()-AI.followradius)/AI.movetweak)
+                    elif self.targetlist != [] : #If had a target you lost sight of
+                        #Did your primary target move right behind you? Turn to face them first
+                        #~ if self.targetlist.len()>0:
+                            #~ temp=target[0].model.getPos()
+                            #~ self.look_angles = temp -self.model.getPos()
+                            #~ self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
+                            #~ temp = self.targetpos - self.model.getPos()
+                            #~ if abs(self.look_angles - self.getHpr())>AI.FOV and temp.length()<3:
+                                #~ #Turn
+                        #Move to the target's last position                
+                        self.look_angles = self.targetpos-Vec3(self.model.getPos())
+                        self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
+                        self.dh=min(AI.turnspeed, max(self.look_angles.getX()-self.model.getH()-AI.accuracy2, -AI.turnspeed))
+                        if abs(self.dh)<1:
+                            distance = Vec3(self.targetpos)-Vec3(self.model.getPos())
+                            distance.setZ(0)
+                            if distance.length()>0:
+                                self.dy=min(AI.runspeed, distance.length()/AI.movetweak)
+                            else:
+                                self.targetlist=[] #Lost your target
+                    #If already there, idle
+                else:
+                    #~ if self.health<10: #Health is at 1/5th strength
+                        #~ #Turn away from target
+                        #~ self.dh=min(AI.turnspeed, max((self.look_angles[0]+180)%360-self.model.getH(), -AI.turnspeed))
+                        #~ #If turned away from target, run
+                        #~ if abs(self.dh)<20:
+                            #~ self.dy=AI.runspeed
+                    #~ else:
+                    #Turn to face target
+                    self.dh=min(AI.turnspeed, max(self.look_angles.getX()-self.model.getH()-AI.accuracy2, -AI.turnspeed))
+                    #If facing target, fire at them
+                    if abs(self.dh)<AI.accuracy1:
+                        distance = Vec3(self.targetpos)-Vec3(self.model.getPos())
+                        distance.setZ(0)
+                        if distance.length()>self.killzone:
+                            self.dy=min(AI.runspeed, distance.length())
+                            #if distance.length()<self.killzone*1.4:
+                                #self.shooting=True
+                        else:
+                            self.shooting=True
         #------------------------
         #Animation Handling
         #------------------------
@@ -607,6 +609,7 @@ class AI():
         self.model.setH(self.model.getH()+self.dh*time_tick)
         self.model.setH((self.model.getH()+180)%360-180)
         self.loud=(self.weapon.firesound.status()==2)*40
+        
         return Task.cont
  
 #~ class Powerup():
