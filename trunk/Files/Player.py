@@ -266,6 +266,7 @@ class Player ():
     def restart(self):
         print "Reload level"
         self.Respawning = True
+        self.model.reparentTo(render)
         self.dx = 0
         self.dy = 0
         entrancetype = self.worldref.level.entrancetype

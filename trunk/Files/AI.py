@@ -67,7 +67,7 @@ def AIsight(task_object):
                     fromAI.frpath.lookAt(player.cspath)
                     fromAI.cspath.setCollideMask(BitMask32(0x00))
                     fromAI.ctpath.setCollideMask(BitMask32(0x00))
-                    fromAI.ftrav.traverse(render)
+                    fromAI.ftrav.traverse(fromAI.level.collisionStuff)
                     fromAI.fire.sortEntries()
                     fromAI.cspath.setCollideMask(BitMask32(0x11))
                     fromAI.ctpath.setCollideMask(BitMask32(0x04))
@@ -121,7 +121,7 @@ class AI():
     accuracy1=12
     accuracy2=0
     
-    def __init__(self, model, incell,team, startpos, starth, weapon,rootnode):
+    def __init__(self, model, incell,team, startpos, starth, weapon,rootnode, level):
         #Model = Number of model body type. Just use 0 for default body
         # incell = Are you in a cell (This may not be used)
         #Team = 0 for guards, 1 for prisoner
@@ -142,6 +142,9 @@ class AI():
         self.model.setH(starth)
         self.model.setScale(AI.scale,AI.scale,AI.scale)
         self.manifest=AI_manifest(self.model)
+        
+        
+        self.level=level
         
         
         
@@ -472,7 +475,7 @@ class AI():
                 #self.frpath.show()
                 self.cspath.setCollideMask(BitMask32(0x00))
                 self.ctpath.setCollideMask(BitMask32(0x00))
-                self.ftrav.traverse(render)
+                self.ftrav.traverse(self.level.collisionStuff)
                 self.fire.sortEntries()
                 self.cspath.setCollideMask(BitMask32(0x11))
                 self.ctpath.setCollideMask(BitMask32(0x04))
