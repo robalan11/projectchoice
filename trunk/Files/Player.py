@@ -448,9 +448,13 @@ class Player ():
                     for ai in self.levelref.ais:
                         if ai.team == False and not ai.dead:
                             return Task.cont
+                        if ai.team == True and ai.dead:
+                            return Task.cont
                 if cinenumber == '7':
                     for ai in self.levelref.ais:
                         if ai.team == True and not ai.dead:
+                            return Task.cont
+                        if ai.team == False and ai.dead:
                             return Task.cont
                 if cinenumber == '8':
                     for ai in self.levelref.ais:
