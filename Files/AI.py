@@ -399,9 +399,9 @@ class AI():
         
     
     def tick(self,task_object):
-        if self.dead:
-            del self
-            return
+        #if self.dead:
+            #del self
+            #return
         
         if self.cinematic:
             return Task.cont
@@ -430,7 +430,7 @@ class AI():
                 spherep=powerup.attachNewNode(CollisionNode(self.drop))
                 spherep.node().addSolid(sphere)
                 spherep.setCollideMask(BitMask32(0x20))
-                #self.model.node().removeAllChildren()
+                self.model.node().removeAllChildren()
                 self.cspath.node().clearSolids()
                 self.AIspath.node().clearSolids()
                 self.ctpath.node().clearSolids()

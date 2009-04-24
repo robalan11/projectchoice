@@ -67,7 +67,7 @@ class Player ():
         
         #Firing collision (Passive/Into object only, bullets are active)
         #Bit channel is only bullets
-        self.ct=CollisionTube(0,0,4,0,0,-2,0.5)
+        self.ct=CollisionTube(0,0,4,0,0,-2,1)
         self.ctpath=self.model.attachNewNode(CollisionNode('ptarget'))
         self.ctpath.node().addSolid(self.ct)
         self.ctpath.node().setFromCollideMask(BitMask32(0x00))
@@ -258,7 +258,7 @@ class Player ():
             restart=Func(self.restart)
             delay = Wait(2)
             interval=Sequence(deathcam, delay, restart)
-            interval.play()
+            interval.start()
     
     def restart(self):
         print "Reload level"
