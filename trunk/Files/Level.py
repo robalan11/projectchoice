@@ -191,7 +191,7 @@ class Level(object):
                 elif(self.level[y][x].Enemy=="D"):
                     #prison AK
                     pass#AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3,self.collisionStuff,self)
-                    pass#self.ais.append(AI(loader.loadModel("Art/Models/human1-model.egg"),False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3,self.collisionStuff,self))
+                    self.ais.append(AI(1,False,True,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,3,self.collisionStuff, self))
                 elif(self.level[y][x].Enemy=="E"):
                     #guard melee
                     AI(1,False,False,Vec3(x*cellsize,(-1*y)*cellsize,0),enemyFacing,0,self.collisionStuff, self)
