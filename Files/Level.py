@@ -364,13 +364,13 @@ class Level(object):
         #Create the Door Itself
         environ = Actor("Art/Models/door-model")
         environ.loadAnims({'open':"Art/Models/door-open.egg"})
-        environ.setCollideMask(BitMask32(0x01))
+        #environ.setCollideMask(BitMask32(0x01))
         environ.reparentTo(self.wallnode)
         environ.setPos((x-(wallbuffer)+0.1)*cellsize,(-1*y)*cellsize,(0+0.5)*cellsize)
         environ.setHpr(-180,0,0)
-        """
         
         self.prepareDoor(environ)
+        """
             
     def drawWestWall(self, y, x, texture):
         
@@ -421,7 +421,7 @@ class Level(object):
         #Create the Door Itself
         environ = Actor("Art/Models/door_2")
         environ.loadAnims({'open':"Art/Models/door_2-open.egg"})
-        environ.setCollideMask(BitMask32(0x01))
+        #environ.setCollideMask(BitMask32(0x01))
         environ.reparentTo(self.wallnode)
         environ.setPos(x*cellsize,((-1*y)+(wallbuffer)-0.05)*cellsize,(0+0.4)*cellsize)
         environ.setHpr(-90,0,0)
@@ -445,6 +445,7 @@ class Level(object):
         self.prepareWallModel(environ,texture)
         environ.setPos(x*cellsize,((-1*y)+(wallbuffer))*cellsize,(0+0.5)*cellsize)
         environ.setHpr(-90,0,0)
+        
         """
         #Create the Door Itself
         environ = Actor("Art/Models/door-model")
