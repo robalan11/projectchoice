@@ -11,6 +11,8 @@ import math
 import Weapon
 import Cinematics
 from Level import Level
+import sys
+from mainmenu import YouWin
 
 #This assumes that base.cTrav has been defined
 
@@ -537,6 +539,11 @@ class Player ():
                     self.levelref.cines[key] = '.'
             self.runningcinematic = True
             self.arms.hide()
+        
+        #End if player kills Mongoose
+        if self.levelref.levelfilename == "Level5":
+            if self.levelref.ais[1].dead:
+                yw = YouWin()
         
         return Task.cont
     def collided(self):

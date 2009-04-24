@@ -54,4 +54,32 @@ class MainMenu(object):
         self.instructions.destroy()
         self.mainMenuButton.destroy()
         self.__init__(self.engine)
+
+
+class YouWin(object):
+    def __init__(self):
+        self.background = self.createGuiLabel("Art/Menu/MenuTip.png", 800, 600, 0, 0)
         
+        self.quitButton = self.createGuiButton("Exit", -90, 350, 100, sys.exit)
+        
+    def createGuiButton(self, text, posX, posY, size, function):
+        posX -= 400.0 - size / 2.0
+        posY = 300.0 - size / 2.0 - posY
+        posX /= 400.0
+        posY /= 300.0
+        guiObject = DirectButton(text = (text), scale = size / 1000.0, command = function, pos = Vec3(posX, 0.0, posY))
+        
+        return guiObject
+        
+    def createGuiLabel(self, image, sizeX, sizeY, posX, posY):
+        posX -= 400.0 - sizeX / 2.0
+        posY = 300.0 - sizeY / 2.0 - posY
+        posX /= 400.0
+        posY /= 300.0
+        guiObject = DirectLabel()
+        guiObject['image'] = image
+        guiObject.setTransparency(1)
+        guiObject['image_pos'] = (posX,0.0,posY)
+        guiObject['image_scale'] = (sizeX / 600.0, 1.0, sizeY / 600.0)
+
+        return guiObject
