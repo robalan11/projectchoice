@@ -126,6 +126,7 @@ class AI():
     nofollow=[loader.loadSfx("Sound/Guard/guardnofollow.wav"), loader.loadSfx("Sound/Prisoner/inmatenofollow.wav")]
     huh=[loader.loadSfx("Sound/Guard/guardhuh.wav"), loader.loadSfx("Sound/Prisoner/inmateshuh.wav")]
     hit=loader.loadSfx("Sound/Effects/hit.wav")
+    dying=loader.loadSfx("Sound/Effects/dying.wav")
     
     def __init__(self, model, incell,team, startpos, starth, weapon,rootnode, level):
         #Model = Number of model body type. Just use 0 for default body
@@ -140,6 +141,7 @@ class AI():
             model=1
         if team==2:
             self.model=Actor("Art/Models/warden.egg")
+            team=0
         elif team==1: #load prisoner garb if it's a prisoner
             self.model=Actor("Art/Models/human"+str(model)+"-modelp.egg")
         else:
@@ -165,7 +167,7 @@ class AI():
         #World collision
         #Bit channels are only walls and floors!
     
-        self.cs=CollisionSphere(0,0,0,1.0*AI.scale)
+        self.cs=CollisionSphere(0,0,0,2.5*AI.scale)
         self.cspath=self.model.attachNewNode(CollisionNode('AIspher;' +  str(AI.ID)))
         self.cspath.node().addSolid(self.cs)
         self.cspath.node().setFromCollideMask(BitMask32(0x01))
@@ -409,6 +411,7 @@ class AI():
             self.targetpos = attacker.model.getPos()
         if self.health<=0:
             self.model.play("Dying", fromFrame=6)
+            AI.dying.play()
             self.dying=True
             self.dead = True
         
