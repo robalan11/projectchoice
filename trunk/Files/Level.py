@@ -13,6 +13,8 @@ class Level(object):
         self.geometrynode=loader.loadModel("Art/Models/wall_1.egg")
         self.geometrynode.setPos(-1,-1,-1)
         self.geometrynode.reparentTo(self.rootnode)
+        self.floorceilnode=PandaNode("floorceil")
+        #self.floorceilnode.reparent_to(self.geometrynode)
         
         self.level=[]
         self.EntranceP=False
@@ -253,9 +255,11 @@ class Level(object):
             
             normtext=self.getFloorNormalName(self.level[y][x].Floor)
             myTexture = loader.loadTexture(normtext)
+            """
             ts = TextureStage('ts')
             ts.setMode(TextureStage.MNormal)
             environ.setTexture(ts, myTexture)
+            """
 
         elif(type=='a' or type == 'b' or type == 'c' or type == 'e'):
             environ=loader.loadModel("Art/Models/stairs_2.egg")
