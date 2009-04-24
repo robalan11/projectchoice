@@ -4,7 +4,7 @@ from direct.actor.Actor import Actor
 
 cellsize = 10
 wallbuffer = 0.55
-BumpMapping=True
+BumpMapping=False
 
 
 class Level(object):
