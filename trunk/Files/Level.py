@@ -32,6 +32,7 @@ class Level(object):
         player.model.reparentTo(self.collisionStuff)
         self.level=[]
         self.door_dict={}
+        self.door_col={}
         self.doornum=0
         self.EntranceP=False
         self.EntranceG=False
@@ -302,10 +303,11 @@ class Level(object):
         
         
     def prepareDoor(self, environ):
-        sphere=CollisionSphere(0,0,0,3)
+        sphere=CollisionSphere(0,0,0,4)
         spherep=environ.attachNewNode(CollisionNode("door"+str(self.doornum)))
         spherep.node().addSolid(sphere)
         spherep.setCollideMask(BitMask32(0x21))
+        self.door_col["door"+str(self.doornum)]=spherep
         self.door_dict["door"+str(self.doornum)]=environ
         self.doornum=self.doornum+1
         
@@ -329,9 +331,9 @@ class Level(object):
         
         #Create the Door Itself
         environ = Actor()
-        environ.loadModel("Art/Models/door_2")
+        environ.loadModel("Art/Models/door_1")
         
-        environ.loadAnims({'open':"Art/Models/door_2_open.egg"})
+        environ.loadAnims({'open':"Art/Models/door_1-open.egg"})
         environ.reparentTo(self.wallnode)
         environ.setPos((x-(wallbuffer)+0.05)*cellsize,(-1*y)*cellsize,(0+0.4)*cellsize)
         environ.setHpr(-180,0,0)
@@ -359,8 +361,8 @@ class Level(object):
         environ.setHpr(-180,0,0)
         
         #Create the Door Itself
-        environ = Actor("Art/Models/door_1")
-        environ.loadAnims({'open':"Art/Models/door_1_open.egg"})
+        environ = Actor("Art/Models/door-model")
+        environ.loadAnims({'open':"Art/Models/door-open.egg"})
         environ.setCollideMask(BitMask32(0x01))
         environ.reparentTo(self.wallnode)
         environ.setPos((x-(wallbuffer)+0.1)*cellsize,(-1*y)*cellsize,(0+0.5)*cellsize)
@@ -415,8 +417,8 @@ class Level(object):
         environ.setHpr(-90,0,0)
         
         #Create the Door Itself
-        environ = Actor("Art/Models/door_2")
-        environ.loadAnims({'open':"Art/Models/door_2_open.egg"})
+        environ = Actor("Art/Models/door_1")
+        environ.loadAnims({'open':"Art/Models/door_1-open.egg"})
         environ.setCollideMask(BitMask32(0x01))
         environ.reparentTo(self.wallnode)
         environ.setPos(x*cellsize,((-1*y)+(wallbuffer)-0.05)*cellsize,(0+0.4)*cellsize)
@@ -443,8 +445,8 @@ class Level(object):
         environ.setHpr(-90,0,0)
         
         #Create the Door Itself
-        environ = Actor("Art/Models/door_1")
-        environ.loadAnims({'open':"Art/Models/door_1_open.egg"})
+        environ = Actor("Art/Models/door-model")
+        environ.loadAnims({'open':"Art/Models/door-open.egg"})
         environ.setCollideMask(BitMask32(0x01))
         environ.reparentTo(self.wallnode)
         environ.setPos(x*cellsize,((-1*y)+(wallbuffer))*cellsize,(0+0.5)*cellsize)
