@@ -450,13 +450,12 @@ class Level(object):
                     NorthWallTexture="Art/Textures/stone_bricks_1.jpg"
                     
                     
-                elif(self.level[y][x].WestWallType == "B"):
+                elif(self.level[y][x].NorthWallType == "B"):
                     NorthWallTexture="Art/Textures/dirty_bricks.jpg"
                     
                     
-                elif(self.level[y][x].WestWallType == "C"):
+                elif(self.level[y][x].NorthWallType == "C"):
                     NorthWallTexture="Art/Textures/drywall_rough.jpg"
-                    
                 else:
                     NorthWallTexture="Art/Textures/concrete2.jpg"
                     
@@ -473,6 +472,8 @@ class Level(object):
                 else:
                     WestWallTexture="Art/Textures/concrete2.jpg"
                         
+                #NorthWallTexture="Art/Textures/dirty_bricks.jpg"
+                
                 if(self.level[y][x].WestWall=="." and not self.level[y][x].WestWallType == "."):
                     # make a normal wall on the west
                     self.drawWestWall(y,x,WestWallTexture)
@@ -499,7 +500,7 @@ class Level(object):
                 if(not self.level[y][x].Floor=="." and self.isWestWallEmpty(y,x) and self.isNorthWallEmpty(y,x)):
                     if(x>0 and y>0 and not( self.isWestWallEmpty(y-1,x) and self.isNorthWallEmpty(y,x-1))):
                         environ = loader.loadModel("Art/Models/corner_1.egg")
-                        self.prepareWallModel(environ, WestWallTexture)
+                        self.prepareWallModel(environ, NorthWallTexture)
                         environ.setPos((x-(1-wallbuffer))*cellsize,((-1*y)+(1-wallbuffer))*cellsize,(0+0.5)*cellsize)
                         environ.setHpr(-90,0,0)
                         tube=CollisionTube(0,0,0,0,0,cellsize,2)
@@ -509,7 +510,7 @@ class Level(object):
                 if(not self.level[y][x].Floor=="." and self.isWestWallEmpty(y,x+1) and self.isNorthWallEmpty(y,x)):
                     if(x>0 and y>0 and not( self.isNorthWallEmpty(y,x+1) and self.isWestWallEmpty(y-1,x+1))):
                         environ = loader.loadModel("Art/Models/corner_1.egg")
-                        self.prepareWallModel(environ, WestWallTexture)
+                        self.prepareWallModel(environ, NorthWallTexture)
                         environ.setPos((x+(1-wallbuffer))*cellsize,((-1*y)+(1-wallbuffer))*cellsize,(0+0.5)*cellsize)
                         environ.setHpr(180,0,0)
                         tube=CollisionTube(0,0,0,0,0,cellsize,2)
@@ -519,7 +520,7 @@ class Level(object):
                 if(not self.level[y][x].Floor=="." and self.isWestWallEmpty(y,x) and self.isNorthWallEmpty(y+1,x)):
                     if(x>0 and y>0 and not( self.isWestWallEmpty(y+1,x) and self.isNorthWallEmpty(y+1,x-1))):
                         environ = loader.loadModel("Art/Models/corner_1.egg")
-                        self.prepareWallModel(environ, WestWallTexture)
+                        self.prepareWallModel(environ, NorthWallTexture)
                         environ.setPos((x-(1-wallbuffer))*cellsize,((-1*y)-(1-wallbuffer))*cellsize,(0+0.5)*cellsize)
                         environ.setHpr(0,0,0)
                         tube=CollisionTube(0,0,0,0,0,cellsize,2)
@@ -529,7 +530,7 @@ class Level(object):
                 if(not self.level[y][x].Floor=="." and self.isWestWallEmpty(y,x+1) and self.isNorthWallEmpty(y+1,x)):
                     if(x>0 and y>0 and not( self.isWestWallEmpty(y+1,x+1) and self.isNorthWallEmpty(y+1,x+1))):
                         environ = loader.loadModel("Art/Models/corner_1.egg")
-                        self.prepareWallModel(environ, WestWallTexture)
+                        self.prepareWallModel(environ, NorthWallTexture)
                         environ.setPos((x+(1-wallbuffer))*cellsize,((-1*y)-(1-wallbuffer))*cellsize,(0+0.5)*cellsize)
                         environ.setHpr(90,0,0)
                         tube=CollisionTube(0,0,0,0,0,cellsize,2)
