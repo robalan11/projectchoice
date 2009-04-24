@@ -231,7 +231,7 @@ class AI():
             self.killzone=30*AI.scale
             self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouchingpistol.egg"})
             self.model.loadAnims({"Run": "Art/animations/human"+str(model)+"-runningpistol.egg"})
-            self.model.loadAnims({"Walk": "Art/animations/human"+str(model)+"-walkingpistol.egg"})
+            self.model.loadAnims({"Walk": "Art/animations/human"+str(model)+"-runningpistol.egg"})
             self.model.loadAnims({"Idle": "Art/animations/human"+str(model)+"-idlepistol.egg"})
             self.model.loadAnims({"Fire": "Art/animations/human"+str(model)+"-firepistol.egg"})
             w=loader.loadModel("Art/Models/pistol.egg")
@@ -254,7 +254,7 @@ class AI():
             self.killzone=20*AI.scale
             self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouchingbiggun.egg"})
             self.model.loadAnims({"Run": "Art/animations/human"+str(model)+"-runningbiggun.egg"})
-            self.model.loadAnims({"Walk": "Art/animations/human"+str(model)+"-walkingbiggun.egg"})
+            self.model.loadAnims({"Walk": "Art/animations/human"+str(model)+"-runningbiggun.egg"})
             self.model.loadAnims({"Idle": "Art/animations/human"+str(model)+"-idleshotgun.egg"})
             self.model.loadAnims({"Fire": "Art/animations/human"+str(model)+"-fireshotgun.egg"})
             w=loader.loadModel("Art/Models/shotgun.egg")
@@ -277,7 +277,7 @@ class AI():
             self.weapon = Weapon.Rifle(self.model, False, Vec3(0,0,4))
             self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouchingbiggun.egg"})
             self.model.loadAnims({"Run": "Art/animations/human"+str(model)+"-runningbiggun.egg"})
-            self.model.loadAnims({"Walk": "Art/animations/human"+str(model)+"-walkingbiggun.egg"})
+            self.model.loadAnims({"Walk": "Art/animations/human"+str(model)+"-runningbiggun.egg"})
             self.model.loadAnims({"Idle": "Art/animations/human"+str(model)+"-idleassultrifle.egg"})
             self.model.loadAnims({"Fire": "Art/animations/human"+str(model)+"-fireassultrifle.egg"})
             w=loader.loadModel("Art/Models/assaultrifle.egg")
@@ -301,7 +301,7 @@ class AI():
             self.killzone = 2.75
             self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouching.egg"})
             self.model.loadAnims({"Run": "Art/animations/human"+str(model)+"-running.egg"})
-            self.model.loadAnims({"Walk": "Art/animations/human"+str(model)+"-walking.egg"})
+            self.model.loadAnims({"Walk": "Art/animations/human"+str(model)+"-running.egg"})
             self.model.loadAnims({"Idle": "Art/animations/human"+str(model)+"-idlepistol.egg"})
             self.model.loadAnims({"Fire": "Art/animations/human"+str(model)+"-fireknife.egg"})
             if team:
@@ -328,7 +328,7 @@ class AI():
             self.killzone = 2.75
             self.model.loadAnims({"Crouch": "Art/animations/human"+str(model)+"-crouching.egg"})
             self.model.loadAnims({"Run": "Art/animations/human"+str(model)+"-running.egg"})
-            self.model.loadAnims({"Walk": "Art/animations/human"+str(model)+"-walking.egg"})
+            self.model.loadAnims({"Walk": "Art/animations/human"+str(model)+"-running.egg"})
             self.model.loadAnims({"Idle": "Art/animations/human"+str(model)+"-idlepistol.egg"})
             self.model.loadAnims({"Fire": "Art/animations/human"+str(model)+"-firetonfa.egg"})
             if team:
@@ -374,6 +374,9 @@ class AI():
         self.rundistance=0
         self.idle=False
         self.cinematic = False
+        
+        self.model.play("Idle", fromFrame=self.anim_start["Idle"], toFrame=self.anim_end["Idle"])
+        self.idle=True
         
         #Tasks
         taskMgr.add(self.tick, "AI tick;"+str(AI.ID))
