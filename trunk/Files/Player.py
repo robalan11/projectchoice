@@ -541,9 +541,11 @@ class Player ():
             self.runningcinematic = True
             self.arms.hide()
         
-        #End if player kills Mongoose
+        #End if player kills Mongoose or the Warden
         if self.levelref.levelfilename == "Level5":
             if self.levelref.ais[1].dead:
+                yw = YouWin()
+            if self.levelref.ais[4].dead:
                 yw = YouWin()
         
         return Task.cont
