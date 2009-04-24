@@ -24,7 +24,7 @@ class World(DirectObject):
         
         #Execute level construction code
         
-        self.level=Level("leveledit/Level3A.txt",self.player,"P") 
+        self.level=Level("leveledit/Level2.txt",self.player,"P") 
         self.player.setLevel(self.level)
         
         #Create dummy targets with a collision hull attached to them. No collision handler.
