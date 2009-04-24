@@ -291,7 +291,7 @@ class Rifle(Weapon):
                             player.broadcast_attack(target)
                         break
                     if (object.getIntoNodePath().getName()=="ptarget"):
-                        AI.AI.playerhandle.damage(player, 10)
+                        AI.AI.playerhandle.damage(player, 5)
                         break
             else:
                 if self.emptysound.status() != 2:
