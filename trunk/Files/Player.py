@@ -115,7 +115,7 @@ class Player ():
         self.dy=0
         self.dz=0
         self.loud=0
-        self.health=100
+        self.health=9001
         self.armor=0
         self.use=False
         self.usecheck=True
