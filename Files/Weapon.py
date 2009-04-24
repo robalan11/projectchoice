@@ -238,7 +238,7 @@ class Shotgun(Weapon):
                         ID=object.getIntoNodePath().getName().split(";")[1]
                         target=AI.AI.AI_dict[int(ID)]
                         distance = self.frpath.getPos()+player.model.getPos()-target.cspath.getPos()-target.model.getPos()
-                        target.damage(player, int(200/distance.length())+1)
+                        target.damage(player, int(300/distance.length())+1)
                         print target.health
                         if player==AI.AI.playerhandle:
                             player.broadcast_attack(target)
