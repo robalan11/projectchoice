@@ -106,7 +106,11 @@ class Level(object):
         environ.reparentTo(self.collisionStuff)
         environ.setPos(x*cellsize,(-1*y)*cellsize, 0.0)
         environ.setHpr(90.0*int(orientation),0,0)
-        tube=CollisionSphere(0,0,0,3)
+        tube=None
+        if model=="Art/Models/barricade.egg":
+            tube=CollisionTube(0,0,0,0,0,4,7)
+        else:
+            tube=CollisionSphere(0,0,0,3)
         tubep=environ.attachNewNode(CollisionNode("Interior"))
         tubep.node().addSolid(tube)
         tubep.setCollideMask(BitMask32(0x01))
