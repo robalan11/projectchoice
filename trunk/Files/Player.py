@@ -338,7 +338,7 @@ class Player ():
             name = self.phandle.getEntry(i).getIntoNodePath().getName()
             remove=True
             if name == "health":
-                self.health = min(100, self.health+25)
+                self.health = min(100, self.health+75)
             elif name == "armor":
                 self.armor = 100
             elif name == "pistol":
