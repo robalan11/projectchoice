@@ -360,6 +360,7 @@ class Level(object):
         environ.setPos((x-1+wallbuffer)*cellsize,(-1*y)*cellsize,(0+0.5)*cellsize)
         environ.setHpr(-180,0,0)
         
+        """
         #Create the Door Itself
         environ = Actor("Art/Models/door-model")
         environ.loadAnims({'open':"Art/Models/door-open.egg"})
@@ -367,6 +368,7 @@ class Level(object):
         environ.reparentTo(self.wallnode)
         environ.setPos((x-(wallbuffer)+0.1)*cellsize,(-1*y)*cellsize,(0+0.5)*cellsize)
         environ.setHpr(-180,0,0)
+        """
         
         self.prepareDoor(environ)
             
@@ -443,7 +445,7 @@ class Level(object):
         self.prepareWallModel(environ,texture)
         environ.setPos(x*cellsize,((-1*y)+(wallbuffer))*cellsize,(0+0.5)*cellsize)
         environ.setHpr(-90,0,0)
-        
+        """
         #Create the Door Itself
         environ = Actor("Art/Models/door-model")
         environ.loadAnims({'open':"Art/Models/door-open.egg"})
@@ -453,6 +455,7 @@ class Level(object):
         environ.setHpr(-90,0,0)
         
         self.prepareDoor(environ)
+        """
             
             
     def isWestWallEmpty(self,y,x):
