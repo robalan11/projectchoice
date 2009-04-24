@@ -440,7 +440,7 @@ class Player ():
             if self.levelref.levelfilename == "Level3A":
                 if cinenumber == '2':
                     for ai in self.levelref.ais:
-                        if ai.team == True and ai.dead:
+                        if (self.levelref.ais.index(ai) == 0 or self.levelref.ais.index(ai) == 1) and ai.dead:
                             return Task.cont
                 if cinenumber == '3':
                     for ai in self.levelref.ais:
@@ -453,6 +453,24 @@ class Player ():
                 if cinenumber == '5':
                     for ai in self.levelref.ais:
                         if ai.team == False and not ai.dead:
+                            return Task.cont
+            
+            if self.levelref.levelfilename == "Level3B":
+                if cinenumber == '2':
+                    for ai in self.levelref.ais:
+                        if ai.team == False and ai.dead:
+                            return Task.cont
+                if cinenumber == '3':
+                    for ai in self.levelref.ais:
+                        if ai.team == True and ai.dead:
+                            return Task.cont
+                if cinenumber == '4':
+                    for ai in self.levelref.ais:
+                        if ai.team == False and not ai.dead:
+                            return Task.cont
+                if cinenumber == '5':
+                    for ai in self.levelref.ais:
+                        if ai.team == True and not ai.dead:
                             return Task.cont
             
             base.camera.reparentTo(render)
