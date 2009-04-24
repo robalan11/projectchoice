@@ -160,7 +160,7 @@ class AI():
         self.cspath.node().setFromCollideMask(BitMask32(0x01))
         self.cspath.setPos(0,0,2.5*AI.scale)
         self.cspath.setCollideMask(BitMask32(0x11))
-        self.cspath.show()
+        #self.cspath.show()
         
         self.cr=CollisionRay(0,0,0.1,0,0,-1)
         self.crpath=self.model.attachNewNode(CollisionNode('AIray;' +  str(AI.ID)))
@@ -469,7 +469,7 @@ class AI():
                 self.look_angles = calculateHpr(self.look_angles, self.model.getHpr())
                 #self.frpath.setHpr(self.look_angles-self.model.getHpr())
                 self.frpath.lookAt(target.cspath)
-                self.frpath.show()
+                #self.frpath.show()
                 self.cspath.setCollideMask(BitMask32(0x00))
                 self.ctpath.setCollideMask(BitMask32(0x00))
                 self.ftrav.traverse(render)
@@ -478,8 +478,6 @@ class AI():
                 self.ctpath.setCollideMask(BitMask32(0x04))
                 self.fire.sortEntries()
                 #self.frpath.setHpr(Point3(0,0,0))
-                if self.fire.getNumEntries()>0 :
-                    print self.fire.getEntry(0).getIntoNodePath().getParent()
                 if self.fire.getNumEntries()>0 and self.fire.getEntry(0).getIntoNodePath().getParent()==target.model.getGeomNode():
                         #Vision is not occluded, use this target
                         self.seetarget=True
