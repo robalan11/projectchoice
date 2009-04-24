@@ -58,6 +58,7 @@ class MainMenu(object):
 
 class YouWin(object):
     def __init__(self):
+        props = WindowProperties()
         props.setCursorHidden(False)
         self.background = self.createGuiLabel("Art/Menu/YouWin.png", 800, 600, 0, 0)
         
