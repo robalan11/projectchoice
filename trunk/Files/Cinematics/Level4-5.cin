@@ -1,3 +1,4 @@
-130 -8 130,-220,7
+45 -8 130,-220,7
 0.0 s 9.0 ai2 Cinematics/Level4-5.spk 0 3
+9.0 n 0.5 player leveledit/Level5.txt G
 9.0 q 0.5 player

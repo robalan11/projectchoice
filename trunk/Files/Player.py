@@ -474,6 +474,47 @@ class Player ():
                         if ai.team == True and not ai.dead:
                             return Task.cont
             
+            if self.levelref.levelfilename == "Level4":
+                if cinenumber == '2':
+                    if self.levelref.entrancetype == "G":
+                        return Task.cont
+                if cinenumber == '4':
+                    if self.levelref.entrancetype == "P":
+                        return Task.cont
+                if cinenumber == '8':
+                    if self.levelref.entrancetype == "P":
+                        alldead = True
+                        for ai in self.levelref.ais:
+                            if ai.team == True and not ai.dead:
+                                alldead = False
+                        if alldead:
+                            self.levelref.cines[gridpos] = '5'
+                            self.worldref.fuckthisflag = True
+                        else:
+                            self.levelref.cines[gridpos] = '6'
+                            self.worldref.fuckthisflag = False
+                    if self.levelref.entrancetype == "G":
+                        alldead = True
+                        for ai in self.levelref.ais:
+                            if ai.team == False and not self.levelref.ais.index(ai) == 19 and not ai.dead:
+                                alldead = False
+                        if alldead:
+                            self.levelref.cines[gridpos] = '7'
+                            self.worldref.fuckthisflag = False
+                        else:
+                            self.levelref.cines[gridpos] = '8'
+                            self.worldref.fuckthisflag = True
+            
+            if self.levelref.levelfilename == "Level5":
+                if cinenumber == '2':
+                    if self.worldref.fuckthisflag == True:
+                        self.levelref.cines[gridpos] = '1'
+                        cinenumber = '1'
+                if cinenumber == '4':
+                    if self.worldref.fuckthisflag == True:
+                        self.levelref.cines[gridpos] = '3'
+                        cinenumber = '3'
+            
             base.camera.reparentTo(render)
             actors = {"player": self}
             for ai in self.levelref.ais:
