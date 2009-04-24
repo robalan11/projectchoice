@@ -126,7 +126,7 @@ class Player ():
         self.use=False
         self.usecheck=True
         self.haveweapon=[1,1,0,0] #Knife, Pistol Shotgun Assault Rifle
-        self.loyalty = [50, 50] # out of a minimum of 0 and a maximum of 100
+        self.loyalty = [50, 50, 50] # out of a minimum of 0 and a maximum of 100
         self.pobjective=[False, False]
         self.gobjective=[False, False]
         self.Respawning = False
