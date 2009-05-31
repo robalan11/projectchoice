@@ -32,6 +32,7 @@ class World(DirectObject):
         
         #Execute level construction code
         
+
         self.level=Level("leveledit/LevelOne.txt",self.player,"G")
         self.player.setLevel(self.level)
         
